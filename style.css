@@ -1,0 +1,460 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
+
+:root {
+    --background-color: #161b22;
+    --text-color: #c9d1d9;
+    --primary-color: #ab9ff2;
+    --secondary-color: #21262d;
+    --border-color: #30363d;
+    --shadow-color: #1A1A1A;
+    --input-background: #161b22;
+
+}
+
+body.light-mode {
+    --background-color: #f1f1f1;
+    --text-color: #000000;
+    --primary-color: #58a6ff;
+    --secondary-color: #f1f3f4;
+    --border-color: #dcdcdc;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --input-background: #f9f9f9;
+}
+
+*,
+s *::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Empêche le défilement horizontal */
+}
+
+header {
+    margin-top: 20px;
+    margin-left: 20px;
+    color: grey;
+}
+
+.hamburger-menu {
+    width: 40px;
+    height: 20px;
+    top: 20px;
+    left: 20px;
+    position: fixed;
+    color: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 2px;
+    background-color: grey;
+}
+
+span {
+    text-decoration: none;
+    color: grey;
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+    margin: 20;
+}
+
+section {
+    padding: 2rem;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 750px;
+    border-radius: 8px;
+    background-color: var(--input-background);
+    transform: translateY(-5px);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+/* Style de base pour la section */
+section {
+    overflow: hidden;
+    /* Cache le contenu qui dépasse */
+    transition: height 0.3s ease;
+    /* Animation fluide */
+}
+
+/* Style spécifique pour la section DYOR */
+#dyor {
+    height: 150px;
+    /* Hauteur initiale */
+}
+
+/* Style pour la flèche */
+.arrow {
+    text-align: center;
+    /* Centrer la flèche */
+    font-size: 18px;
+    cursor: pointer;
+    /* Curseur en forme de main */
+    margin-top: 0px;
+}
+
+/* Style pour le contenu */
+.deroule {
+    padding: 10px;
+}
+
+#chart-container {
+    width: 100%;
+    position: relative;
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: transparent !important;
+}
+
+#chart {
+    background-color: transparent !important;
+    /* Fond transparent */
+    border-radius: 8px;
+    /* Border-radius */
+    overflow: hidden;
+    /* Pour que le border-radius s'applique correctement */
+}
+
+input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 750px;
+}
+
+.result p {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+
+.result.show p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result p:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.result p:nth-child(2) {
+    transition-delay: 0.3s;
+}
+
+.result p:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+.result p:nth-child(4) {
+    transition-delay: 0.5s;
+}
+
+.result p:nth-child(5) {
+    transition-delay: 0.6s;
+}
+
+.result p:nth-child(6) {
+    transition-delay: 0.7s;
+}
+
+.result p:nth-child(7) {
+    transition-delay: 0.8s;
+}
+
+.result p:nth-child(8) {
+    transition-delay: 0.9s;
+}
+
+.result p:nth-child(9) {
+    transition-delay: 1s;
+}
+
+.result p:nth-child(10) {
+    transition-delay: 1.1s;
+}
+
+.result p:nth-child(11) {
+    transition-delay: 1.2s;
+}
+
+.result p:nth-child(12) {
+    transition-delay: 1.3s;
+}
+
+
+.percentage {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 0px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-toggle:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+
+.red {
+    color: #fff;
+    background-color: #ff4d4d;
+}
+
+.orange {
+    color: #fff;
+    background-color: #ffa500;
+}
+
+.blue {
+    color: #fff;
+    background-color: #3b82f6;
+}
+
+.green {
+    color: #fff;
+    background-color: #34d399;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: grey;
+}
+
+/* Conteneur principal centré */
+.share-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Bouton principal centré */
+#shareButton {
+    background-color: var(--background-color);
+    border: none;
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto;
+    /* Centrage horizontal */
+}
+
+#shareButton:hover {
+    background-color: #ddd;
+}
+
+/* Popup de partage (ouvre vers le haut) */
+.share-popup {
+    position: absolute;
+    bottom: 80px;
+    /* Positionne le popup au-dessus */
+    right: 50;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px #0d3b66;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.share-popup button,
+.share-popup a {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+
+    color: #333;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.share-popup button:hover,
+.share-popup a:hover {
+    background-color: #ddd;
+}
+
+#pub {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    transform: translateY(-5px);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    margin-top: 0px;
+    border-radius: 8px;
+
+}
+
+img:hover {
+    opacity: 0.9;
+}
+
+/*bulle info scam*/
+.info-container {
+    position: relative;
+    display: inline-block;
+}
+
+.info-icon {
+    background-color: #007BFF;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.info-tooltip {
+    visibility: hidden;
+    width: 300px;
+    background-color: #f9f9f9;
+    color: #333;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    font-size: 12px;
+}
+
+.info-container:hover .info-tooltip {
+    visibility: visible;
+}
+
+footer {
+    width: 90%;
+    height: auto;
+    background: transparent;
+    color: grey;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-shadow: 0px -2px 0px -2px #1a1a1a;
+
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    margin: 1rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: grey;
+}
