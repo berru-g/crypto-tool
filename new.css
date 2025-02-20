@@ -80,6 +80,22 @@ h1 {
     text-align: center;
     margin: 20;
 }
+#intro {
+    padding: 2rem;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 850px;
+    transform: translateY(-5px);
+    margin-top: 20px;
+    text-align: center;
+}
+#in {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
 
 section {
     padding: 2rem;

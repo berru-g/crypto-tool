@@ -76,9 +76,10 @@
 
         gtag('config', 'G-Y5GVLEC0TV');
     </script>
-
-
 </head>
+<script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
+<div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins" lcw-marquee-2="movers"
+    lcw-marquee-items="10"></div>
 <header>
     <div class="hamburger-menu">
         <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=808080">
@@ -88,18 +89,20 @@
 </header>
 
 <body>
-
     <button id="themeToggle" class="theme-toggle">Light</button>
-
-    <section>
+    <div id="intro">
+        <br>
         <p>Bienvenue sur Cypto Tool, ce site réunis les outils, fibonacci retracement, alarme crypto et comparateur de
             chart. Bonne recherche.</p>
-    </section>
-    <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub" width=850 height=420
-            src="https://affiliate.ledger.com/image/850/420/French"></a>
+        <br>
+    </div>
 
+    <div id="pub"><script src="https://widgets.coingecko.com/gecko-coin-heatmap-widget.js"></script>
+        <gecko-coin-heatmap-widget locale="en" transparent-background="true" top="100"></gecko-coin-heatmap-widget></div>
+
+    <br>
     <!--------------------FIBOSCOPE--------------------------------->
-    <h2 id="fibonacci">fiboScope</h2>
+    <h2>fiboScope</h2>
     <section>
         <!--<div id="language-selector">
             <a href="/fr/">🇫🇷 </a> | <a href="/en/">🇬🇧 </a>
@@ -132,11 +135,12 @@
             akash-network, pour RSR notez reserve-rights-token etc )</span>-->
     </section>
     <br>
+    <h2 id="fibonacci">FiboScope</h2>
+    <br>
     <input type="text" id="token" placeholder="Nom du token (ex: bitcoin, render-token)">
     <button id="calculate">Calculer</button>
     <div id="result"></div>
     <br>
-
     </div>
 
     <br>
@@ -220,6 +224,7 @@
 
     <!----------------------COMPARE CHART------------------------------->
     <h2 id="cchart">Compare Chart</h2>
+
     <section>
         <p>Comparer plusieurs token avec leur chart respectives.</p>
         <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
@@ -387,11 +392,10 @@
         }
     </script>
     <!--------------------------ALARM---------------------------------->
-    <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
-    <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
-        lcw-marquee-2="movers" lcw-marquee-items="10"></div>
+
     <br>
     <h2 id="alarm">Alarm crypto</h2>
+    
     <section>
 
         <form id="priceForm">
