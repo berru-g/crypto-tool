@@ -309,13 +309,18 @@ button:hover {
 }
 
 a {
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-a:hover {
-    color: grey;
-}
+    background-image: linear-gradient(to right, #ab9ff2, #58a6ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none; /* Optionnel : pour enlever le soulignement par défaut des liens */
+  }
+  
+  a:hover {
+    background-image: linear-gradient(to right, #feb47b, #ff7e5f); /* Changement de gradient au survol */
+  }
 
 /* Conteneur principal centré */
 .share-container {
