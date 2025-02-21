@@ -84,7 +84,7 @@ h1 {
     padding: 2rem;
     margin: 1rem auto;
     width: 100%;
-    max-width: 850px;
+    max-width: 750px;
     transform: translateY(-5px);
     margin-top: 20px;
     text-align: center;
@@ -101,7 +101,7 @@ section {
     padding: 2rem;
     margin: 1rem auto;
     width: 100%;
-    max-width: 850px;
+    max-width: 750px;
     border-radius: 8px;
     background-color: var(--input-background);
     transform: translateY(-5px);
@@ -118,51 +118,102 @@ section {
     /* Animation fluide */
 }
 
-/* Style spécifique pour la section DYOR */
+/* Style spécifique pour la section DYOR 
 #dyor {
-    height: 150px;
-    /* Hauteur initiale */
+    height: 100px;
+    
 }
 
-/* Style pour la flèche */
 .arrow {
     text-align: center;
-    /* Centrer la flèche */
     font-size: 18px;
     cursor: pointer;
-    /* Curseur en forme de main */
-    margin-top: 0px;
 }
 
-/* Style pour le contenu */
 .deroule {
+    background-color: transparent;
     padding: 10px;
-}
-
+    margin-top: 0px;
+}*/
+/* Style du popup */
+.popup {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color); /* Fond semi-transparent */
+    z-index: 1000; /* Pour s'assurer qu'il est au-dessus des autres éléments */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Contenu du popup */
+  .popup-content {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px; /* Largeur maximale pour le contenu */
+    width: 90%;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* Ajoute un défilement si le contenu est trop long */
+    max-height: 90vh; /* Hauteur maximale pour éviter de dépasser l'écran */
+  }
+  
+  /* Bouton pour fermer le popup */
+  .close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+  
+  .close-popup:hover {
+    color: grey;
+  }
+  
+  /* Style du lien pour ouvrir le popup */
+  .open-popup {
+    cursor: pointer;
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+  /* Style des liens dans le popup */
+  .popup-content a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+  .popup-content a:hover {
+    color: grey;
+    text-decoration: none;
+  }
 canvas {
     width: 100%;
-    max-width: 850px;
+    max-width: 750px;
     margin: 20px 20px;
     display: block;
 }
 
 #chart-container {
     width: 100%;
-    max-width: 850px;
+    max-width: 750px;
     position: relative;
     display: block;
     border-radius: 8px;
     overflow: hidden;
-    background-color: transparent !important;
+    background-color: var(--background-color);
 }
 
 #chart {
-    background-color: transparent !important;
-    /* Fond transparent */
+    background-color: var(--text-color);
     border-radius: 8px;
-    /* Border-radius */
     overflow: hidden;
-    /* Pour que le border-radius s'applique correctement */
 }
 
 input {
@@ -186,6 +237,7 @@ button, select {
     transition: background-color 0.3s;
 }
 
+
 button:hover {
     background-color: var(--primary-color);
     color: var(--text-color);
@@ -198,7 +250,7 @@ button:hover {
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     width: 100%;
-    max-width: 850px;
+    max-width: 750px;
 }
 
 .result p {
@@ -390,17 +442,16 @@ a {
     display: block;
     margin: 0 auto;
     width: 100%;
-    max-width: 850px;
+    max-width: 750px;
     height: auto;
     transform: translateY(-5px);
-    box-shadow: 0 2px 8px var(--shadow-color);
     margin-top: 0px;
     border-radius: 8px;
 
 }
 
 img:hover {
-    opacity: 0.9;
+    opacity: 0.7;
 }
 
 /*bulle info scam*/

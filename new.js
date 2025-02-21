@@ -336,21 +336,43 @@ ${data.market_data && data.market_data.market_cap.usd
         chartDiv.innerHTML = ''; // Effacer la chart en cas d'erreur
     }
 });
-// section dyor
+/* section DISCLAIMER
 function toggleSection() {
     const section = document.getElementById('dyor');
     const arrow = document.querySelector('#dyor .arrow');
 
-    if (section.style.height === '10px' || !section.style.height) {
+    if (section.style.height === '50px' || !section.style.height) {
         // Ouvrir la section
         section.style.height = `${section.scrollHeight}px`; // Hauteur totale du contenu
         arrow.textContent = 'ℹ️'; // Changer la flèche vers le haut
     } else {
         // Fermer la section
-        section.style.height = '150px'; // Revenir à la hauteur initiale
+        section.style.height = '100px'; // Revenir à la hauteur initiale
         arrow.textContent = 'ℹ️ Disclaimer:'; // Changer la flèche vers le bas
     }
-}
+}*/
+// Sélection des éléments
+const openPopupLink = document.querySelector('.open-popup');
+const popup = document.getElementById('dyor-popup');
+const closePopupButton = document.querySelector('.close-popup');
+
+// Ouvrir le popup
+openPopupLink.addEventListener('click', function (e) {
+    e.preventDefault(); // Empêche le comportement par défaut du lien
+    popup.style.display = 'flex'; // Affiche le popup
+});
+
+// Fermer le popup
+closePopupButton.addEventListener('click', function () {
+    popup.style.display = 'none'; // Cache le popup
+});
+
+// Fermer le popup en cliquant à l'extérieur
+popup.addEventListener('click', function (e) {
+    if (e.target === popup) {
+        popup.style.display = 'none'; // Cache le popup si on clique à l'extérieur
+    }
+});
 // Gestion du bouton de partage
 document.addEventListener("DOMContentLoaded", () => {
     const shareButton = document.getElementById("shareButton");
@@ -501,149 +523,149 @@ function playLowerAlarm() {
 
 ////////////////// COMPARE CHART
 
- /*
+/*
 let chart;
 let cryptoData = {};
 let priceAlert = null;
 
 // Récupérer les 100 premiers tokens
 async function fetchTopTokens() {
-    const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
-    const response = await fetch(url);
-    const data = await response.json();
+   const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
+   const response = await fetch(url);
+   const data = await response.json();
 
-    const tokens = data.map(token => ({
-        id: token.id,
-        name: token.name,
-        symbol: token.symbol.toLowerCase()
-    }));
+   const tokens = data.map(token => ({
+       id: token.id,
+       name: token.name,
+       symbol: token.symbol.toLowerCase()
+   }));
 
-    localStorage.setItem('topTokens', JSON.stringify(tokens));
+   localStorage.setItem('topTokens', JSON.stringify(tokens));
 }
 
 fetchTopTokens();
 
 // Fonction pour récupérer les données d'un crypto
 async function fetchCryptoData(crypto, days) {
-    try {
-        const response = await fetch(`https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=usd&days=${days}`);
-        if (!response.ok) throw new Error("Erreur lors de la récupération des données.");
-        const data = await response.json();
-        return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
-    } catch (error) {
-        alert("Erreur: " + error.message);
-        return null;
-    }
+   try {
+       const response = await fetch(`https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=usd&days=${days}`);
+       if (!response.ok) throw new Error("Erreur lors de la récupération des données.");
+       const data = await response.json();
+       return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
+   } catch (error) {
+       alert("Erreur: " + error.message);
+       return null;
+   }
 }
 
 // Fonction pour ajouter un crypto au graphique
 async function addCrypto() {
-    const crypto = document.getElementById("cryptoInput").value.toLowerCase().trim();
-    if (!crypto || cryptoData[crypto]) return;
+   const crypto = document.getElementById("cryptoInput").value.toLowerCase().trim();
+   if (!crypto || cryptoData[crypto]) return;
 
-    const tokens = JSON.parse(localStorage.getItem('topTokens')) || [];
-    const token = tokens.find(t => t.id === crypto || t.symbol === crypto);
+   const tokens = JSON.parse(localStorage.getItem('topTokens')) || [];
+   const token = tokens.find(t => t.id === crypto || t.symbol === crypto);
 
-    if (!token) {
-        alert("Token non trouvé. Essayez un autre nom ou symbole.");
-        return;
-    }
+   if (!token) {
+       alert("Token non trouvé. Essayez un autre nom ou symbole.");
+       return;
+   }
 
-    const period = document.getElementById("period").value;
-    const data = await fetchCryptoData(token.id, period);
-    if (data) {
-        cryptoData[token.id] = data;
-        updateChart();
-    }
+   const period = document.getElementById("period").value;
+   const data = await fetchCryptoData(token.id, period);
+   if (data) {
+       cryptoData[token.id] = data;
+       updateChart();
+   }
 }
 
 // Fonction pour mettre à jour le graphique
 function updateChart() {
-    const ctx = document.getElementById('cryptoChart').getContext('2d');
-    if (chart) chart.destroy();
-    chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: Object.keys(cryptoData).map((crypto, index) => [
-                {
-                    label: crypto,
-                    data: cryptoData[crypto],
-                    borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
-                    fill: false,
-                },
-                {
-                    label: `${crypto} (SMA 7)`,
-                    data: calculateSMA(cryptoData[crypto], 7),
-                    borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
-                    borderDash: [5, 5],
-                    fill: false,
-                }
-            ]).flat(),
-        },
-        options: {
-            interaction: {
-                mode: 'nearest',
-                intersect: false,
-            },
-            plugins: {
-                tooltip: {
-                    enabled: true,
-                    mode: 'index',
-                    intersect: false,
-                },
-                zoom: {
-                    zoom: {
-                        wheel: {
-                            enabled: true,
-                        },
-                        pinch: {
-                            enabled: true,
-                        },
-                        mode: 'xy',
-                    },
-                    pan: {
-                        enabled: true,
-                        mode: 'xy',
-                    },
-                },
-            },
-            scales: { x: { type: 'time', time: { unit: 'day' } } },
-            responsive: true,
-        },
-    });
+   const ctx = document.getElementById('cryptoChart').getContext('2d');
+   if (chart) chart.destroy();
+   chart = new Chart(ctx, {
+       type: 'line',
+       data: {
+           datasets: Object.keys(cryptoData).map((crypto, index) => [
+               {
+                   label: crypto,
+                   data: cryptoData[crypto],
+                   borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                   fill: false,
+               },
+               {
+                   label: `${crypto} (SMA 7)`,
+                   data: calculateSMA(cryptoData[crypto], 7),
+                   borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                   borderDash: [5, 5],
+                   fill: false,
+               }
+           ]).flat(),
+       },
+       options: {
+           interaction: {
+               mode: 'nearest',
+               intersect: false,
+           },
+           plugins: {
+               tooltip: {
+                   enabled: true,
+                   mode: 'index',
+                   intersect: false,
+               },
+               zoom: {
+                   zoom: {
+                       wheel: {
+                           enabled: true,
+                       },
+                       pinch: {
+                           enabled: true,
+                       },
+                       mode: 'xy',
+                   },
+                   pan: {
+                       enabled: true,
+                       mode: 'xy',
+                   },
+               },
+           },
+           scales: { x: { type: 'time', time: { unit: 'day' } } },
+           responsive: true,
+       },
+   });
 }
 
 // Fonction pour effacer le graphique
 function clearChart() {
-    cryptoData = {};
-    updateChart();
+   cryptoData = {};
+   updateChart();
 }
 
 // Fonction pour calculer la moyenne mobile (SMA)
 function calculateSMA(data, period) {
-    const sma = [];
-    for (let i = period - 1; i < data.length; i++) {
-        const sum = data.slice(i - period + 1, i + 1).reduce((acc, point) => acc + point.y, 0);
-        sma.push({ x: data[i].x, y: sum / period });
-    }
-    return sma;
+   const sma = [];
+   for (let i = period - 1; i < data.length; i++) {
+       const sum = data.slice(i - period + 1, i + 1).reduce((acc, point) => acc + point.y, 0);
+       sma.push({ x: data[i].x, y: sum / period });
+   }
+   return sma;
 }
 
 // Fonction pour exporter les données en CSV
 function exportData() {
-    const csvContent = Object.keys(cryptoData).map(crypto => {
-        const header = `Date,${crypto}\n`;
-        const rows = cryptoData[crypto].map(point => `${new Date(point.x).toLocaleDateString()},${point.y}`).join('\n');
-        return header + rows;
-    }).join('\n\n');
+   const csvContent = Object.keys(cryptoData).map(crypto => {
+       const header = `Date,${crypto}\n`;
+       const rows = cryptoData[crypto].map(point => `${new Date(point.x).toLocaleDateString()},${point.y}`).join('\n');
+       return header + rows;
+   }).join('\n\n');
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'crypto_data.csv';
-    a.click();
-    URL.revokeObjectURL(url);
+   const blob = new Blob([csvContent], { type: 'text/csv' });
+   const url = URL.createObjectURL(blob);
+   const a = document.createElement('a');
+   a.href = url;
+   a.download = 'crypto_data.csv';
+   a.click();
+   URL.revokeObjectURL(url);
 }*/
 /*
 

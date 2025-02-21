@@ -22,7 +22,7 @@
     <meta name="description"
         content="Découvrez crypto-free-tools, la plateforme ultime pour analyser le potentiel des tokens cryptos avec le Fiboscope basé sur le Fibonacci retracement, comparer des chartes cryptos, et configurer des alarmes de prix. Outils indispensables pour les investisseurs en cryptomonnaies.">
     <meta name="keywords"
-        content="analyse crypto, Fibonacci retracement, Fiboscope, alarme de prix crypto, chartes cryptos, investissement crypto, outils crypto gratuits, potentiel de croissance crypto, ATH crypto, analyse technique crypto, gael leberruyer">
+        content="analyse crypto, Fibonacci retracement, Fiboscope, crypto price alarm, alarme de prix crypto, chartes cryptos, investissement crypto, outils crypto gratuits, potentiel de croissance crypto, ATH crypto, analyse technique crypto, gael leberruyer">
     <meta name="author" content="Gael Berru.">
     <meta name="robots" content="noai">
     <!-- Balises Open Graph pour les réseaux sociaux -->
@@ -83,14 +83,16 @@
         <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=808080">
     </div>
     <h1>Crypto Tool</h1>
-    <h2><strong><a href="#fibonacci">Fibonacci</a></strong> - <strong><a href="#compare-chart">Multi Chart</a></strong> - <strong><a href="#alarm">Alarm</a></strong></h2>
+    <h2><strong><a href="#fibonacci">Fibonacci</a></strong> - <strong><a href="#compare-chart">Multi Chart</a></strong>
+        - <strong><a href="#alarm">Alarm</a></strong></h2>
 </header>
 
 <body>
     <button id="themeToggle" class="theme-toggle">Light</button>
     <div id="intro">
         <br>
-        <p>Bienvenue sur Cypto free Tools, ce site réunis les outils, fibonacci retracement, alarme crypto et comparateur de
+        <p>Bienvenue sur Cypto free Tools, ce site réunis les outils, fibonacci retracement, alarme crypto et
+            comparateur de
             chart en 3 clics. Gratuit et sans récupération de vos data.</p>
         <br>
         <a href="#fibonacci"><button>Commencer</button></a>
@@ -117,7 +119,7 @@
         <p><strong>Exemple:</strong></p>
         <p>Une réponse de 20% indique que le
             token recherché est à 20% de son prix max, donc que son potentiel de croissance est de 80% ( apriori un bon
-            investissement ) <strong>ℹ️ <a href="#dyor">Disclaimer </a>*</strong></p>
+            investissement ) <strong>ℹ️ <a href="#dyor" class="open-popup">Disclaimer </a>*</strong></p>
         <br>
         <h3>Entrez le nom d'un token et découvrez son potentiel de performance :</h3>
         <ul>
@@ -162,7 +164,50 @@
     </div>
     <br>
 
-    <section id="dyor">
+    <!-- Le popup -->
+    <div id="dyor-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h2>ℹ️ Disclaimer</h2>
+            <p>
+                Bien que FiboScope vous permette de mesurer le pourcentage actuel d'un token par rapport à son ATH
+                (All-Time High), il est important de noter que :
+            </p>
+            <ul>
+                <li><strong>Un prix bas par rapport à l'ATH n'est pas une garantie d'opportunité :</strong> Un token à
+                    1 % de son ATH peut indiquer qu'il a perdu sa traction ou que le projet est inactif, voire
+                    abandonné.</li>
+                <li><strong>Une capitalisation boursière faible peut être un signal d'alerte :</strong> Les tokens à
+                    faible market cap sont souvent plus volatils et risqués, et certains peuvent être des scams. <a
+                        href="top-ten-scam.html">Exemple avec cette liste du top 100 des projets abandonné.</a></li>
+                <li><strong>N'effectuez pas d'achat basé uniquement sur cet outil :</strong> Faites vos propres
+                    recherches (DYOR).</li>
+            </ul>
+            <p>
+                <em>Fiboscope</em> ne peut être tenue responsable de pertes financières liées à vos décisions. Investir
+                dans les cryptomonnaies comporte des risques : ne misez que ce que vous êtes prêt à perdre.
+            </p>
+            <p>
+                De plus : les données présentées (API de <a href="https://www.coingecko.com" target="_blank"
+                    rel="noopener">CoinGecko.com</a>) sont basées sur les informations historiques et ne garantissent
+                pas les performances futures des crypto-monnaies. Utilisez cet outil comme un support supplémentaire, et
+                non comme une source unique de décision. Merci.
+            </p>
+            <ul>
+                <li>⏰ Essayer l'outil <a href="./alarm/index.html" target="_blank" rel="noopener">Crypto Alarm</a>.</li>
+                <li>✅ Si vous souhaitez une <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
+                        target="_blank" rel="noopener">explication sur cet outil</a>.</li>
+                <li>✅ Si vous êtes débutant, <a
+                        href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
+                        un bon token ?</a></li>
+                <li>🪙 Si cet outil vous est utile et que <a href="https://berru-g.github.io/berru-g/blog/donation.html"
+                        target="_blank" rel="noopener">vous souhaitez faire un don</a> 😉</li>
+                <li>⚙️ ou <a href="https://savoir-relatif-et-absolu.netlify.app/index.html/#espace-commentaire">une
+                        remarque pour une amélioration</a> du tool.</li>
+            </ul>
+        </div>
+    </div>
+    <!--<section id="dyor">
         <div class="deroule">
             <div class="arrow" onclick="toggleSection()">ℹ️ Disclaimer:</div>
             <p><strong></strong></p>
@@ -215,14 +260,14 @@
             </ul>
 
         </div>
-    </section>
-    <br>
+    </section>-->
+    <br><!--https://affiliate.ledger.com/image/850/420/French-->
     <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub" width=850 height=420
             src="https://affiliate.ledger.com/image/850/420/French"></a>
     <br>
 
     <!----------------------COMPARE CHART------------------------------->
-    <h2 id="compare-chart">Compare Chart</h2>
+    <h2 id="compare-chart">📈 Compare Chart 📉</h2>
 
     <section>
         <p>Comparer plusieurs token avec leur chart respectives.</p>
@@ -248,7 +293,7 @@
         ////////////////// COMPARE CHART
         let chart;
         let cryptoData = {};
-        let priceAlert = null;
+        //let priceAlert = null;
 
         // Récupérer les 100 premiers tokens
         async function fetchTopTokens() {
@@ -275,7 +320,7 @@
                 const data = await response.json();
                 return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
             } catch (error) {
-                alert("Erreur: " + error.message);
+                alert("Erreur: " + error.message +"rafraichir la page");
                 return null;
             }
         }
@@ -391,10 +436,12 @@
         }
     </script>
     <!--------------------------ALARM---------------------------------->
+    <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"><img id="pub" width=850 height=420
+        src="https://cdn.prod.website-files.com/65f6f8696e3e74cc79b99495/6714c0a2073951c7566866db_mobiles.avif" title="Mysterium Network, le premier VPN décentralisé"></a>
 
     <br>
-    <h2 id="alarm">Alarm crypto</h2>
-    
+    <h2 id="alarm">⏰ Alarm crypto ⏰</h2>
+
     <section>
 
         <form id="priceForm">
@@ -421,8 +468,8 @@
         preload="auto"></audio>
     <!----------------------------FOOTER----------------------------------------->
     <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
-<div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins" lcw-marquee-2="movers"
-    lcw-marquee-items="10"></div>
+    <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
+        lcw-marquee-2="movers" lcw-marquee-items="10"></div>
 
     <footer>
         <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
