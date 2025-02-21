@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('Service Worker enregistré avec succès:', registration);
+      })
+      .catch(function(error) {
+        console.log('Échec de l\'enregistrement du Service Worker:', error);
+      });
+  }
+  
 //////////////////////// FIBOSCOPE
 // Récupération du mode depuis le localStorage
 const currentTheme = localStorage.getItem('theme') || 'dark';
