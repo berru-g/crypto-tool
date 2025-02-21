@@ -242,7 +242,12 @@ button:hover {
     background-color: var(--primary-color);
     color: var(--text-color);
 }
-
+.start {
+    background-image: linear-gradient(to right, #ab9ff2, #58a6ff);
+}
+.start:hover {
+    background-image: linear-gradient(to right, #feb47b, #ff7e5f);
+}
 #result {
     margin-top: 20px;
     padding: 20px;
@@ -441,7 +446,7 @@ a {
 #pub {
     display: block;
     margin: 0 auto;
-    width: 100%;
+    width: 80%;
     max-width: 750px;
     height: auto;
     transform: translateY(-5px);

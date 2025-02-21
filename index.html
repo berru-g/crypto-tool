@@ -20,15 +20,15 @@
     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=bsZ8zwOxyUKF&format=png&color=000000" />
     <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=bsZ8zwOxyUKF&format=png&color=000000" />
     <meta name="description"
-        content="Découvrez crypto-free-tools, la plateforme ultime pour analyser le potentiel des tokens cryptos avec le Fiboscope basé sur le Fibonacci retracement, comparer des chartes cryptos, et configurer des alarmes de prix. Outils indispensables pour les investisseurs en cryptomonnaies.">
+        content="Discover crypto-free-tools, the ultimate platform to analyze the potential of crypto tokens with the Fiboscope based on the Fibonacci retracement, compare crypto charts, and set up price alarms.">
     <meta name="keywords"
-        content="analyse crypto, Fibonacci retracement, Fiboscope, crypto price alarm, alarme de prix crypto, chartes cryptos, investissement crypto, outils crypto gratuits, potentiel de croissance crypto, ATH crypto, analyse technique crypto, gael leberruyer">
+        content="crypto analysis, Fibonacci retracement, Fiboscope, crypto price alarm, crypto price alarm, crypto charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
     <meta name="author" content="Gael Berru.">
     <meta name="robots" content="noai">
     <!-- Balises Open Graph pour les réseaux sociaux -->
     <meta property="og:title" content="crypto-free-tools">
     <meta property="og:description"
-        content="Analysez le potentiel des tokens, activé une alarme, comparer des chart. Découvrez les tokens ayant le plus faible pourcentage de leur capacité maximale, avec un potentiel de croissance élevé. Outils idéal pendant le bear market.">
+        content="Analyze token potential, activate an alarm, compare charts. Discover tokens with the lowest percentage of their maximum capacity, with high growth potential. Ideal tool during the bear market.">
     <meta property="og:type" content="tool">
     <meta property="og:url" content="https://crypto-free-tools.netlify.app">
     <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
@@ -58,7 +58,7 @@
           "@type": "WebSite",
           "name": "Crypto Free Tools",
           "url": "https://www.crypto-free-tools.netlify.app",
-          "description": "Plateforme d'analyse cryptomonnaie offrant des outils comme le Fiboscope basé sur le Fibonacci retracement, des comparateurs de chartes, et des alarmes de prix pour les investisseurs.",
+          "description": "Cryptocurrency analysis platform offering tools like the Fibonacci retracement-based Fiboscope, chart comparators, and price alarms for investors.",
           "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.crypto-free-tools.netlify.app/search?q={search_term_string}",
@@ -82,9 +82,11 @@
     <div class="hamburger-menu">
         <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=808080">
     </div>
-    <h1>Crypto Tool</h1>
-    <h2><strong><a href="#fibonacci">Fibonacci</a></strong> - <strong><a href="#compare-chart">Multi Chart</a></strong>
-        - <strong><a href="#alarm">Alarm</a></strong></h2>
+    <h1>Crypto free Tools</h1>
+    <h2><strong><a href="#fibonacci">Fibonacci</a></strong> - <strong><a href="#compare-chart">Chart
+                comparator</a></strong>
+        <!--<strong><a href="#alarm">Alarm</a></strong>-->
+    </h2>
 </header>
 
 <body>
@@ -95,11 +97,8 @@
             comparateur de
             chart en 3 clics. Gratuit et sans récupération de vos data.</p>
         <br>
-        <a href="#fibonacci"><button>Commencer</button></a>
+        <a href="#fibonacci"><button class="start">Commencer</button></a>
     </div>
-
-    <!--<div id="pub"><script src="https://widgets.coingecko.com/gecko-coin-heatmap-widget.js"></script>
-        <gecko-coin-heatmap-widget locale="en" transparent-background="true" top="100"></gecko-coin-heatmap-widget></div>-->
 
     <br>
     <!--------------------FIBOSCOPE--------------------------------->
@@ -129,14 +128,10 @@
             <li style='color: #ff4d4d;'>75 à 100%: Capacité maximal <span style="color:grey">, fortement
                     déconseillé</span></li>
         </ul>
-        <!--<span style="color:grey">( * En cas d "Erreur: Token introuvable", notez le nom complet
-            avec un tiret si nécessaire.
-            Ex: pour btc notez bitcoin, pour injective notez injective-protocol,
-            pour Akash notez
-            akash-network, pour RSR notez reserve-rights-token etc )</span>-->
+
     </section>
     <br>
-    <h2 id="fibonacci">FiboScope</h2>
+    <h2 id="fibonacci">Fibonacci</h2>
     <br>
     <input type="text" id="token" placeholder="Nom du token (ex: bitcoin, render-token)">
     <button id="calculate">Calculer</button>
@@ -263,11 +258,16 @@
     </section>-->
     <br><!--https://affiliate.ledger.com/image/850/420/French-->
     <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub" width=850 height=420
-            src="https://affiliate.ledger.com/image/850/420/French"></a>
+            src="https://ledger-wp-website-s3-prd.ledger.com/uploads/2024/07/Ledger-recover-homepage.webp"
+            alt="offre ledger"></a>
+
+    <h3>Prenez votre sécurité en main avec les <a
+            href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b">wallets crypto Ledger</a></h3>
+
     <br>
 
     <!----------------------COMPARE CHART------------------------------->
-    <h2 id="compare-chart">📈 Compare Chart 📉</h2>
+    <h2 id="compare-chart">📈 Chart comparator 📉</h2>
 
     <section>
         <p>Comparer plusieurs token avec leur chart respectives.</p>
@@ -320,7 +320,7 @@
                 const data = await response.json();
                 return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
             } catch (error) {
-                alert("Erreur: " + error.message +"rafraichir la page");
+                alert("Erreur: " + error.message + "rafraichir la page");
                 return null;
             }
         }
@@ -435,11 +435,15 @@
             URL.revokeObjectURL(url);
         }
     </script>
-    <!--------------------------ALARM---------------------------------->
-    <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"><img id="pub" width=850 height=420
-        src="https://cdn.prod.website-files.com/65f6f8696e3e74cc79b99495/6714c0a2073951c7566866db_mobiles.avif" title="Mysterium Network, le premier VPN décentralisé"></a>
+
+    <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"><img id="pub" width=850
+            height=420
+            src="https://cdn.prod.website-files.com/65f6f8696e3e74cc79b99495/6714c0a2073951c7566866db_mobiles.avif"
+            title="Mysterium Network, le premier VPN décentralisé"
+            alt="Mysterium Network, le premier VPN décentralisé"></a>
 
     <br>
+    <!--------------------------ALARM-----------------
     <h2 id="alarm">⏰ Alarm crypto ⏰</h2>
 
     <section>
@@ -465,7 +469,7 @@
         preload="auto"></audio>
     <audio id="alarmSoundLower"
         src="https://github.com/berru-g/Rick-MortySample/raw/master/PadMusical-master/public/rsc-mp3/Rick-sample/Awww_Bitch.wav"
-        preload="auto"></audio>
+        preload="auto"></audio>----------------->
     <!----------------------------FOOTER----------------------------------------->
     <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
     <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
