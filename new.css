@@ -2,13 +2,13 @@
 
 
 :root {
-    --background-color: #161b22;
+    --background-color: #222;
     --text-color: #c9d1d9;
     --primary-color: #ab9ff2;
-    --secondary-color: #21262d;
+    --secondary-color: #222;
     --border-color: #30363d;
     --shadow-color: #1A1A1A;
-    --input-background: #161b22;
+    --input-background: #444;
 
 }
 
@@ -446,14 +446,15 @@ img:hover {
 }
 
 footer {
-    width: 90%;
-    height: auto;
-    background: transparent;
+    width: 100%;
+    height: auto;/*
+    background-image: url('https://svgsilh.com/svg/1254485.svg');
+    background-repeat: no-repeat;
+    background-size: cover;  
+    background-position: center; */
     color: grey;
     padding: 2rem 1rem;
     text-align: center;
-    box-shadow: 0px -2px 0px -2px #1a1a1a;
-
 }
 
 .footer-content {
