@@ -52,10 +52,11 @@ body {
 
 /* 🟣 Barre de navigation en bas */
 .navbar {
-    position: fixed;
+    position: fixed !important;
     bottom: 0;
     left: 0;
     width: 100%;
+    z-index: 9999 !important;
     height: 60px;
     background-color: var(--secondary-color);
     border-top: 1px solid var(--border-color);

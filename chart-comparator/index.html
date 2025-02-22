@@ -33,7 +33,7 @@
   <meta property="og:url" content="https://crypto-free-tools.netlify.app">
   <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
   <link rel="manifest" href="/manifest.json">
-
+  <link rel="stylesheet" href="../new.css">
   <!--
     <link rel="alternate" hreflang="fr" href="https://crypto-free-tools.netlify.app/fr/" />
     <link rel="alternate" hreflang="en" href="https://crypto-free-tools.netlify.app/en/" />
@@ -52,7 +52,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../new.css">
+
   <!--script type="application/ld+json"-->
   <script type="application/ld+json">
         {
@@ -106,6 +106,54 @@
       <canvas id="cryptoChart"></canvas>
     </div>
 
+    <nav class="navbar">
+      <a href="../index.html"><span>📈</span><br></a>
+      <a href="../alarm/index.html"><span>⏰</span><br></a>
+      <!--<a href="../wallet/index.html"><span>👛</span><br></a>-->
+      <a href="../chart-comparator/index.html"><span>📊</span><br></a>
+      <a href="https://medium.com/@gael-berru"><span>✍️</span><br></a>
+      <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br></a>
+    </nav>
+
+    <br>
+    <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
+    <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
+      lcw-marquee-2="movers" lcw-marquee-items="10"></div>
+    <br>
+
+    <footer>
+      <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
+        d'affiliation.</p>
+      <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
+      <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
+      <!--Publish0x est une plateforme de publication de contenu où les auteurs et les lecteurs gagnent des crypto-monnaies en fonction de l'engagement sur les articles.-->
+
+      <div class="footer-content">
+        <div class="footer-section links">
+          <h3>Offres</h3>
+          <ul>
+            <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
+                target="_blank">Binance</a></li>
+            <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
+            </li>
+
+            <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
+                target="_blank">Mysterium network</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-section links">
+          <h3>Libre acces</h3>
+          <ul>
+            <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
+            <li><a href="https://medium.com/@gael-berru">Articles</a></li>
+            <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
+          </ul>
+        </div>
+      </div>
+      <h5>crypto-free-tools &copy; 2025 | tool by <a href="https://github.com/berru-g/">berru-g</a>
+      </h5>
+    </footer>
     <script>
       ////////////////// COMPARE CHART
       let chart;
@@ -251,92 +299,7 @@
         a.click();
         URL.revokeObjectURL(url);
       }
-      /////////////////////////// MENU
-      const hamburgerMenu = document.querySelector('.hamburger-menu');
-
-      hamburgerMenu.addEventListener('click', () => {
-        // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
-        Swal.fire({
-          title: 'Crypto Tool',
-          html: '<ul><p><a href="../index.html">Fiboscope</a></p><p><a href="../alarm/index.html">Alarm Crypto</a></p><p><a href="../wallet/index.html">Wallet</a></p><p><a href="../chart-comparator/index.html">Chart comparator</a></p><p><a href="https://medium.com/@gael-berru">Articles</a></p><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
-          showCloseButton: true,
-          showConfirmButton: false,
-          customClass: {
-            popup: 'custom-swal-popup',
-            closeButton: 'custom-swal-close-button',
-            content: 'custom-swal-content',
-          }
-        });
-      });
-      const currentTheme = localStorage.getItem('theme') || 'dark';
-      document.body.classList.add(currentTheme + '-mode');
-
-      // Gestion du bouton de bascule
-      const themeToggleButton = document.createElement('button');
-      themeToggleButton.className = 'theme-toggle';
-      themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
-      document.body.appendChild(themeToggleButton);
-
-      themeToggleButton.addEventListener('click', () => {
-        if (document.body.classList.contains('dark-mode')) {
-          document.body.classList.replace('dark-mode', 'light-mode');
-          themeToggleButton.textContent = 'Dark';
-          localStorage.setItem('theme', 'light');
-        } else {
-          document.body.classList.replace('light-mode', 'dark-mode');
-          themeToggleButton.textContent = 'Light';
-          localStorage.setItem('theme', 'dark');
-        }
-      });
     </script>
-
-    <nav class="navbar">
-      <a href="#"><span>📈</span><br></a>
-      <a href="./alarm/index.html"><span>⏰</span><br></a>
-      <a href="./wallet/index.html"><span>👛</span><br></a>
-      <a href="./chart-comparator/index.html"><span>📊</span><br></a>
-      <a href="https://medium.com/@gael-berru"><span>✍️</span><br></a>
-      <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br></a>
-    </nav>
-
-    <br>
-    <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
-    <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
-      lcw-marquee-2="movers" lcw-marquee-items="10"></div>
-    <br>
-    <footer>
-      <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
-        d'affiliation.</p>
-      <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
-      <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
-      <!--Publish0x est une plateforme de publication de contenu où les auteurs et les lecteurs gagnent des crypto-monnaies en fonction de l'engagement sur les articles.-->
-
-      <div class="footer-content">
-        <div class="footer-section links">
-          <h3>Offres</h3>
-          <ul>
-            <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
-                target="_blank">Binance</a></li>
-            <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
-            </li>
-
-            <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
-                target="_blank">Mysterium network</a>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-section links">
-          <h3>Libre acces</h3>
-          <ul>
-            <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
-            <li><a href="https://medium.com/@gael-berru">Articles</a></li>
-            <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
-          </ul>
-        </div>
-      </div>
-      <h5>crypto-free-tools &copy; 2025 | tool by <a href="https://github.com/berru-g/">berru-g</a>
-      </h5>
-    </footer>
 </body>
 
 </html>

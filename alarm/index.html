@@ -77,30 +77,30 @@
     </div>-->
     <h1>Alarm</h1>
 </header>
-
+<button id="themeToggle" class="theme-toggle">Light</button>
 <body>
     <br>
     <!--------------------------ALARM----------------->
     <h2 id="alarm">⏰ Alarm crypto ⏰</h2>
 
-   
 
-        <form id="priceForm">
-            <label for="token">🪙</label>
-            <input type="text" id="token" name="token" placeholder="Exemple : solana" required>
-            <br>
-            <label for="targetLowerPrice">📉</label>
-            <input type="number" id="targetLowerPrice" name="targetLowerPrice" placeholder="Exemple : 192" required>
-            <br>
-            <label for="targetUpperPrice">📈</label>
-            <input type="number" id="targetUpperPrice" name="targetUpperPrice" placeholder="Exemple : 200" required>
-            <br>
-            <button type="submit">Let's go</button>
-        </form>
 
-        <div id="solanaPriceDisplay" style="margin-top: 20px; font-size: 1.5em;">$0.00</div>
+    <form id="priceForm">
+        <label for="token">🪙</label>
+        <input type="text" id="token" name="token" placeholder="Exemple : solana" required>
         <br>
-  
+        <label for="targetLowerPrice">📉</label>
+        <input type="number" id="targetLowerPrice" name="targetLowerPrice" placeholder="Exemple : 192" required>
+        <br>
+        <label for="targetUpperPrice">📈</label>
+        <input type="number" id="targetUpperPrice" name="targetUpperPrice" placeholder="Exemple : 200" required>
+        <br>
+        <button type="submit">Let's go</button>
+    </form>
+
+    <div id="solanaPriceDisplay" style="margin-top: 20px; font-size: 1.5em;">$0.00</div>
+    <br>
+
     <audio id="alarmSoundUpper"
         src="https://github.com/berru-g/Rick-MortySample/raw/master/PadMusical-master/public/rsc-mp3/Rick-sample/ricky_ticky_tabby_biatch.wav"
         preload="auto"></audio>
@@ -108,14 +108,14 @@
         src="https://github.com/berru-g/Rick-MortySample/raw/master/PadMusical-master/public/rsc-mp3/Rick-sample/Awww_Bitch.wav"
         preload="auto"></audio>
 
-        <nav class="navbar">
-            <a href="#"><span>📈</span><br></a>
-            <a href="./alarm/index.html"><span>⏰</span><br></a>
-            <a href="./wallet/index.html"><span>👛</span><br></a>
-            <a href="./chart-comparator/index.html"><span>📊</span><br></a>
-            <a href="https://medium.com/@gael-berru"><span>✍️</span><br></a>
-            <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br></a>
-        </nav>
+    <nav class="navbar">
+        <a href="../index.html"><span>📈</span><br></a>
+        <a href="../alarm/index.html"><span>⏰</span><br></a>
+        <!--<a href="../wallet/index.html"><span>👛</span><br></a>-->
+        <a href="../chart-comparator/index.html"><span>📊</span><br></a>
+        <a href="https://medium.com/@gael-berru"><span>✍️</span><br></a>
+        <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br></a>
+    </nav>
     <!----------------------------FOOTER----------------------------------------->
     <br>
     <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
@@ -242,6 +242,23 @@
                     content: 'custom-swal-content',
                 }
             });
+        });
+        // Gestion du bouton de bascule
+        const themeToggleButton = document.createElement('button');
+        themeToggleButton.className = 'theme-toggle';
+        themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
+        document.body.appendChild(themeToggleButton);
+
+        themeToggleButton.addEventListener('click', () => {
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.classList.replace('dark-mode', 'light-mode');
+                themeToggleButton.textContent = 'Dark';
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.classList.replace('light-mode', 'dark-mode');
+                themeToggleButton.textContent = 'Light';
+                localStorage.setItem('theme', 'dark');
+            }
         });
     </script>
 
