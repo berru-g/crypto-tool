@@ -448,7 +448,7 @@ hamburgerMenu.addEventListener('click', () => {
     // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
     Swal.fire({
         title: 'Crypto Tool',
-        html: '<ul><p><a href="#fibonacci">Fiboscope</a></p><p><a href="#alarm">Alarm Crypto</a></p><p><a href="https://fiboscope.netlify.app/wallet/index.html">Wallet</a></p><p><a href="#compare-chart">Chart comparator</a></p><p><a href="https://medium.com/@gael-berru">Articles</a></p><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
+        html: '<ul><p><a href="#">Fiboscope</a></p><p><a href="./alarm/index.html">Alarm Crypto</a></p><p><a href="./wallet/index.html">Wallet</a></p><p><a href="./chart-comparator/index.html">Chart comparator</a></p><p><a href="https://medium.com/@gael-berru">Articles</a></p><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
         showCloseButton: true,
         showConfirmButton: false,
         customClass: {
