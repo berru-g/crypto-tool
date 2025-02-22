@@ -21,7 +21,12 @@ body.light-mode {
     --shadow-color: rgba(0, 0, 0, 0.1);
     --input-background: #f9f9f9;
 }
-
+/* Simple CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 *,
 s *::before,
 *::after {
