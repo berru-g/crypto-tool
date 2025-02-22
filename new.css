@@ -2,17 +2,6 @@
 
 
 :root {
-    --background-color: #222;
-    --text-color: #c9d1d9;
-    --primary-color: #ab9ff2;
-    --secondary-color: #222;
-    --border-color: #30363d;
-    --shadow-color: #1A1A1A;
-    --input-background: #444;
-
-}
-
-body.light-mode {
     --background-color: #f1f1f1;
     --text-color: #000000;
     --primary-color: #58a6ff;
@@ -20,6 +9,17 @@ body.light-mode {
     --border-color: #dcdcdc;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --input-background: #f9f9f9;
+
+}
+
+body.light-mode {
+    --background-color: #222;
+    --text-color: #c9d1d9;
+    --primary-color: #ab9ff2;
+    --secondary-color: #222;
+    --border-color: #30363d;
+    --shadow-color: #1A1A1A;
+    --input-background: #444;
 }
 /* Simple CSS Reset */
 * {
@@ -540,11 +540,9 @@ a {
 
 }
 
-/*
-img:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+img{
+    border-radius: 8px;
 }
-    */
 
 /*bulle info scam*/
 .info-container {
