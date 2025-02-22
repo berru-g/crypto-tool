@@ -81,9 +81,9 @@
 </head>
 
 <header>
-    <!--<div class="hamburger-menu">
+    <div class="hamburger-menu">
         <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=808080">
-    </div>-->
+    </div>
     <h1>Cryptools</h1>
     <!--<h2><strong><a href="#fibonacci">Fibonacci</a></strong> - <strong><a href="#compare-chart">Chart
                 comparator</a></strong></h2>-->
@@ -223,22 +223,228 @@
     </div>
 
     <br>
+    <!--https://affiliate.ledger.com/image/850/420/French
+    <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub" width=850 height=420
+            src="https://ledger-wp-website-s3-prd.ledger.com/uploads/2024/07/Ledger-recover-homepage.webp"
+            alt="offre ledger"></a>
 
+    <h3>Prenez votre sécurité en main avec les <a
+            href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b">wallets crypto Ledger</a></h3>
+-->
+
+    <!----------------------COMPARE CHART------------------------------->
+    <h2 id="compare-chart">📈 Chart comparator 📉</h2>
+
+    <section>
+        <p>Comparer plusieurs token avec leur chart respectives.</p>
+        <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
+        <select id="period">
+            <option value="7">7 jours</option>
+            <option value="30" selected>30 jours</option>
+            <option value="90">90 jours</option>
+            <option value="365">1 an</option>
+        </select>
+        <button onclick="addCrypto()">Ajouter</button>
+        <button onclick="clearChart()">Effacer</button>
+
+        <button onclick="exportData()">Exporter en CSV</button>
+        <!--<input type="number" id="priceAlert" placeholder="Prix d'alerte">
+    <button onclick="setPriceAlert()">Définir une alerte</button>-->
+    </section>
+    <!-- Graphique -->
+    <div id="chart-container">
+        <canvas id="cryptoChart"></canvas>
+    </div>
+    
+    <script>
+        ////////////////// COMPARE CHART
+        let chart;
+        let cryptoData = {};
+        //let priceAlert = null;
+
+        // Récupérer les 100 premiers tokens
+        async function fetchTopTokens() {
+            const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const tokens = data.map(token => ({
+                id: token.id,
+                name: token.name,
+                symbol: token.symbol.toLowerCase()
+            }));
+
+            localStorage.setItem('topTokens', JSON.stringify(tokens));
+        }
+
+        fetchTopTokens();
+
+        // Fonction pour récupérer les données d'un crypto
+        async function fetchCryptoData(crypto, days) {
+            try {
+                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=usd&days=${days}`);
+                if (!response.ok) throw new Error("Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.");
+                const data = await response.json();
+                return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
+            } catch (error) {
+                alert("Erreur: " + error.message + "rafraichir la page");
+                return null;
+            }
+        }
+
+        // Fonction pour ajouter un crypto au graphique
+        async function addCrypto() {
+            const crypto = document.getElementById("cryptoInput").value.toLowerCase().trim();
+            if (!crypto || cryptoData[crypto]) return;
+
+            const tokens = JSON.parse(localStorage.getItem('topTokens')) || [];
+            const token = tokens.find(t => t.id === crypto || t.symbol === crypto);
+
+            if (!token) {
+                alert("Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.");
+                return;
+            }
+
+            const period = document.getElementById("period").value;
+            const data = await fetchCryptoData(token.id, period);
+            if (data) {
+                cryptoData[token.id] = data;
+                updateChart();
+            }
+        }
+
+        // Fonction pour mettre à jour le graphique
+        function updateChart() {
+            const ctx = document.getElementById('cryptoChart').getContext('2d');
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: Object.keys(cryptoData).map((crypto, index) => [
+                        {
+                            label: crypto,
+                            data: cryptoData[crypto],
+                            borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                            fill: false,
+                        },
+                        {
+                            label: `${crypto} (SMA 7)`,
+                            data: calculateSMA(cryptoData[crypto], 7),
+                            borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                            borderDash: [5, 5],
+                            fill: false,
+                        }
+                    ]).flat(),
+                },
+                options: {
+                    interaction: {
+                        mode: 'nearest',
+                        intersect: false,
+                    },
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        zoom: {
+                            zoom: {
+                                wheel: {
+                                    enabled: true,
+                                },
+                                pinch: {
+                                    enabled: true,
+                                },
+                                mode: 'xy',
+                            },
+                            pan: {
+                                enabled: true,
+                                mode: 'xy',
+                            },
+                        },
+                    },
+                    scales: { x: { type: 'time', time: { unit: 'day' } } },
+                    responsive: true,
+                },
+            });
+        }
+
+        // Fonction pour effacer le graphique
+        function clearChart() {
+            cryptoData = {};
+            updateChart();
+        }
+
+        // Fonction pour calculer la moyenne mobile (SMA)
+        function calculateSMA(data, period) {
+            const sma = [];
+            for (let i = period - 1; i < data.length; i++) {
+                const sum = data.slice(i - period + 1, i + 1).reduce((acc, point) => acc + point.y, 0);
+                sma.push({ x: data[i].x, y: sum / period });
+            }
+            return sma;
+        }
+
+        // Fonction pour exporter les données en CSV
+        function exportData() {
+            const csvContent = Object.keys(cryptoData).map(crypto => {
+                const header = `Date,${crypto}\n`;
+                const rows = cryptoData[crypto].map(point => `${new Date(point.x).toLocaleDateString()},${point.y}`).join('\n');
+                return header + rows;
+            }).join('\n\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'crypto_data.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+    <br>
+    <!-- <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"><img id="pub" width=850
+            height=420
+            src="https://cdn.prod.website-files.com/65f6f8696e3e74cc79b99495/6714c0a2073951c7566866db_mobiles.avif"
+            title="Mysterium Network, le premier VPN décentralisé"
+            alt="Mysterium Network, le premier VPN décentralisé"></a>
+            <h3>Participez au net demain avec <a
+                href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5">Mysterium Network</a>, le premier VPN décentralisé.</h3>-->
+
+    <br>
+    <!--------------------------ALARM-----------------
+    <h2 id="alarm">⏰ Alarm crypto ⏰</h2>
+
+    <section>
+
+        <form id="priceForm">
+            <label for="token">🪙</label>
+            <input type="text" id="token" name="token" placeholder="Exemple : solana" required>
+            <br>
+            <label for="targetLowerPrice">📉</label>
+            <input type="number" id="targetLowerPrice" name="targetLowerPrice" placeholder="Exemple : 192" required>
+            <br>
+            <label for="targetUpperPrice">📈</label>
+            <input type="number" id="targetUpperPrice" name="targetUpperPrice" placeholder="Exemple : 200" required>
+            <br>
+            <button type="submit">Let's go</button>
+        </form>
+
+        <div id="solanaPriceDisplay" style="margin-top: 20px; font-size: 1.5em;">$0.00</div>
+        <br>
+    </section>
+    <audio id="alarmSoundUpper"
+        src="https://github.com/berru-g/Rick-MortySample/raw/master/PadMusical-master/public/rsc-mp3/Rick-sample/ricky_ticky_tabby_biatch.wav"
+        preload="auto"></audio>
+    <audio id="alarmSoundLower"
+        src="https://github.com/berru-g/Rick-MortySample/raw/master/PadMusical-master/public/rsc-mp3/Rick-sample/Awww_Bitch.wav"
+        preload="auto"></audio>----------------->
     <!----------------------------FOOTER----------------------------------------->
     <br>
     <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
     <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
         lcw-marquee-2="movers" lcw-marquee-items="10"></div>
     <br>
-    <nav class="navbar">
-        <a href="#"><span>📈</span><br></a>
-        <a href="./alarm/index.html"><span>⏰</span><br></a>
-        <a href="./wallet/index.html"><span>👛</span><br></a>
-        <a href="./chart-comparator/index.html"><span>📊</span><br></a>
-        <a href="https://medium.com/@gael-berru"><span>✍️</span><br></a>
-        <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br></a>
-    </nav>
-
     <footer>
         <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
             d'affiliation.</p>
@@ -269,11 +475,9 @@
                 </ul>
             </div>
         </div>
-        <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 | tool by <a
-                href="https://github.com/berru-g/">berru-g</a>
+        <h5>crypto-free-tools &copy; 2025 | tool by <a href="https://github.com/berru-g/">berru-g</a>
         </h5>
     </footer>
-    <!--<div id="splash-screen">🌐</div>-->
     <script src="new.js"></script>
 </body>
 
