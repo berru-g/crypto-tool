@@ -17,8 +17,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crypto-free-tools</title>
-    <link rel="shortcut icon" href="./img/logo.png" />
-    <link rel="apple-touch-icon" href="./img/logo.png" />
+    <link rel="shortcut icon" href="../img/logo.png" />
+    <link rel="apple-touch-icon" href="../img/logo.png" />
     <meta name="description"
         content="Discover crypto-free-tools, the ultimate platform to analyze the potential of crypto tokens with the Fiboscope based on the Fibonacci retracement, compare crypto charts, and set up price alarms.">
     <meta name="keywords"
@@ -52,7 +52,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="new.css">
+    <link rel="stylesheet" href="../new.css">
     <!--script type="application/ld+json"-->
     <script type="application/ld+json">
         {
@@ -82,66 +82,124 @@
 
 <header>
     <div class="hamburger-menu">
-        <img src="./img/logo.png">
+        <img src="../img/logo.png">
     </div>
-    <h1>Crypto tools</h1>
+    <h1>Cryptools</h1>
     <!--https://img.icons8.com/?size=100&id=36389&format=png&color=808080-->
 </header>
 
 <body>
     <button id="themeToggle" class="theme-toggle">Light</button>
-    <div id="intro">
-        <p>V.1.0</p><br>
-        <button id="installApp" class="start">📲 Installer l’app</button>
 
-        <script>
-            let deferredPrompt;
-
-            window.addEventListener("beforeinstallprompt", (event) => {
-                console.log("beforeinstallprompt détecté !");
-                event.preventDefault();
-                deferredPrompt = event;
-                document.getElementById("installApp").style.display = "block";
-
-                document.getElementById("installApp").addEventListener("click", () => {
-                    console.log("Bouton cliqué !");
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === "accepted") {
-                            console.log("L’utilisateur a installé l’application !");
-                        }
-                        deferredPrompt = null;
-                    });
-                });
-            });
-        </script>
-    </div>
     <br>
+    <!--------------------FIBOSCOPE--------------------------------->
+    <h2>FiboScope</h2>
     <section>
-        <p>Cypto Tools réunis les outils fibonacci retracement, alarme crypto et
-            comparateur de
-            chart. Et aussi des articles, car la meilleur arme c'est l'éducation. Et bientôt la possibilité de crée son Wallet all in one, toute vos crypto visuellement au même endroit.</p>
+        <!--<div id="language-selector">
+            <a href="/fr/">🇫🇷 </a> | <a href="/en/">🇬🇧 </a>
+        </div>-->
+        <p>Cet outil s'inspire du célèbre indicateur professionnel Fibonacci Retracement.
+            Initialement conçu pour identifier les zones de cassure et les tendances sur les marchés financiers, il est
+            ici
+            détourné pour mesurer la performance potentiel d’un token.</p>
+
+        <p><strong>Que fait cet outils ?</strong></p>
+        <p>Il récupère le plus bas (ATL) et plus haut historique (ATH) d'un token ainsi que son prix
+            actuel, puis calcul en pourcentage son niveau par rapport à sa capacité maximal (ATH).</p>
+        <p><strong>Exemple:</strong></p>
+        <p>Une réponse de 20% indique que le
+            token recherché est à 20% de son prix max, donc que son potentiel de croissance est de 80% ( apriori un bon
+            investissement ) <strong>ℹ️ <a href="#dyor" class="open-popup">Disclaimer </a>*</strong></p>
+        <br>
+        <h3>Entrez le nom d'un token et découvrez son potentiel de performance :</h3>
         <ul>
-            <li>✅ Si vous souhaitez une <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
-                    target="_blank" rel="noopener">explication sur le retracement de fibonacci</a>.</li>
-            <li>✅ Si vous êtes débutant, <a
-                    href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
-                    un bon token ?</a></li>
-            <li>🪙 Si cet outil vous est utile et que <a href="https://berru-g.github.io/berru-g/blog/donation.html"
-                    target="_blank" rel="noopener">vous souhaitez faire un don</a>,</li>
-            <li>⚙️ ou <a href="https://savoir-relatif-et-absolu.netlify.app/index.html/#espace-commentaire">une
-                    remarque pour une amélioration</a> du tool.</li>
+            <li style='color: #3b82f6;'>00 à 25% : opportunité | potentiel x4 sur investissement</li>
+            <li style='color: #34d399;'>25 à 50% : opportunité | potentiel x2</li>
+            <li style='color: #ffa500;'>50 à 75% : restez prudent</li>
+            <li style='color: #ff4d4d;'>75 à 100%: Capacité maximal <span style="color:grey">, fortement
+                    déconseillé</span></li>
         </ul>
 
     </section>
+    <br>
+    <h2 id="fibonacci"></h2>
+    <br>
+    <input type="text" id="token" placeholder="Nom du token (ex: bitcoin, render-token)">
+    <button id="calculate">Calculer</button>
+    <div id="result"></div>
+    <br>
+    </div>
+
+    <br>
+    <div class="share-container">
+        <!-- Bouton principal avec icône "share" -->
+        <button id="shareButton">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 24 24">
+                <path
+                    d="M 20 0 C 17.789063 0 16 1.789063 16 4 C 16 4.277344 16.039063 4.550781 16.09375 4.8125 L 7 9.375 C 6.265625 8.535156 5.203125 8 4 8 C 1.789063 8 0 9.789063 0 12 C 0 14.210938 1.789063 16 4 16 C 5.203125 16 6.265625 15.464844 7 14.625 L 16.09375 19.1875 C 16.039063 19.449219 16 19.722656 16 20 C 16 22.210938 17.789063 24 20 24 C 22.210938 24 24 22.210938 24 20 C 24 17.789063 22.210938 16 20 16 C 18.796875 16 17.734375 16.535156 17 17.375 L 7.90625 12.8125 C 7.960938 12.550781 8 12.277344 8 12 C 8 11.722656 7.960938 11.449219 7.90625 11.1875 L 17 6.625 C 17.734375 7.464844 18.796875 8 20 8 C 22.210938 8 24 6.210938 24 4 C 24 1.789063 22.210938 0 20 0 Z">
+                </path>
+            </svg>
+        </button>
+        <!-- Popup avec les options -->
+        <div id="sharePopup" class="share-popup">
+            <button onclick="copyToClipboard()"><i class='fas fa-copy'></i></button>
+            <a href="#" id="twitterShare" target="_blank"><i class='fa-brands fa-twitter'></i></a>
+            <a href="#" id="whatsappShare" target="_blank"><i class='fa-brands fa-whatsapp'></i></a>
+            <a href="#" id="facebookShare" target="_blank"><i class='fa-brands fa-facebook-f'></i></a>
+        </div>
+    </div>
+    <br>
+
+    <!-- Le popup -->
+    <div id="dyor-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h2>ℹ️ Disclaimer</h2>
+            <p>
+                Bien que FiboScope vous permette de mesurer le pourcentage actuel d'un token par rapport à son ATH
+                (All-Time High), il est important de noter que :
+            </p>
+            <ul>
+                <li><strong>Un prix bas par rapport à l'ATH n'est pas une garantie d'opportunité :</strong> Un token à
+                    1 % de son ATH peut indiquer qu'il a perdu sa traction ou que le projet est inactif, voire
+                    abandonné.</li>
+                <li><strong>Une capitalisation boursière faible peut être un signal d'alerte :</strong> Les tokens à
+                    faible market cap sont souvent plus volatils et risqués, et certains peuvent être des scams. <a
+                        href="top-ten-scam.html">Exemple avec cette liste du top 100 des projets abandonné.</a></li>
+                <li><strong>N'effectuez pas d'achat basé uniquement sur cet outil :</strong> Faites vos propres
+                    recherches (DYOR).</li>
+            </ul>
+            <p>
+                <em>Fiboscope</em> ne peut être tenue responsable de pertes financières liées à vos décisions. Investir
+                dans les cryptomonnaies comporte des risques : ne misez que ce que vous êtes prêt à perdre.
+            </p>
+            <p>
+                De plus : les données présentées (API de <a href="https://www.coingecko.com" target="_blank"
+                    rel="noopener">CoinGecko.com</a>) sont basées sur les informations historiques et ne garantissent
+                pas les performances futures des crypto-monnaies. Utilisez cet outil comme un support supplémentaire, et
+                non comme une source unique de décision. Merci.
+            </p>
+            <ul>
+                <li>✅ Si vous souhaitez une <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
+                        target="_blank" rel="noopener">explication sur cet outil</a>.</li>
+                <li>✅ Si vous êtes débutant, <a
+                        href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
+                        un bon token ?</a></li>
+                <li>🪙 Si cet outil vous est utile et que <a href="https://berru-g.github.io/berru-g/blog/donation.html"
+                        target="_blank" rel="noopener">vous souhaitez faire un don</a>,</li>
+                <li>⚙️ ou <a href="https://savoir-relatif-et-absolu.netlify.app/index.html/#espace-commentaire">une
+                        remarque pour une amélioration</a> du tool.</li>
+            </ul>
+        </div>
+    </div>
 
     <!----------------------------FOOTER----------------------------------------->
     <br>
     <nav class="navbar">
-        <a href="./fiboscope/index.html"><span>📈</span><br>fibo</a>
-        <a href="./alarm/index.html"><span>⏰</span><br>alarm</a>
+        <a href="./index.html"><span>📈</span><br>fibo</a>
+        <a href="../alarm/index.html"><span>⏰</span><br>alarm</a>
         <!--<a href="./wallet/index.html"><span>👛</span><br></a>-->
-        <a href="./chart-comparator/index.html"><span>📊</span><br>chart</a>
+        <a href="../chart-comparator/index.html"><span>📊</span><br>chart</a>
         <a href="https://medium.com/@gael-berru"><span>✍️</span><br>article</a>
         <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br>don</a>
     </nav>
@@ -151,7 +209,6 @@
             d'affiliation.</p>
         <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
         <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
-        <p style="text-align:center"><strong>✅ Mysterium Network, le premier VPN décentralisé.</strong></p>
         <!--Publish0x est une plateforme de publication de contenu où les auteurs et les lecteurs gagnent des crypto-monnaies en fonction de l'engagement sur les articles.-->
 
         <div class="footer-content">
@@ -183,7 +240,7 @@
     </footer>
     <!--<div id="splash-screen">🌐<h5>crypto-free-tools &copy; 2025 | tool by <a
                 href="https://github.com/berru-g/">berru-g</a></div>-->
-    <script src="new.js"></script>
+    <script src="../new.js"></script>
 </body>
 
 </html>

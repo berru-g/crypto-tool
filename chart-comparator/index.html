@@ -33,11 +33,7 @@
   <meta property="og:url" content="https://crypto-free-tools.netlify.app">
   <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
   <link rel="manifest" href="/manifest.json">
-  <link rel="stylesheet" href="../new.css">
-  <!--
-    <link rel="alternate" hreflang="fr" href="https://crypto-free-tools.netlify.app/fr/" />
-    <link rel="alternate" hreflang="en" href="https://crypto-free-tools.netlify.app/en/" />
--->
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
@@ -50,9 +46,8 @@
   <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="../new.css">
   <!--script type="application/ld+json"-->
   <script type="application/ld+json">
         {
@@ -81,7 +76,6 @@
 
 <body>
   <button id="themeToggle" class="theme-toggle">Light</button>
-  <div id="intro">
 
     <!----------------------COMPARE CHART------------------------------->
     <h2 id="compare-chart">📈 Chart comparator 📉</h2>
@@ -106,196 +100,54 @@
       <canvas id="cryptoChart"></canvas>
     </div>
     <br>
-    <nav class="navbar">
-      <a href="../index.html"><span>📈</span><br>fibo</a>
-      <a href="../alarm/index.html"><span>⏰</span><br>alarm</a>
-      <!--<a href="../wallet/index.html"><span>👛</span><br></a>-->
-      <a href="../chart-comparator/index.html"><span>📊</span><br>chart</a>
-      <a href="https://medium.com/@gael-berru"><span>✍️</span><br>article</a>
-      <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br>don</a>
-    </nav>
-
-    <br>
-
-    <footer>
-      <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
-        d'affiliation.</p>
-      <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
-      <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
-      <!--Publish0x est une plateforme de publication de contenu où les auteurs et les lecteurs gagnent des crypto-monnaies en fonction de l'engagement sur les articles.-->
-
-      <div class="footer-content">
-        <div class="footer-section links">
-          <h3>Offres</h3>
-          <ul>
-            <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
-                target="_blank">Binance</a></li>
-            <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
-            </li>
-
-            <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
-                target="_blank">Mysterium network</a>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-section links">
-          <h3>Libre acces</h3>
-          <ul>
-            <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
-            <li><a href="https://medium.com/@gael-berru">Articles</a></li>
-            <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
-          </ul>
-        </div>
-      </div>
-      <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 | tool by <a href="https://github.com/berru-g/">berru-g</a>
-      </h5>
-    </footer>
-    <script>
-      ////////////////// COMPARE CHART
-      let chart;
-      let cryptoData = {};
-      //let priceAlert = null;
-
-      // Récupérer les 100 premiers tokens
-      async function fetchTopTokens() {
-        const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
-        const response = await fetch(url);
-        const data = await response.json();
-
-        const tokens = data.map(token => ({
-          id: token.id,
-          name: token.name,
-          symbol: token.symbol.toLowerCase()
-        }));
-
-        localStorage.setItem('topTokens', JSON.stringify(tokens));
-      }
-
-      fetchTopTokens();
-
-      // Fonction pour récupérer les données d'un crypto
-      async function fetchCryptoData(crypto, days) {
-        try {
-          const response = await fetch(`https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=usd&days=${days}`);
-          if (!response.ok) throw new Error("Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.");
-          const data = await response.json();
-          return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
-        } catch (error) {
-          alert("Erreur: " + error.message + "rafraichir la page");
-          return null;
-        }
-      }
-
-      // Fonction pour ajouter un crypto au graphique
-      async function addCrypto() {
-        const crypto = document.getElementById("cryptoInput").value.toLowerCase().trim();
-        if (!crypto || cryptoData[crypto]) return;
-
-        const tokens = JSON.parse(localStorage.getItem('topTokens')) || [];
-        const token = tokens.find(t => t.id === crypto || t.symbol === crypto);
-
-        if (!token) {
-          alert("Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.");
-          return;
-        }
-
-        const period = document.getElementById("period").value;
-        const data = await fetchCryptoData(token.id, period);
-        if (data) {
-          cryptoData[token.id] = data;
-          updateChart();
-        }
-      }
-
-      // Fonction pour mettre à jour le graphique
-      function updateChart() {
-        const ctx = document.getElementById('cryptoChart').getContext('2d');
-        if (chart) chart.destroy();
-        chart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            datasets: Object.keys(cryptoData).map((crypto, index) => [
-              {
-                label: crypto,
-                data: cryptoData[crypto],
-                borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
-                fill: false,
-              },
-              {
-                label: `${crypto} (SMA 7)`,
-                data: calculateSMA(cryptoData[crypto], 7),
-                borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
-                borderDash: [5, 5],
-                fill: false,
-              }
-            ]).flat(),
-          },
-          options: {
-            interaction: {
-              mode: 'nearest',
-              intersect: false,
-            },
-            plugins: {
-              tooltip: {
-                enabled: true,
-                mode: 'index',
-                intersect: false,
-              },
-              zoom: {
-                zoom: {
-                  wheel: {
-                    enabled: true,
-                  },
-                  pinch: {
-                    enabled: true,
-                  },
-                  mode: 'xy',
-                },
-                pan: {
-                  enabled: true,
-                  mode: 'xy',
-                },
-              },
-            },
-            scales: { x: { type: 'time', time: { unit: 'day' } } },
-            responsive: true,
-          },
-        });
-      }
-
-      // Fonction pour effacer le graphique
-      function clearChart() {
-        cryptoData = {};
-        updateChart();
-      }
-
-      // Fonction pour calculer la moyenne mobile (SMA)
-      function calculateSMA(data, period) {
-        const sma = [];
-        for (let i = period - 1; i < data.length; i++) {
-          const sum = data.slice(i - period + 1, i + 1).reduce((acc, point) => acc + point.y, 0);
-          sma.push({ x: data[i].x, y: sum / period });
-        }
-        return sma;
-      }
-
-      // Fonction pour exporter les données en CSV
-      function exportData() {
-        const csvContent = Object.keys(cryptoData).map(crypto => {
-          const header = `Date,${crypto}\n`;
-          const rows = cryptoData[crypto].map(point => `${new Date(point.x).toLocaleDateString()},${point.y}`).join('\n');
-          return header + rows;
-        }).join('\n\n');
-
-        const blob = new Blob([csvContent], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'crypto_data.csv';
-        a.click();
-        URL.revokeObjectURL(url);
-      }
-    </script>
-</body>
-
-</html>
+     <!----------------------------FOOTER----------------------------------------->
+     <br>
+     <nav class="navbar">
+         <a href="../fiboscope/index.html"><span>📈</span><br>fibo</a>
+         <a href="../alarm/index.html"><span>⏰</span><br>alarm</a>
+         <!--<a href="./wallet/index.html"><span>👛</span><br></a>-->
+         <a href="../chart-comparator/index.html"><span>📊</span><br>chart</a>
+         <a href="https://medium.com/@gael-berru"><span>✍️</span><br>article</a>
+         <a href="https://berru-g.github.io/berru-g/blog/donation.html"><span>💰</span><br>don</a>
+     </nav>
+ 
+     <footer>
+         <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
+             d'affiliation.</p>
+         <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
+         <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
+         <!--Publish0x est une plateforme de publication de contenu où les auteurs et les lecteurs gagnent des crypto-monnaies en fonction de l'engagement sur les articles.-->
+ 
+         <div class="footer-content">
+             <div class="footer-section links">
+                 <h3>Offres</h3>
+                 <ul>
+                     <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
+                             target="_blank">Binance</a></li>
+                     <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
+                     </li>
+ 
+                     <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
+                             target="_blank">Mysterium network</a>
+                     </li>
+                 </ul>
+             </div>
+             <div class="footer-section links">
+                 <h3>Libre acces</h3>
+                 <ul>
+                     <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
+                     <li><a href="https://medium.com/@gael-berru">Articles</a></li>
+                     <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
+                 </ul>
+             </div>
+         </div>
+         <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 | tool by <a
+                 href="https://github.com/berru-g/">berru-g</a>
+         </h5>
+     </footer>
+     <!--<div id="splash-screen">🌐<h5>crypto-free-tools &copy; 2025 | tool by <a
+                 href="https://github.com/berru-g/">berru-g</a></div>-->
+     <script src="script.js"></script>
+ </body>
+ 
+ </html>
