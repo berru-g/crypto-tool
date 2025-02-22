@@ -1,13 +1,13 @@
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-      .then(function(registration) {
-        console.log('Service Worker enregistré avec succès:', registration);
-      })
-      .catch(function(error) {
-        console.log('Échec de l\'enregistrement du Service Worker:', error);
-      });
-  }
-  
+        .then(function (registration) {
+            console.log('Service Worker enregistré avec succès:', registration);
+        })
+        .catch(function (error) {
+            console.log('Échec de l\'enregistrement du Service Worker:', error);
+        });
+}
+
 //////////////////////// FIBOSCOPE
 // Récupération du mode depuis le localStorage
 const currentTheme = localStorage.getItem('theme') || 'dark';
@@ -422,25 +422,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-/* international mode language
-const userLanguage = navigator.language.split('-')[0]; // Détecte la langue (ex: "fr", "en")
-const translations = await fetch(`/translations/${userLanguage}.json`).then(res => res.json());
+// mise a jour user
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+        reg.onupdatefound = () => {
+            const newSW = reg.installing;
+            newSW.onstatechange = () => {
+                if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+                    // Nouvelle version détectée, afficher une alerte
+                    let updateBanner = document.createElement("div");
+                    updateBanner.innerHTML = `
+                        <div style="position:fixed; bottom:10px; left:10px; right:10px; background:#222; color:#fff; padding:15px; text-align:center; border-radius:5px;">
+                            🚀 Nouvelle mise à jour dispo ! <button onclick="window.location.reload()">Mettre à jour</button>
+                        </div>
+                    `;
+                    document.body.appendChild(updateBanner);
+                }
+            };
+        };
+    });
+}
 
-// Appliquer les traductions
-document.getElementById('title').textContent = translations.title;
-document.getElementById('description').textContent = translations.description;
-document.getElementById('search').placeholder = translations.search_placeholder;
-/*
-document.getElementById('language-selector').addEventListener('change', async (e) => {
-  const language = e.target.value;
-  const translations = await fetch(`/translations/${language}.json`).then(res => res.json());
-
-  // Appliquer les traductions
-  document.getElementById('title').textContent = translations.title;
-  document.getElementById('description').textContent = translations.description;
-  document.getElementById('search').placeholder = translations.search_placeholder;
-});
-*/
 //////////////////////////// MENU
 const hamburgerMenu = document.querySelector('.hamburger-menu');
 
