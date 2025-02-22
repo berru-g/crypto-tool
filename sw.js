@@ -7,6 +7,8 @@ self.addEventListener('install', function (event) {
         '/new.css',
         '/new.js',
         '/img',
+        '/alarm/',
+        'chart-comparator/',
         // Ajoute ici les autres ressources à mettre en cache
       ]);
     })

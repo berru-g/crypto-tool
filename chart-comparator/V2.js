@@ -171,6 +171,7 @@ let chart;
         // Vérifier l'alerte de prix toutes les 10 secondes
         setInterval(checkPriceAlert, 10000);
 
+        
         // menu
 const hamburgerMenu = document.querySelector('.hamburger-menu');
 
@@ -178,7 +179,7 @@ hamburgerMenu.addEventListener('click', () => {
   // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
   Swal.fire({
     title: 'Other Tool',
-    html: '<ul><p><a href="../index.html">fiboscope</a></p><p><a href="../alarm/index.html">Alarm Crypto</a></p><p><a href="../wallet/index.html">Wallet</a></p><p><a href="../superpose/index.html">Multi Chart</a></p><p><a href="https://medium.com/@gael-berru">Article</a></p><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
+    html: '<ul><li><a href="../index.html">fiboscope</a></li><li><a href="../alarm/index.html">Alarm Crypto</a></p><li><a href="../wallet/index.html">Wallet</a></li><li><a href="../superpose/index.html">Multi Chart</a></li><li><a href="https://medium.com/@gael-berru">Article</a></li><li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li></ul>',
     showCloseButton: true,
     showConfirmButton: false,
     customClass: {

@@ -205,7 +205,7 @@ canvas {
 
 #chart-container {
     width: 100%;
-    max-width: 950px;
+    max-width: 1050px;
     position: relative;
     display: block;
     border-radius: 8px;

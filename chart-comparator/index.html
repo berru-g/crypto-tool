@@ -1,271 +1,333 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : crypto-free-tools is the simple fibonacci retracement tool
+       Date : 20/01/2025
+       Version : 1.0.2  | 16/02/25
+       Mise à jour article : Weekly
+       Licence : The MIT License (MIT)
+       Copyright (c) 2025 Berru
+       Contact : https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire
+    ============================================
+-->
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparateur de CHART Crypto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>comparator chart</title>
   <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=bsZ8zwOxyUKF&format=png&color=000000" />
-    <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=bsZ8zwOxyUKF&format=png&color=000000" />
-    <meta name="description"
-        content="Analysez le potentiel des tokens, activé une alarme, comparer des chart. FiboScope est un outil basé sur le Fibonacci retracement, outil précieux pour prendre des décision en tant qu'investisseur.">
-    <meta name="keywords"
-        content="crytpo tool, Gaël berru, alarm crypto, comparateur de chart, fiboscope, tool bear market, fibonacci tool, fibonacci retracement, outil analyse token, capacité maximal d'un token, quand investir, comment savoir si j'investie au bon moment, tool retracement, traidingview, Comment analyser un token avant d'investir, Outil gratuit pour évaluer le potentiel d'une crypto-monnaie">
-    <meta name="author" content="Gael Berru.">
-    <meta name="robots" content="noai">
-    <!-- Balises Open Graph pour les réseaux sociaux -->
-    <meta property="og:title" content="fiboScope">
-    <meta property="og:description"
-        content="Analysez le potentiel des tokens, activé une alarme, comparer des chart. Découvrez les tokens ayant le plus faible pourcentage de leur capacité maximale, avec un potentiel de croissance élevé. Outils idéal pendant le bear market.">
-    <meta property="og:type" content="tool">
-    <meta property="og:url" content="https://fiboscope.netlify.app">
-    <link rel="canonical" href="https://fiboscope.netlify.app/" />
-  <!--<link rel="stylesheet" href="./style.css">-->
+  <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=bsZ8zwOxyUKF&format=png&color=000000" />
+  <meta name="description"
+    content="Discover crypto-free-tools, the ultimate platform to analyze the potential of crypto tokens with the Fiboscope based on the Fibonacci retracement, compare crypto charts, and set up price alarms.">
+  <meta name="keywords"
+    content="crypto analysis, Fibonacci retracement, Fiboscope, crypto price alarm, crypto price alarm, crypto charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
+  <meta name="author" content="Gael Berru.">
+  <meta name="robots" content="noai">
+  <!-- Balises Open Graph pour les réseaux sociaux -->
+  <meta property="og:title" content="crypto-free-tools">
+  <meta property="og:description"
+    content="Analyze token potential, activate an alarm, compare charts. Discover tokens with the lowest percentage of their maximum capacity, with high growth potential. Ideal tool during the bear market.">
+  <meta property="og:type" content="tool">
+  <meta property="og:url" content="https://crypto-free-tools.netlify.app">
+  <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
+  <link rel="manifest" href="/manifest.json">
+
+  <!--
+    <link rel="alternate" hreflang="fr" href="https://crypto-free-tools.netlify.app/fr/" />
+    <link rel="alternate" hreflang="en" href="https://crypto-free-tools.netlify.app/en/" />
+-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+  <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
-    <style>
 
-        .dark-mode {
-            background-color: #121212;
-            color: #ffffff;
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../new.css">
+  <!--script type="application/ld+json"-->
+  <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Crypto Free Tools",
+          "url": "https://www.crypto-free-tools.netlify.app",
+          "description": "Cryptocurrency analysis platform offering tools like the Fibonacci retracement-based Fiboscope, chart comparators, and price alarms for investors.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.crypto-free-tools.netlify.app/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
         }
-
-        .dark-mode #cryptoChart {
-            filter: invert(1);
-        }
-
-        
-        root {
-            --background-color: #f1f1f1;
-            --text-color: #000000;
-            --primary-color: #58a6ff;
-            --secondary-color: #f1f3f4;
-            --border-color: #dcdcdc;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --input-background: #f9f9f9;
-          }
-      
-          s *::before,
-          *::after {
-            box-sizing: border-box;
-          }
-      
-          body {
-            margin: 20px;
-            background-color: var(--background-color);
-            color: white;
-            font-family: sans-serif;
-            text-align: center;
-          }
-      
-          header {
-            margin-top: 20px;
-            margin-left: 20px;
-            color: grey;
-          }
-      
-          .hamburger-menu {
-            width: 40px;
-            height: 20px;
-            top: 20px;
-            left: 20px;
-            position: fixed;
-            color: grey;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
-          }
-      
-          .hamburger-menu span {
-            width: 100%;
-            height: 2px;
-            background-color: grey;
-          }
-      
-          span {
-            text-decoration: none;
-            color: grey;
-          }
-      
-          canvas {
-            width: 100%;
-            margin: 20px 20px;
-            display: block;
-          }
-          #chart-container {
-            width: 100%;
-            height: auto;
-        }
-      
-          input, select {
-            margin: 5px;
-            padding: 8px;
-            border-radius: 8px;
-          }
-      
-          button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #fff;
-            color: #333;
-            border: 1px solid grey;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-          }
-      
-          button:hover {
-            background-color: #ab9ff2;
-            color: #fff;
-          }
-          .theme-toggle {
-            position: fixed;
-            top: 0px;
-            right: 20px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 5px var(--shadow-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        .theme-toggle:hover {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-        }
-      
-          a {
-            color: #ab9ff2;
-            text-decoration: none;
-          }
-      
-          a:hover {
-            color: grey;
-            text-decoration: none;
-          }
-      
-          footer {
-            width: 100%;
-            height: auto;
-            background: transparent;
-            color: grey;
-            padding: 2rem 1rem;
-            text-align: center;
-            box-shadow: 0px -2px 0px -2px #a7a6a6;
-      
-          }
-      
-          .footer-content {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-          }
-      
-          .footer-section {
-            margin: 1rem;
-          }
-      
-          .footer-section h3 {
-            margin-bottom: 1rem;
-          }
-      
-          .footer-section ul {
-            list-style: none;
-            padding: 0;
-          }
-      
-          .footer-section ul li {
-            margin-bottom: 0.5rem;
-          }
-      
-          .footer-section ul li a {
-            color: #ab9ff2;
-            text-decoration: none;
-          }
-      
-          .footer-section ul li a:hover {
-            color: grey;
-          }
-      
-          a {
-            color: #ab9ff2;
-          }
-      
-          a:hover {
-            color: grey;
-          }
-
-    </style>
+        </script>
+  <!-- Google tag (gtag.js) -->
 </head>
 <header>
-    <!--<div class="hamburger-menu">
-      <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=808080">
-    </div>-->
-    <h1>Crypto Tool</h1>
-    <h3>Comparateur de Chart</h3>
-    
-  </header>
+  <div class="hamburger-menu">
+    <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=808080">
+  </div>
+  <h1>Cryptools</h1>
+  <!--<h2><strong><a href="#fibonacci">Fibonacci</a></strong> - <strong><a href="#compare-chart">Chart
+                comparator</a></strong></h2>-->
+</header>
+
 <body>
   <button id="themeToggle" class="theme-toggle">Light</button>
+  <div id="intro">
 
-    <!-- Contrôles -->
-    <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
-    <select id="period">
+    <!----------------------COMPARE CHART------------------------------->
+    <h2 id="compare-chart">📈 Chart comparator 📉</h2>
+
+    <section>
+      <p>Comparer plusieurs token avec leur chart respectives.</p>
+      <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
+      <select id="period">
         <option value="7">7 jours</option>
         <option value="30" selected>30 jours</option>
         <option value="90">90 jours</option>
         <option value="365">1 an</option>
-    </select>
-    <button onclick="addCrypto()">Ajouter</button>
-    <button onclick="clearChart()">Effacer</button>
-    
-    <button onclick="exportData()">Exporter en CSV</button>
-    <!--<input type="number" id="priceAlert" placeholder="Prix d'alerte">
-    <button onclick="setPriceAlert()">Définir une alerte</button>-->
+      </select>
+      <button onclick="addCrypto()">Ajouter</button>
+      <button onclick="clearChart()">Effacer</button>
 
+      <button onclick="exportData()">Exporter en CSV</button>
+    </section>
+    <br>
     <!-- Graphique -->
     <div id="chart-container">
-        <canvas id="cryptoChart"></canvas>
+      <canvas id="cryptoChart"></canvas>
     </div>
-    <br>
-    <p style="text-align:center;color:#ab9ff2;"><a href="../../crypto-tool/index.html">revenir sur crypto-free-tools.net</a></p>
-    <footer>
-        <div class="footer-content">
-          <div class="footer-section links">
-            <h3>Other tool</h3>
-            <ul>
-              <li><a href="../index.html">FiboScope</a></li>
-              <li><a href="https://crypto-free-tools.netlify.app/">Wallet</a></li>
-              <li><a href="../alarm/index.html">Alarm</a></li>
-    
-            </ul>
-          </div>
-          <div class="footer-section links">
-            <h3>Libre acces</h3>
-            <ul>
-              <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
-              <li><a href="https://github.com/berru-g/FiboScope/tree/main/superpose">Code source</a></li>
-              <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">donation</a></li>
-            </ul>
-          </div>
-        </div>
-        <h5>Crypto tool &copy; 2025 | by <a href="https://github.com/berru-g/FiboScope/blob/main/license.txt">berru-g</a>
-        </h5>
-      </footer>
 
-    <script src="V2.js"></script>
+    <script>
+      ////////////////// COMPARE CHART
+      let chart;
+      let cryptoData = {};
+      //let priceAlert = null;
+
+      // Récupérer les 100 premiers tokens
+      async function fetchTopTokens() {
+        const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const tokens = data.map(token => ({
+          id: token.id,
+          name: token.name,
+          symbol: token.symbol.toLowerCase()
+        }));
+
+        localStorage.setItem('topTokens', JSON.stringify(tokens));
+      }
+
+      fetchTopTokens();
+
+      // Fonction pour récupérer les données d'un crypto
+      async function fetchCryptoData(crypto, days) {
+        try {
+          const response = await fetch(`https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=usd&days=${days}`);
+          if (!response.ok) throw new Error("Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.");
+          const data = await response.json();
+          return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
+        } catch (error) {
+          alert("Erreur: " + error.message + "rafraichir la page");
+          return null;
+        }
+      }
+
+      // Fonction pour ajouter un crypto au graphique
+      async function addCrypto() {
+        const crypto = document.getElementById("cryptoInput").value.toLowerCase().trim();
+        if (!crypto || cryptoData[crypto]) return;
+
+        const tokens = JSON.parse(localStorage.getItem('topTokens')) || [];
+        const token = tokens.find(t => t.id === crypto || t.symbol === crypto);
+
+        if (!token) {
+          alert("Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.");
+          return;
+        }
+
+        const period = document.getElementById("period").value;
+        const data = await fetchCryptoData(token.id, period);
+        if (data) {
+          cryptoData[token.id] = data;
+          updateChart();
+        }
+      }
+
+      // Fonction pour mettre à jour le graphique
+      function updateChart() {
+        const ctx = document.getElementById('cryptoChart').getContext('2d');
+        if (chart) chart.destroy();
+        chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            datasets: Object.keys(cryptoData).map((crypto, index) => [
+              {
+                label: crypto,
+                data: cryptoData[crypto],
+                borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                fill: false,
+              },
+              {
+                label: `${crypto} (SMA 7)`,
+                data: calculateSMA(cryptoData[crypto], 7),
+                borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                borderDash: [5, 5],
+                fill: false,
+              }
+            ]).flat(),
+          },
+          options: {
+            interaction: {
+              mode: 'nearest',
+              intersect: false,
+            },
+            plugins: {
+              tooltip: {
+                enabled: true,
+                mode: 'index',
+                intersect: false,
+              },
+              zoom: {
+                zoom: {
+                  wheel: {
+                    enabled: true,
+                  },
+                  pinch: {
+                    enabled: true,
+                  },
+                  mode: 'xy',
+                },
+                pan: {
+                  enabled: true,
+                  mode: 'xy',
+                },
+              },
+            },
+            scales: { x: { type: 'time', time: { unit: 'day' } } },
+            responsive: true,
+          },
+        });
+      }
+
+      // Fonction pour effacer le graphique
+      function clearChart() {
+        cryptoData = {};
+        updateChart();
+      }
+
+      // Fonction pour calculer la moyenne mobile (SMA)
+      function calculateSMA(data, period) {
+        const sma = [];
+        for (let i = period - 1; i < data.length; i++) {
+          const sum = data.slice(i - period + 1, i + 1).reduce((acc, point) => acc + point.y, 0);
+          sma.push({ x: data[i].x, y: sum / period });
+        }
+        return sma;
+      }
+
+      // Fonction pour exporter les données en CSV
+      function exportData() {
+        const csvContent = Object.keys(cryptoData).map(crypto => {
+          const header = `Date,${crypto}\n`;
+          const rows = cryptoData[crypto].map(point => `${new Date(point.x).toLocaleDateString()},${point.y}`).join('\n');
+          return header + rows;
+        }).join('\n\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'crypto_data.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      /////////////////////////// MENU
+      const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+      hamburgerMenu.addEventListener('click', () => {
+        // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
+        Swal.fire({
+          title: 'Crypto Tool',
+          html: '<ul><p><a href="../index.html">Fiboscope</a></p><p><a href="../alarm/index.html">Alarm Crypto</a></p><p><a href="../wallet/index.html">Wallet</a></p><p><a href="../chart-comparator/index.html">Chart comparator</a></p><p><a href="https://medium.com/@gael-berru">Articles</a></p><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
+          showCloseButton: true,
+          showConfirmButton: false,
+          customClass: {
+            popup: 'custom-swal-popup',
+            closeButton: 'custom-swal-close-button',
+            content: 'custom-swal-content',
+          }
+        });
+      });
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      document.body.classList.add(currentTheme + '-mode');
+
+      // Gestion du bouton de bascule
+      const themeToggleButton = document.createElement('button');
+      themeToggleButton.className = 'theme-toggle';
+      themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
+      document.body.appendChild(themeToggleButton);
+
+      themeToggleButton.addEventListener('click', () => {
+        if (document.body.classList.contains('dark-mode')) {
+          document.body.classList.replace('dark-mode', 'light-mode');
+          themeToggleButton.textContent = 'Dark';
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.body.classList.replace('light-mode', 'dark-mode');
+          themeToggleButton.textContent = 'Light';
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    </script>
+
+    <br>
+    <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
+    <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
+      lcw-marquee-2="movers" lcw-marquee-items="10"></div>
+    <br>
+    <footer>
+      <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
+        d'affiliation.</p>
+      <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
+      <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
+      <!--Publish0x est une plateforme de publication de contenu où les auteurs et les lecteurs gagnent des crypto-monnaies en fonction de l'engagement sur les articles.-->
+
+      <div class="footer-content">
+        <div class="footer-section links">
+          <h3>Offres</h3>
+          <ul>
+            <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
+                target="_blank">Binance</a></li>
+            <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
+            </li>
+
+            <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
+                target="_blank">Mysterium network</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-section links">
+          <h3>Libre acces</h3>
+          <ul>
+            <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
+            <li><a href="https://medium.com/@gael-berru">Articles</a></li>
+            <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
+          </ul>
+        </div>
+      </div>
+      <h5>crypto-free-tools &copy; 2025 | tool by <a href="https://github.com/berru-g/">berru-g</a>
+      </h5>
+    </footer>
 </body>
 
 </html>

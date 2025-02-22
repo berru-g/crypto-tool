@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : crypto-free-tools is the simple fibonacci retracement tool
+       Date : 20/01/2025
+       Version : 1.0.2  | 16/02/25
+       Mise à jour article : Weekly
+       Licence : The MIT License (MIT)
+       Copyright (c) 2025 Berru
+       Contact : https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire
+    ============================================
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm crypto</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=bsZ8zwOxyUKF&format=png&color=000000" />
+    <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=bsZ8zwOxyUKF&format=png&color=000000" />
+    <meta name="description"
+        content="Discover crypto-free-tools, the ultimate platform to analyze the potential of crypto tokens with the Fiboscope based on the Fibonacci retracement, compare crypto charts, and set up price alarms.">
+    <meta name="keywords"
+        content="crypto analysis, Fibonacci retracement, Fiboscope, crypto price alarm, crypto price alarm, crypto charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
+    <meta name="author" content="Gael Berru.">
+    <meta name="robots" content="noai">
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:title" content="crypto-free-tools">
+    <meta property="og:description"
+        content="Analyze token potential, activate an alarm, compare charts. Discover tokens with the lowest percentage of their maximum capacity, with high growth potential. Ideal tool during the bear market.">
+    <meta property="og:type" content="tool">
+    <meta property="og:url" content="https://crypto-free-tools.netlify.app">
+    <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
+    <link rel="manifest" href="/manifest.json">
+
+    <!--
+    <link rel="alternate" hreflang="fr" href="https://crypto-free-tools.netlify.app/fr/" />
+    <link rel="alternate" hreflang="en" href="https://crypto-free-tools.netlify.app/en/" />
+-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../new.css">
+    <!--script type="application/ld+json"-->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Crypto Free Tools",
+          "url": "https://www.crypto-free-tools.netlify.app",
+          "description": "Cryptocurrency analysis platform offering tools like the Fibonacci retracement-based Fiboscope, chart comparators, and price alarms for investors.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.crypto-free-tools.netlify.app/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+        </script>
+
+    <!-- Google tag (gtag.js) -->
+</head>
+<header>
+    <div class="hamburger-menu">
+        <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=808080">
+    </div>
+    <h1>Alarm</h1>
+</header>
+
+<body>
+    <br>
+    <!--------------------------ALARM----------------->
+    <h2 id="alarm">⏰ Alarm crypto ⏰</h2>
+
+   
+
+        <form id="priceForm">
+            <label for="token">🪙</label>
+            <input type="text" id="token" name="token" placeholder="Exemple : solana" required>
+            <br>
+            <label for="targetLowerPrice">📉</label>
+            <input type="number" id="targetLowerPrice" name="targetLowerPrice" placeholder="Exemple : 192" required>
+            <br>
+            <label for="targetUpperPrice">📈</label>
+            <input type="number" id="targetUpperPrice" name="targetUpperPrice" placeholder="Exemple : 200" required>
+            <br>
+            <button type="submit">Let's go</button>
+        </form>
+
+        <div id="solanaPriceDisplay" style="margin-top: 20px; font-size: 1.5em;">$0.00</div>
+        <br>
+  
+    <audio id="alarmSoundUpper"
+        src="https://github.com/berru-g/Rick-MortySample/raw/master/PadMusical-master/public/rsc-mp3/Rick-sample/ricky_ticky_tabby_biatch.wav"
+        preload="auto"></audio>
+    <audio id="alarmSoundLower"
+        src="https://github.com/berru-g/Rick-MortySample/raw/master/PadMusical-master/public/rsc-mp3/Rick-sample/Awww_Bitch.wav"
+        preload="auto"></audio>
+    <!----------------------------FOOTER----------------------------------------->
+    <br>
+    <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
+    <div class="livecoinwatch-widget-5" lcw-base="USDC" lcw-color-tx="#999999" lcw-marquee-1="coins"
+        lcw-marquee-2="movers" lcw-marquee-items="10"></div>
+    <br>
+    <footer>
+        <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
+            d'affiliation.</p>
+        <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
+        <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
+        <!--Publish0x est une plateforme de publication de contenu où les auteurs et les lecteurs gagnent des crypto-monnaies en fonction de l'engagement sur les articles.-->
+
+        <div class="footer-content">
+            <div class="footer-section links">
+                <h3>Offres</h3>
+                <ul>
+                    <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
+                            target="_blank">Binance</a></li>
+                    <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
+                    </li>
+
+                    <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
+                            target="_blank">Mysterium network</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-section links">
+                <h3>Libre acces</h3>
+                <ul>
+                    <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
+                    <li><a href="https://medium.com/@gael-berru">Articles</a></li>
+                    <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
+                </ul>
+            </div>
+        </div>
+        <h5>crypto-free-tools &copy; 2025 | tool by <a href="https://github.com/berru-g/">berru-g</a>
+        </h5>
+    </footer>
+    <script>
+        const alarmSoundUpper = document.getElementById('alarmSoundUpper');
+        const alarmSoundLower = document.getElementById('alarmSoundLower');
+        const solanaPriceDisplay = document.getElementById('solanaPriceDisplay');
+
+        let tokenSymbol = ''; // Le token saisi par l'utilisateur
+        let targetLowerPrice = 0; // Prix bas saisi par l'utilisateur
+        let targetUpperPrice = 0; // Prix haut saisi par l'utilisateur
+
+        // Écoute l'événement de soumission du formulaire
+        document.getElementById('priceForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Empêche le rechargement de la page
+
+            // Récupère les valeurs saisies par l'utilisateur
+            tokenSymbol = document.getElementById('token').value.toLowerCase();
+            targetLowerPrice = parseFloat(document.getElementById('targetLowerPrice').value);
+            targetUpperPrice = parseFloat(document.getElementById('targetUpperPrice').value);
+
+            // Démarre la surveillance du prix
+            checkSolanaPrice();
+            setInterval(checkSolanaPrice, 10000); // Vérifie le prix toutes les 10 secondes
+        });
+
+        function checkSolanaPrice() {
+            if (!tokenSymbol || !targetLowerPrice || !targetUpperPrice) {
+                console.error('Veuillez saisir un token et des prix valides.');
+                return;
+            }
+
+            fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${tokenSymbol}&vs_currencies=usd`)
+                .then(response => response.json())
+                .then(data => {
+                    const tokenPrice = data[tokenSymbol]?.usd;
+                    if (tokenPrice === undefined) {
+                        console.error(`Token "${tokenSymbol}" non trouvé.`);
+                        solanaPriceDisplay.textContent = `Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.`;
+                        return;
+                    }
+
+                    solanaPriceDisplay.textContent = `${tokenSymbol} : $${tokenPrice.toFixed(8)}`;
+
+                    if (tokenPrice < targetLowerPrice) {
+                        console.log('Le prix est descendu en dessous de la limite inférieure, déclenchement de l\'alarme descendante');
+                        playLowerAlarm();
+                        solanaPriceDisplay.textContent = `👇 ${tokenSymbol} : $${tokenPrice.toFixed(2)}`;
+                        document.body.style.backgroundColor = '#ab9ff2';
+                        document.body.style.color = 'black';
+                    } else if (tokenPrice > targetUpperPrice) {
+                        console.log('Le prix a dépassé la limite supérieure, déclenchement de l\'alarme ascendante');
+                        playUpperAlarm();
+                        solanaPriceDisplay.textContent = `👆 ${tokenSymbol} : $${tokenPrice.toFixed(2)}`;
+                        document.body.style.backgroundColor = '#0ebeff';
+                        document.body.style.color = 'black';
+                    } else {
+                        console.log('Le prix est dans la plage spécifiée');
+                        document.body.style.backgroundColor = '#333';
+                        document.body.style.color = 'white';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération du prix :', error);
+                });
+        }
+
+        function playUpperAlarm() {
+            alarmSoundUpper.play();
+        }
+
+        function playLowerAlarm() {
+            alarmSoundLower.play();
+        }
+        // menu
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+        hamburgerMenu.addEventListener('click', () => {
+            // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
+            Swal.fire({
+                title: 'free Tool',
+                html: '<ul><p><a href="../index.html">Fiboscope</a></p><p><a href="../alarm/index.html">Alarm Crypto</a></p><p><a href="../wallet/index.html">Wallet</a></p><p><a href="../chart-comparator/index.html">Chart comparator</a></p><p><a href="https://medium.com/@gael-berru">Articles</a></p><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
+                showCloseButton: true,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'custom-swal-popup',
+                    closeButton: 'custom-swal-close-button',
+                    content: 'custom-swal-content',
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
