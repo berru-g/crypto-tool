@@ -49,7 +49,12 @@ body {
     /* Empêche le défilement horizontal */
 }
 
-
+i {
+    color: var(--primary-color);
+}
+i:hover {
+    color:grey;
+}
 /* 🟣 Barre de navigation en bas */
 .navbar {
     position: fixed !important;
@@ -69,7 +74,7 @@ body {
 
 /* 🟢 Style des liens */
 .navbar a {
-    color: var(--text-color);
+    color: var(--primary-color);
     text-decoration: none;
     font-size: 12px;
     display: flex;
@@ -80,7 +85,7 @@ body {
 
 /* Ajout d'un effet au survol */
 .navbar a:hover {
-    color: var(--primary-color);
+    color: var(--text-color);
 }
 
 /* 🔵 Icônes des liens */
