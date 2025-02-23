@@ -78,11 +78,14 @@
 
         gtag('config', 'G-Y5GVLEC0TV');
     </script>
+    <script src="momentum.js" defer></script>
+
 </head>
 
 <header>
     <div class="hamburger-menu">
-        <img src="./img/logo.png">
+        <img src="./img/logo.png" alt="Logo de l’app">
+        <span id="momentum-indicator"></span>
     </div>
 
     <!--https://img.icons8.com/?size=100&id=36389&format=png&color=808080-->
@@ -118,7 +121,7 @@
     </div>
     <br>
     <section>
-        <p>Optimisez vos analyses crypto en un clin d'œil 🚀 </p><br>
+        <h2>Optimisez vos analyses crypto en un clin d'œil 🚀 </h2><br>
         <p>Cet outil intuitif simplifie le Retracement de Fibonacci, intègre une Alarme de prix et un Comparateur de
             graphiques. Un wallet all in one est en cours de développement.</p><br>
         <p>Prenez des décisions éclairées et optimisez vos investissements sur le marché crypto.</p>
@@ -142,8 +145,58 @@
         </ul>
 
     </section>
+    <br>
+    <section>
+        <h2>🚀 Momentum Live :</h2>
+        
+        <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance actuelle :</p>
+        <ul>
+            <li>🟢 Bullish,</li>
+            <li>🟠 Ralentissement,</li>
+            <li>🔴 Risque de retournement.</li>
+        </ul><br>
+        <p>Restez toujours informé sans quitter vos outils !</p> 
+    </section>
+    
+    <br>
+    <h2>Heatmap</h2><br>
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow"
+                target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+        <script type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
+                {
+                    "dataSource"; "Crypto",
+                        "blockSize"; "market_cap_calc",
+                            "blockColor"; "change",
+                                "locale"; "en",
+                                    "symbolUrl"; "",
+                                        "colorTheme"; "light",
+                                            "hasTopBar"; false,
+                                                "isDataSetEnabled"; false,
+                                                    "isZoomEnabled"; true,
+                                                        "hasSymbolTooltip"; true,
+                                                            "isMonoSize"; false,
+                                                                "width"; "100%",
+                                                                    "height"; "100%"
+                }
+            </script>
+    </div>
+    <!-- TradingView Widget END -->
+    <br>
+   
+    <section>
+        <div id="partner">
+            <h2>Les données de ce site viennent de:</h2>
+            <img src="img/CoinGecko.png">
+            <img src="img/TradingView.png">
+            <img src="img/Binance.png">
+        </div>
+    </section>
 
-    <!----------------------------FOOTER----------------------------------------->
+    <!----------------------------FOOTER-----<span id="momentum-indicator"></span>------------------------------------>
     <br>
     <nav class="navbar">
         <a href="./fiboscope/index.html"><span><i class="fa-solid fa-chart-line"></i></span>fibo</a>

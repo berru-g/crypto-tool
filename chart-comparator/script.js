@@ -142,3 +142,21 @@ function exportData() {
     a.click();
     URL.revokeObjectURL(url);
 }
+
+//////////////////////////// MENU
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+hamburgerMenu.addEventListener('click', () => {
+    // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
+    Swal.fire({
+        title: 'Cryptool',
+        html: '<ul><p><a href="../index.html">Home</a></p><br><p><a href="https://github.com/berru-g/">Open Source</a></p><br><p><a href="../wallet/index.html">Wallet</a></p><br><p><a href="https://medium.com/@gael-berru">Articles</a></p><br><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
+        showCloseButton: true,
+        showConfirmButton: false,
+        customClass: {
+            popup: 'custom-swal-popup',
+            closeButton: 'custom-swal-close-button',
+            content: 'custom-swal-content',
+        }
+    });
+});
