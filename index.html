@@ -95,8 +95,8 @@
     <button id="themeToggle" class="theme-toggle">Light</button>
     <div id="intro">
         <h1>Crypto tools</h1><br>
-        <button id="installApp" class="start">📲 Installer l’app</button>
-
+        <button id="installApp">Install the app <i class="fa-solid fa-download"></i></button>
+        <!--<button id="installApp" class="start">Install the app <i class="fa-solid fa-download"></i></button>-->
         <script>
             let deferredPrompt;
 
@@ -120,44 +120,35 @@
         </script>
     </div>
     <br>
-    <section>
-        <h2>Optimisez vos analyses crypto en un clin d'œil 🚀 </h2><br>
-        <p>Cet outil intuitif simplifie le Retracement de Fibonacci, intègre une Alarme de prix, un Comparateur de
-            chart et une alerte visuel de momentum. Un wallet all in one est en cours de développement.</p><br>
-        <p>Prenez des décisions éclairées et optimisez vos investissements sur le marché crypto.</p>
-        <br>
-        <p>Ce site et l'app sont open source, vous pouvez accéder au code sur <a
-                href="https://github.com/berru-g/crypto-tool/"><i class="fa-brands fa-github"></i> Github.</a></p>
-        <br>
-        <p style="font-style: italic;">Pour les
-            développeurs qui veulent participer au dev de cette app n'hésitez pas à me contacter. Merci</p>
-        <br>
-        <ul>
-            <li>✅ Si vous souhaitez une <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
-                    target="_blank" rel="noopener">explication sur le retracement de fibonacci</a>.</li>
-            <li>✅ Si vous êtes débutant, lisez cet article, <a
-                    href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
-                    un bon token ?</a></li>
-            <li>🪙 Si cet outil vous est utile et que <a href="https://berru-g.github.io/berru-g/blog/donation.html"
-                    target="_blank" rel="noopener">vous souhaitez faire un don</a>, </li>
-            <li>⚙️ ou <a href="https://savoir-relatif-et-absolu.netlify.app/index.html/#espace-commentaire">une
-                    remarque pour une amélioration</a> du tool.</li>
+    <section id="feature">
+        <h2>🚀 Optimisez vos analyses crypto en un clin d'œil</h2>
+        <p class="subtitle">Simplifiez votre prise de décision avec nos outils innovants :</p>
+
+        <ul class="features-list">
+            <li><span>📈</span> Retracement de Fibonacci</li>
+            <li><span>⏰</span> Alarme de prix</li>
+            <li><span>📊</span> Comparateur de chart</li>
+            <li><span>⚡</span> Alerte visuelle de momentum</li>
         </ul>
 
+        <p class="wallet-info">💡 Un <strong>wallet tout-en-un</strong> est en cours de développement.</p>
+        <p class="cta-text">Prenez des décisions éclairées et optimisez vos investissements sur le marché crypto.</p>
     </section>
+
     <br>
     <section>
         <h2>🚀 Momentum Live :</h2>
-        
-        <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance actuelle :</p>
+        <br>
+        <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance actuelle :
+        </p>
         <ul>
             <li>🟢 Bullish,</li>
             <li>🟠 Ralentissement,</li>
             <li>🔴 Risque de retournement.</li>
         </ul><br>
-        <p>Restez toujours informé sans quitter vos outils !</p> 
+        <a href="#momentum-indicator"><button>voir momentum</button></a>
     </section>
-    
+
     <br>
     <!--<h2>Heatmap</h2><br>
     
@@ -186,26 +177,148 @@
     </div>
      TradingView Widget END -->
     <br>
-   
+
     <section>
         <div id="partner">
             <h2>Les données de ce site viennent de:</h2>
+            <br>
             <img src="img/CoinGecko.png">
             <img src="img/TradingView.png">
             <img src="img/Binance.png">
         </div>
     </section>
+    <br>
+    <section>
+        <h2>Transparence du projet</h2>
+        <br>
+        <p>Ce site et l'app sont open source, vous pouvez accéder au code sur <a
+                href="https://github.com/berru-g/crypto-tool/"><i class="fa-brands fa-github"></i> Github.</a></p>
+        <br>
+        <p style="font-style: italic;">Pour les
+            développeurs qui veulent participer au dev de cette app n'hésitez pas à me contacter. Merci</p>
+        <br>
+        <ul>
+            <li>✅ Si vous souhaitez une <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
+                    target="_blank" rel="noopener">explication sur le retracement de fibonacci</a>.</li>
+            <li>✅ Si vous êtes débutant, lisez cet article, <a
+                    href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
+                    un bon token ?</a></li>
+            <li>🪙 Si cet outil vous est utile et que <a href="https://berru-g.github.io/berru-g/blog/donation.html"
+                    target="_blank" rel="noopener">vous souhaitez faire un don</a>, </li>
+            <li>⚙️ ou <a href="https://savoir-relatif-et-absolu.netlify.app/index.html/#espace-commentaire">une
+                    remarque pour une amélioration</a> du tool.</li>
+        </ul>
+    </section>
 
-    <!----------------------------FOOTER-----<span id="momentum-indicator"></span>------------------------------------>
+    <section id="formulaire">
+        <h2>📩 Contactez-nous</h2>
+        <p class="form-subtitle">Une question, une suggestion ? Envoyez-nous un message !</p>
+
+        <form action="https://formspree.io/f/meoewywl" method="POST">
+            <label for="email"></label>
+            <input type="email" name="email" id="email" placeholder="exemple@email.com" required>
+
+            <label for="message"></label>
+            <textarea name="message" id="message" placeholder="Écrivez votre message ici..." required></textarea>
+
+            <button type="submit">Envoyer <i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </section>
+    <style>
+        #formulaire {
+            background: linear-gradient(135deg, var(--primary-color), #6b5aed);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 30px auto;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .form-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        label {
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: #6b5aed;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        button:hover {
+            background: #e0e0e0;
+            transform: scale(1.05);
+        }
+        
+        /* Animation d'apparition */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+    </style>
+
+
+    <!----------------------------FOOTER-----<a href="https://berru-g.github.io/berru-g/blog/donation.html"><span><i class="fa-solid fa-hand-holding-dollar"></i></span>don</a>------------>
     <br>
     <nav class="navbar">
+
         <a href="./fiboscope/index.html"><span><i class="fa-solid fa-chart-line"></i></span>fibo</a>
         <a href="./alarm/index.html"><span><i class="fa-solid fa-bell"></i></span>alarm</a>
-        <!--<a href="./wallet/index.html"><span>👛</span><br></a>-->
         <a href="./chart-comparator/index.html"><span><i class="fa-solid fa-square-poll-vertical"></i></span>chart</a>
         <a href="https://medium.com/@gael-berru"><span><i class="fa-solid fa-file-lines"></i></span>article</a>
         <a href="./wallet/index.html"><span><i class="fa-solid fa-wallet"></i></span>wallet</a>
-    </nav><!--<i class="fa-solid fa-hand-holding-dollar"></i>-->
+    </nav>
 
     <footer>
         <p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens

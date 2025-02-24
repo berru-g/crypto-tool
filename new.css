@@ -239,7 +239,7 @@ section {
     margin: 1rem auto;
     width: 100%;
     max-width: 950px;
-    border-radius: 25px;
+    border-radius: 12px;
     background-color: var(--input-background);
     transform: translateY(-5px);
     box-shadow: 0 2px 8px var(--shadow-color);
@@ -255,23 +255,81 @@ section {
     /* Animation fluide */
 }
 
-/* Style spécifique pour la section DYOR 
-#dyor {
-    height: 100px;
-    
-}
-
-.arrow {
+#feature {
+    background: linear-gradient(135deg, var(--primary-color), #6b5aed);
+    color: white;
+    padding: 40px 20px;
+    border-radius: 12px;
     text-align: center;
-    font-size: 18px;
-    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    margin: 30px auto;
+    animation: fadeIn 1s ease-in-out;
 }
 
-.deroule {
-    background-color: transparent;
+#feature, h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.features-list li {
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.1);
     padding: 10px;
-    margin-top: 0px;
-}*/
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 500;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.features-list li:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.wallet-info {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.cta-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Style du popup */
 .popup {
     display: none;
@@ -293,7 +351,7 @@ section {
 .popup-content {
     background-color: var(--background-color);
     padding: 20px;
-    border-radius: 25px;
+    border-radius: 12px;
     max-width: 800px;
     /* Largeur maximale pour le contenu */
     width: 90%;
@@ -349,7 +407,7 @@ canvas {
     max-width: 1050px;
     position: relative;
     display: block;
-    border-radius: 25px;
+    border-radius: 12px;
     overflow: hidden;
     background-color: var(--background-color);
 }
@@ -357,7 +415,7 @@ canvas {
 #chart {
     width: 100%;
     max-width: 950px;
-    border-radius: 25px;
+    border-radius: 12px;
     overflow: hidden;
 }
 
@@ -365,7 +423,7 @@ input {
     width: 300px;
     padding: 10px;
     border: 1px solid var(--border-color);
-    border-radius: 25px;
+    border-radius: 12px;
     background-color: var(--input-background);
     color: var(--text-color);
     margin-top: 20px;
@@ -378,7 +436,7 @@ select {
     background-color: var(--secondary-color);
     color: var(--text-color);
     border: 1px solid var(--border-color);
-    border-radius: 25px;
+    border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -403,7 +461,7 @@ button:hover {
 #result {
     margin-top: 20px;
     padding: 20px;
-    border-radius: 25px;
+    border-radius: 12px;
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     width: 100%;
@@ -473,7 +531,7 @@ button:hover {
 .percentage {
     font-weight: bold;
     padding: 5px 10px;
-    border-radius: 25px;
+    border-radius: 12px;
     display: inline-block;
 }
 
@@ -482,7 +540,7 @@ button:hover {
     top: 0px;
     right: 20px;
     padding: 10px 15px;
-    border-radius: 25px;
+    border-radius: 12px;
     cursor: pointer;
     background-color: var(--secondary-color);
     color: var(--text-color);
@@ -545,7 +603,7 @@ a:hover {
 #shareButton {
     background-color: var(--background-color);
     border: none;
-    border-radius: 25px;
+    border-radius: 12px;
     width: 50px;
     height: 50px;
     display: flex;
@@ -569,7 +627,7 @@ a:hover {
     right: 50;
     background-color: white;
     border: 1px solid #ddd;
-    border-radius: 25px;
+    border-radius: 12px;
     box-shadow: 0 4px 8px #0d3b66;
     display: none;
     flex-direction: column;
@@ -587,7 +645,7 @@ a:hover {
     border: none;
 
     color: #333;
-    border-radius: 25px;
+    border-radius: 12px;
     cursor: pointer;
     text-decoration: none;
 }
@@ -606,12 +664,12 @@ a:hover {
     transform: translateY(-5px);
     margin-top: 10px;
     margin-bottom: 20px;
-    border-radius: 25px;
+    border-radius: 12px;
 
 }
 
 img {
-    border-radius: 25px;
+    border-radius: 12px;
 }
 
 /*bulle info scam*/
