@@ -134,7 +134,7 @@ header {
 
 span {
     text-decoration: none;
-    color: grey;
+    color: var(--secondary-color);
 }
 
 #momentum-indicator {
@@ -335,7 +335,7 @@ h2 {
     }
 }
 #crash-detector {
-    background: var(--input-background);
+    background: linear-gradient(135deg, var(--primary-color), #6b5aed);
     color: var(--text-color);
     padding: 20px;
     text-align: center;
@@ -724,8 +724,8 @@ a:hover {
 #pub {
     display: block;
     margin: 0 auto;
-    width: 80%;
-    max-width: 950px;
+    width: 100%;
+    max-width: 600px;
     height: auto;
     transform: translateY(-5px);
     margin-top: 10px;
@@ -735,6 +735,7 @@ a:hover {
 
 img {
     border-radius: 12px;
+    max-width: 600px;
 }
 
 /*bulle info scam*/

@@ -20,15 +20,15 @@
     <link rel="shortcut icon" href="./img/logo.png" />
     <link rel="apple-touch-icon" href="./img/logo.png" />
     <meta name="description"
-        content="Discover crypto-free-tools, the ultimate platform to analyze the potential of crypto tokens with the Fiboscope based on the Fibonacci retracement, compare crypto charts, and set up price alarms.">
+        content="Découvrez crypto-free-tools, la plateforme ultime pour analyser le potentiel des crypto tokens avec des tools basé sur le retracement de Fibonacci, un comparateur de chart, une alarmes de prix, des notif de moyenne mobil et bien plus..">
     <meta name="keywords"
-        content="comparateur de chart crypto, momentum alarme, Fibonacci retracement, Fiboscope, crypto price alarm, crypto price alarm, crypto charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
+        content="comparateur de chart crypto, momentum alarme, Fibonacci retracement, Fiboscope, moyenne mobil notif, crypto price alarm, multi charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
     <meta name="author" content="Gael Berru.">
     <meta name="robots" content="noai">
     <!-- Balises Open Graph pour les réseaux sociaux -->
     <meta property="og:title" content="crypto-free-tools">
     <meta property="og:description"
-        content="Analyze token potential, activate an alarm, compare charts. Discover tokens with the lowest percentage of their maximum capacity, with high growth potential. Ideal tool during the bear market.">
+        content="Analysez le potentiel des tokens, activez une alarme, comparez les charts de plusieurs crypto, activez des notif de moyenne mobil et plus encore. Outil idéal pendant le marché baissier.">
     <meta property="og:type" content="tool">
     <meta property="og:url" content="https://crypto-free-tools.netlify.app">
     <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
@@ -153,10 +153,11 @@
             simplifier votre prise de décision.</p>
 
         <ul class="features-list">
-            <li><span><i class="fa-solid fa-chart-line"></i></span> Retracement de Fibonacci</li>
-            <li><span><i class="fa-solid fa-bell"></i></span> Alarme de prix</li>
-            <li><span><i class="fa-solid fa-square-poll-vertical"></i></span> Comparateur de chart</li>
-            <li><span>🟢</span> Alerte visuelle de momentum</li>
+            <li><span></span> Retracement de Fibonacci</li>
+            <li><span></span> Alarme de prix</li>
+            <li><span></span> Comparateur de chart</li>
+            <li><span></span> Alerte visuelle de momentum</li>
+            <li><span></span> Notif MA50/200</li>
         </ul>
 
         <p class="wallet-info">💡 Un <strong>wallet tout-en-un</strong> est en cours de développement.</p>
@@ -170,30 +171,39 @@
         <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance actuelle :
         </p><br>
         <ul>
-            <li>🟢 Bullish,</li>
-            <li>🟠 Ralentissement,</li>
-            <li>🔴 Risque de retournement.</li>
+            <p>🟢 Bullish,</p>
+            <p>🟠 Ralentissement,</p>
+            <p>🔴 Risque de retournement.</p>
         </ul><br>
         <a href="#momentum-indicator"><button>voir momentum</button></a>
     </section>
 
     <br>
     <section id="crash-detector">
-        <h2>Détecteur de Crash Crypto</h2>
+        <h2>Détecteur de Crash/Pump BTC</h2>
         <p>Suivez l’évolution des moyennes mobiles pour anticiper les gros mouvements.</p>
-    
+        <br>
+        <p><strong>Pourquoi utiliser MA50 et MA200 ?</strong></p>
+        <br>
+        <p>Ce sont les deux indicateurs les plus utilisés en trading pour repérer un changement de tendance majeur.
+        </p><br>
+        <ul>
+            <p>Death Cross (MA50 passe sous MA200) = 📉</p>
+            <p>Golden Cross (MA50 passe au-dessus de MA200) = 📈</p>
+        </ul>
+        <br>
         <div class="ma-values">
             <p><strong>MA50 :</strong> <span id="ma50">⏳</span> $</p>
             <p><strong>MA200 :</strong> <span id="ma200">⏳</span> $</p>
         </div>
-    
+
         <div id="alert-box" class="hidden">
             ⚠ <strong>Alerte :</strong> Death Cross détecté ! Risque de chute du marché !
         </div>
-    
+        <br>
         <button onclick="requestPushPermission()">🔔 Activer les notifications</button>
     </section>
-    
+
     <!--<h2>Heatmap</h2><br>
     
     <div class="tradingview-widget-container">
@@ -281,7 +291,7 @@
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 950px;
+            max-width: 600px;
             margin: 30px auto;
             animation: fadeIn 1s ease-in-out;
         }
