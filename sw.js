@@ -35,3 +35,13 @@ self.addEventListener("fetch", (event) => {
   console.log("Intercepté :", event.request.url);
 });
 */
+self.addEventListener('push', function(event) {
+  const options = {
+      body: event.data.text(),
+      icon: '/logo.png',
+      badge: '/badge.png'
+  };
+  event.waitUntil(
+      self.registration.showNotification('Crypto Alert', options)
+  );
+});

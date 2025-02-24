@@ -92,6 +92,27 @@
 </header>
 
 <body>
+    <!--<div class="hub">
+        <span>Crypto</span>
+        <span>Tool</span>
+    </div>
+    <p>Mieux vaut investir sur son avenir que… perdre son temps ailleurs.</p>
+
+    <button class="theme-switcher" onclick="switchTheme()">Changer de style</button>
+
+    <link id="theme-css" rel="stylesheet" href="new.css"> 
+    <script>
+        function switchTheme() {
+            let themeLink = document.getElementById("theme-css");
+            if (themeLink.getAttribute("href") === "new.css") {
+                themeLink.setAttribute("href", "hub.css");
+            } else {
+                themeLink.setAttribute("href", "new.css");
+            }
+        }
+
+    </script>-->
+
     <button id="themeToggle" class="theme-toggle">Light</button>
     <div id="intro">
         <h1>Crypto tools</h1><br>
@@ -143,7 +164,7 @@
     </section>
 
     <br>
-    <section>
+    <section id="crash-detector">
         <h2>🚀 Momentum Live :</h2>
         <br>
         <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance actuelle :
@@ -157,6 +178,22 @@
     </section>
 
     <br>
+    <section id="crash-detector">
+        <h2>Détecteur de Crash Crypto</h2>
+        <p>Suivez l’évolution des moyennes mobiles pour anticiper les gros mouvements.</p>
+    
+        <div class="ma-values">
+            <p><strong>MA50 :</strong> <span id="ma50">⏳</span> $</p>
+            <p><strong>MA200 :</strong> <span id="ma200">⏳</span> $</p>
+        </div>
+    
+        <div id="alert-box" class="hidden">
+            ⚠ <strong>Alerte :</strong> Death Cross détecté ! Risque de chute du marché !
+        </div>
+    
+        <button onclick="requestPushPermission()">🔔 Activer les notifications</button>
+    </section>
+    
     <!--<h2>Heatmap</h2><br>
     
     <div class="tradingview-widget-container">
@@ -372,6 +409,7 @@
     <!--<div id="splash-screen">🌐<h5>crypto-free-tools &copy; 2025 | tool by <a
                 href="https://github.com/berru-g/">berru-g</a></div>-->
     <script src="new.js"></script>
+    <script src="MA50.js"></script>
 </body>
 
 </html>

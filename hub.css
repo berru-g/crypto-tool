@@ -1,0 +1,54 @@
+        /* CryptoHub Theme - Style Noir et Orange */
+        :root {
+            --primary-color: #000;
+            --secondary-color: #ff9800;
+            --text-color: #fff;
+            --button-hover: #e68900;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        /* Logo en pur CSS */
+        .hub {
+            font-size: 32px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin: 20px;
+        }
+
+        .hub span:first-child {
+            color: white;
+        }
+
+        .hub span:last-child {
+            background-color: var(--secondary-color);
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* Bouton de changement de thème */
+        .theme-switcher {
+            background-color: var(--secondary-color);
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .theme-switcher:hover {
+            background-color: var(--button-hover);
+        }
