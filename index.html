@@ -120,15 +120,21 @@
         </script>
     </div>
     <br>
+    <section>
+    <script src="https://widgets.coingecko.com/gecko-coin-list-widget.js"></script>
+    <gecko-coin-list-widget locale="en" transparent-background="true" coin-ids=""
+        initial-currency="usd"></gecko-coin-list-widget>
+    </section>
+    <br>
     <section id="feature">
-        <h2>🚀 Optimisez vos analyses crypto en un clin d'œil</h2>
-        <p class="subtitle">Simplifiez votre prise de décision avec nos outils innovants :</p>
+        <h2>Crypto tool c'est quoi ?</h2>
+        <p class="subtitle">Crée pour optimiser vos analyses crypto et réduire les risques avec des outils pour simplifier votre prise de décision.</p>
 
         <ul class="features-list">
-            <li><span>📈</span> Retracement de Fibonacci</li>
-            <li><span>⏰</span> Alarme de prix</li>
-            <li><span>📊</span> Comparateur de chart</li>
-            <li><span>⚡</span> Alerte visuelle de momentum</li>
+            <li><span><i class="fa-solid fa-chart-line"></i></span> Retracement de Fibonacci</li>
+            <li><span><i class="fa-solid fa-bell"></i></span> Alarme de prix</li>
+            <li><span><i class="fa-solid fa-square-poll-vertical"></i></span> Comparateur de chart</li>
+            <li><span>🟢</span> Alerte visuelle de momentum</li>
         </ul>
 
         <p class="wallet-info">💡 Un <strong>wallet tout-en-un</strong> est en cours de développement.</p>
@@ -140,7 +146,7 @@
         <h2>🚀 Momentum Live :</h2>
         <br>
         <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance actuelle :
-        </p>
+        </p><br>
         <ul>
             <li>🟢 Bullish,</li>
             <li>🟠 Ralentissement,</li>
@@ -232,30 +238,31 @@
             border-radius: 12px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
+            max-width: 950px;
             margin: 30px auto;
             animation: fadeIn 1s ease-in-out;
         }
-        
+
         .form-subtitle {
             font-size: 16px;
             opacity: 0.9;
             margin-bottom: 20px;
         }
-        
+
         form {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
+
         label {
             font-size: 16px;
             font-weight: 500;
             text-align: left;
         }
-        
-        input, textarea {
+
+        input,
+        textarea {
             width: 100%;
             padding: 12px;
             border: none;
@@ -265,18 +272,19 @@
             background: rgba(255, 255, 255, 0.1);
             transition: background 0.3s, transform 0.2s;
         }
-        
-        input:focus, textarea:focus {
+
+        input:focus,
+        textarea:focus {
             outline: none;
             background: rgba(255, 255, 255, 0.2);
             transform: scale(1.02);
         }
-        
+
         textarea {
             min-height: 120px;
             resize: vertical;
         }
-        
+
         button {
             padding: 12px;
             border: none;
@@ -288,24 +296,24 @@
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
         }
-        
+
         button:hover {
             background: #e0e0e0;
             transform: scale(1.05);
         }
-        
+
         /* Animation d'apparition */
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
     </style>
 
 

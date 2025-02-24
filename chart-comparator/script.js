@@ -74,6 +74,8 @@ function updateChart() {
                     borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
                     borderDash: [5, 5],
                     fill: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
                 }
             ]).flat(),
         },
