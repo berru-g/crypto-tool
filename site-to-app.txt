@@ -89,3 +89,5 @@ Après avoir mis en place ces éléments :
     Vérifier que l'application peut être installée sur un appareil mobile et qu'elle fonctionne hors ligne.
 
 En suivant ces étapes, tu pourras transformer ton site FiboScope en une Progressive Web App, offrant une expérience utilisateur améliorée et des fonctionnalités proches d'une application native.
+
+/// Notif RWA sur l'app meme fermé = MA50.js

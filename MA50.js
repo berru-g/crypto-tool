@@ -36,11 +36,7 @@ async function detectCross() {
         triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "https://www.myinstants.com/media/sounds/tactical-nuke.mp3");
     } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
         triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
-    }/*
-    if (true) {  // Forcer l'alerte pour tester
-        triggerAlert("Test Notification - Golden Cross Détecté ! 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
-    }*/
-
+    }
 }
 
 function triggerAlert(message, color, soundUrl) {
@@ -61,6 +57,11 @@ function triggerAlert(message, color, soundUrl) {
 
     // Notification push persistante
     sendPushNotification(message);
+
+    // Ajout d'une notification persistante sur l'icône de l'app (si supporté)
+    if ('setAppBadge' in navigator) {
+        navigator.setAppBadge(1);
+    }
 }
 
 async function sendPushNotification(message) {
@@ -101,13 +102,19 @@ async function requestPushPermission() {
     }
 }
 
-
 // Vérifie les MAs toutes les 5 minutes
 setInterval(detectCross, 300000);
 
-// notif sur le badge de l'app même si elle est fermé :)
+// Lancer la détection au chargement
 detectCross();
 
-if ('setAppBadge' in navigator) {
-    navigator.setAppBadge(1); // Affiche un badge (ex: 1 alerte)
-}
+
+/*
+    if ('setAppBadge' in navigator) {
+        navigator.setAppBadge(1); // Affiche un badge rouge sur l’icône PWA installée
+    }
+    
+    
+    if (true) {  // Forcer l'alerte pour tester
+        triggerAlert("Test Notification - Golden Cross Détecté ! 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
+    }*/
