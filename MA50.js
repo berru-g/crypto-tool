@@ -36,14 +36,15 @@ async function detectCross() {
         triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "./img/notif.mp3");
     } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
         triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
-    }/*
+    }
+    
     if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
         triggerAlert("Test Notification  🔔", "blue", "./img/notif.mp3");
         alert("Test Notification  🔔");
         navigator.setAppBadge(1);
-    }*/
+    }
+    
 }
-
 
 function triggerAlert(message, color, soundUrl) {
     let alertBox = document.getElementById("alert-box");
@@ -71,29 +72,31 @@ function triggerAlert(message, color, soundUrl) {
     } else {
         console.warn("🚫 API Badging non supportée sur ce device.");
     }
-
 }
 
 async function sendPushNotification(message) {
     console.log("📢 Tentative d'envoi d'une notification push...");
 
-    const registration = await navigator.serviceWorker.getRegistration();
-    if (registration) {
-        console.log("✅ Service Worker trouvé, envoi de la notification...");
+    try {
+        const registration = await navigator.serviceWorker.ready;
+        if (registration) {
+            console.log("✅ Service Worker trouvé, envoi de la notification...");
 
-        registration.showNotification("Crypto Alert 🚨", {
-            body: message,
-            icon: "img/logo.png",
-            badge: "img/badge.png",
-            requireInteraction: true, // La notif reste affichée jusqu’à action
-            vibrate: [200, 100, 200], // Vibration pour mobile
-            actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
-        });
-    } else {
-        console.error("❌ Aucun Service Worker trouvé, notification annulée.");
+            registration.showNotification("Crypto Alert 🚨", {
+                body: message,
+                icon: "img/logo.png",
+                badge: "img/badge.png",
+                requireInteraction: true, // La notif reste affichée jusqu’à action
+                vibrate: [200, 100, 200], // Vibration pour mobile
+                actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
+            });
+        } else {
+            console.error("❌ Aucun Service Worker trouvé, notification annulée.");
+        }
+    } catch (error) {
+        console.error("❌ Erreur lors de l'envoi de la notification :", error);
     }
 }
-
 
 async function requestPushPermission() {
     console.log("🔔 Tentative d'activation des notifications...");

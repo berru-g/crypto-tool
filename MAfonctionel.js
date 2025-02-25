@@ -33,12 +33,14 @@ async function detectCross() {
     let prevMA200 = ma200[ma200.length - 2];
 
     if (lastMA50 < lastMA200 && prevMA50 > prevMA200) {
-        triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "https://www.myinstants.com/media/sounds/tactical-nuke.mp3");
+        triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "./img/notif.mp3");
     } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
-        triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
+        triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
     }/*
     if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
-        triggerAlert("Test Notification - Golden Cross Détecté ! 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
+        triggerAlert("Test Notification  🔔", "blue", "./img/notif.mp3");
+        alert("Test Notification  🔔");
+        navigator.setAppBadge(1);
     }*/
 }
 
@@ -64,20 +66,34 @@ function triggerAlert(message, color, soundUrl) {
 
     // Ajout d'une notification persistante sur l'icône de l'app (si supporté)
     if ('setAppBadge' in navigator) {
+        console.log("🔴 Ajout du badge sur l'icône de l'App...");
         navigator.setAppBadge(1);
+    } else {
+        console.warn("🚫 API Badging non supportée sur ce device.");
     }
+
 }
 
 async function sendPushNotification(message) {
+    console.log("📢 Tentative d'envoi d'une notification push...");
+
     const registration = await navigator.serviceWorker.getRegistration();
     if (registration) {
+        console.log("✅ Service Worker trouvé, envoi de la notification...");
+
         registration.showNotification("Crypto Alert 🚨", {
             body: message,
             icon: "img/logo.png",
-            badge: "img/badge.png"
+            badge: "img/badge.png",
+            requireInteraction: true, // La notif reste affichée jusqu’à action
+            vibrate: [200, 100, 200], // Vibration pour mobile
+            actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
         });
+    } else {
+        console.error("❌ Aucun Service Worker trouvé, notification annulée.");
     }
 }
+
 
 async function requestPushPermission() {
     console.log("🔔 Tentative d'activation des notifications...");
