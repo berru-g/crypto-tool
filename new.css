@@ -338,7 +338,6 @@ h2 {
     background: linear-gradient(135deg, var(--primary-color), #6b5aed);
     color: var(--text-color);
     padding: 20px;
-    text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     max-width: 600px;
     margin: 30px auto;
