@@ -31,15 +31,15 @@ async function detectCross() {
     let lastMA200 = ma200[ma200.length - 1];
     let prevMA50 = ma50[ma50.length - 2];
     let prevMA200 = ma200[ma200.length - 2];
-/*
+
     if (lastMA50 < lastMA200 && prevMA50 > prevMA200) {
         triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "https://www.myinstants.com/media/sounds/tactical-nuke.mp3");
     } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
         triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
-    }*/
+    }  /*
         if (true) {  // Forcer l'alerte pour tester
             triggerAlert("Test Notification - Golden Cross Détecté ! 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
-        }
+        }*/
 }
 
 
