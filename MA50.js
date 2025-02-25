@@ -112,7 +112,14 @@ setInterval(detectCross, 10800000);
 // Lancer la détection au chargement
 detectCross();
 
-// Afficher l'historique des alertes au chargement
+// Affichage de la dernière alerte en haut de l'application
+function displayAlertHistory(message, color) {
+    let alertHistory = document.getElementById("alert-history");
+    alertHistory.innerHTML = `<p style='background:${color}; color:white; padding:10px; text-align:center; font-weight:bold; padding:10px;'>⚠ ${message}</p>`;
+    alertHistory.style.display = "block";
+}
+
+// Vérifier si une alerte doit être affichée au chargement
 window.onload = function() {
     let alertHistory = document.getElementById("alert-history");
     if (alertHistory.innerHTML.trim() !== "") {
