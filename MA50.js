@@ -102,8 +102,8 @@ async function requestPushPermission() {
     }
 }
 
-// Vérifie les MAs toutes les 5 minutes
-setInterval(detectCross, 300000);
+// Vérifie les MAs toutes les 3h
+setInterval(detectCross, 10800000);
 
 // Lancer la détection au chargement
 detectCross();
