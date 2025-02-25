@@ -41,15 +41,6 @@ async function detectCross() {
             triggerAlert("Test Notification - Golden Cross Détecté ! 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
         }
 }
-detectCross();
-
-// Afficher l'historique des alertes au chargement
-window.onload = function() {
-    let alertHistory = document.getElementById("alert-history");
-    if (alertHistory.innerHTML.trim() !== "") {
-        alertHistory.style.display = "block";
-    }
-};
 
 
 function triggerAlert(message, color, soundUrl) {
@@ -120,6 +111,15 @@ setInterval(detectCross, 10800000);
 
 // Lancer la détection au chargement
 detectCross();
+
+// Afficher l'historique des alertes au chargement
+window.onload = function() {
+    let alertHistory = document.getElementById("alert-history");
+    if (alertHistory.innerHTML.trim() !== "") {
+        alertHistory.style.display = "block";
+    }
+};
+
 
 
 /*
