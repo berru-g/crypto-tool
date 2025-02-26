@@ -16,7 +16,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crypto free tools analyse MA, chart and more</title>
+    <title>Crypto Free Tools - Analyse Fibonacci, MA et Comparateur de Charts</title>
     <link rel="shortcut icon" href="./img/logo.png" />
     <link rel="apple-touch-icon" href="./img/logo.png" />
     <meta name="description"
@@ -26,11 +26,12 @@
     <meta name="author" content="Gael Berru.">
     <meta name="robots" content="noai">
     <!-- Balises Open Graph pour les réseaux sociaux -->
-    <meta property="og:title" content="crypto-free-tools">
-    <meta property="og:description"
-        content="Analysez le potentiel des tokens, Recevoir des notif des moyennes mobiles pour anticiper les gros mouvements, comparez les charts de plusieurs crypto, activez des notif de moyenne mobil et plus encore.">
-    <meta property="og:type" content="tool">
+    <meta property="og:title" content="Crypto Free Tools - Analyse Fibonacci, MA et Comparateur de Charts">
+    <meta property="og:description" content="Optimisez vos analyses crypto avec des outils gratuits et intuitifs.">
+    <meta property="og:image" content="https://crypto-free-tools.netlify.app/img/logo.png">
     <meta property="og:url" content="https://crypto-free-tools.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="tool">
     <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
     <link rel="manifest" href="/manifest.json">
 
@@ -55,11 +56,11 @@
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "Crypto Free Tools",
-          "url": "https://www.crypto-free-tools.netlify.app",
-          "description": "Cryptocurrency analysis platform offering tools like the Fibonacci retracement-based Fiboscope, chart comparators, and price alarms for investors.",
+          "url": "https://crypto-free-tools.netlify.app",
+          "description": "Outils gratuits pour l'analyse crypto : Fibonacci, alarmes de prix, comparateur de charts et notifications de moyennes mobiles.",
           "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://www.crypto-free-tools.netlify.app/search?q={search_term_string}",
+            "target": "https://crypto-free-tools.netlify.app/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
           }
         }
@@ -81,7 +82,7 @@
         <img src="./img/logo.png" alt="Logo de l’app">
         <span id="momentum-indicator"></span>
     </div>
-        <button id="themeToggle" class="theme-toggle"></button>
+    <button id="themeToggle" class="theme-toggle"></button>
     <!--https://img.icons8.com/?size=100&id=36389&format=png&color=808080-->
 </header>
 
@@ -189,11 +190,17 @@
     <br>
     <section>
         <div id="partner">
-            <p>Les données de ce site viennent de:</p>
+            <p>Les données viennent de:</p>
             <br>
-            <img src="https://github.com/berru-g/crypto-tool/blob/main/img/CoinGecko.png?raw=true">
-            <img src="https://github.com/berru-g/crypto-tool/blob/main/img/TradingView.png?raw=true">
-            <img src="https://github.com/berru-g/crypto-tool/blob/main/img/Binance.png?raw=true">
+            <a href="https://www.coingecko.com"><img
+                    src="https://github.com/berru-g/crypto-tool/blob/main/img/CoinGecko.png?raw=true"
+                    alt="coingecko API"></a>
+            <a href="https://www.tradingview.com/"><img
+                    src="https://github.com/berru-g/crypto-tool/blob/main/img/TradingView.png?raw=true"
+                    alt="tradingview API"></a>
+            <a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
+                target="_blank"><img src="https://github.com/berru-g/crypto-tool/blob/main/img/Binance.png?raw=true"
+                    alt="Binance API"></a>
         </div>
     </section>
     <br>
@@ -207,16 +214,16 @@
             développeurs qui veulent participer au dev de cette app n'hésitez pas à me contacter. Merci</p>
         <br>
         <ul>
-            <li>✅ Si vous souhaitez une <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
-                    target="_blank" rel="noopener">explication sur le retracement de fibonacci</a>.</li>
+            <li>✅ Si vous souhaitez des explications sur le retracement de fibonacci <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
+                    target="_blank" rel="noopener">medium.com</a>.</li><br>
             <li>✅ Si vous êtes débutant, lisez cet article, <a
                     href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
-                    un bon token ?</a></li>
+                    un bon token ?</a></li><br>
             <li>✅ Lire la checklist de<a
                     href="https://medium.com/@gael-berru/checklist-de-v%C3%A9rification-dun-airdrop-anti-scam-5e12ec55ca53">
-                    vérification d'un AIRDROP antiscam</a>.</li>
+                    vérification d'un AIRDROP antiscam</a>.</li><br>
             <li>🪙 Si cet outil vous est utile et que <a href="https://berru-g.github.io/berru-g/blog/donation.html"
-                    target="_blank" rel="noopener">vous souhaitez faire un don</a>, </li>
+                    target="_blank" rel="noopener">vous souhaitez faire un don</a>, </li><br>
             <li>⚙️ ou <a href="https://savoir-relatif-et-absolu.netlify.app/index.html/#espace-commentaire">une
                     remarque pour une amélioration</a> du tool. ⬇️</li>
         </ul>
@@ -244,10 +251,10 @@
     <br>
     <nav class="navbar">
         <a href="index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
-        <a href="./fiboscope/index.html"><span><i class="fa-solid fa-chart-line"></i></span>fibo</a>
+        <a href="./fibonacci/index.html"><span><i class="fa-solid fa-chart-line"></i></span>fibo</a>
         <a href="./alarm/index.html"><span><i class="fa-solid fa-bell"></i></span>alarm</a>
         <a href="./chart-comparator/index.html"><span><i class="fa-solid fa-square-poll-vertical"></i></span>chart</a>
-        <a href="https://medium.com/@gael-berru"><span><i class="fa-solid fa-file-lines"></i></span>article</a>
+        <a href="https://medium.com/@gael-berru"><span><i class="fa-solid fa-file-lines"></i></span>articles</a>
         <!--<a href="./wallet/index.html"><span><i class="fa-solid fa-wallet"></i></span>wallet</a>-->
     </nav>
     <footer>

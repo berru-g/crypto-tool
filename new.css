@@ -1,20 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
 
 :root {
-    --background-color: #0f0f0f; /* Fond sombre */
-    --text-color: #e0e0e0; /* Texte clair */
-    --titre-color: grey;
-    --primary-color: #ab9ff2; /* Couleur principale (violet) */
-    --secondary-color: #1a1a1a; /* Arrière-plan des sections */
-    --border-color: #30363d; /* Bordures discrètes */
-    --shadow-color: rgba(0, 0, 0, 0.2); /* Ombres douces */
-    --input-background: #222; /* Arrière-plan des inputs */
-    --accent-color: #58a6ff; /* Couleur d'accent (bleu) */
-    --success-color: #00cc66; /* Vert pour les indicateurs positifs */
-    --error-color: #ff4444; /* Rouge pour les erreurs */
-}
-
-body.light-mode {
     --background-color: #f1f1f1;
     --text-color: #000000;
     --titre-color: grey;
@@ -26,6 +12,30 @@ body.light-mode {
     --accent-color: #2575fc;
     --success-color: #00cc66;
     --error-color: #ff4444;
+}
+
+body.light-mode {
+    --background-color: #0f0f0f;
+    /* Fond sombre */
+    --text-color: #e0e0e0;
+    /* Texte clair */
+    --titre-color: grey;
+    --primary-color: #ab9ff2;
+    /* Couleur principale (violet) */
+    --secondary-color: #1a1a1a;
+    /* Arrière-plan des sections */
+    --border-color: #30363d;
+    /* Bordures discrètes */
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    /* Ombres douces */
+    --input-background: #222;
+    /* Arrière-plan des inputs */
+    --accent-color: #58a6ff;
+    /* Couleur d'accent (bleu) */
+    --success-color: #00cc66;
+    /* Vert pour les indicateurs positifs */
+    --error-color: #ff4444;
+    /* Rouge pour les erreurs */
 }
 
 /* Simple CSS Reset */
@@ -69,10 +79,10 @@ header {
 }
 
 header img {
-  position: fixed;
+    position: fixed;
     top: 20px;
     height: 40px;
-  border-radius: 12px;
+    border-radius: 12px;
 }
 
 #momentum-indicator {
@@ -94,7 +104,7 @@ header img {
     top: 20px;
     right: 20px;
     color: var(--primary-color);
-  background-color: transparent;
+    background-color: transparent;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -105,11 +115,17 @@ header img {
 .theme-toggle:hover {
     border: 2px solid var(--primary-color);
 }
+
 a {
-  color: var(--primary-color);
-  text-decoration: none;
+    color: var(--primary-color);
+    text-decoration: none;
 }
-a:hover{color:grey;transform: scale(1.05);}
+
+a:hover {
+    color: grey;
+    transform: scale(1.05);
+}
+
 /* Intro Section */
 #intro {
     text-align: center;
@@ -138,7 +154,8 @@ section {
 
 #features {
     padding: 60px 20px;
-    background-color: var(--secondary-color);;
+    background-color: var(--secondary-color);
+    ;
 }
 
 #features h2 {
@@ -176,9 +193,11 @@ section {
 .feature-card p {
     color: var(--text-color);
 }
-#crash-detector{
-  background-color: var(--background-color);
+
+#crash-detector {
+    background-color: var(--background-color);
 }
+
 /* MA Values */
 .ma-values {
     display: flex;
@@ -215,8 +234,9 @@ section {
 #partner img:hover {
     transform: scale(1.05);
 }
+
 #pub {
-  display: block;
+    display: block;
     margin: 0 auto;
     width: 95%;
     max-width: 600px;
@@ -225,6 +245,7 @@ section {
     margin-bottom: 20px;
     border-radius: 12px;
 }
+
 /* Formulaire de Contact */
 #formulaire {
     background: var(--secondary-color);
@@ -257,6 +278,7 @@ input {
     color: var(--text-color);
     margin-top: 20px;
 }
+
 select {
     padding: 10px 20px;
     margin-top: 20px;
@@ -281,8 +303,8 @@ button {
 
 button:hover {
     background-color: transparent;
-  color: var(--primary-color);
-  transform: scale(1.05);
+    color: var(--primary-color);
+    transform: scale(1.05);
 }
 
 #alert-box {
@@ -383,6 +405,7 @@ canvas {
     margin: 20px 20px;
     display: block;
 }
+
 #cryptoChart {
     width: 100%;
     max-width: 1050px;
@@ -394,6 +417,7 @@ canvas {
     overflow: hidden;
     background-color: var(--background-color);
 }
+
 @media (max-width: 768px) {
     #cryptoChart {
         /* Augmenter la hauteur sur les petits écrans */
