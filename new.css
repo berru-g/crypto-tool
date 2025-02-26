@@ -87,7 +87,7 @@ header img {
 
 #momentum-indicator {
     position: absolute;
-    top: 15px;
+    top: 20px;
     left: 40px;
     width: 12px;
     height: 12px;
@@ -155,7 +155,7 @@ section {
 #features {
     padding: 60px 20px;
     background-color: var(--secondary-color);
-    ;
+    
 }
 
 #features h2 {
@@ -177,6 +177,10 @@ section {
     text-align: center;
     border: 1px solid var(--border-color);
     box-shadow: 0 2px 10px var(--shadow-color);
+    animation: fadeIn 1s ease-in-out;
+}
+.feature-card:hover {
+    transform: scale(1.01);
 }
 
 .feature-card i {
@@ -299,6 +303,7 @@ button {
     border-radius: 12px;
     font-size: 1em;
     transition: background-color 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
 }
 
 button:hover {
@@ -323,9 +328,9 @@ button:hover {
 /* Alerte visuelle sur le logo */
 .logo-alert {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    background: red;
+    top: 15px;
+    right: 20px;
+    background: rgb(242, 61, 61);
     color: white;
     border-radius: 50%;
     width: 15px;
