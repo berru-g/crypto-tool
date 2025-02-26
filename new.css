@@ -500,7 +500,7 @@ canvas {
 }
 
 input {
-    width: 300px;
+    width: 200px;
     padding: 10px;
     border: 1px solid var(--border-color);
     border-radius: 12px;
