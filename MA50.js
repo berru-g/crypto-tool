@@ -37,12 +37,12 @@ async function detectCross() {
     } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
         triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
     }
-    
+    /*
     if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
         triggerAlert("Test Notification  🔔", "blue", "./img/notif.mp3");
         alert("Test Notification  🔔");
         navigator.setAppBadge(1);
-    }
+    }*/
     
 }
 
