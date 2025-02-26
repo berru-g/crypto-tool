@@ -86,34 +86,30 @@
         <img src="../img/logo.png" alt="Logo de l’app">
         <span id="momentum-indicator"></span>
     </div>
-    <h1>Cryptools</h1>
-    <!--https://img.icons8.com/?size=100&id=36389&format=png&color=808080-->
+        <button id="themeToggle" class="theme-toggle"></button>
 </header>
-
 <body>
-    <button id="themeToggle" class="theme-toggle">Light</button>
-
     <br>
-    <!--------------------FIBOSCOPE--------------------------------->
-    <h2>FiboScope</h2>
+    <div id="intro">
+        <h1>FiboScope</h1>
+    </div>
+    <br>
     <section>
-        <!--<div id="language-selector">
-            <a href="/fr/">🇫🇷 </a> | <a href="/en/">🇬🇧 </a>
-        </div>-->
+        <br>
         <p>Cet outil s'inspire du célèbre indicateur professionnel Fibonacci Retracement.
             Initialement conçu pour identifier les zones de cassure et les tendances sur les marchés financiers, il est
             ici
             détourné pour mesurer la performance potentiel d’un token.</p>
-
-        <p><strong>Que fait cet outils ?</strong></p>
+        <br>
+        <p><strong>Que fait cet outils ?</strong></p><br>
         <p>Il récupère le plus bas (ATL) et plus haut historique (ATH) d'un token ainsi que son prix
-            actuel, puis calcul en pourcentage son niveau par rapport à sa capacité maximal (ATH).</p>
-        <p><strong>Exemple:</strong></p>
+            actuel, puis calcul en pourcentage son niveau par rapport à sa capacité maximal (ATH).</p><br>
+        <p><strong>Exemple:</strong></p><br>
         <p>Une réponse de 20% indique que le
             token recherché est à 20% de son prix max, donc que son potentiel de croissance est de 80% ( apriori un bon
             investissement ) <strong>ℹ️ <a href="#dyor" class="open-popup">Disclaimer </a>*</strong></p>
         <br>
-        <h3>Entrez le nom d'un token et découvrez son potentiel de performance :</h3>
+        <h3>Entrez le nom d'un token et découvrez son potentiel de performance :</h3><br>
         <ul>
             <li style='color: #3b82f6;'>00 à 25% : opportunité | potentiel x4 sur investissement</li>
             <li style='color: #34d399;'>25 à 50% : opportunité | potentiel x2</li>
@@ -121,12 +117,13 @@
             <li style='color: #ff4d4d;'>75 à 100%: Capacité maximal <span style="color:grey">, fortement
                     déconseillé</span></li>
         </ul>
-
+        <br>
     </section>
     <br>
     <h2 id="fibonacci"><i class="fa-solid fa-arrow-down"></i></h2>
     <br>
     <input type="text" id="token" placeholder="Nom du token (ex: bitcoin, render-token)">
+    <br>
     <button id="calculate">Calculer</button>
     <div id="result"></div>
     <br>
@@ -207,37 +204,7 @@
     </nav>
 
     <footer>
-        <!--<p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
-            d'affiliation.</p>
-        <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
-        <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
 
-        <div class="footer-content">
-            <div class="footer-section links">
-                <h3>Offres</h3>
-                <ul>
-                    <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
-                            target="_blank">Binance</a></li>
-                    <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
-                    </li>
-
-                    <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
-                            target="_blank">Mysterium network</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-section links">
-                <h3>Libre acces</h3>
-                <ul>
-                    <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
-                    <li><a href="https://medium.com/@gael-berru">Articles</a></li>
-                    <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
-                </ul>
-            </div>
-        </div>
-        <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 | tool by <a
-                href="https://github.com/berru-g/">berru-g</a>
-        </h5>-->
     </footer>
     <!--<div id="splash-screen">🌐<h5>crypto-free-tools &copy; 2025 | tool by <a
                 href="https://github.com/berru-g/">berru-g</a></div>-->

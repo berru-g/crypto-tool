@@ -81,15 +81,15 @@
         <img src="./img/logo.png" alt="Logo de l’app">
         <span id="momentum-indicator"></span>
     </div>
+        <button id="themeToggle" class="theme-toggle"></button>
     <!--https://img.icons8.com/?size=100&id=36389&format=png&color=808080-->
 </header>
 
 <body>
-    <button id="themeToggle" class="theme-toggle">Light</button>
     <div id="intro">
         <h1>Crypto tools</h1><br>
         <button id="installApp">Install the app <i class="fa-solid fa-download"></i></button>
-        <!--<button id="installApp" class="start">Install the app <i class="fa-solid fa-download"></i></button>-->
+
         <script>
             let deferredPrompt;
 
@@ -112,18 +112,35 @@
             });
         </script>
     </div>
-    <section id="feature">
-        <h2>Crypto tool c'est quoi ?</h2>
-        <br>
-        <p>Crée pour optimiser vos analyses crypto et réduire les risques avec ces outils :</p>
-        <br>
-        <ul class="features-list">
-            <li><span></span> Retracement de Fibonacci</li>
-            <li><span></span> Alarme de prix</li>
-            <li><span></span> Comparateur de chart</li>
-            <li><span></span> Alerte visuelle de momentum</li>
-            <li><span></span> Notif Moyenne Mobil</li>
-        </ul>
+    <section id="features">
+        <!--<h2>Nos Outils</h2>-->
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Retracement de Fibonacci</h3>
+                <p>Identifiez les niveaux de support et de résistance.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bell"></i>
+                <h3>Alarme de Prix</h3>
+                <p>Recevez des alertes en temps réel.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-area"></i>
+                <h3>Comparateur de Chart</h3>
+                <p>Comparez plusieurs cryptos en un clin d'œil.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-wave-square"></i>
+                <h3>Momentum Live</h3>
+                <p>Suivez la force du marché en direct.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-timeline"></i>
+                <h3>Moyenne mobile</h3>
+                <p>Recevez des notifs lors de mouvements majeur.</p>
+            </div>
+        </div>
     </section>
     <br>
     <section>
@@ -174,9 +191,9 @@
         <div id="partner">
             <p>Les données de ce site viennent de:</p>
             <br>
-            <img src="img/CoinGecko.png">
-            <img src="img/TradingView.png">
-            <img src="img/Binance.png">
+            <img src="https://github.com/berru-g/crypto-tool/blob/main/img/CoinGecko.png?raw=true">
+            <img src="https://github.com/berru-g/crypto-tool/blob/main/img/TradingView.png?raw=true">
+            <img src="https://github.com/berru-g/crypto-tool/blob/main/img/Binance.png?raw=true">
         </div>
     </section>
     <br>
@@ -206,8 +223,8 @@
     </section>
 
     <section id="formulaire">
-        <h2>📩 Contactez-nous</h2>
-        <p class="form-subtitle">Une question, une suggestion ? Envoyez-nous un message !</p>
+        <h2>📩 Contactez-nous</h2><br>
+        <p class="form-subtitle">Une question, une suggestion ? Envoyez-nous un message !</p><br>
 
         <form action="https://formspree.io/f/meoewywl" method="POST">
             <label for="email"></label>
@@ -224,91 +241,6 @@
         <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub"
                 src="https://affiliate.ledger.com/image/850/420/French"></a>
     </div>
-    <style>
-        #formulaire {
-            background: linear-gradient(135deg, var(--primary-color), #6b5aed);
-            color: white;
-            padding: 40px 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            margin: 30px auto;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        .form-subtitle {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        label {
-            font-size: 16px;
-            font-weight: 500;
-            text-align: left;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            color: var(--text-color);
-            background: rgba(255, 255, 255, 0.1);
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        input:focus,
-        textarea:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.02);
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        button {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: white;
-            color: #6b5aed;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background: #e0e0e0;
-            transform: scale(1.05);
-        }
-
-        /* Animation d'apparition */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
     <br>
     <nav class="navbar">
         <a href="index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
@@ -324,6 +256,7 @@
         <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
         <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
         <p style="text-align:center"><strong>✅ Mysterium Network, le premier VPN décentralisé.</strong></p>
+        <br>
         <div class="footer-content">
             <div class="footer-section links">
                 <h3>Offres</h3>

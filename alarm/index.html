@@ -76,7 +76,6 @@
         <img src="../img/logo.png" alt="Logo de l’app">
         <span id="momentum-indicator"></span>
     </div>
-    <h1>Alarm</h1>
 </header>
 <button id="themeToggle" class="theme-toggle">Light</button>
 
@@ -84,8 +83,6 @@
     <br>
     <!--------------------------ALARM----------------->
     <h2 id="alarm">⏰ Alarm crypto ⏰</h2>
-
-
 
     <form id="priceForm">
         <label for="token">🪙</label>
@@ -126,145 +123,9 @@
         lcw-marquee-2="movers" lcw-marquee-items="10"></div>
     <br>
     <footer>
-        <!--<p style="text-align:center">Pour bénéficier d'offres et soutenir mon travail, vous pouvez utiliser mes liens
-            d'affiliation.</p>
-        <p style="text-align:center"><strong>✅ Binance offre 100 usdt sur vos frais de trading.</strong></p>
-        <p style="text-align:center"><strong>✅ Ledger offre 30$ en BTC à partir de 79€ d'achat.</strong></p>
        
-
-        <div class="footer-content">
-           <div class="footer-section links">
-                <h3>Offres</h3>
-                <ul>
-                    <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
-                            target="_blank">Binance</a></li>
-                    <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
-                    </li>
-
-                    <li><a href="https://savoir-relatif-et-absolu.netlify.app/mysterium-network" rel="noopener"
-                            target="_blank">Mysterium network</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-section links">
-                <h3>Libre acces</h3>
-                <ul>
-                    <li><a href="https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire">Contact</a></li>
-                    <li><a href="https://medium.com/@gael-berru">Articles</a></li>
-                    <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></li>
-                </ul>
-            </div>
-        </div>
-        <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 | tool by <a
-                href="https://github.com/berru-g/">berru-g</a>
-        </h5>-->
     </footer>
-    <script>
-        const alarmSoundUpper = document.getElementById('alarmSoundUpper');
-        const alarmSoundLower = document.getElementById('alarmSoundLower');
-        const solanaPriceDisplay = document.getElementById('solanaPriceDisplay');
-
-        let tokenSymbol = ''; // Le token saisi par l'utilisateur
-        let targetLowerPrice = 0; // Prix bas saisi par l'utilisateur
-        let targetUpperPrice = 0; // Prix haut saisi par l'utilisateur
-
-        // Écoute l'événement de soumission du formulaire
-        document.getElementById('priceForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Empêche le rechargement de la page
-
-            // Récupère les valeurs saisies par l'utilisateur
-            tokenSymbol = document.getElementById('token').value.toLowerCase();
-            targetLowerPrice = parseFloat(document.getElementById('targetLowerPrice').value);
-            targetUpperPrice = parseFloat(document.getElementById('targetUpperPrice').value);
-
-            // Démarre la surveillance du prix
-            checkSolanaPrice();
-            setInterval(checkSolanaPrice, 10000); // Vérifie le prix toutes les 10 secondes
-        });
-
-        function checkSolanaPrice() {
-            if (!tokenSymbol || !targetLowerPrice || !targetUpperPrice) {
-                console.error('Veuillez saisir un token et des prix valides.');
-                return;
-            }
-
-            fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${tokenSymbol}&vs_currencies=usd`)
-                .then(response => response.json())
-                .then(data => {
-                    const tokenPrice = data[tokenSymbol]?.usd;
-                    if (tokenPrice === undefined) {
-                        console.error(`Token "${tokenSymbol}" non trouvé.`);
-                        solanaPriceDisplay.textContent = `Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.`;
-                        return;
-                    }
-
-                    solanaPriceDisplay.textContent = `${tokenSymbol} : $${tokenPrice.toFixed(8)}`;
-
-                    if (tokenPrice < targetLowerPrice) {
-                        console.log('Le prix est descendu en dessous de la limite inférieure, déclenchement de l\'alarme descendante');
-                        playLowerAlarm();
-                        solanaPriceDisplay.textContent = `👇 ${tokenSymbol} : $${tokenPrice.toFixed(2)}`;
-                        document.body.style.backgroundColor = '#ab9ff2';
-                        document.body.style.color = 'black';
-                    } else if (tokenPrice > targetUpperPrice) {
-                        console.log('Le prix a dépassé la limite supérieure, déclenchement de l\'alarme ascendante');
-                        playUpperAlarm();
-                        solanaPriceDisplay.textContent = `👆 ${tokenSymbol} : $${tokenPrice.toFixed(2)}`;
-                        document.body.style.backgroundColor = '#0ebeff';
-                        document.body.style.color = 'black';
-                    } else {
-                        console.log('Le prix est dans la plage spécifiée');
-                        document.body.style.backgroundColor = '#333';
-                        document.body.style.color = 'white';
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la récupération du prix :', error);
-                });
-        }
-
-        function playUpperAlarm() {
-            alarmSoundUpper.play();
-        }
-
-        function playLowerAlarm() {
-            alarmSoundLower.play();
-        }
-        // menu
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-
-        hamburgerMenu.addEventListener('click', () => {
-            // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
-            Swal.fire({
-                title: 'Cryptool',
-                html: '<ul><p><a href="../index.html">Home</a></p><br><p><a href="https://github.com/berru-g/">Open Source</a></p><br><p><a href="../wallet/index.html">Wallet</a></p><br><p><a href="https://medium.com/@gael-berru">Articles</a></p><br><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
-                showCloseButton: true,
-                showConfirmButton: false,
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    closeButton: 'custom-swal-close-button',
-                    content: 'custom-swal-content',
-                }
-            });
-        });
-        // Gestion du bouton de bascule
-        const themeToggleButton = document.createElement('button');
-        themeToggleButton.className = 'theme-toggle';
-        themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
-        document.body.appendChild(themeToggleButton);
-
-        themeToggleButton.addEventListener('click', () => {
-            if (document.body.classList.contains('dark-mode')) {
-                document.body.classList.replace('dark-mode', 'light-mode');
-                themeToggleButton.textContent = 'Dark';
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.body.classList.replace('light-mode', 'dark-mode');
-                themeToggleButton.textContent = 'Light';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 
 </body>
 

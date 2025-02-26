@@ -162,3 +162,24 @@ hamburgerMenu.addEventListener('click', () => {
         }
     });
 });
+
+const currentTheme = localStorage.getItem('theme') || 'dark';
+document.body.classList.add(currentTheme + '-mode');
+
+// Gestion du bouton de bascule
+const themeToggleButton = document.createElement('button');
+themeToggleButton.className = 'theme-toggle';
+themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
+document.body.appendChild(themeToggleButton);
+
+themeToggleButton.addEventListener('click', () => {
+    if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.replace('dark-mode', 'light-mode');
+        themeToggleButton.textContent = 'Dark';
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.body.classList.replace('light-mode', 'dark-mode');
+        themeToggleButton.textContent = 'Light';
+        localStorage.setItem('theme', 'dark');
+    }
+});
