@@ -108,8 +108,11 @@ function updateChart() {
             },
             scales: { x: { type: 'time', time: { unit: 'day' } } },
             responsive: true,
+            maintainAspectRatio: false,
         },
     });
+    // forcer la redimenssion
+    setTimeout(() => chart.resize(), 0);
 }
 
 // Fonction pour effacer le graphique
@@ -127,7 +130,21 @@ function calculateSMA(data, period) {
     }
     return sma;
 }
+// Ajuster la hauteur du graphique dynamiquement
+function adjustChartHeight() {
+    const chartContainer = document.querySelector('#chart-container');
+    const width = chartContainer.clientWidth;
+    chartContainer.style.height = `${width * 0.6}px`; // Ajuster la hauteur en fonction de la largeur
 
+    // Redimensionner le graphique si il existe
+    if (chart) {
+        chart.resize();
+    }
+}
+
+// Appliquer l'ajustement au chargement et au redimensionnement
+window.addEventListener('load', adjustChartHeight);
+window.addEventListener('resize', adjustChartHeight);
 // Fonction pour exporter les données en CSV
 function exportData() {
     const csvContent = Object.keys(cryptoData).map(crypto => {
