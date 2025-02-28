@@ -83,19 +83,22 @@
     <h2>Comparer plusieurs chart.</h2> <br>
     <p>En mode app retournez l'écran.</p>
   </section>
-    <br>
-    <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
-    <select id="period">
-      <option value="7">7 jours</option>
-      <option value="30" selected>30 jours</option>
-      <option value="90">90 jours</option>
-      <option value="365">1 an</option>
-    </select>
-    <button onclick="addCrypto()">Ajouter</button>
-    <button onclick="clearChart()">Effacer</button>
+  <br>
+  <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
+  <br>
+  <select id="period">
+    <option value="7">7 jours</option>
+    <option value="30" selected>30 jours</option>
+    <option value="90">90 jours</option>
+    <option value="365">1 an</option>
+  </select>
+  <br>
+  <button onclick="addCrypto()">Ajouter</button>
+  <br>
+  <button onclick="clearChart()">Effacer</button>
+  <br>
+  <button onclick="exportData()">Exporter en CSV <i class="fa-solid fa-file-export"></i></button>
 
-    <button onclick="exportData()">Exporter en CSV <i class="fa-solid fa-file-export"></i></button>
-  
   <br>
   <!-- Graphique -->
   <div id="chart-container">
@@ -113,14 +116,13 @@
     <!--<a href="https://berru-g.github.io/berru-g/blog/donation.html"><span><i class="fa-solid fa-wallet"></i></span>don</a>-->
   </nav>
 
-<div id="pub">
-  <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"><img style="border-radius: 12px;
+  <div id="pub">
+    <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"><img style="border-radius: 12px;
     width:100%;" src="../img/myst.png"></a>
   </div>
-    <footer>
-      <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 by <a
-              href="https://github.com/berru-g/">berru-g</a>
-      </h5>
+  <footer>
+    <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 by <a href="https://github.com/berru-g/">berru-g</a>
+    </h5>
   </footer>
   <script src="script.js"></script>
 </body>
