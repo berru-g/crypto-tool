@@ -1,12 +1,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://crypto-tool.netlify.app</loc>
+    <loc>https://crypto-free-tools.netlify.app</loc>
     <lastmod>2025-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://crypto-tool.netlify.app/chart-comparator</loc>
+    <loc>https://crypto-free-tools.netlify.app/chart-comparator</loc>
     <lastmod>2025-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>

@@ -1,6 +1,6 @@
 # Redirection HTTP vers HTTPS
-http://crypto-tool.netlify.app/* https://www.crypto-tool.netlify.app/:splat 301
-http://www.crypto-tool.netlify.app/* https://www.crypto-tool.netlify.app/:splat 301
+http://crypto-free-tools.netlify.app/* https://www.crypto-free-tools.netlify.app/:splat 301
+http://www.crypto-free-tools.netlify.app/* https://www.crypto-free-tools.netlify.app/:splat 301
 
 # Redirection HTTPS sans www vers HTTPS avec www
-https://crypto-tool.netlify.app/* https://www.crypto-tool.netlify.app/:splat 301
+https://crypto-free-tools.netlify.app/* https://www.crypto-free-tools.netlify.app/:splat 301
