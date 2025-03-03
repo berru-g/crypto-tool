@@ -8,8 +8,8 @@ self.addEventListener('install', function (event) {
         '/new.js',
         '/img',
         '/alarm/',
-        'chart-comparator/',
-        // Ajoute ici les autres ressources à mettre en cache
+        '/chart-comparator/',
+        'MA50.js',
       ]);
     })
   );
@@ -56,4 +56,12 @@ self.addEventListener('notificationclick', function(event) {
   event.waitUntil(
     clients.openWindow('https://crypto-free-tools.netlify.app') // Ouvre l'URL de ton app
   );
+});
+// tache de synchro pour notif arriere plan uniquement - utiliser un server comme FCM 
+self.addEventListener('sync', event => {
+  if (event.tag === 'crypto-sync') {
+      event.waitUntil(
+          detectCross() // Appelle ta fonction de détection de croisement
+      );
+  }
 });

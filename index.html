@@ -111,6 +111,32 @@
                     });
                 });
             });
+            //Vérifier l'enregistrement du Service Worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(registration => {
+                            console.log('Service Worker enregistré avec succès:', registration);
+                            alert('Service Worker enregistré avec succès:', registration);
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors de l\'enregistrement du Service Worker:', error);
+                            alert('Notre service \'🔔 Notif Moyenne Mobile\' est indisponble pour le moment. Merci', error);
+                        });
+                });
+            }
+            // permission de notif
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        console.log('Permission accordée pour les notifications.');
+                        alert('Permission accordée pour les notifications.');
+                    } else {
+                        console.warn('Permission refusée pour les notifications.');
+                        alert('Permission refusée pour les notifications.');
+                    }
+                });
+            }
         </script>
     </div>
     <section id="features">

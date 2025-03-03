@@ -101,7 +101,21 @@ async function sendPushNotification(message) {
         console.error("❌ Erreur lors de l'envoi de la notification :", error);
     }
 }
-
+/*
+self.addEventListener('push', event => {
+    const data = event.data.json();
+    const options = {
+        body: data.body,
+        icon: 'img/logo.png',
+        badge: 'img/badge.png',
+        vibrate: [200, 100, 200],
+        requireInteraction: true,
+        actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
+    };
+    event.waitUntil(
+        self.registration.showNotification(data.title, options)
+    );
+});*/
 async function requestPushPermission() {
     console.log("🔔 Tentative d'activation des notifications...");
 
@@ -150,14 +164,9 @@ window.onload = function () {
     }
 };
 
-
-
-/*
-    if ('setAppBadge' in navigator) {
-        navigator.setAppBadge(1); // Affiche un badge rouge sur l’icône PWA installée
-    }
-    
-    
-    if (true) {  // Forcer l'alerte pour tester
-        triggerAlert("Test Notification - Golden Cross Détecté ! 📈", "green", "https://www.myinstants.com/media/sounds/coin-drop.mp3");
-    }*/
+// déclencher la synchro avec SW
+navigator.serviceWorker.ready.then(registration => {
+    registration.sync.register('crypto-sync')
+        .then(() => console.log('Sync enregistré'))
+        .catch(error => console.error('Erreur lors de l\'enregistrement du sync:', error));
+});

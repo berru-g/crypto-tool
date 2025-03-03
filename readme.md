@@ -70,7 +70,14 @@ The app will be available at `http://localhost:3000`.
   - 🔴 **Bearish**: Risk of a trend reversal.
 
 ### Moving Average Notifications
+
 - Enable notifications for MA50 and MA200 crossovers to anticipate major market movements.
+
+  - M.A Notif 🔔  NOT AVAILABLE AT THE MOMENT | Next step :
+  - Using FCM / Send push notifications through a server
+  - Service Worker listens for push messages:
+  - Move crossover detection logic into a Web Worker
+
 
 ---
 
