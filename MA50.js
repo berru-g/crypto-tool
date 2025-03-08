@@ -21,8 +21,8 @@ async function detectCross() {
     const cryptoId = "bitcoin"; // Change pour un autre token si besoin
     let prices = await getHistoricalData(cryptoId, 200);
 
-    let ma50 = calculateMovingAverage(prices, 50);
-    let ma200 = calculateMovingAverage(prices, 200);
+    let ma50 = calculateMovingAverage(prices, 20);
+    let ma200 = calculateMovingAverage(prices, 50);
 
     document.getElementById("ma50").textContent = ma50[ma50.length - 1].toFixed(2) + " $";
     document.getElementById("ma200").textContent = ma200[ma200.length - 1].toFixed(2) + " $";
