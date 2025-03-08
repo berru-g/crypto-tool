@@ -289,19 +289,19 @@ svg {
   width: 100%;
   z-index: 9999 !important;
   height: 60px;
-  background-color: var(--secondary-color);
   opacity: 0.9;
   border-top: 1px solid var(--border-color);
   display: flex;
+  backdrop-filter: blur(4px);
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 -2px 5px var(--shadow-color);
+  box-shadow: 0 -4px 5px var(--shadow-color);
   z-index: 1000;
 }
 
 /* 🟢 Style des liens */
 .navbar a {
-  color: var(--primary-color);
+  color: #ab9ff2;
   text-decoration: none;
   font-size: 12px;
   display: flex;
@@ -318,6 +318,7 @@ svg {
 /* 🔵 Icônes des liens */
 .navbar a span {
   font-size: 18px;
+  color: #ab9ff2;
 }
 
 #footer {
