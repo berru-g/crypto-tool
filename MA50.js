@@ -41,12 +41,12 @@ async function detectCross() {
         alert("Test Notification  🔔");
         navigator.setAppBadge(1);
     }
-    /*
+    
     if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
-        triggerAlert("Test Notification  🔔", "blue", "./img/notif.mp3");
-        alert("Test Notification  🔔");
+        triggerAlert("Ce service est indisponble pour le moment.", "blue", "./img/notif.mp3");
+        //alert("Test Notification  🔔");
         navigator.setAppBadge(1);
-    }*/
+    }
 
 }
 
