@@ -640,3 +640,29 @@ function checkPriceAlert() {
 setInterval(checkPriceAlert, 10000);
 
 */
+// Ajout d'un événement pour chaque bouton Copier
+document.querySelectorAll('.copy-button').forEach(button => {
+    button.addEventListener('click', function () {
+        const targetId = this.getAttribute('data-target');
+        const addressElement = document.getElementById(targetId);
+        const address = addressElement.textContent;
+
+        // Crée un élément temporaire pour copier le texte
+        const tempInput = document.createElement('input');
+        tempInput.value = address;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Optionnel : Feedback visuel
+        Toastify({
+            text: "✅ Adresse copiée !",
+            duration: 2000,
+            gravity: "center",
+            position: "center",
+            backgroundColor: "",
+            
+        }).showToast();
+    });
+});

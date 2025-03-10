@@ -48,6 +48,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="new.css">
     <!--script type="application/ld+json"-->
@@ -247,8 +250,9 @@
             développeurs qui veulent participer au dev de cette app n'hésitez pas à me contacter. Merci</p>
         <br>
         <ul>
-            <li>✅ Si vous souhaitez des explications sur le retracement de fibonacci <a href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d"
-                    target="_blank" rel="noopener">medium.com</a>.</li><br>
+            <li>✅ Si vous souhaitez des explications sur le retracement de fibonacci <a
+                    href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d" target="_blank"
+                    rel="noopener">medium.com</a>.</li><br>
             <li>✅ Si vous êtes débutant, lisez cet article, <a
                     href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
                     un bon token ?</a></li><br>
@@ -305,20 +309,84 @@
                             target="_blank">Binance</a></li>
                     <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
                     </li>
-                    <li><a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5" rel="noopener"
-                            target="_blank">Mysterium network</a>
+                    <li><a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"
+                            rel="noopener" target="_blank">Mysterium network</a>
                     </li>
                 </ul>
             </div>
             <div class="footer-section links">
-                <h3>Libre acces</h3>
+                <h3>More +</h3>
                 <ul>
-                    <li><a href="#formulaire">Contact</a></li>
                     <li><a href="https://medium.com/@gael-berru">Articles</a></li>
+                    <li><a href="https://github.com/berru-g/">Open source</a></li>
                     <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Buy Me a Coffee</a></li>
+                    <!--<li><a href="#dyor" class="open-popup">Buy me a coffe</a></li>-->
+                </ul>
+            </div>
+            <div class="footer-section links">
+                <h3><i class="fa-solid fa-gears"></i></h3>
+                <ul>
+                    <li><a href="connexion.php">Connexion <i class="fa-solid fa-right-to-bracket"></i></a></li>
+                    <li><a href="deconnexion.php">Deconnexion <i class="fa-solid fa-right-to-bracket"></i></a></li>
+                    <li><a href="change.php">Change password</a></li>
                 </ul>
             </div>
         </div>
+
+        <!-- Le popup buy me a coffe -->
+        <div id="dyor-popup" class="popup">
+            <div class="popup-content">
+                <span class="close-popup">&times;</span>
+                <h2>Thanks for this</h2>
+                <div class="donation-container">
+
+                    <!-- Bitcoin Donation -->
+                    <div class="donation-card">
+                        <img src="img/btcP.png" alt="QR Code Bitcoin">
+                        <p><strong>Adresse Bitcoin :</strong></p>
+                        <div class="address-container">
+                            <span class="address" id="btc-address">bc1q9hk2gs7zj80tqynu5skerc0clwasagzmcar0an</span>
+                            <button class="copy-button" data-target="btc-address"><svg viewBox="0 0 448 512" width="100"
+                                    title="copy">
+                                    <path
+                                        d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z" />
+                                </svg></button>
+                        </div>
+                    </div>
+
+                    <!-- Solana Donation -->
+                    <div class="donation-card">
+                        <img src="img/sol.png" alt="QR Code Solana">
+                        <p><strong>Adresse Solana :</strong></p>
+                        <div class="address-container">
+                            <span class="address" id="sol-address">D6khWoqvc2zX46HVtSZcNrPumnPLPM72SnSuDhBrZeTC</span>
+                            <button class="copy-button" data-target="sol-address"><svg viewBox="0 0 448 512" width="100"
+                                    title="copy">
+                                    <path
+                                        d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z" />
+                                </svg></button>
+                        </div>
+                    </div>
+
+                    <!-- Paypal Donation -->
+                    <div class="donation-card">
+                        <img src="img/paypal.jpg" alt="QR Code paypal">
+                        <p><strong></strong></p>
+                        <p><strong>Don via Paypal</strong></p>
+                        <div class="address-container">
+                            <span class="address" id="paypal-address">gldeuxieme24@gmail.com</span>
+                            <button class="copy-button" data-target="paypal-address"><svg viewBox="0 0 448 512"
+                                    width="100" title="copy">
+                                    <path
+                                        d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z" />
+                                </svg></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 by <a
                 href="https://github.com/berru-g/">berru-g</a>
         </h5>
