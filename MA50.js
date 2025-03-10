@@ -21,8 +21,8 @@ async function detectCross() {
     const cryptoId = "bitcoin"; // Change pour un autre token si besoin
     let prices = await getHistoricalData(cryptoId, 200);
 
-    let ma50 = calculateMovingAverage(prices, 20);
-    let ma200 = calculateMovingAverage(prices, 50);
+    let ma50 = calculateMovingAverage(prices, 50);
+    let ma200 = calculateMovingAverage(prices, 200);
 
     document.getElementById("ma50").textContent = ma50[ma50.length - 1].toFixed(2) + " $";
     document.getElementById("ma200").textContent = ma200[ma200.length - 1].toFixed(2) + " $";
@@ -34,17 +34,17 @@ async function detectCross() {
 
     if (lastMA50 < lastMA200 && prevMA50 > prevMA200) {
         triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "./img/notif.mp3");
-        alert("Test Notification  🔔");
+        alert("Risque de chute  🔔");
         navigator.setAppBadge(1);
     } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
         triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
-        alert("Test Notification  🔔");
+        alert("Potentiel Pump  🔔");
         navigator.setAppBadge(1);
     }
     
     if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
-        triggerAlert("Ce service est indisponble pour le moment.", "blue", "./img/notif.mp3");
-        //alert("Test Notification  🔔");
+        triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
+        alert("M.A Notification est indisponble pour le moment.  🔔");
         navigator.setAppBadge(1);
     }
 

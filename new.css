@@ -152,6 +152,7 @@ section {
     max-width: 800px;
 }
 
+
 #features {
     padding: 60px 20px;
     background-color: var(--secondary-color);
@@ -200,6 +201,9 @@ section {
 
 #crash-detector {
     background-color: var(--background-color);
+    border-radius: 12px;
+	border: 1px solid black;
+	box-shadow: -16px 15px 0px -1px #878787;
 }
 
 /* MA Values */
