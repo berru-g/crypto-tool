@@ -38,6 +38,11 @@ async function checkGoldenCross(cryptoId) {
         if (prevMA50 > prevMA200 && lastMA50 < lastMA200) {
             sendFirebaseNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
         }
+        if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
+            sendFirebaseNotification("🔔 Test notif", " Moyenne Mobile");
+            alert("M.A Notification est indisponble pour le moment.  🔔");
+            triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
+            
     }
 }
 
