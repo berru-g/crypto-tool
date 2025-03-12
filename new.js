@@ -1,5 +1,5 @@
 // new.js - Initialisation Firebase et gestion des notifications
-
+/*
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
 
@@ -58,11 +58,11 @@ onMessage(messaging, (payload) => {
 // Lancer la demande de permission au chargement
 requestPermission();
 
-
+*/
 
 // site to app service worker notif
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('sw.js')
         .then(function (registration) {
             console.log('Service Worker enregistré avec succès:', registration);
         })

@@ -42,13 +42,13 @@ async function checkGoldenCross(cryptoId) {
 }
 
 function sendFirebaseNotification(title, message) {
-    getToken(getMessaging(), { vapidKey: "TA_CLE_VAPID_FIREBASE" }).then((currentToken) => {
+    getToken(getMessaging(), { vapidKey: "BEL_UbKzujfYV0QOGTCwaoXqw1pH6tS0SvAZtjuE3ySis6LLnlipmeJeJPPoD_1nURED0W6C1U_7Q--B69l7d3g" }).then((currentToken) => {
         if (currentToken) {
             fetch("https://fcm.googleapis.com/fcm/send", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "key=TON_CLE_FCM"
+                    "Authorization": "key=AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o"
                 },
                 body: JSON.stringify({
                     to: currentToken,
