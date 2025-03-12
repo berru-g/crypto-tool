@@ -77,7 +77,6 @@
 
         gtag('config', 'G-Y5GVLEC0TV');
     </script>
-    <script src="momentum.js" defer></script>
 
 </head>
 <header>
@@ -114,33 +113,6 @@
                     });
                 });
             });
-            //Vérifier l'enregistrement du Service Worker 
-            /*
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js')
-                        .then(registration => {
-                            console.log('Service Worker enregistré avec succès:', registration);
-                            alert('Service Worker enregistré avec succès:', registration);
-                        })
-                        .catch(error => {
-                            console.error('Erreur lors de l\'enregistrement du Service Worker:', error);
-                            alert('Notre service \'🔔 Notif Moyenne Mobile\' est indisponble pour le moment. Merci', error);
-                        });
-                });
-            }
-             permission de notif
-            if ('Notification' in window) {
-                Notification.requestPermission().then(permission => {
-                    if (permission === 'granted') {
-                        console.log('Permission accordée pour les notifications.');
-                        alert('Permission accordée pour les notifications.');
-                    } else {
-                        console.warn('Permission refusée pour les notifications.');
-                        alert('Permission refusée pour les notifications.');
-                    }
-                });
-            } */
         </script>
     </div>
     <section id="features">
@@ -333,66 +305,15 @@
             </div>
         </div>
 
-        <!-- Le popup buy me a coffe -->
-        <div id="dyor-popup" class="popup">
-            <div class="popup-content">
-                <span class="close-popup">&times;</span>
-                <h2>Thanks for this</h2>
-                <div class="donation-container">
-
-                    <!-- Bitcoin Donation -->
-                    <div class="donation-card">
-                        <img src="img/btcP.png" alt="QR Code Bitcoin">
-                        <p><strong>Adresse Bitcoin :</strong></p>
-                        <div class="address-container">
-                            <span class="address" id="btc-address">bc1q9hk2gs7zj80tqynu5skerc0clwasagzmcar0an</span>
-                            <button class="copy-button" data-target="btc-address"><svg viewBox="0 0 448 512" width="100"
-                                    title="copy">
-                                    <path
-                                        d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z" />
-                                </svg></button>
-                        </div>
-                    </div>
-
-                    <!-- Solana Donation -->
-                    <div class="donation-card">
-                        <img src="img/sol.png" alt="QR Code Solana">
-                        <p><strong>Adresse Solana :</strong></p>
-                        <div class="address-container">
-                            <span class="address" id="sol-address">D6khWoqvc2zX46HVtSZcNrPumnPLPM72SnSuDhBrZeTC</span>
-                            <button class="copy-button" data-target="sol-address"><svg viewBox="0 0 448 512" width="100"
-                                    title="copy">
-                                    <path
-                                        d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z" />
-                                </svg></button>
-                        </div>
-                    </div>
-
-                    <!-- Paypal Donation -->
-                    <div class="donation-card">
-                        <img src="img/paypal.jpg" alt="QR Code paypal">
-                        <p><strong></strong></p>
-                        <p><strong>Don via Paypal</strong></p>
-                        <div class="address-container">
-                            <span class="address" id="paypal-address">gldeuxieme24@gmail.com</span>
-                            <button class="copy-button" data-target="paypal-address"><svg viewBox="0 0 448 512"
-                                    width="100" title="copy">
-                                    <path
-                                        d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z" />
-                                </svg></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 by <a
-                href="https://berru-g.github.io/berru-g/">berru-g</a>
-        </h5>
+                href="https://berru-g.github.io/berru-g/">berru-g</a></h5>
     </footer>
     <script src="new.js"></script>
-    <script src="MAfonctionel.js"></script>
+    <script src="pwa.js"></script>
+    <script src="momentum.js" defer></script>
+    <script src="firebase_notif.js"></script>
+    <script src="ma50_notif.js"></script>
+
 </body>
 
 </html>

@@ -1,3 +1,112 @@
+//////////////////////// dark mode
+const currentTheme = localStorage.getItem('theme') || 'dark';
+document.body.classList.add(currentTheme + '-mode');
+
+// Gestion du bouton de bascule
+const themeToggleButton = document.createElement('button');
+themeToggleButton.className = 'theme-toggle';
+themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
+document.body.appendChild(themeToggleButton);
+
+themeToggleButton.addEventListener('click', () => {
+    if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.replace('dark-mode', 'light-mode');
+        themeToggleButton.textContent = 'Dark';
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.body.classList.replace('light-mode', 'dark-mode');
+        themeToggleButton.textContent = 'Light';
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
+
+// Sélection des éléments SHARE popup
+const openPopupLink = document.querySelector('.open-popup');
+const popup = document.getElementById('dyor-popup');
+const closePopupButton = document.querySelector('.close-popup');
+
+// Ouvrir le popup
+openPopupLink.addEventListener('click', function (e) {
+    e.preventDefault(); // Empêche le comportement par défaut du lien
+    popup.style.display = 'flex'; // Affiche le popup
+});
+
+// Fermer le popup
+closePopupButton.addEventListener('click', function () {
+    popup.style.display = 'none'; // Cache le popup
+});
+
+// Fermer le popup en cliquant à l'extérieur
+popup.addEventListener('click', function (e) {
+    if (e.target === popup) {
+        popup.style.display = 'none'; // Cache le popup si on clique à l'extérieur
+    }
+});
+// Gestion du bouton de partage
+document.addEventListener("DOMContentLoaded", () => {
+    const shareButton = document.getElementById("shareButton");
+    const sharePopup = document.getElementById("sharePopup");
+    const currentURL = window.location.href;
+
+    // Configurer les liens de partage
+    const twitterShare = document.getElementById("twitterShare");
+    twitterShare.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentURL)}&text=${encodeURIComponent("Tool magic Fibonacci Retracement !")}`;
+
+    const whatsappShare = document.getElementById("whatsappShare");
+    whatsappShare.href = `https://api.whatsapp.com/send?text=${encodeURIComponent("Tool magic Fibonacci Retracement  : " + currentURL)}`;
+
+    const facebookShare = document.getElementById("facebookShare");
+    facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentURL)}`;
+
+    // Afficher ou masquer le popup
+    shareButton.addEventListener("click", () => {
+        const isVisible = sharePopup.style.display === "flex";
+        sharePopup.style.display = isVisible ? "none" : "flex";
+    });
+
+    // Copier le lien dans le presse-papier
+    window.copyToClipboard = () => {
+        navigator.clipboard.writeText(currentURL).then(() => {
+            alert("Lien copié dans le presse-papier !");
+        }).catch(err => {
+            console.error("Échec de la copie du lien : ", err);
+        });
+    };
+
+    // Cacher le popup quand on clique en dehors
+    document.addEventListener("click", (e) => {
+        if (!shareButton.contains(e.target) && !sharePopup.contains(e.target)) {
+            sharePopup.style.display = "none";
+        }
+    });
+});
+
+
+
+//////////////////////////// MENU
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+
+hamburgerMenu.addEventListener('click', () => {
+    // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
+    Swal.fire({
+        title: 'Cryptool',
+        html: '<ul><p><a href="../index.html">Home</a></p><br><p><a href="https://github.com/berru-g/">Open Source</a></p><br><p><a href="../wallet/index.html">Wallet</a></p><br><p><a href="https://medium.com/@gael-berru">Articles</a></p><br><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
+        showCloseButton: true,
+        showConfirmButton: false,
+        customClass: {
+            popup: 'custom-swal-popup',
+            closeButton: 'custom-swal-close-button',
+            content: 'custom-swal-content',
+        }
+    });
+});
+
+
+
+
+
+
 // new.js - Initialisation Firebase et gestion des notifications
 /*
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -58,7 +167,7 @@ onMessage(messaging, (payload) => {
 // Lancer la demande de permission au chargement
 requestPermission();
 
-*/
+
 
 // site to app service worker notif
 if ('serviceWorker' in navigator) {
@@ -71,27 +180,28 @@ if ('serviceWorker' in navigator) {
         });
 }
 
-//////////////////////// dark mode
-const currentTheme = localStorage.getItem('theme') || 'dark';
-document.body.classList.add(currentTheme + '-mode');
+// mise a jour user
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+        reg.onupdatefound = () => {
+            const newSW = reg.installing;
+            newSW.onstatechange = () => {
+                if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+                    // Nouvelle version détectée, afficher une alerte
+                    let updateBanner = document.createElement("div");
+                    updateBanner.innerHTML = `
+                        <div style="position:fixed; bottom:10px; left:10px; right:10px; background:#222; color:#fff; padding:15px; text-align:center; border-radius:5px;">
+                            🚀 Nouvelle mise à jour dispo ! <button onclick="window.location.reload()">Mettre à jour</button>
+                        </div>
+                    `;
+                    document.body.appendChild(updateBanner);
+                }
+            };
+        };
+    });
+}
+*/
 
-// Gestion du bouton de bascule
-const themeToggleButton = document.createElement('button');
-themeToggleButton.className = 'theme-toggle';
-themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
-document.body.appendChild(themeToggleButton);
-
-themeToggleButton.addEventListener('click', () => {
-    if (document.body.classList.contains('dark-mode')) {
-        document.body.classList.replace('dark-mode', 'light-mode');
-        themeToggleButton.textContent = 'Dark';
-        localStorage.setItem('theme', 'light');
-    } else {
-        document.body.classList.replace('light-mode', 'dark-mode');
-        themeToggleButton.textContent = 'Light';
-        localStorage.setItem('theme', 'dark');
-    }
-});
 /* 
 
 // Fonction pour charger le cache depuis localStorage calcul du fiboscope
@@ -411,105 +521,6 @@ ${data.market_data && data.market_data.market_cap.usd
 });
 
 */
-// Sélection des éléments
-const openPopupLink = document.querySelector('.open-popup');
-const popup = document.getElementById('dyor-popup');
-const closePopupButton = document.querySelector('.close-popup');
-
-// Ouvrir le popup
-openPopupLink.addEventListener('click', function (e) {
-    e.preventDefault(); // Empêche le comportement par défaut du lien
-    popup.style.display = 'flex'; // Affiche le popup
-});
-
-// Fermer le popup
-closePopupButton.addEventListener('click', function () {
-    popup.style.display = 'none'; // Cache le popup
-});
-
-// Fermer le popup en cliquant à l'extérieur
-popup.addEventListener('click', function (e) {
-    if (e.target === popup) {
-        popup.style.display = 'none'; // Cache le popup si on clique à l'extérieur
-    }
-});
-// Gestion du bouton de partage
-document.addEventListener("DOMContentLoaded", () => {
-    const shareButton = document.getElementById("shareButton");
-    const sharePopup = document.getElementById("sharePopup");
-    const currentURL = window.location.href;
-
-    // Configurer les liens de partage
-    const twitterShare = document.getElementById("twitterShare");
-    twitterShare.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentURL)}&text=${encodeURIComponent("Tool magic Fibonacci Retracement !")}`;
-
-    const whatsappShare = document.getElementById("whatsappShare");
-    whatsappShare.href = `https://api.whatsapp.com/send?text=${encodeURIComponent("Tool magic Fibonacci Retracement  : " + currentURL)}`;
-
-    const facebookShare = document.getElementById("facebookShare");
-    facebookShare.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentURL)}`;
-
-    // Afficher ou masquer le popup
-    shareButton.addEventListener("click", () => {
-        const isVisible = sharePopup.style.display === "flex";
-        sharePopup.style.display = isVisible ? "none" : "flex";
-    });
-
-    // Copier le lien dans le presse-papier
-    window.copyToClipboard = () => {
-        navigator.clipboard.writeText(currentURL).then(() => {
-            alert("Lien copié dans le presse-papier !");
-        }).catch(err => {
-            console.error("Échec de la copie du lien : ", err);
-        });
-    };
-
-    // Cacher le popup quand on clique en dehors
-    document.addEventListener("click", (e) => {
-        if (!shareButton.contains(e.target) && !sharePopup.contains(e.target)) {
-            sharePopup.style.display = "none";
-        }
-    });
-});
-
-// mise a jour user
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(reg => {
-        reg.onupdatefound = () => {
-            const newSW = reg.installing;
-            newSW.onstatechange = () => {
-                if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
-                    // Nouvelle version détectée, afficher une alerte
-                    let updateBanner = document.createElement("div");
-                    updateBanner.innerHTML = `
-                        <div style="position:fixed; bottom:10px; left:10px; right:10px; background:#222; color:#fff; padding:15px; text-align:center; border-radius:5px;">
-                            🚀 Nouvelle mise à jour dispo ! <button onclick="window.location.reload()">Mettre à jour</button>
-                        </div>
-                    `;
-                    document.body.appendChild(updateBanner);
-                }
-            };
-        };
-    });
-}
-
-//////////////////////////// MENU
-const hamburgerMenu = document.querySelector('.hamburger-menu');
-
-hamburgerMenu.addEventListener('click', () => {
-    // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
-    Swal.fire({
-        title: 'Cryptool',
-        html: '<ul><p><a href="../index.html">Home</a></p><br><p><a href="https://github.com/berru-g/">Open Source</a></p><br><p><a href="../wallet/index.html">Wallet</a></p><br><p><a href="https://medium.com/@gael-berru">Articles</a></p><br><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
-        showCloseButton: true,
-        showConfirmButton: false,
-        customClass: {
-            popup: 'custom-swal-popup',
-            closeButton: 'custom-swal-close-button',
-            content: 'custom-swal-content',
-        }
-    });
-});
 
 
 
