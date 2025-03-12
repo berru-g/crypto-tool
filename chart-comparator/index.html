@@ -118,19 +118,21 @@
   <br>
   <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
   <br>
-  <select id="period">
+  
+  <select class="btn" id="period">
     <option value="7">7 jours</option>
     <option value="30" selected>30 jours</option>
     <option value="90">90 jours</option>
     <option value="365">1 an</option>
   </select>
   <br>
-  <button onclick="addCrypto()">Ajouter</button>
+  <div class="btn-grid">
+  <button class="btn" onclick="addCrypto()">Ajouter</button>
   <br>
-  <button onclick="clearChart()">Effacer</button>
+  <button class="btn" onclick="clearChart()">Effacer</button>
   <br>
-  <button onclick="exportData()">Exporter en CSV <i class="fa-solid fa-file-export"></i></button>
-
+  <button class="btn" onclick="exportData()">Exporter en CSV <i class="fa-solid fa-file-export"></i></button>
+</div>
   <br>
   <!-- Graphique -->
   <div id="chart-container">
