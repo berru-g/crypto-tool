@@ -21,8 +21,8 @@ function calculateMovingAverage(data, period) {
 // définir les moyenne mobile à calculer 
 async function checkMovingAverages(cryptoId) {
     let data = await getHistoricalData(cryptoId);
-    let ma50 = calculateMovingAverage(data, 20);
-    let ma200 = calculateMovingAverage(data, 50);
+    let ma50 = calculateMovingAverage(data, 50);
+    let ma200 = calculateMovingAverage(data, 200);
 
     if (ma50.length > 0 && ma200.length > 0) {
         let lastMA50 = ma50[ma50.length - 1].toFixed(2);
@@ -44,10 +44,10 @@ async function checkMovingAverages(cryptoId) {
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
         }
         
-        if (true) { //teste des notifs
+        /*if (true) { //teste des notifs
             triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
             sendNotification("Teste notif M.A 20/50");
-        }
+        }*/
             
     }
 }
@@ -86,11 +86,12 @@ function triggerAlert(message, color, soundUrl) {
         navigator.setAppBadge(1);
     } else {
         console.warn("🚫 API Badging non supportée sur ce device.");
+        alert("🚫 API SendPushNotif non supportée sur ce device.");
     }
-    if (true) { //teste des notifs
+    /*if (true) { //teste des notifs
         navigator.setAppBadge(1);
         sendNotification("Teste notif M.A 20/50");
-    }
+    }*/ 
 }
 
 
