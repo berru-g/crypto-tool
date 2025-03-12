@@ -43,10 +43,12 @@ async function checkMovingAverages(cryptoId) {
             triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
         }
+        /*
         if (true) { //teste des notifs
             triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
             sendNotification("Teste notif M.A 50/200");
         }
+            */
     }
 }
 
@@ -87,6 +89,8 @@ function triggerAlert(message, color, soundUrl) {
     }
 }
 
+
+// push notif
 async function sendPushNotification(message) {
     console.log("📢 Tentative d'envoi d'une notification push...");
 
@@ -115,3 +119,59 @@ setInterval(() => checkMovingAverages("bitcoin"), 60000);
 
 // Exécution au chargement
 document.addEventListener("DOMContentLoaded", () => checkMovingAverages("bitcoin"));
+
+
+async function requestPushPermission() {
+    console.log("🔔 Tentative d'activation des notifications...");
+
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+        try {
+            const registration = await navigator.serviceWorker.register('/sw.js');
+            console.log("✅ Service Worker enregistré :", registration);
+
+            const permission = await Notification.requestPermission();
+            console.log("🔔 Permission des notifications :", permission);
+
+            if (permission === 'granted') {
+                alert("🔔 Notifications activées !");
+                console.log("✅ Notifications activées avec succès !");
+            } else {
+                alert("⚠️ Vous devez autoriser les notifications.");
+                console.warn("🚫 L'utilisateur a refusé les notifications.");
+            }
+        } catch (error) {
+            console.error("❌ Erreur lors de l'enregistrement du Service Worker :", error);
+        }
+    } else {
+        alert("🚫 Les notifications ne sont pas supportées par ce navigateur.");
+        console.warn("⚠️ Notifications non supportées.");
+    }
+}
+
+// Vérifie les MAs toutes les 3h
+setInterval(detectCross, 10800000);
+
+// Lancer la détection au chargement
+detectCross();
+
+// Affichage de la dernière alerte en haut de l'application
+function displayAlertHistory(message, color) {
+    let alertHistory = document.getElementById("alert-history");
+    alertHistory.innerHTML = `<p style='background:${color}; color:white; padding:10px; text-align:center; font-weight:bold; padding:10px;'>⚠ ${message}</p>`;
+    alertHistory.style.display = "block";
+}
+
+// Vérifier si une alerte doit être affichée au chargement
+window.onload = function () {
+    let alertHistory = document.getElementById("alert-history");
+    if (alertHistory.innerHTML.trim() !== "") {
+        alertHistory.style.display = "block";
+    }
+};
+
+// déclencher la synchro avec SW
+navigator.serviceWorker.ready.then(registration => {
+    registration.sync.register('crypto-sync')
+        .then(() => console.log('Sync enregistré'))
+        .catch(error => console.error('Erreur lors de l\'enregistrement du sync:', error));
+});
