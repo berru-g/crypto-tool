@@ -1,6 +1,6 @@
 // sw push firebase
 // sw.js - Service Worker pour gérer les notifications Firebase en arrière-plan
-
+/*
 importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js");
 
@@ -34,7 +34,7 @@ self.addEventListener('notificationclick', function (event) {
   );
 });
 
-
+*/
 
 self.addEventListener('install', function (event) {
   event.waitUntil(

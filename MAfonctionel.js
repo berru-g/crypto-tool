@@ -41,13 +41,13 @@ async function detectCross() {
         alert("Potentiel Pump  🔔");
         navigator.setAppBadge(1);
     }
-/*
+
     if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
         triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
         alert("M.A Notification est indisponble pour le moment.  🔔");
         navigator.setAppBadge(1);
     }
-*/
+
 }
 
 function triggerAlert(message, color, soundUrl) {
