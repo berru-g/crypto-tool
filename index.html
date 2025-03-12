@@ -132,7 +132,7 @@
 
         // 3️⃣ RÉCUPÉRER LE TOKEN FCM (À ENVOYER À TON SERVEUR)
         function getToken() {
-            messaging.getToken({ vapidKey: "BEL_UbKzujfYV0QOGTCwaoXqw1pH6tS0SvAZtjuE3ySis6LLnlipmeJeJPPoD_1nURED0W6C1U_7Q--B69l7d3g " })
+            messaging.getToken({ vapidKey: "BEL_UbKzujfYV0QOGTCwaoXqw1pH6tS0SvAZtjuE3ySis6LLnlipmeJeJPPoD_1nURED0W6C1U_7Q--B69l7d3g" })
                 .then((currentToken) => {
                     if (currentToken) {
                         console.log("🔥 Token Firebase:", currentToken);
