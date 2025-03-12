@@ -45,13 +45,13 @@ async function checkMovingAverages(cryptoId) {
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
             displayAlertHistory("Death Cross détecté ! Risque de chute du marché.", "#ee6055");
         }
-
+/*
         if (true) {
             triggerAlert("Test Notif", "#60d394", "./img/notif.mp3");
             sendNotification("Test Notif ! 📉", "La MA50.");
             displayAlertHistory("Test Notif", "grey");
         }
-
+*/
     }
 }
 
