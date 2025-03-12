@@ -53,6 +53,23 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="new.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o",
+            authDomain: "crypto-tools-93073.firebaseapp.com",
+            projectId: "crypto-tools-93073",
+            storageBucket: "crypto-tools-93073.firebasestorage.app",
+            messagingSenderId: "962710503785",
+            appId: "1:962710503785:web:53df269d4550848c447df8",
+        };
+
+        // Initialise Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+    </script>
     <!--script type="application/ld+json"-->
     <script type="application/ld+json">
         {
