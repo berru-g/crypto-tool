@@ -53,7 +53,7 @@ function sendFirebaseNotification(title, message) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "key=AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o"
+                    "Authorization": "AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o"
                 },
                 body: JSON.stringify({
                     to: currentToken,

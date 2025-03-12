@@ -52,7 +52,7 @@ self.addEventListener('install', function (event) {
     })
   );
 });
-/*
+
 self.addEventListener('fetch', function (event) {
   event.respondWith(
     caches.match(event.request).then(function (response) {
@@ -72,7 +72,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   console.log("Intercepté :", event.request.url);
 });
-*/
+
 // sw.js
 self.addEventListener('push', function (event) {
   const options = {
