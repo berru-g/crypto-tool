@@ -98,6 +98,7 @@ self.addEventListener('notificationclick', function (event) {
 // tache de synchro pour notif arriere plan uniquement - utiliser un server comme FCM 
 self.addEventListener('sync', event => {
   if (event.tag === 'crypto-sync') {
+    alert("syncro event listening");
     event.waitUntil(
       detectCross() // Appelle ta fonction de détection de croisement
     );

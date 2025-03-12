@@ -18,11 +18,11 @@ function calculateMovingAverage(data, period) {
     }
     return ma;
 }
-// définir les moyenne mobile à calculer 
+
 async function checkMovingAverages(cryptoId) {
     let data = await getHistoricalData(cryptoId);
     let ma50 = calculateMovingAverage(data, 50);
-    let ma200 = calculateMovingAverage(data, 100);
+    let ma200 = calculateMovingAverage(data, 200); // Correction : 200 au lieu de 100
 
     if (ma50.length > 0 && ma200.length > 0) {
         let lastMA50 = ma50[ma50.length - 1].toFixed(2);
@@ -36,20 +36,15 @@ async function checkMovingAverages(cryptoId) {
         let prevMA200 = ma200[ma200.length - 2];
 
         if (prevMA50 < prevMA200 && lastMA50 > lastMA200) {
-            triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "./img/notif.mp3");
+            triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
             sendNotification("Golden Cross détecté ! 📈", "La MA50 est passée au-dessus de la MA200.");
+            displayAlertHistory("Golden Cross détecté ! Potentiel Pump 📈", "green");
         }
         if (prevMA50 > prevMA200 && lastMA50 < lastMA200) {
-            triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
+            triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "./img/notif.mp3");
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
+            displayAlertHistory("Death Cross détecté ! Risque de chute du marché.", "red");
         }
-        
-        if (true) { //teste des notifs
-            triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
-            sendNotification("Teste notif M.A 20/50");
-            showNotification("Notif MA 50/100");
-        }
-            
     }
 }
 
@@ -87,17 +82,9 @@ function triggerAlert(message, color, soundUrl) {
         navigator.setAppBadge(1);
     } else {
         console.warn("🚫 API Badging non supportée sur ce device.");
-        alert("🚫 API SendPushNotif non supportée sur ce device.");
-    }/*
-    if (true) { //teste des notifs
-        navigator.setAppBadge(1);
-        sendNotification("Teste notif M.A 20/50");
-        showNotification("Notif MA 50/100");
-    } */
+    }
 }
 
-
-// push notif
 async function sendPushNotification(message) {
     console.log("📢 Tentative d'envoi d'une notification push...");
 
@@ -110,8 +97,8 @@ async function sendPushNotification(message) {
                 body: message,
                 icon: "img/logo.png",
                 badge: "img/badge.png",
-                requireInteraction: true, // La notif reste affichée jusqu’à action
-                vibrate: [200, 100, 200], // Vibration pour mobile
+                requireInteraction: true,
+                vibrate: [200, 100, 200],
                 actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
             });
         } else {
@@ -121,12 +108,12 @@ async function sendPushNotification(message) {
         console.error("❌ Erreur lors de l'envoi de la notification :", error);
     }
 }
+
 // Vérifier les moyennes mobiles toutes les 60 secondes
 setInterval(() => checkMovingAverages("bitcoin"), 60000);
 
 // Exécution au chargement
 document.addEventListener("DOMContentLoaded", () => checkMovingAverages("bitcoin"));
-
 
 async function requestPushPermission() {
     console.log("🔔 Tentative d'activation des notifications...");
@@ -156,10 +143,10 @@ async function requestPushPermission() {
 }
 
 // Vérifie les MAs toutes les 3h
-setInterval(detectCross, 10800000);
+setInterval(() => checkMovingAverages("bitcoin"), 10800000);
 
 // Lancer la détection au chargement
-detectCross();
+checkMovingAverages("bitcoin");
 
 // Affichage de la dernière alerte en haut de l'application
 function displayAlertHistory(message, color) {
@@ -176,7 +163,7 @@ window.onload = function () {
     }
 };
 
-// déclencher la synchro avec SW
+// Déclencher la synchro avec SW
 navigator.serviceWorker.ready.then(registration => {
     registration.sync.register('crypto-sync')
         .then(() => console.log('Sync enregistré'))
