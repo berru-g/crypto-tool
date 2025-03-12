@@ -1,42 +1,19 @@
-importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js");
+// MA50.js - Calcul de la moyenne mobile et notifications via Firebase
 
-// Configurer Firebase dans le Service Worker
-firebase.initializeApp({
-    apiKey: "AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o",
-    authDomain: "crypto-tools-93073.firebaseapp.com",
-    projectId: "crypto-tools-93073",
-    storageBucket: "crypto-tools-93073.firebasestorage.app",
-    messagingSenderId: "962710503785",
-    appId: "1:962710503785:web:53df269d4550848c447df8",
-    measurementId: "G-BT011W5TVT"
-});
-
-const messaging = firebase.messaging();
-
-// RECEVOIR LES NOTIFS EN ARRIÈRE-PLAN
-messaging.onBackgroundMessage((payload) => {
-    console.log("📩 Notification en arrière-plan :", payload);
-    self.registration.showNotification(payload.notification.title, {
-        body: payload.notification.body,
-        icon: payload.notification.icon
-    });
-});
-
-
+import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
 
 async function getHistoricalData(cryptoId, days = 200) {
     let url = `https://api.coingecko.com/api/v3/coins/${cryptoId}/market_chart?vs_currency=usd&days=${days}&interval=daily`;
     let response = await fetch(url);
     let data = await response.json();
-    return data.prices.map(price => price[1]); // Retourne uniquement les prix
+    return data.prices.map(price => price[1]);
 }
 
 function calculateMovingAverage(data, period) {
     let ma = [];
     for (let i = period - 1; i < data.length; i++) {
         let sum = 0;
-        for (let j = i - period + 1; j <= i; j++) {
+        for (let j = i; j > i - period; j--) {
             sum += data[j];
         }
         ma.push(sum / period);
@@ -44,156 +21,47 @@ function calculateMovingAverage(data, period) {
     return ma;
 }
 
-async function detectCross() {
-    const cryptoId = "bitcoin"; // Change pour un autre token si besoin
-    let prices = await getHistoricalData(cryptoId, 200);
+async function checkGoldenCross(cryptoId) {
+    let data = await getHistoricalData(cryptoId);
+    let ma50 = calculateMovingAverage(data, 50);
+    let ma200 = calculateMovingAverage(data, 200);
 
-    let ma50 = calculateMovingAverage(prices, 50);
-    let ma200 = calculateMovingAverage(prices, 200);
+    if (ma50.length > 0 && ma200.length > 0) {
+        let lastMA50 = ma50[ma50.length - 1];
+        let lastMA200 = ma200[ma200.length - 1];
+        let prevMA50 = ma50[ma50.length - 2];
+        let prevMA200 = ma200[ma200.length - 2];
 
-    document.getElementById("ma50").textContent = ma50[ma50.length - 1].toFixed(2) + " $";
-    document.getElementById("ma200").textContent = ma200[ma200.length - 1].toFixed(2) + " $";
-
-    let lastMA50 = ma50[ma50.length - 1];
-    let lastMA200 = ma200[ma200.length - 1];
-    let prevMA50 = ma50[ma50.length - 2];
-    let prevMA200 = ma200[ma200.length - 2];
-
-    if (lastMA50 < lastMA200 && prevMA50 > prevMA200) {
-        triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "./img/notif.mp3");
-        alert("Risque de chute  🔔");
-        navigator.setAppBadge(1);
-    } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
-        triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
-        alert("Potentiel Pump  🔔");
-        navigator.setAppBadge(1);
-    }
-
-    if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
-        triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
-        alert("M.A Notification est indisponble pour le moment.  🔔");
-        navigator.setAppBadge(1);
-    }
-
-}
-
-function triggerAlert(message, color, soundUrl) {
-    let alertBox = document.getElementById("alert-box");
-    alertBox.textContent = "⚠ " + message;
-    alertBox.style.background = color;
-    alertBox.style.display = "block";
-
-    // Jouer le son d'alerte
-    let audio = new Audio(soundUrl);
-    audio.play();
-
-    // Ajout d'une alerte visuelle sur le logo
-    let alertDot = document.createElement("div");
-    alertDot.className = "logo-alert";
-    document.querySelector(".logo").appendChild(alertDot);
-    alertDot.style.display = "block";
-
-    // Notification push persistante
-    sendPushNotification(message);
-
-    // Ajout d'une notification persistante sur l'icône de l'app (si supporté)
-    if ('setAppBadge' in navigator) {
-        console.log("🔴 Ajout du badge sur l'icône de l'App...");
-        navigator.setAppBadge(1);
-    } else {
-        console.warn("🚫 API Badging non supportée sur ce device.");
-    }
-}
-
-async function sendPushNotification(message) {
-    console.log("📢 Tentative d'envoi d'une notification push...");
-
-    try {
-        const registration = await navigator.serviceWorker.ready;
-        if (registration) {
-            console.log("✅ Service Worker trouvé, envoi de la notification...");
-
-            registration.showNotification("Crypto Alert 🚨", {
-                body: message,
-                icon: "img/logo.png",
-                badge: "img/badge.png",
-                requireInteraction: true, // La notif reste affichée jusqu’à action
-                vibrate: [200, 100, 200], // Vibration pour mobile
-                actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
-            });
-        } else {
-            console.error("❌ Aucun Service Worker trouvé, notification annulée.");
+        if (prevMA50 < prevMA200 && lastMA50 > lastMA200) {
+            sendFirebaseNotification("Golden Cross détecté ! 📈", "La MA50 est passée au-dessus de la MA200.");
         }
-    } catch (error) {
-        console.error("❌ Erreur lors de l'envoi de la notification :", error);
-    }
-}
-/*
-self.addEventListener('push', event => {
-    const data = event.data.json();
-    const options = {
-        body: data.body,
-        icon: 'img/logo.png',
-        badge: 'img/badge.png',
-        vibrate: [200, 100, 200],
-        requireInteraction: true,
-        actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
-    };
-    event.waitUntil(
-        self.registration.showNotification(data.title, options)
-    );
-});*/
-async function requestPushPermission() {
-    console.log("🔔 Tentative d'activation des notifications...");
-
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-        try {
-            const registration = await navigator.serviceWorker.register('/sw.js');
-            console.log("✅ Service Worker enregistré :", registration);
-
-            const permission = await Notification.requestPermission();
-            console.log("🔔 Permission des notifications :", permission);
-
-            if (permission === 'granted') {
-                alert("🔔 Notifications activées !");
-                console.log("✅ Notifications activées avec succès !");
-            } else {
-                alert("⚠️ Vous devez autoriser les notifications.");
-                console.warn("🚫 L'utilisateur a refusé les notifications.");
-            }
-        } catch (error) {
-            console.error("❌ Erreur lors de l'enregistrement du Service Worker :", error);
+        if (prevMA50 > prevMA200 && lastMA50 < lastMA200) {
+            sendFirebaseNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
         }
-    } else {
-        alert("🚫 Les notifications ne sont pas supportées par ce navigateur.");
-        console.warn("⚠️ Notifications non supportées.");
     }
 }
 
-// Vérifie les MAs toutes les 3h
-setInterval(detectCross, 10800000);
-
-// Lancer la détection au chargement
-detectCross();
-
-// Affichage de la dernière alerte en haut de l'application
-function displayAlertHistory(message, color) {
-    let alertHistory = document.getElementById("alert-history");
-    alertHistory.innerHTML = `<p style='background:${color}; color:white; padding:10px; text-align:center; font-weight:bold; padding:10px;'>⚠ ${message}</p>`;
-    alertHistory.style.display = "block";
+function sendFirebaseNotification(title, message) {
+    getToken(getMessaging(), { vapidKey: "TA_CLE_VAPID_FIREBASE" }).then((currentToken) => {
+        if (currentToken) {
+            fetch("https://fcm.googleapis.com/fcm/send", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "key=TON_CLE_FCM"
+                },
+                body: JSON.stringify({
+                    to: currentToken,
+                    notification: {
+                        title: title,
+                        body: message,
+                        icon: "/img/logo.png"
+                    }
+                })
+            }).then(response => console.log("Notif envoyée !", response))
+              .catch(error => console.error("Erreur envoi notif", error));
+        }
+    });
 }
 
-// Vérifier si une alerte doit être affichée au chargement
-window.onload = function () {
-    let alertHistory = document.getElementById("alert-history");
-    if (alertHistory.innerHTML.trim() !== "") {
-        alertHistory.style.display = "block";
-    }
-};
-
-// déclencher la synchro avec SW
-navigator.serviceWorker.ready.then(registration => {
-    registration.sync.register('crypto-sync')
-        .then(() => console.log('Sync enregistré'))
-        .catch(error => console.error('Erreur lors de l\'enregistrement du sync:', error));
-});
+checkGoldenCross("bitcoin");
