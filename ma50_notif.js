@@ -87,6 +87,10 @@ function triggerAlert(message, color, soundUrl) {
     } else {
         console.warn("🚫 API Badging non supportée sur ce device.");
     }
+    if (true) { //teste des notifs
+        navigator.setAppBadge(1);
+        sendNotification("Teste notif M.A 20/50");
+    }
 }
 
 
