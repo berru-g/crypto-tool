@@ -1,65 +1,3 @@
-// new.js - Initialisation Firebase et gestion des notifications
-/*
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
-
-// 1️⃣ Configuration Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o",
-    authDomain: "crypto-tools-93073.firebaseapp.com",
-    projectId: "crypto-tools-93073",
-    storageBucket: "crypto-tools-93073.firebasestorage.app",
-    messagingSenderId: "962710503785",
-    appId: "1:962710503785:web:53df269d4550848c447df8",
-    measurementId: "G-BT011W5TVT"
-};
-
-// Initialisation Firebase
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
-
-// 2️⃣ Demande de permission pour les notifications
-function requestPermission() {
-    Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-            console.log("🔔 Notifications autorisées !");
-            getUserToken();
-        } else {
-            console.log("🚫 Notifications refusées.");
-        }
-    });
-}
-
-// 3️⃣ Récupérer le Token Firebase de l'utilisateur
-function getUserToken() {
-    getToken(messaging, { vapidKey: "BEL_UbKzujfYV0QOGTCwaoXqw1pH6tS0SvAZtjuE3ySis6LLnlipmeJeJPPoD_1nURED0W6C1U_7Q--B69l7d3g" })
-        .then((currentToken) => {
-            if (currentToken) {
-                console.log("🔥 Token Firebase:", currentToken);
-                // Ici, envoyer ce token à ton backend pour envoyer des notifications
-            } else {
-                console.log("❌ Aucun token disponible.");
-            }
-        })
-        .catch((err) => {
-            console.log("Erreur lors de la récupération du token", err);
-        });
-}
-
-// 4️⃣ Réception des notifications si l'app est ouverte
-onMessage(messaging, (payload) => {
-    console.log("📩 Notification reçue :", payload);
-    new Notification(payload.notification.title, {
-        body: payload.notification.body,
-        icon: payload.notification.icon
-    });
-});
-
-// Lancer la demande de permission au chargement
-requestPermission();
-
-*/
-
 // site to app service worker notif
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
@@ -92,7 +30,6 @@ themeToggleButton.addEventListener('click', () => {
         localStorage.setItem('theme', 'dark');
     }
 });
-/* 
 
 // Fonction pour charger le cache depuis localStorage calcul du fiboscope
 function loadCache() {
@@ -409,8 +346,21 @@ ${data.market_data && data.market_data.market_cap.usd
         chartDiv.innerHTML = ''; // Effacer la chart en cas d'erreur
     }
 });
+/* section DISCLAIMER
+function toggleSection() {
+    const section = document.getElementById('dyor');
+    const arrow = document.querySelector('#dyor .arrow');
 
-*/
+    if (section.style.height === '50px' || !section.style.height) {
+        // Ouvrir la section
+        section.style.height = `${section.scrollHeight}px`; // Hauteur totale du contenu
+        arrow.textContent = 'ℹ️'; // Changer la flèche vers le haut
+    } else {
+        // Fermer la section
+        section.style.height = '100px'; // Revenir à la hauteur initiale
+        arrow.textContent = 'ℹ️ Disclaimer:'; // Changer la flèche vers le bas
+    }
+}*/
 // Sélection des éléments
 const openPopupLink = document.querySelector('.open-popup');
 const popup = document.getElementById('dyor-popup');
@@ -511,208 +461,3 @@ hamburgerMenu.addEventListener('click', () => {
     });
 });
 
-
-
-////////////////// COMPARE CHART
-
-/*
-let chart;
-let cryptoData = {};
-let priceAlert = null;
-
-// Récupérer les 100 premiers tokens
-async function fetchTopTokens() {
-   const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
-   const response = await fetch(url);
-   const data = await response.json();
-
-   const tokens = data.map(token => ({
-       id: token.id,
-       name: token.name,
-       symbol: token.symbol.toLowerCase()
-   }));
-
-   localStorage.setItem('topTokens', JSON.stringify(tokens));
-}
-
-fetchTopTokens();
-
-// Fonction pour récupérer les données d'un crypto
-async function fetchCryptoData(crypto, days) {
-   try {
-       const response = await fetch(`https://api.coingecko.com/api/v3/coins/${crypto}/market_chart?vs_currency=usd&days=${days}`);
-       if (!response.ok) throw new Error("Erreur lors de la récupération des données.");
-       const data = await response.json();
-       return data.prices.map(entry => ({ x: entry[0], y: entry[1] }));
-   } catch (error) {
-       alert("Erreur: " + error.message);
-       return null;
-   }
-}
-
-// Fonction pour ajouter un crypto au graphique
-async function addCrypto() {
-   const crypto = document.getElementById("cryptoInput").value.toLowerCase().trim();
-   if (!crypto || cryptoData[crypto]) return;
-
-   const tokens = JSON.parse(localStorage.getItem('topTokens')) || [];
-   const token = tokens.find(t => t.id === crypto || t.symbol === crypto);
-
-   if (!token) {
-       alert("Token non trouvé. Essayez un autre nom ou symbole.");
-       return;
-   }
-
-   const period = document.getElementById("period").value;
-   const data = await fetchCryptoData(token.id, period);
-   if (data) {
-       cryptoData[token.id] = data;
-       updateChart();
-   }
-}
-
-// Fonction pour mettre à jour le graphique
-function updateChart() {
-   const ctx = document.getElementById('cryptoChart').getContext('2d');
-   if (chart) chart.destroy();
-   chart = new Chart(ctx, {
-       type: 'line',
-       data: {
-           datasets: Object.keys(cryptoData).map((crypto, index) => [
-               {
-                   label: crypto,
-                   data: cryptoData[crypto],
-                   borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
-                   fill: false,
-               },
-               {
-                   label: `${crypto} (SMA 7)`,
-                   data: calculateSMA(cryptoData[crypto], 7),
-                   borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
-                   borderDash: [5, 5],
-                   fill: false,
-               }
-           ]).flat(),
-       },
-       options: {
-           interaction: {
-               mode: 'nearest',
-               intersect: false,
-           },
-           plugins: {
-               tooltip: {
-                   enabled: true,
-                   mode: 'index',
-                   intersect: false,
-               },
-               zoom: {
-                   zoom: {
-                       wheel: {
-                           enabled: true,
-                       },
-                       pinch: {
-                           enabled: true,
-                       },
-                       mode: 'xy',
-                   },
-                   pan: {
-                       enabled: true,
-                       mode: 'xy',
-                   },
-               },
-           },
-           scales: { x: { type: 'time', time: { unit: 'day' } } },
-           responsive: true,
-       },
-   });
-}
-
-// Fonction pour effacer le graphique
-function clearChart() {
-   cryptoData = {};
-   updateChart();
-}
-
-// Fonction pour calculer la moyenne mobile (SMA)
-function calculateSMA(data, period) {
-   const sma = [];
-   for (let i = period - 1; i < data.length; i++) {
-       const sum = data.slice(i - period + 1, i + 1).reduce((acc, point) => acc + point.y, 0);
-       sma.push({ x: data[i].x, y: sum / period });
-   }
-   return sma;
-}
-
-// Fonction pour exporter les données en CSV
-function exportData() {
-   const csvContent = Object.keys(cryptoData).map(crypto => {
-       const header = `Date,${crypto}\n`;
-       const rows = cryptoData[crypto].map(point => `${new Date(point.x).toLocaleDateString()},${point.y}`).join('\n');
-       return header + rows;
-   }).join('\n\n');
-
-   const blob = new Blob([csvContent], { type: 'text/csv' });
-   const url = URL.createObjectURL(blob);
-   const a = document.createElement('a');
-   a.href = url;
-   a.download = 'crypto_data.csv';
-   a.click();
-   URL.revokeObjectURL(url);
-}*/
-/*
-
-// Fonction pour basculer entre dark mode et light mode
-function toggleTheme() {
-    const body = document.body;
-    body.classList.toggle('dark-mode');
-    chart.update();
-}
-
-// Fonction pour définir une alerte de prix
-function setPriceAlert() {
-    const price = parseFloat(document.getElementById('priceAlert').value);
-    if (isNaN(price)) return;
-    priceAlert = price;
-    checkPriceAlert();
-}
-
-// Fonction pour vérifier l'alerte de prix
-function checkPriceAlert() {
-    if (!priceAlert) return;
-    const currentPrice = cryptoData[Object.keys(cryptoData)[0]]?.slice(-1)[0]?.y;
-    if (currentPrice >= priceAlert) {
-        alert(`Alerte : Le prix a atteint ${priceAlert} USD !`);
-        priceAlert = null;
-    }
-}
-
-// Vérifier l'alerte de prix toutes les 10 secondes
-setInterval(checkPriceAlert, 10000);
-
-*/
-// Ajout d'un événement pour chaque bouton Copier
-document.querySelectorAll('.copy-button').forEach(button => {
-    button.addEventListener('click', function () {
-        const targetId = this.getAttribute('data-target');
-        const addressElement = document.getElementById(targetId);
-        const address = addressElement.textContent;
-
-        // Crée un élément temporaire pour copier le texte
-        const tempInput = document.createElement('input');
-        tempInput.value = address;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempInput);
-
-        // Optionnel : Feedback visuel
-        Toastify({
-            text: "✅ Adresse copiée !",
-            duration: 2000,
-            gravity: "center",
-            position: "center",
-            backgroundColor: "",
-
-        }).showToast();
-    });
-});
