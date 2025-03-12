@@ -14,6 +14,7 @@ const firebaseConfig = {
 // Initialise Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
+const analytics = getAnalytics(app);
 
 // Gestion des messages en arrière-plan
 self.addEventListener('push', function (event) {
