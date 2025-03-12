@@ -5,17 +5,17 @@ document.body.classList.add(currentTheme + '-mode');
 // Gestion du bouton de bascule
 const themeToggleButton = document.createElement('button');
 themeToggleButton.className = 'theme-toggle';
-themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
+themeToggleButton.textContent = currentTheme === 'dark' ? 'L/D' : 'D/L';
 document.body.appendChild(themeToggleButton);
 
 themeToggleButton.addEventListener('click', () => {
     if (document.body.classList.contains('dark-mode')) {
         document.body.classList.replace('dark-mode', 'light-mode');
-        themeToggleButton.textContent = 'Dark';
+        themeToggleButton.textContent = 'D/L';
         localStorage.setItem('theme', 'light');
     } else {
         document.body.classList.replace('light-mode', 'dark-mode');
-        themeToggleButton.textContent = 'Light';
+        themeToggleButton.textContent = 'L/D';
         localStorage.setItem('theme', 'dark');
     }
 });

@@ -9,9 +9,9 @@
     --border-color: #dcdcdc;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --input-background: #f9f9f9;
-    --accent-color: #2575fc;
-    --success-color: #00cc66;
-    --error-color: #ff4444;
+    --accent-color: #ffd97d;
+    --success-color: #60d394;
+    --error-color: #ee6055;
 }
 
 body.light-mode {
@@ -101,7 +101,7 @@ header img {
 /* Theme Toggle */
 .theme-toggle {
     position: fixed;
-    top: 20px;
+    top: 10px;
     right: 20px;
     color: var(--primary-color);
     background-color: transparent;

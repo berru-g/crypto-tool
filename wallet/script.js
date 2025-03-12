@@ -1,14 +1,13 @@
-fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,reserve-rights-token,near,mysterium,aave,ethereum&vs_currencies=usd&include_24hr_change=true')
+fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,reserve-rights-token,near,mysterium,aave,ethereum&vs_currencies=usd&include_24hr_change=true')
 
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('crypto-prices');
 
     const tokenHoldings = {
-      cardano: 480,
       solana: 1.89,
       ethereum:0.01,
-      'reserve-rights-token': 40006,
+      'reserve-rights-token': 40015,
       near: 101.9,
       mysterium: 12.24,
       aave: 1.31,

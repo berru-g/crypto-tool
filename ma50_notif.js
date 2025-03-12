@@ -44,10 +44,11 @@ async function checkMovingAverages(cryptoId) {
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
         }
         
-        /*if (true) { //teste des notifs
+        if (true) { //teste des notifs
             triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
             sendNotification("Teste notif M.A 20/50");
-        }*/
+            showNotification("Notif MA 50/100");
+        }
             
     }
 }
@@ -87,11 +88,12 @@ function triggerAlert(message, color, soundUrl) {
     } else {
         console.warn("🚫 API Badging non supportée sur ce device.");
         alert("🚫 API SendPushNotif non supportée sur ce device.");
-    }
-    /*if (true) { //teste des notifs
+    }/*
+    if (true) { //teste des notifs
         navigator.setAppBadge(1);
         sendNotification("Teste notif M.A 20/50");
-    }*/ 
+        showNotification("Notif MA 50/100");
+    } */
 }
 
 

@@ -60,7 +60,8 @@ span {
   padding: 20px;
   background-color: #333;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  border: 1px solid black;
+	box-shadow: -16px 15px 0px -1px #878787;
 }
 
 h1 {

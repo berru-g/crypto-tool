@@ -18,11 +18,11 @@ function updateMomentumIndicator(momentum) {
     let indicator = document.getElementById("momentum-indicator");
 
     if (momentum > 50) {
-        indicator.style.backgroundColor = "green"; // Momentum fort, bullish
+        indicator.style.backgroundColor = "#2a9d8f"; // Momentum fort, bullish
     } else if (momentum > 10) {
-        indicator.style.backgroundColor = "orange"; // Momentum en ralentissement
+        indicator.style.backgroundColor = "#f4a261"; // Momentum en ralentissement
     } else {
-        indicator.style.backgroundColor = "red"; // Risque de retournement baissier
+        indicator.style.backgroundColor = "#e76f51"; // Risque de retournement baissier
     }
 
     // Stocker l'état dans localStorage pour garder la couleur entre les pages
