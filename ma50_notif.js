@@ -21,8 +21,8 @@ function calculateMovingAverage(data, period) {
 
 async function checkMovingAverages(cryptoId) {
     let data = await getHistoricalData(cryptoId);
-    let ma50 = calculateMovingAverage(data, 50);
-    let ma200 = calculateMovingAverage(data, 200);
+    let ma50 = calculateMovingAverage(data, 20);
+    let ma200 = calculateMovingAverage(data, 50);
 
     if (ma50.length > 0 && ma200.length > 0) {
         let lastMA50 = ma50[ma50.length - 1].toFixed(2);
