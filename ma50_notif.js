@@ -18,7 +18,7 @@ function calculateMovingAverage(data, period) {
     }
     return ma;
 }
-
+// définir les moyenne mobile à calculer 
 async function checkMovingAverages(cryptoId) {
     let data = await getHistoricalData(cryptoId);
     let ma50 = calculateMovingAverage(data, 20);
@@ -43,12 +43,12 @@ async function checkMovingAverages(cryptoId) {
             triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
         }
-        /*
+        
         if (true) { //teste des notifs
             triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
-            sendNotification("Teste notif M.A 50/200");
+            sendNotification("Teste notif M.A 20/50");
         }
-            */
+            
     }
 }
 
