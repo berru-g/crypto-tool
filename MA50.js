@@ -1,3 +1,30 @@
+importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js");
+
+// Configurer Firebase dans le Service Worker
+firebase.initializeApp({
+    apiKey: "AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o",
+    authDomain: "crypto-tools-93073.firebaseapp.com",
+    projectId: "crypto-tools-93073",
+    storageBucket: "crypto-tools-93073.firebasestorage.app",
+    messagingSenderId: "962710503785",
+    appId: "1:962710503785:web:53df269d4550848c447df8",
+    measurementId: "G-BT011W5TVT"
+});
+
+const messaging = firebase.messaging();
+
+// RECEVOIR LES NOTIFS EN ARRIÈRE-PLAN
+messaging.onBackgroundMessage((payload) => {
+    console.log("📩 Notification en arrière-plan :", payload);
+    self.registration.showNotification(payload.notification.title, {
+        body: payload.notification.body,
+        icon: payload.notification.icon
+    });
+});
+
+
+
 async function getHistoricalData(cryptoId, days = 200) {
     let url = `https://api.coingecko.com/api/v3/coins/${cryptoId}/market_chart?vs_currency=usd&days=${days}&interval=daily`;
     let response = await fetch(url);
@@ -41,7 +68,7 @@ async function detectCross() {
         alert("Potentiel Pump  🔔");
         navigator.setAppBadge(1);
     }
-    
+
     if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
         triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
         alert("M.A Notification est indisponble pour le moment.  🔔");

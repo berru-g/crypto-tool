@@ -8,7 +8,7 @@ if ('serviceWorker' in navigator) {
         });
 }
 
-//////////////////////// FIBOSCOPE
+//npm install -g firebase-tools
 // Récupération du mode depuis le localStorage
 const currentTheme = localStorage.getItem('theme') || 'dark';
 document.body.classList.add(currentTheme + '-mode');
