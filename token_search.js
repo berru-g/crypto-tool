@@ -60,7 +60,7 @@ function displayTokenData(data) {
     const utility = categories ? categories.join(", ") : "Non spécifié";
 
     resultSection.innerHTML = `
-    <img src="${image.large}" alt="${name}" style="width: 100px; height: 100px; margin-right: 20px;">
+    <img src="${image.large}" alt="${name}" style="width: 70px; height: 70px; margin-right: 20px;">
             <div style="display: flex; align-items: right;">
                 
                 <div>
