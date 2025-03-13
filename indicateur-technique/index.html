@@ -97,44 +97,48 @@
     <div id="intro">
         <h1>Indic tech</h1><br>
     </div>
-    <section id="crash-detector">
+    <section id="features">
         <h2>Comment Utiliser Cet Outil ?</h2>
         <br>
         <p>Cet outil vous permet de visualiser les indicateurs techniques pour une crypto-monnaie spécifique.
             Voici ce que vous verrez sur le graphique :</p><br>
 
-        <p><strong style='color: #3b82f6;'>Prix :</strong> La ligne bleue représente le prix de la crypto-monnaie.</p><br>
-        <p><strong style='color: #ff4d4d;'>RSI (Relative Strength Index) :</strong> La ligne rouge montre le RSI, un indicateur de momentum.</p>
+        <p><strong style='color: #3b82f6;'>Prix :</strong> La ligne bleue représente le prix de la crypto-monnaie.</p>
+        <br>
+        <p><strong style='color: #ee6055;'>RSI (Relative Strength Index) :</strong> La ligne rouge montre le RSI, un
+            indicateur de momentum.</p>
         <br>
         <p>Un RSI < 30 indique une <strong>survente</strong> (potentiel d'achat).</p>
         <p>Un RSI > 70 indique un <strong>surachat</strong> (potentiel de vente).</p>
         <br>
-        <p><strong style='color: #ffa500;'>Bollinger Bands :</strong> Les lignes orange et rouge représentent les bandes de Bollinger.</p>
+        <p><strong style='color: #ffa500;'>Bollinger Bands :</strong> Les lignes orange et rouge représentent les bandes
+            de Bollinger.</p>
         <br>
         <p>La bande supérieure (orange) montre un niveau de <strong>résistance</strong>.</p>
         <p>La bande inférieure (rouge) montre un niveau de <strong>support</strong>.</p>
     </section>
     <br>
-    <h2 id="fibonacci"><i class="fa-solid fa-arrow-down"></i></h2>
-    <br>
+    <section id="crash-detector">
+        <h2 id="fibonacci">indicateur Tech</h2>
+        <br>
 
-    <div class="input-group">
-        <label for="cryptoInput"></label>
-        <input type="text" id="cryptoInput" placeholder="bitcoin">
-    </div>
+        <div class="input-group">
+            <label for="cryptoInput"></label>
+            <input type="text" id="cryptoInput" placeholder="bitcoin">
+        </div>
 
-    <div class="input-group">
-        <label for="periodInput"></label>
-        <select id="periodInput">
-            <option value="7">7 jours</option>
-            <option value="30">30 jours</option>
-            <option value="90">90 jours</option>
-            <option value="365">1 an</option>
-        </select>
-    </div>
+        <div class="input-group">
+            <label for="periodInput"></label>
+            <select id="periodInput">
+                <option value="7">7 jours</option>
+                <option value="30">30 jours</option>
+                <option value="90">90 jours</option>
+                <option value="365">1 an</option>
+            </select>
+        </div>
 
-    <button onclick="loadChart()">Afficher les Indicateurs</button>
-
+        <button onclick="loadChart()">Afficher les Indicateurs</button>
+    </section>
     <div class="chart-container">
         <canvas id="cryptoChart"></canvas>
     </div>

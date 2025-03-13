@@ -145,3 +145,7 @@ document.querySelectorAll('.copy-button').forEach(button => {
         }).showToast();
     });
 });
+
+// Features index, full info sur le token
+
+

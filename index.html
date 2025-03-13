@@ -108,7 +108,6 @@
 <body>
     <div id="intro">
         <h1>Crypto tools</h1><br>
-        <button id="installApp">Install the app <i class="fa-solid fa-download"></i></button>
 
         <script>
             let deferredPrompt;
@@ -167,6 +166,13 @@
                 <p>Affichage du RSI, MACD et Bollinger Bands.</p>
             </div>
         </div>
+    </section>
+    <br>
+    <section id="crash-detector">
+        <h2>Recherche de Tokens</h2>
+        <input type="text" id="tokenSearch" placeholder="🔍 Rechercher un token..." />
+        <button id="searchButton">Rechercher</button>
+        <div id="tokenResults"></div>
     </section>
     <br>
     <section>
@@ -321,10 +327,12 @@
                 </ul>
             </div>
         </div>
+        <button id="installApp">Install the app <i class="fa-solid fa-download"></i></button>
 
         <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 by <a
                 href="https://berru-g.github.io/berru-g/">berru-g</a></h5>
     </footer>
+    <script src="token_search.js"></script>
     <script src="new.js"></script>
     <script src="pwa.js"></script>
     <script src="momentum.js" defer></script>
