@@ -107,7 +107,7 @@
 
 <body>
     <div id="intro">
-        <h1>Crypto tools</h1><br>
+        <h1>Crypto tools</h1>
 
         <script>
             let deferredPrompt;
@@ -170,10 +170,12 @@
     <br>
     <section id="crash-detector">
         <h2>Recherche de Tokens</h2>
-        <input type="text" id="tokenSearch" placeholder="🔍 Rechercher un token..." />
+        <input type="text" id="tokenSearch" placeholder="🔍 Rechercher un token..." list="tokenList" />
+        <datalist id="tokenList"></datalist>
         <button id="searchButton">Rechercher</button>
         <div id="tokenResults"></div>
     </section>
+
     <br>
     <section>
         <script src="https://widgets.coingecko.com/gecko-coin-list-widget.js"></script>
