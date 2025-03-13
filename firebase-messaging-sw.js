@@ -2,7 +2,7 @@ importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js');
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o",
+    apiKey: "****",
     authDomain: "crypto-tools-93073.firebaseapp.com",
     projectId: "crypto-tools-93073",
     storageBucket: "crypto-tools-93073.firebasestorage.app",

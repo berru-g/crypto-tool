@@ -6,7 +6,7 @@ import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/fireb
 
 // 1️⃣ Configuration Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyDjuiFTrfmTaSizXrEVr4o6Ehq0_jwsc0o",
+    apiKey: "****",
     authDomain: "crypto-tools-93073.firebaseapp.com",
     projectId: "crypto-tools-93073",
     storageBucket: "crypto-tools-93073.firebasestorage.app",
