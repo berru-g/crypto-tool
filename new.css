@@ -16,26 +16,26 @@
 
 body.light-mode {
     --background-color: #0f0f0f;
-    /* Fond sombre */
+
     --text-color: #e0e0e0;
-    /* Texte clair */
+
     --titre-color: grey;
     --primary-color: #ab9ff2;
-    /* Couleur principale (violet) */
+
     --secondary-color: #1a1a1a;
-    /* Arrière-plan des sections */
+
     --border-color: #30363d;
-    /* Bordures discrètes */
+
     --shadow-color: rgba(0, 0, 0, 0.2);
-    /* Ombres douces */
+
     --input-background: #222;
-    /* Arrière-plan des inputs */
+
     --accent-color: #58a6ff;
-    /* Couleur d'accent (bleu) */
+
     --success-color: #00cc66;
-    /* Vert pour les indicateurs positifs */
+
     --error-color: #ff4444;
-    /* Rouge pour les erreurs */
+
 }
 
 /* Simple CSS Reset */
@@ -65,7 +65,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Header */
+/* Header 
 header {
     position: fixed;
     top: 0;
@@ -76,26 +76,105 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+}*/
+
+/* Style de base pour le header */
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0px 15px 0px -1px var(--border-color);
+    z-index: 1000;
 }
 
+/* Conteneur du logo et de l'indicateur */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espace entre le logo et l'indicateur */
+}
+
+/* Style du logo */
 header img {
-    position: fixed;
-    top: 20px;
+    max-width: 40px;
+    max-height: 40px;
     height: 40px;
     border-radius: 12px;
 }
 
+/* Indicateur de momentum */
 #momentum-indicator {
     position: absolute;
-    top: 20px;
-    left: 40px;
-    width: 12px;
-    height: 12px;
+    top: 23px;
+    left: 50px;
+    width: 15px;
+    height: 15px;
     background-color: gray;
-    /* Couleur par défaut */
     border-radius: 50%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
+}
+
+header h1 {
+    font-size: 1em;
+    margin-top: 0px;
+    color: var(--shadow-color);
+}
+
+/* Conteneur de la barre de recherche et du bouton */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espace entre la barre de recherche et le bouton */
+}
+
+.barre-head {
+    max-width: 400px;
+    top: 0px;
+}
+
+/* Responsive pour les petits écrans (mobile) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        /* Les éléments s'empilent verticalement */
+        height: auto;
+        /* Hauteur automatique */
+        padding: 10px;
+    }
+
+    .logo-container {
+        width: 100%;
+        justify-content: space-between;
+        /* Logo à gauche, indicateur à droite */
+    }
+
+    .search-container {
+        max-width: 400px;
+        top: 0px;
+        margin-top: 0px;
+        /* Espace entre le logo et la barre de recherche */
+    }
+
+    .barre-head {
+        min-width: 40px;
+        margin-top: 10px;
+    }
+
+    #tokenSearch {
+        width: 70%;
+        /* La barre de recherche prend toute la largeur */
+        margin-top: 0px;
+    }
 }
 
 /* Theme Toggle */
@@ -126,16 +205,9 @@ a:hover {
     transform: scale(1.05);
 }
 
-/* Intro Section */
 #intro {
     text-align: center;
     padding: 40px 20px;
-}
-
-#intro h1 {
-    font-size: 2.5em;
-    margin-top: 20px;
-    color: var(--titre-color);
 }
 
 
@@ -165,7 +237,7 @@ section {
 #features {
     padding: 20px 20px;
     background-color: var(--background-color);
-    
+
 }
 
 #features h2 {
@@ -185,15 +257,16 @@ section {
     padding: 20px;
     border-radius: 12px;
     text-align: center;
-   /* border: 1px solid var(--border-color);
+    /* border: 1px solid var(--border-color);
     box-shadow: 0 2px 10px var(--shadow-color);*/
     border: 1px solid black;
-	box-shadow: -16px 15px 0px -1px #878787;
+    box-shadow: -16px 15px 0px -1px #878787;
     animation: fadeIn 1s ease-in-out;
 }
+
 .feature-card:hover {
     transform: scale(1.01);
-    
+
 }
 
 .feature-card i {
@@ -214,8 +287,8 @@ section {
 #crash-detector {
     background-color: var(--background-color);
     border-radius: 12px;
-	border: 1px solid black;
-	box-shadow: -16px 15px 0px -1px #878787;
+    border: 1px solid black;
+    box-shadow: -16px 15px 0px -1px #878787;
 }
 
 /* MA Values */
@@ -272,7 +345,7 @@ section {
     padding: 20px;
     border-radius: 12px;
     border: 1px solid black;
-	box-shadow: -16px 15px 0px -1px #878787;
+    box-shadow: -16px 15px 0px -1px #878787;
     width: 90%;
     max-width: 800px;
 }
@@ -296,15 +369,15 @@ input {
     border-radius: 12px;
     background-color: var(--input-background);
     color: var(--text-color);
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 select {
     padding: 10px 20px;
-    margin-top: 20px;
+    margin-top: 10px;
     background-color: var(--secondary-color);
     color: var(--text-color);
-    border: 1px solid var(--border-color);
+    /*border: 1px solid var(--border-color);*/
     border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -329,21 +402,25 @@ button:hover {
     color: var(--primary-color);
     transform: scale(1.05);
 }
+
 .btn-grid {
     display: flex;
-    justify-content: center; 
-    align-items: center;     
-    flex-wrap: wrap;        
-    gap: 10px;              
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .btn {
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
 }
+
 #tokenResults {
+    margin-top: 20px;
     width: 100%;
     height: auto;
 }
+
 #alert-box {
     background: red;
     color: white;
@@ -491,7 +568,7 @@ button:hover {
 .copy-button {
     background-color: white;
     width: 20px;
-    height:auto;
+    height: auto;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
@@ -502,9 +579,10 @@ button:hover {
 .copy-button:hover {
     opacity: 0.7;
 }
+
 svg {
     width: 15px;
-    height:auto;
+    height: auto;
 }
 
 /* Responsiveness */
@@ -781,7 +859,7 @@ canvas {
     z-index: 9999 !important;
     height: 60px;
     background-color: var(--secondary-color);
-    opacity: 0.9;
+    opacity: 1;
     border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: space-around;
@@ -866,6 +944,7 @@ footer .footer-section ul li a:hover {
     h2 {
         font-size: 1.5em;
     }
+
     #fibonacci {
         margin-top: 20px;
         margin-bottom: 20px;

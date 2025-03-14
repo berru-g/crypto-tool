@@ -95,19 +95,37 @@
         gtag('config', 'G-Y5GVLEC0TV');
     </script>
 
-</head>
+</head><!--
 <header>
     <div class="hamburger-menu">
         <img src="./img/logo.png" alt="Logo de l’app">
         <span id="momentum-indicator"></span>
     </div>
-    <button id="themeToggle" class="theme-toggle"></button>
-    <!--https://img.icons8.com/?size=100&id=36389&format=png&color=808080-->
+  <div>
+  <input type="text" id="tokenSearch" placeholder="🔍 Rechercher un token..." list="tokenList" />
+        <datalist id="tokenList"></datalist>
+        <button id="searchButton">Rechercher</button>  
+  </div>
+    <!--<button id="themeToggle" class="theme-toggle"></button>
+    https://img.icons8.com/?size=100&id=36389&format=png&color=808080-->
+</header>
+-->
+<header>
+    <div class="logo-container">
+        <img src="https://github.com/berru-g/crypto-tool/blob/main/img/logo.png?raw=true" alt="Logo de l’app">
+        <span id="momentum-indicator"></span>
+        <h1>Crypto tool</h1>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="tokenSearch" placeholder="🔍 search a token..." list="tokenList" />
+        <datalist id="tokenList"></datalist>
+        <button class="barre-head" id="searchButton">Search</button>
+    </div>
 </header>
 
 <body>
     <div id="intro">
-        <h1>Crypto tools</h1>
 
         <script>
             let deferredPrompt;
@@ -132,7 +150,10 @@
         </script>
     </div>
     <section id="features">
-        <h2>Nos Outils</h2>
+        <div id="tokenResults"></div>
+    </section>
+    <section id="features">
+        <h2>Features</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <i class="fas fa-chart-line"></i>
@@ -168,13 +189,13 @@
         </div>
     </section>
     <br>
-    <section id="crash-detector">
+    <!--<section id="crash-detector">
         <h2>Recherche de Tokens</h2>
         <input type="text" id="tokenSearch" placeholder="🔍 Rechercher un token..." list="tokenList" />
         <datalist id="tokenList"></datalist>
         <button id="searchButton">Rechercher</button>
         <div id="tokenResults"></div>
-    </section>
+    </section>-->
 
     <br>
     <section>
@@ -279,7 +300,7 @@
             <button type="submit">Envoyer <i class="fa-solid fa-paper-plane"></i></button>
         </form>
     </section>
-    
+
     <nav class="navbar">
         <a href="index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
         <a href="./fibonacci/index.html"><span><i class="fa-solid fa-chart-line"></i></span>fibo</a>
@@ -311,6 +332,7 @@
             <div class="footer-section links">
                 <h3>More +</h3>
                 <ul>
+                    <!--<li><button id="themeToggle"class="theme-toggle">Dark mode</button></li>-->
                     <li><a href="https://medium.com/@gael-berru">Articles</a></li>
                     <li><a href="https://github.com/berru-g/">Open source</a></li>
                     <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Buy Me a Coffee</a></li>
@@ -320,12 +342,13 @@
             <div class="footer-section links">
                 <h3>A venir <i class="fa-solid fa-gears"></i></h3>
                 <ul>
-                    <li><a href="#">Profil  <i class="fa-solid fa-user"></i></a></li>
+                    <li><a href="#">Profil <i class="fa-solid fa-user"></i></a></li>
                     <li><a href="#">Dashboard <i class="fa-solid fa-right-to-bracket"></i></a></li>
                     <li><a href="./wallet/index.html">Wallet <i class="fa-solid fa-wallet"></i></a></li>
                 </ul>
             </div>
         </div>
+
         <button id="installApp">install the app <i class="fa-solid fa-download"></i></button>
 
     </footer>
