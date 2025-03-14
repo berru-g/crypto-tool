@@ -31,7 +31,7 @@ function populateTokenList(tokens) {
 async function fetchTokenData(query) {
     console.log("Recherche du token :", query); // Vérification
     if (!query.trim()) {
-        resultSection.innerHTML = `<p style='color:red;'>⚠ Veuillez entrer un nom de token</p>`;
+        resultSection.innerHTML = `<p style='color:#ee6055;'>⚠ Veuillez entrer un nom de token</p>`;
         return;
     }
 
@@ -46,7 +46,7 @@ async function fetchTokenData(query) {
         displayTokenData(data);
     } catch (error) {
         console.error("Erreur :", error); // Vérification
-        resultSection.innerHTML = `<p style='color:red;'>⚠ Token introuvable</p>`;
+        resultSection.innerHTML = `<p style='color:#ee6055;'>⚠ Token introuvable</p>`;
     }
 }
 
@@ -65,12 +65,12 @@ function displayTokenData(data) {
                 
                 <div>
                     <h2>${name} (${symbol.toUpperCase()})</h2>
-                    <p>💰 Prix : $${price}</p>
-                    <p>📊 Rank : ${market_cap_rank}</p>
-                    <p>📈 ATH : $${ath}</p>
-                    <p>📉 ATL : $${atl}</p>
-                    <p>🔗 Blockchain : ${blockchains}</p>
-                    <p>🛠 Utilité : ${utility}</p>
+                    <p><strong>Price</strong>  $${price}</p>
+                    <p><strong>RANK</strong>   ${market_cap_rank}</p>
+                    <p><strong style='color:#60d394;'>ATH</strong> 📈   $${ath}</p>
+                    <p><strong style='color:#ee6055;'>ATL</strong> 📉   $${atl}</p>
+                    <p><strong>Blockchain</strong> 🔗 ${blockchains}</p>
+                    <p><strong>Utilité</strong> 🛠 ${utility}</p>
                 </div>
             </div>
             <canvas id="priceChart"></canvas>
