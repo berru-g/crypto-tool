@@ -95,13 +95,13 @@ function displayTokenData(data) {
         <div style="display: flex; align-items: right;">
             <div>
                 <h2>${name} (${symbol.toUpperCase()})</h2>
-                <p><strong style='color:grey;'>💲</strong>  ${price}</p>
-                <p><strong style='color:grey;'>⭐</strong>   ${market_cap_rank}</p>
-                <p><strong style='color:#60d394;'>ATH</strong> 📈   $${ath}</p>
-                <p><strong style='color:#ee6055;'>ATL</strong> 📉   $${atl}</p>
-                <p style='color:#58a6ff;'><strong>${name}</strong> is at <span>${percentFromATH}% of its ATH</p>
-                <p><strong style='color:#ab9ff2;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p>
-                <p><strong style='color:grey;'>Blockchain</strong> 🔗 ${blockchains}</p>
+                <p><strong style='color:grey;'>${price}</strong> $</p>
+                <p><strong style='color:grey;'>${market_cap_rank}</strong>⭐</p>
+                <p>ATH <strong style='color:#60d394;'>${ath}</strong>$ 📈</p>
+                <p>ATL <strong style='color:#ee6055;'>${atl}</strong>$ 📉</p><br>
+                <p style='color:#58a6ff;'><strong>${name}</strong> is at <strong>${percentFromATH}%</strong> of its ATH</p><br>
+                <p><strong style='color:#ab9ff2;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p><br>
+                <p><strong style='color:grey;'>Blockchain</strong> 🔗 ${blockchains}</p><br>
                 <p><strong style='color:grey;'>Utilité</strong> 🛠 ${utility}</p>
             </div>
         </div>
