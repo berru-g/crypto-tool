@@ -99,7 +99,7 @@ function displayTokenData(data) {
                 <p><strong style='color:grey;'>⭐</strong>   ${market_cap_rank}</p>
                 <p><strong style='color:#60d394;'>ATH</strong> 📈   $${ath}</p>
                 <p><strong style='color:#ee6055;'>ATL</strong> 📉   $${atl}</p>
-                <p><strong style='color:grey;'>% from ATH</strong> 📊   <span style='color:#58a6ff;'>${percentFromATH}%</p>
+                <p style='color:#58a6ff;'><strong>${name}</strong> is at <span>${percentFromATH}% of its ATH</p>
                 <p><strong style='color:#ab9ff2;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p>
                 <p><strong style='color:grey;'>Blockchain</strong> 🔗 ${blockchains}</p>
                 <p><strong style='color:grey;'>Utilité</strong> 🛠 ${utility}</p>
