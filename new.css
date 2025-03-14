@@ -138,14 +138,14 @@ header h1 {
 }
 
 .barre-head {
-    max-width: 400px;
+    max-width: 450px;
     top: 0px;
 }
 
 /* Responsive pour les petits écrans (mobile) */
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
+        flex-direction: row;
         /* Les éléments s'empilent verticalement */
         height: auto;
         /* Hauteur automatique */
@@ -154,25 +154,24 @@ header h1 {
 
     .logo-container {
         width: 100%;
-        justify-content: space-between;
-        /* Logo à gauche, indicateur à droite */
+        justify-content: flex-start;
     }
 
     .search-container {
-        max-width: 400px;
+        max-width: 550px;
         top: 0px;
         margin-top: 0px;
         /* Espace entre le logo et la barre de recherche */
     }
 
     .barre-head {
-        min-width: 40px;
+        min-width: 80px;
         margin-top: 10px;
     }
 
     #tokenSearch {
         width: 70%;
-        /* La barre de recherche prend toute la largeur */
+        min-width: 80px;
         margin-top: 0px;
     }
 }
