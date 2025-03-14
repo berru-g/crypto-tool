@@ -1,3 +1,5 @@
+
+
 const searchInput = document.getElementById("tokenSearch");
 const resultSection = document.getElementById("tokenResults");
 const tokenList = document.getElementById("tokenList");
@@ -23,32 +25,6 @@ function populateTokenList(tokens) {
         option.setAttribute("data-id", token.id); // Stocke l'ID du token
         tokenList.appendChild(option);
     });
-}
-
-// Fonction pour calculer le pourcentage par rapport à l'ATH
-function calculatePercentageFromATH(currentPrice, ath) {
-    if (ath === 0) return 0; // Pour éviter une division par zéro
-    return ((currentPrice / ath) * 100).toFixed(2);
-}
-
-// Fonction pour calculer les niveaux de Fibonacci
-function calculateFibonacciLevels(ath, atl) {
-    const levels = [0.236, 0.382, 0.5, 0.618, 0.786];
-    return levels.map(level => ({
-        level: level * 100,
-        price: ath - (ath - atl) * level
-    }));
-}
-
-// Fonction pour afficher les niveaux de support/resistance
-function displaySupportResistanceLevels(currentPrice, fibonacciLevels) {
-    let message = "";
-    fibonacciLevels.forEach(level => {
-        if (Math.abs(currentPrice - level.price) < 2) { // 2 est une marge d'erreur
-            message += `Support/resistance à ${level.price.toFixed(2)} (${level.level}%)<br>`;
-        }
-    });
-    return message || "Aucun niveau de support/resistance proche.";
 }
 
 // Rechercher les données du token
@@ -82,31 +58,24 @@ function displayTokenData(data) {
     const atl = market_data.atl.usd.toFixed(2);
     const blockchains = platforms ? Object.keys(platforms).join(", ") : "Non listé";
     const utility = categories ? categories.join(", ") : "Non spécifié";
-
-    // Calcul du pourcentage par rapport à l'ATH
-    const percentFromATH = calculatePercentageFromATH(market_data.current_price.usd, market_data.ath.usd);
-
-    // Calcul des niveaux de Fibonacci
-    const fibonacciLevels = calculateFibonacciLevels(market_data.ath.usd, market_data.atl.usd);
-    const supportResistanceMessage = displaySupportResistanceLevels(market_data.current_price.usd, fibonacciLevels);
+    
 
     resultSection.innerHTML = `
-        <img src="${image.large}" alt="${name}" style="width: 70px; height: 70px; margin-right: 20px;">
-        <div style="display: flex; align-items: right;">
-            <div>
-                <h2>${name} (${symbol.toUpperCase()})</h2>
-                <p><strong style='color:grey;'>💲</strong>  ${price}</p>
-                <p><strong style='color:grey;'>⭐</strong>   ${market_cap_rank}</p>
-                <p><strong style='color:#60d394;'>ATH</strong> 📈   $${ath}</p>
-                <p><strong style='color:#ee6055;'>ATL</strong> 📉   $${atl}</p>
-                <p><strong style='color:grey;'>% from ATH</strong> 📊   <span style='color:#58a6ff;'>${percentFromATH}%</p>
-                <p><strong style='color:#ab9ff2;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p>
-                <p><strong style='color:grey;'>Blockchain</strong> 🔗 ${blockchains}</p>
-                <p><strong style='color:grey;'>Utilité</strong> 🛠 ${utility}</p>
+    <img src="${image.large}" alt="${name}" style="width: 70px; height: 70px; margin-right: 20px;">
+            <div style="display: flex; align-items: right;">
+                
+                <div>
+                    <h2>${name} (${symbol.toUpperCase()})</h2>
+                    <p><strong>Price</strong>  $${price}</p>
+                    <p><strong>RANK</strong>   ${market_cap_rank}</p>
+                    <p><strong style='color:#60d394;'>ATH</strong> 📈   $${ath}</p>
+                    <p><strong style='color:#ee6055;'>ATL</strong> 📉   $${atl}</p>
+                    <p><strong>Blockchain</strong> 🔗 ${blockchains}</p>
+                    <p><strong>Utilité</strong> 🛠 ${utility}</p>
+                </div>
             </div>
-        </div>
-        <canvas id="priceChart"></canvas>
-    `;
+            <canvas id="priceChart"></canvas>
+        `;
     fetchHistoricalData(data.id);
 }
 

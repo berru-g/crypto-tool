@@ -113,8 +113,8 @@ header img {
 /* Indicateur de momentum */
 #momentum-indicator {
     position: absolute;
-    top: 23px;
-    left: 50px;
+    top: 18px;
+    left: 40px;
     width: 15px;
     height: 15px;
     background-color: gray;
