@@ -91,21 +91,22 @@ function displayTokenData(data) {
     const supportResistanceMessage = displaySupportResistanceLevels(market_data.current_price.usd, fibonacciLevels);
 
     resultSection.innerHTML = `
-        <img src="${image.large}" alt="${name}" style="width: 70px; height: 70px; margin-right: 20px;">
-        <div style="display: flex; align-items: right;">
+        <p style="display: flex; justify-content: space-between; align-items: center;">
+<strong><span>${name} (${symbol.toUpperCase()})</span></strong>
+<img src="${image.small}" alt="${name} logo" style="width: 50px; height: 50px; margin-left: 10px;"></p>
             <div>
-                <h2>${name} (${symbol.toUpperCase()})</h2>
-                <p>PRICE <strong style='color:grey;'>${price}</strong> $</p>
-                <p>RANK <strong style='color:grey;'>${market_cap_rank}</strong>⭐</p>
+                
+                <p>Price  <strong style='color:grey;'>${price}</strong> $</p>
+                <p>Rank  <strong style='color:grey;'>${market_cap_rank}</strong>⭐</p>
                 <p>ATH 📈<strong style='color:#60d394;'>${ath}</strong>$</p>
                 <p>ATL 📉<strong style='color:#ee6055;'>${atl}</strong>$</p><br>
                 <p style='color:#58a6ff;'><strong>${name}</strong> is at <strong>${percentFromATH}%</strong> of its ATH</p><br>
-                <p><strong style='color:#ab9ff2;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p><br>
-                <p><strong style='color:grey;'>Blockchain</strong> 🔗 ${blockchains}</p><br>
-                <p><strong style='color:grey;'>Utilité</strong> 🛠 ${utility}</p>
+                <p><strong style='color:#3c325b;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p><br>
+                <p><strong style='color:#3c325b;'>Blockchain</strong> 🔗 ${blockchains}</p><br>
+                <p><strong style='color:#3c325b;'>Utilité</strong> 🛠 ${utility}</p>
             </div>
         </div>
-        <canvas id="chart-container"></canvas>
+        <canvas id="price-chart"></canvas>
     `;
     fetchHistoricalData(data.id);
 }
@@ -127,7 +128,7 @@ async function fetchHistoricalData(tokenId) {
 
 // Dessiner le graphique
 function drawChart(priceData) {
-    const ctx = document.getElementById("chart-container").getContext("2d");
+    const ctx = document.getElementById("price-chart").getContext("2d");
     const labels = priceData.map(entry => new Date(entry[0]).toLocaleDateString());
     const prices = priceData.map(entry => entry[1]);
 
@@ -138,7 +139,7 @@ function drawChart(priceData) {
             datasets: [{
                 label: "Prix USD",
                 data: prices,
-                borderColor: "#4caf50",
+                borderColor: "#ab9ff2",
                 fill: false
             }]
         },
