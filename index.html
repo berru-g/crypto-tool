@@ -125,7 +125,6 @@
 
 <body>
     <div id="intro">
-
         <script>
             let deferredPrompt;
 
@@ -151,6 +150,34 @@
     <section id="features">
         <div id="tokenResults"></div>
     </section>
+<!--    <section id="features">
+        <div class="features-grid-intro">
+            <div class="feature-card-intro">
+                <a href="#Market"><i class="fa-solid fa-list"></i>
+                    <p>Market</p>
+                </a>
+            </div>
+
+            <div class="feature-card-intro">
+                <a href="#tradingview"><i class="fas fa-chart-line"></i>
+                    <p>TradingView</p>
+                </a>
+            </div>
+
+            <div class="feature-card-intro">
+                <a href="#momentum"><i class="fas fa-wave-square"></i>
+                    <p>Momentum</p>
+                </a>
+            </div>
+
+            <div class="feature-card-intro">
+                <a href="#ma"><i class="fa-solid fa-sliders"></i>
+                    <p>MA 50/200</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    <br>-->
     <section id="features">
         <h2>Features</h2>
         <div class="features-grid">
@@ -198,54 +225,47 @@
         </div>
     </section>
     <br>
-    <!--<section id="crash-detector">
-        <h2>Recherche de Tokens</h2>
-        <input type="text" id="tokenSearch" placeholder="🔍 Rechercher un token..." list="tokenList" />
-        <datalist id="tokenList"></datalist>
-        <button id="searchButton">Rechercher</button>
-        <div id="tokenResults"></div>
-    </section>-->
-
+    <h2 id="Market">Market</h2>
     <br>
-    <h2>Market</h2>
-<br>
     <section>
         <script src="https://widgets.coingecko.com/gecko-coin-list-widget.js"></script>
         <gecko-coin-list-widget locale="en" transparent-background="true" coin-ids=""
             initial-currency="usd"></gecko-coin-list-widget>
     </section>
     <br>
+    <h2 id="tradingview">Chart tradingView</h2><br>
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+
+        <script type="text/javascript"
+            src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                {
+                    "width": "100%",
+                        "height": "410",
+                            "symbol": "BINANCE:BTCUSDT",
+                                "interval": "D",
+                                    "timezone": "Etc/UTC",
+                                        "theme": "light",
+                                            "style": "1",
+                                                "locale": "en",
+                                                    "backgroundColor": "#f1f1f1",
+                                                        "withdateranges": true,
+                                                            "hide_side_toolbar": false,
+                                                                "allow_symbol_change": true,
+                                                                    "save_image": false,
+                                                                        "details": true,
+                                                                            "calendar": false,
+                                                                                "support_host": "https://www.tradingview.com"
+                }
+            </script>
+    </div>
     
-       <div class="tradingview-widget-container">
-  <div class="tradingview-widget-container__widget"></div>
-  
-  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-  {
-  "width": "100%",
-  "height": "410",
-  "symbol": "BINANCE:BTCUSDT",
-  "interval": "D",
-  "timezone": "Etc/UTC",
-  "theme": "light",
-  "style": "1",
-  "locale": "en",
-  "backgroundColor": "#f1f1f1",
-  "withdateranges": true,
-  "hide_side_toolbar": false,
-  "allow_symbol_change": true,
-  "save_image": false,
-  "details": true,
-  "calendar": false,
-  "support_host": "https://www.tradingview.com"
-}
-  </script>
-</div>
-    
-<br>
+    <br>
     <section id="crash-detector">
-        <h2>🚀 Momentum Live :</h2>
+        <h2 id="momentum">🚀 Momentum Live :</h2>
         <br>
-        <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance actuelle :
+        <p> Suivez en un coup d'œil la force du marché ! Le point de couleur sur le logo indique la tendance
+            actuelle :
         </p><br>
         <ul>
             <p><span style="color:#60d394;font-size:30px;">●</span> Bullish,</p>
@@ -256,12 +276,13 @@
     </section>
     <br>
     <section id="crash-detector">
-        <h2>Notification de moyenne mobile</h2>
+        <h2 id="ma">Notification de moyenne mobile</h2>
         <p>Recevoir des notif des MA pour anticiper les gros mouvements.</p>
         <br>
         <p><strong>Pourquoi utiliser MA50 et MA200 ?</strong></p>
         <br>
-        <p>Ce sont les deux indicateurs les plus utilisés en trading pour repérer un changement de tendance majeur.
+        <p>Ce sont les deux indicateurs les plus utilisés en trading pour repérer un changement de tendance
+            majeur.
         </p><br>
         <ul>
             <p style="color:#ee6055;">Death Cross (MA50 passe sous MA200) = 📉</p>
@@ -300,7 +321,8 @@
         <h2>Annexe</h2>
         <br>
         <p>Ce site et l'app sont open source, vous pouvez accéder au code sur <a
-                href="https://github.com/berru-g/crypto-tool/"><i class="fa-brands fa-github"></i> Github.</a></p>
+                href="https://github.com/berru-g/crypto-tool/"><i class="fa-brands fa-github"></i>
+                Github.</a></p>
         <br>
         <p style="font-style: italic;">Pour les
             développeurs qui veulent participer au dev de cette app n'hésitez pas à me contacter. Merci</p>
@@ -310,7 +332,8 @@
                     href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d" target="_blank"
                     rel="noopener">medium.com</a>.</li><br>
             <li>✅ Si vous êtes débutant, lisez cet article, <a
-                    href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment choisir
+                    href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">comment
+                    choisir
                     un bon token ?</a></li><br>
             <li>✅ Lire la checklist de<a
                     href="https://medium.com/@gael-berru/checklist-de-v%C3%A9rification-dun-airdrop-anti-scam-5e12ec55ca53">
@@ -341,7 +364,7 @@
 
     <nav class="navbar">
         <a href="index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
-        <a href="./fibonacci/index.html"><span><i class="fa-solid fa-chart-line"></i></span>fibo</a>
+        <a href="#tradingview"><span><i class="fa-solid fa-chart-line"></i></span>trading</a>
         <a href="./alarm/index.html"><span><i class="fa-solid fa-bell"></i></span>alarm</a>
         <a href="./chart-comparator/index.html"><span><i class="fa-solid fa-chart-area"></i></span>chart</a>
         <a href="./indicateur-technique/index.html"><span><i class="fa-solid fa-chart-gantt"></i></span>tech</a>
@@ -373,7 +396,8 @@
                     <!--<li><button id="themeToggle"class="theme-toggle">Dark mode</button></li>-->
                     <li><a href="https://medium.com/@gael-berru">Articles</a></li>
                     <li><a href="https://github.com/berru-g/">Open source</a></li>
-                    <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Buy Me a Coffee</a></li>
+                    <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Buy Me a Coffee</a>
+                    </li>
                     <!--<li><a href="#dyor" class="open-popup">Buy me a coffe</a></li>-->
                 </ul>
             </div>
