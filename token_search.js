@@ -70,7 +70,7 @@ async function fetchTokenData(query) {
         displayTokenData(data);
     } catch (error) {
         console.error("Erreur :", error); // Vérification
-        resultSection.innerHTML = `<p style='color:#ee6055;'>⚠ Token introuvable</p>`;
+        resultSection.innerHTML = `<p style='color:#ee6055;'>⚠ Token introuvable ou probléme de connexion possible. Please Refresh 🔄️</p>`;
     }
 }
 
@@ -95,17 +95,17 @@ function displayTokenData(data) {
         <div style="display: flex; align-items: right;">
             <div>
                 <h2>${name} (${symbol.toUpperCase()})</h2>
-                <p><strong style='color:grey;'>${price}</strong> $</p>
-                <p><strong style='color:grey;'>${market_cap_rank}</strong>⭐</p>
-                <p>ATH <strong style='color:#60d394;'>${ath}</strong>$ 📈</p>
-                <p>ATL <strong style='color:#ee6055;'>${atl}</strong>$ 📉</p><br>
+                <p>PRICE <strong style='color:grey;'>${price}</strong> $</p>
+                <p>RANK <strong style='color:grey;'>${market_cap_rank}</strong>⭐</p>
+                <p>ATH 📈<strong style='color:#60d394;'>${ath}</strong>$</p>
+                <p>ATL 📉<strong style='color:#ee6055;'>${atl}</strong>$</p><br>
                 <p style='color:#58a6ff;'><strong>${name}</strong> is at <strong>${percentFromATH}%</strong> of its ATH</p><br>
                 <p><strong style='color:#ab9ff2;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p><br>
                 <p><strong style='color:grey;'>Blockchain</strong> 🔗 ${blockchains}</p><br>
                 <p><strong style='color:grey;'>Utilité</strong> 🛠 ${utility}</p>
             </div>
         </div>
-        <canvas id="priceChart"></canvas>
+        <canvas id="chart-container"></canvas>
     `;
     fetchHistoricalData(data.id);
 }
@@ -127,7 +127,7 @@ async function fetchHistoricalData(tokenId) {
 
 // Dessiner le graphique
 function drawChart(priceData) {
-    const ctx = document.getElementById("priceChart").getContext("2d");
+    const ctx = document.getElementById("chart-container").getContext("2d");
     const labels = priceData.map(entry => new Date(entry[0]).toLocaleDateString());
     const prices = priceData.map(entry => entry[1]);
 

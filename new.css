@@ -627,9 +627,10 @@ canvas {
 }
 
 #chart-container {
-    width: 100%;
-    max-width: 1050px;
-    height: 120vh;
+    height: 100%;
+    width: auto;
+    max-width: 1200px;
+    min-height: 80vh;
     max-height: none !important;
     position: relative;
     display: block;
@@ -857,7 +858,7 @@ canvas {
     width: 100%;
     z-index: 9999 !important;
     height: 60px;
-    background-color: var(--secondary-color);
+    background-color: var(--background-color);
     opacity: 1;
     border-top: 1px solid var(--border-color);
     display: flex;

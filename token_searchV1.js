@@ -74,7 +74,7 @@ function displayTokenData(data) {
                     <p><strong>Utilité</strong> 🛠 ${utility}</p>
                 </div>
             </div>
-            <canvas id="priceChart"></canvas>
+            <canvas id="chart"></canvas>
         `;
     fetchHistoricalData(data.id);
 }
@@ -96,7 +96,7 @@ async function fetchHistoricalData(tokenId) {
 
 // Dessiner le graphique
 function drawChart(priceData) {
-    const ctx = document.getElementById("priceChart").getContext("2d");
+    const ctx = document.getElementById("chart").getContext("2d");
     const labels = priceData.map(entry => new Date(entry[0]).toLocaleDateString());
     const prices = priceData.map(entry => entry[1]);
 
