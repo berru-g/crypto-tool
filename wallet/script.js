@@ -6,7 +6,7 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,reserve-rights-t
 
     const tokenHoldings = {
       solana: 1.89,
-      ethereum:0.01,
+      ethereum: 0.01,
       'reserve-rights-token': 40015,
       near: 101.9,
       mysterium: 12.24,
@@ -33,8 +33,8 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,reserve-rights-t
         cryptoElement.innerHTML = `
           <h2><a href="https://www.coingecko.com/en/coins/${crypto}" rel="noopener" target="_blank">${crypto.charAt(0).toUpperCase() + crypto.slice(1).replace(/-/g, ' ')}</a></h2>  
           <!--<p class="holdings" style="color:grey;">${holdings}</p>-->
-          <p class="price">$${price}</p>
-          <p class="holdings" style="color:grey;">$${totalValue}</p>
+          <p class="price">${price}$</p>
+          <p class="holdings" style="color:grey;">${totalValue}$</p>
           <p class="change">${change24h}%</p>
         `;
         container.appendChild(cryptoElement);
@@ -75,7 +75,7 @@ fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,reserve-rights-t
       container.appendChild(totalElement);
     }
 
-    totalElement.innerHTML = `<h3 id="total">💵 ${totalPortfolioValue.toFixed(2)} 💵</h3>`;
+    totalElement.innerHTML = `<h3 id="total"> ${totalPortfolioValue.toFixed(2)} $</h3>`;
 
   })
   .catch(error => {
@@ -99,26 +99,30 @@ hamburgerMenu.addEventListener('click', () => {
     }
   });
 });
+// Ajout d'un événement pour chaque bouton Copier
+document.querySelectorAll('.copy-button').forEach(button => {
+  button.addEventListener('click', function () {
+    const targetId = this.getAttribute('data-target');
+    const addressElement = document.getElementById(targetId);
+    const address = addressElement.textContent;
 
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleButton = document.getElementById("toggle-dark-mode");
-  const body = document.body;
+    // Crée un élément temporaire pour copier le texte
+    const tempInput = document.createElement('input');
+    tempInput.value = address;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
 
-  // Vérifier la préférence stockée
-  if (localStorage.getItem("theme") === "dark") {
-    body.classList.add("dark-mode");
-  } else {
-    body.classList.add("light-mode");
-  }
+    // Optionnel : Feedback visuel
+    Toastify({
+      text: "✅ Adresse copiée !",
+      duration: 2000,
+      gravity: "center",
+      position: "center",
+      backgroundColor: "green",
 
-  toggleButton.addEventListener("click", function () {
-    if (body.classList.contains("dark-mode")) {
-      body.classList.replace("dark-mode", "light-mode");
-      localStorage.setItem("theme", "light");
-    } else {
-      body.classList.replace("light-mode", "dark-mode");
-      localStorage.setItem("theme", "dark");
-    }
+    }).showToast();
   });
 });
 
