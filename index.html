@@ -95,20 +95,7 @@
         gtag('config', 'G-Y5GVLEC0TV');
     </script>
 
-</head><!--
-<header>
-    <div class="hamburger-menu">
-        <img src="./img/logo.png" alt="Logo de l’app">
-        <span id="momentum-indicator"></span>
-    </div>
-  <div>
-  <input type="text" id="tokenSearch" placeholder="🔍 Rechercher un token..." list="tokenList" />
-        <datalist id="tokenList"></datalist>
-        <button id="searchButton">Rechercher</button>  
-  </div>
-
-</header>
--->
+</head>
 <header>
     <div class="logo-container">
         <img src="./img/logo.png" alt="Logo de l’app">
@@ -117,7 +104,7 @@
     </div>
 
     <div class="search-container">
-        <input type="text" id="tokenSearch" placeholder="🔍 Aave" list="tokenList" />
+        <input type="text" id="tokenSearch" placeholder="🔍 Token" list="tokenList" />
         <datalist id="tokenList"></datalist>
         <button class="barre-head" id="searchButton">Search</button>
     </div>
@@ -175,9 +162,10 @@
         </div>
     </section>
     <br>
-    <h2 id="Market">Market</h2>
-    <br>
-    <section>
+
+    <section id="crash-detector">
+        <h2 id="Market">Top 5 MarketCap</h2>
+        <br>
         <script src="https://widgets.coingecko.com/gecko-coin-list-widget.js"></script>
         <gecko-coin-list-widget locale="en" transparent-background="true" coin-ids=""
             initial-currency="usd"></gecko-coin-list-widget>
@@ -314,7 +302,11 @@
         <img src="./img/TradingViewSMALL.png" alt="tradingview API">
         <img src="./img/BinanceSMALL.png" alt="Binance API">
     </div>
-
+    <br>
+    <div id="pub">
+        <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub"
+                src="https://affiliate.ledger.com/image/850/420/French"></a>
+    </div>
     <br>
     <section id="features">
         <h2>Annexe</h2>
@@ -338,12 +330,6 @@
                     vérification d'un AIRDROP antiscam</a> 🚩</li><br>
         </ul>
     </section>
-
-    <br>
-    <div id="pub">
-        <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub"
-                src="https://affiliate.ledger.com/image/850/420/French"></a>
-    </div>
     <br>
     <section id="formulaire">
         <h2>📩 Contact</h2><br>
