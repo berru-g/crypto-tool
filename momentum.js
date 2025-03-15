@@ -19,13 +19,13 @@ function updateMomentumIndicator(momentum) {
 
     if (momentum > 50) {
         indicator.style.backgroundColor = "#2a9d8f"; // Momentum fort, bullish
-        alert("Momentum fort, bullish");
+        alert("🟢 Momentum fort, bullish");
     } else if (momentum > 10) {
         indicator.style.backgroundColor = "#f4a261"; // Momentum en ralentissement
-        alert("Momentum en ralentissement");
+        alert("🟠 Momentum en ralentissement");
     } else {
         indicator.style.backgroundColor = "#e76f51"; // Risque de retournement baissier
-        alert("Risque de retournement baissier");
+        alert("🔴 Risque de retournement baissier");
     }
 
     // Stocker l'état dans localStorage pour garder la couleur entre les pages
@@ -38,5 +38,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("momentum-indicator").style.backgroundColor = savedColor;
 });
 
-// Mettre à jour le momentum toutes les 100 secondes
-setInterval(fetchMomentumFromBinance, 100000);
+// Mettre à jour le momentum toutes les 200 secondes
+setInterval(fetchMomentumFromBinance, 200000);

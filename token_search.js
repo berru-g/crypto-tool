@@ -100,10 +100,12 @@ function displayTokenData(data) {
                 <p>Rank  <strong style='color:grey;'>${market_cap_rank}</strong>⭐</p>
                 <p>ATH 📈<strong style='color:#60d394;'>${ath}</strong>$</p>
                 <p>ATL 📉<strong style='color:#ee6055;'>${atl}</strong>$</p><br>
-                <p style='color:#58a6ff;'><strong>${name}</strong> is at <strong>${percentFromATH}%</strong> of its ATH</p><br>
+                <p style='color:#58a6ff;'><strong>${name}</strong> is at <strong>${percentFromATH}%</strong> of its ATH</p>
+                <br>
                 <p><strong style='color:#3c325b;'>Niveaux de Fibonacci :</strong><br>${supportResistanceMessage}</p><br>
                 <p><strong style='color:#3c325b;'>Blockchain</strong> 🔗 ${blockchains}</p><br>
                 <p><strong style='color:#3c325b;'>Utilité</strong> 🛠 ${utility}</p>
+                
             </div>
         </div>
         <!--<canvas id="price-chart"></canvas>-->
