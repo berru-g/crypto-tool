@@ -106,7 +106,7 @@ function displayTokenData(data) {
                 <p><strong style='color:#3c325b;'>Utilité</strong> 🛠 ${utility}</p>
             </div>
         </div>
-        <canvas id="price-chart"></canvas>
+        <!--<canvas id="price-chart"></canvas>-->
     `;
     fetchHistoricalData(data.id);
 }
