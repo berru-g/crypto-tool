@@ -619,10 +619,11 @@ a {
 
 canvas {
     width: 100%;
-    max-width: 650px;
+    min-height: 550px;
     margin: 20px 20px;
     display: block;
 }
+
 
 #cryptoChart {
     width: 100%;
@@ -647,7 +648,6 @@ canvas {
 #chart-container {
     height: 100%;
     width: auto;
-    max-width: 1200px;
     min-height: 80vh;
     max-height: none !important;
     position: relative;

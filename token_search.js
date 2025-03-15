@@ -133,7 +133,6 @@ function drawChart(priceData) {
     const prices = priceData.map(entry => entry[1]);
 
     new Chart(ctx, {
-        type: "line",
         data: {
             labels: labels,
             datasets: [{
