@@ -330,16 +330,26 @@ section {
     margin-bottom: 20px;
 }
 
-/* Partner Logos */
+#partner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes de taille égale */
+    gap: 20px; /* Espace entre les images */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px 20px;
+}
+
 #partner img {
-    display: block;
-    margin: 0 auto;
     width: 100%;
-    max-width: 150px;
+    max-width: 80px; /* Taille maximale des images */
     height: auto;
-    flex: 1 1 calc(30% - 20px);
-    object-fit: cover;
     transition: transform 0.3s ease;
+    padding: 20px 20px;
+    border-radius: 12px;
+    border: 1px solid #878787;
+    box-shadow: -16px 15px 0px -1px #878787;
 }
 
 #partner img:hover {

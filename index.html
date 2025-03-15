@@ -124,60 +124,10 @@
 </header>
 
 <body>
-    <div id="intro">
-        <script>
-            let deferredPrompt;
-
-            window.addEventListener("beforeinstallprompt", (event) => {
-                console.log("beforeinstallprompt détecté !");
-                event.preventDefault();
-                deferredPrompt = event;
-                document.getElementById("installApp").style.display = "block";
-
-                document.getElementById("installApp").addEventListener("click", () => {
-                    console.log("Bouton cliqué !");
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === "accepted") {
-                            console.log("L’utilisateur a installé l’application !");
-                        }
-                        deferredPrompt = null;
-                    });
-                });
-            });
-        </script>
-    </div>
     <section id="features">
         <div id="tokenResults"></div>
     </section>
-    <!--    <section id="features">
-        <div class="features-grid-intro">
-            <div class="feature-card-intro">
-                <a href="#Market"><i class="fa-solid fa-list"></i>
-                    <p>Market</p>
-                </a>
-            </div>
 
-            <div class="feature-card-intro">
-                <a href="#tradingview"><i class="fas fa-chart-line"></i>
-                    <p>TradingView</p>
-                </a>
-            </div>
-
-            <div class="feature-card-intro">
-                <a href="#momentum"><i class="fas fa-wave-square"></i>
-                    <p>Momentum</p>
-                </a>
-            </div>
-
-            <div class="feature-card-intro">
-                <a href="#ma"><i class="fa-solid fa-sliders"></i>
-                    <p>MA 50/200</p>
-                </a>
-            </div>
-        </div>
-    </section>
-    <br>-->
     <section id="features">
         <h2>Features</h2>
         <div class="features-grid">
@@ -357,21 +307,14 @@
         <button onclick="requestPushPermission()">🔔 Activer les notifications</button>
     </section>
     <br>
-    <section>
-        <div id="partner">
-            <p>Providing the data</p>
-            <br>
-            <a href="https://www.coingecko.com"><img
-                    src="https://github.com/berru-g/crypto-tool/blob/main/img/CoinGecko.png?raw=true"
-                    alt="coingecko API"></a>
-            <a href="https://www.tradingview.com/"><img
-                    src="https://github.com/berru-g/crypto-tool/blob/main/img/TradingView.png?raw=true"
-                    alt="tradingview API"></a>
-            <a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
-                target="_blank"><img src="https://github.com/berru-g/crypto-tool/blob/main/img/Binance.png?raw=true"
-                    alt="Binance API"></a>
-        </div>
-    </section>
+
+    <p>Providing the data</p>
+    <div id="partner">
+        <img src="./img/CoinGeckoSMALL.png" alt="coingecko API">
+        <img src="./img/TradingViewSMALL.png" alt="tradingview API">
+        <img src="./img/BinanceSMALL.png" alt="Binance API">
+    </div>
+
     <br>
     <section id="features">
         <h2>Annexe</h2>
@@ -440,9 +383,9 @@
                     </li>
                     <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
                             target="_blank">Binance</a></li>
-                            <li><a href="https://app.getgrass.io/register/?referralCode=vuVMPERoPN8ecJe"
-                                rel="noopener" target="_blank">Grass.io</a>
-                        </li>
+                    <li><a href="https://app.getgrass.io/register/?referralCode=vuVMPERoPN8ecJe" rel="noopener"
+                            target="_blank">Grass.io</a>
+                    </li>
                     <li><a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"
                             rel="noopener" target="_blank">Mysterium network</a>
                     </li>

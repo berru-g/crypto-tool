@@ -1,3 +1,22 @@
+// site to app btn 
+let deferredPrompt;
+window.addEventListener("beforeinstallprompt", (event) => {
+    console.log("beforeinstallprompt détecté !");
+    event.preventDefault();
+    deferredPrompt = event;
+    document.getElementById("installApp").style.display = "block";
+
+    document.getElementById("installApp").addEventListener("click", () => {
+        console.log("Bouton cliqué !");
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === "accepted") {
+                console.log("L’utilisateur a installé l’application !");
+            }
+            deferredPrompt = null;
+        });
+    });
+});
 //////////////////////// dark mode
 const currentTheme = localStorage.getItem('theme') || 'dark';
 document.body.classList.add(currentTheme + '-mode');
