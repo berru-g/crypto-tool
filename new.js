@@ -159,7 +159,7 @@ document.querySelectorAll('.copy-button').forEach(button => {
             duration: 2000,
             gravity: "center",
             position: "center",
-            backgroundColor: "",
+            backgroundColor: "grey",
 
         }).showToast();
     });

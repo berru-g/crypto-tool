@@ -22,7 +22,7 @@ self.addEventListener('push', function (event) {
     const options = {
         body: payload.notification.body,
         icon: payload.notification.icon,
-        badge: 'img/badge.png',
+        badge: 'img/logo.png',
         vibrate: [200, 100, 200],
         requireInteraction: true,
         actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]

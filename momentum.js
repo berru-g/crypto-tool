@@ -38,5 +38,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("momentum-indicator").style.backgroundColor = savedColor;
 });
 
-// Mettre à jour le momentum toutes les 200 secondes
-setInterval(fetchMomentumFromBinance, 200000);
+// Mettre à jour le momentum toutes les 900 secondes
+setInterval(fetchMomentumFromBinance, 900000);

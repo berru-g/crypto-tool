@@ -33,7 +33,7 @@ function requestPermission() {
 
 // 3️⃣ Récupérer le Token Firebase de l'utilisateur
 function getUserToken() {
-    getToken(messaging, { vapidKey: "BEL_UbKzujfYV0QOGTCwaoXqw1pH6tS0SvAZtjuE3ySis6LLnlipmeJeJPPoD_1nURED0W6C1U_7Q--B69l7d3g" })
+    getToken(messaging, { vapidKey: "***" })
         .then((currentToken) => {
             if (currentToken) {
                 console.log("🔥 Token Firebase:", currentToken);
