@@ -1,8 +1,8 @@
 {
     "name": "Crypto-Tool",
     "short_name": "Crypto-Tool",
-    "version": "1.0.5",
-    "description": "L'app complète simplifie le Retracement de Fibonacci et le comparateur multi chart. Recevoir des notif des moyennes mobiles pour anticiper les gros mouvements et bien plus.",
+    "version": "1.2.0",
+    "description": "L'app complète simplifie le Retracement de Fibonacci et le comparateur multi chart. Accédez aux chart de tradingview, Recevez des notif des moyennes mobiles pour anticiper les gros mouvements et bien plus.",
     "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ab9ff2",

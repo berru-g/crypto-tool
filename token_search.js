@@ -45,7 +45,7 @@ function displaySupportResistanceLevels(currentPrice, fibonacciLevels) {
     let message = "";
     fibonacciLevels.forEach(level => {
         if (Math.abs(currentPrice - level.price) < 2) { // 2 est une marge d'erreur
-            message += `Support/resistance à ${level.price.toFixed(2)} (${level.level}%)<br>`;
+            message += `Support/resistance à <strong style="color:#60d394;">${level.price.toFixed(2)}</strong> (${level.level}%)<br>`;
         }
     });
     return message || "Aucun niveau de support/resistance proche.";
