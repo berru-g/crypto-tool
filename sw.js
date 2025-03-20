@@ -49,6 +49,7 @@ self.addEventListener('push', function (event) {
   event.waitUntil(
       self.registration.showNotification('Crypto Alert 🚨', options)
   );
+
 });
 
 // Gestion des clics sur les notifications
