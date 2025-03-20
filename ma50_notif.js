@@ -38,3 +38,4 @@ function sendPushNotification(title, message) {
         });
     });
 }
+setTimeout(() => sendPushNotification("🎉 Test réussi", "Les notifications fonctionnent !"), 5000);
