@@ -57,19 +57,36 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js"></script>
     <script>
-        const firebaseConfig = {
-            apiKey: "****",
-            authDomain: "crypto-tools-93073.firebaseapp.com",
-            projectId: "crypto-tools-93073",
-            storageBucket: "crypto-tools-93073.firebasestorage.app",
-            messagingSenderId: "****",
-            appId: "1:****",
-        };
-
-        // Initialise Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const messaging = firebase.messaging();
+        const publicVapidKey = "BPrQaIhgAMm0epPTot0L804INFeqGY_BXCAnOQNHsRD2lcHtaKgQGOy61R-ITdkFAJgB_ILpLVp6wYHAezFnhzs";
+    
+        async function subscribeToNotifications() {
+            if (!("serviceWorker" in navigator)) return console.error("Service Worker non supporté");
+            if (!("PushManager" in window)) return console.error("Notifications non supportées");
+    
+            // 1️⃣ Enregistrer le Service Worker
+            const registration = await navigator.serviceWorker.register("/sw.js");
+    
+            // 2️⃣ Demander la permission de notification
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: publicVapidKey,
+            });
+    
+            // 3️⃣ Envoyer l'abonnement au serveur (Netlify Functions)
+            await fetch("/.netlify/functions/saveSubscription", {
+                method: "POST",
+                body: JSON.stringify(subscription),
+                headers: { "Content-Type": "application/json" },
+            });
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("subscribeButton").addEventListener("click", subscribeToNotifications);
+        });
     </script>
+    
+    <button id="subscribeButton">Activer les notifications</button>
+    
     <!--script type="application/ld+json"-->
     <script type="application/ld+json">
         {
