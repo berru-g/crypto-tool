@@ -1,15 +1,17 @@
+// ma50_notif.js - Calcul des moyennes mobiles et affichage dans le HTML + notifications
+
 async function getHistoricalData(cryptoId, days = 200) {
     let url = `https://api.coingecko.com/api/v3/coins/${cryptoId}/market_chart?vs_currency=usd&days=${days}&interval=daily`;
     let response = await fetch(url);
     let data = await response.json();
-    return data.prices.map(price => price[1]); // Retourne uniquement les prix
+    return data.prices.map(price => price[1]);
 }
 
 function calculateMovingAverage(data, period) {
     let ma = [];
     for (let i = period - 1; i < data.length; i++) {
         let sum = 0;
-        for (let j = i - period + 1; j <= i; j++) {
+        for (let j = i; j > i - period; j--) {
             sum += data[j];
         }
         ma.push(sum / period);
@@ -17,37 +19,56 @@ function calculateMovingAverage(data, period) {
     return ma;
 }
 
-async function detectCross() {
-    const cryptoId = "bitcoin"; // Change pour un autre token si besoin
-    let prices = await getHistoricalData(cryptoId, 200);
+async function checkMovingAverages(cryptoId) {
+    let data = await getHistoricalData(cryptoId);
+    let ma50 = calculateMovingAverage(data, 50);
+    let ma200 = calculateMovingAverage(data, 200); 
 
-    let ma50 = calculateMovingAverage(prices, 50);
-    let ma200 = calculateMovingAverage(prices, 200);
+    if (ma50.length > 0 && ma200.length > 0) {
+        let lastMA50 = ma50[ma50.length - 1].toFixed(2);
+        let lastMA200 = ma200[ma200.length - 1].toFixed(2);
 
-    document.getElementById("ma50").textContent = ma50[ma50.length - 1].toFixed(2) + " $";
-    document.getElementById("ma200").textContent = ma200[ma200.length - 1].toFixed(2) + " $";
+        // Mettre à jour le HTML
+        document.getElementById("ma50").innerText = lastMA50;
+        document.getElementById("ma200").innerText = lastMA200;
 
-    let lastMA50 = ma50[ma50.length - 1];
-    let lastMA200 = ma200[ma200.length - 1];
-    let prevMA50 = ma50[ma50.length - 2];
-    let prevMA200 = ma200[ma200.length - 2];
+        let prevMA50 = ma50[ma50.length - 2];
+        let prevMA200 = ma200[ma200.length - 2];
 
-    if (lastMA50 < lastMA200 && prevMA50 > prevMA200) {
-        triggerAlert("Death Cross détecté ! Risque de chute du marché.", "red", "./img/notif.mp3");
-        alert("Risque de chute  🔔");
-        navigator.setAppBadge(1);
-    } else if (lastMA50 > lastMA200 && prevMA50 < prevMA200) {
-        triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "green", "./img/notif.mp3");
-        alert("Potentiel Pump  🔔");
-        navigator.setAppBadge(1);
+        if (prevMA50 < prevMA200 && lastMA50 > lastMA200) {
+            alert("Potentiel Pump 📈");
+            triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "#60d394", "./img/notif.mp3");
+            sendNotification("Golden Cross détecté ! 📈", "La MA50 est passée au-dessus de la MA200.");
+            displayAlertHistory("Golden Cross détecté ! Potentiel Pump 📈", "#60d394");
+        }
+        if (prevMA50 > prevMA200 && lastMA50 < lastMA200) {
+            alert("Risque de chute");
+            triggerAlert("Death Cross détecté ! Risque de chute du marché.", "#ee6055", "./img/notif.mp3");
+            sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
+            displayAlertHistory("Death Cross détecté ! Risque de chute du marché.", "#ee6055");
+        }
+        else {
+            triggerAlert("Zéro Notif", "Grey");
+            sendNotification("Test Notif ! 📉", "La MA50.");
+            displayAlertHistory("Test Notif", "grey");
+        }
+/*
+        if (true) {
+            triggerAlert("Test Notif", "#60d394", "./img/notif.mp3");
+            sendNotification("Test Notif ! 📉", "La MA50.");
+            displayAlertHistory("Test Notif", "grey");
+        }
+*/
     }
+}
 
-    if (true) {  // Forcer l'alerte pour tester le fonctionnement des notifs
-        triggerAlert("Ce service est indisponble pour le moment.", "grey", "./img/notif.mp3");
-        alert("M.A Notification est indisponble pour le moment.  🔔");
-        navigator.setAppBadge(1);
+function sendNotification(title, message) {
+    if (Notification.permission === "granted") {
+        new Notification(title, {
+            body: message,
+            icon: "/img/logo.png"
+        });
     }
-
 }
 
 function triggerAlert(message, color, soundUrl) {
@@ -90,8 +111,8 @@ async function sendPushNotification(message) {
                 body: message,
                 icon: "img/logo.png",
                 badge: "img/badge.png",
-                requireInteraction: true, // La notif reste affichée jusqu’à action
-                vibrate: [200, 100, 200], // Vibration pour mobile
+                requireInteraction: true,
+                vibrate: [200, 100, 200],
                 actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
             });
         } else {
@@ -101,21 +122,13 @@ async function sendPushNotification(message) {
         console.error("❌ Erreur lors de l'envoi de la notification :", error);
     }
 }
-/*
-self.addEventListener('push', event => {
-    const data = event.data.json();
-    const options = {
-        body: data.body,
-        icon: 'img/logo.png',
-        badge: 'img/badge.png',
-        vibrate: [200, 100, 200],
-        requireInteraction: true,
-        actions: [{ action: 'open_app', title: '📲 Ouvrir l’App' }]
-    };
-    event.waitUntil(
-        self.registration.showNotification(data.title, options)
-    );
-});*/
+
+// Vérifier les moyennes mobiles toutes les 60 secondes
+setInterval(() => checkMovingAverages("bitcoin"), 60000);
+
+// Exécution au chargement
+document.addEventListener("DOMContentLoaded", () => checkMovingAverages("bitcoin"));
+
 async function requestPushPermission() {
     console.log("🔔 Tentative d'activation des notifications...");
 
@@ -143,11 +156,11 @@ async function requestPushPermission() {
     }
 }
 
-// Vérifie les MAs toutes les 3h
-setInterval(detectCross, 10800000);
+// Vérifie les MAs toutes les 3h = 10800000
+setInterval(() => checkMovingAverages("bitcoin"), 200000);
 
 // Lancer la détection au chargement
-detectCross();
+checkMovingAverages("bitcoin");
 
 // Affichage de la dernière alerte en haut de l'application
 function displayAlertHistory(message, color) {
@@ -164,7 +177,7 @@ window.onload = function () {
     }
 };
 
-// déclencher la synchro avec SW
+// Déclencher la synchro avec SW
 navigator.serviceWorker.ready.then(registration => {
     registration.sync.register('crypto-sync')
         .then(() => console.log('Sync enregistré'))
