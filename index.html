@@ -122,8 +122,8 @@
         <a href="#momentum-indicator"><i class="fa-solid fa-magnifying-glass"></i>
             <p>search</p>
         </a>
-        <a href="./alarm/index.html"><i class="fas fa-bell"></i>
-            <p>alarm</p>
+        <a href="#narratif"><i class="fa-solid fa-sliders"></i>
+            <p>narratif</p>
         </a>
         <a href="./chart-comparator/index.html"><i class="fa-solid fa-layer-group"></i>
             <p>multi</p>
@@ -180,6 +180,11 @@
                 <i class="fa-solid fa-chart-gantt"></i>
                 <h3>Indicateur Tech</h3>
                 <p>Affichage du RSI, MACD et Bollinger Bands.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fa-solid fa-sliders"></i>
+                <h3>Narratif</h3>
+                <p>Visualiser l'évolution des narratifs en %</p>
             </div>
             <div class="feature-card">
                 <i class="fa-solid fa-list"></i>
@@ -313,7 +318,7 @@
         <br>
         <div class="ma-values">
             <p><strong>MA50 :</strong> <span id="ma50">⏳</span> $</p>
-            <p><strong>MA100 :</strong> <span id="ma200">⏳</span> $</p>
+            <p><strong>MA200 :</strong> <span id="ma200">⏳</span> $</p>
         </div>
         <div id="alert-box" class="hidden">
             <div id="alert-history" style="display:none;"></div>
@@ -323,7 +328,18 @@
         <button onclick="requestPushPermission()">🔔 Activer les notifications</button>
     </section>
     <br>
-
+    <section id="crash-detector">
+        <h2 id="narratif">Comparaison des Narratifs Crypto</h2>
+        <p>Visualiser l'évolution des narratifs majeur de 2025.</p>
+        <select id="timeRange">
+            <option value="7">7 Jours</option>
+            <option value="30">1 Mois</option>
+            <option value="365">1 An</option>
+        </select>
+        <br>
+        <canvas id="cryptoChart"></canvas>
+    </section>
+    <br>
     <p>Providing the data</p>
     <div id="partner">
         <img src="./img/CoinGeckoSMALL.png" alt="coingecko API">
@@ -436,7 +452,7 @@
     <script src="new.js"></script>
     <script src="pwa.js"></script>
     <script src="momentum.js" defer></script>
-    <!--<script src="firebase_notif.js"></script>-->
+    <script src="./narratif/script.js"></script>
     <script src="ma50_notif.js"></script>
 
 </body>
