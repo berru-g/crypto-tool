@@ -1,7 +1,7 @@
 import webpush from "web-push";
 
 const VAPID_PUBLIC_KEY = "BPrQaIhgAMm0epPTot0L804INFeqGY_BXCAnOQNHsRD2lcHtaKgQGOy61R-ITdkFAJgB_ILpLVp6wYHAezFnhzs";
-const VAPID_PRIVATE_KEY = "mBd8M-OElDoxfpfwgrA2Q0TIBnyO8H8AuNP2B2pMVuU";
+const VAPID_PRIVATE_KEY = "fuck";
 
 webpush.setVapidDetails("mailto:g.leberruyer@gmail.com", VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 
