@@ -22,7 +22,7 @@
     <meta name="description"
         content="L'app contient les chart de TradingView, le  Retracement de Fibonacci simplifié, un comparateur de chart multi couche, une alarmes de prix, des notif des moyennes mobiles pour anticiper les gros mouvements et bien plus..">
     <meta name="keywords"
-        content="comparateur de chart crypto, niveaux de support et resistance de bitcoin, momentum alarme, Fibonacci retracement, Crypto free tools, Recevoir des notif des moyennes mobiles pour anticiper les gros mouvements, crypto price alarm, multi charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
+        content="comparer l'évolution des narratif crypto, quel narratif performe?, comparateur de chart crypto, niveaux de support et resistance de bitcoin, momentum alarme, Fibonacci retracement, Crypto free tools, Recevoir des notif des moyennes mobiles pour anticiper les gros mouvements, crypto price alarm, multi charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
     <meta name="author" content="Gael Berru.">
     <meta name="robots" content="noai">
     <!-- Balises Open Graph pour les réseaux sociaux -->
@@ -58,20 +58,20 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js"></script>
     <script>
         const publicVapidKey = "BPrQaIhgAMm0epPTot0L804INFeqGY_BXCAnOQNHsRD2lcHtaKgQGOy61R-ITdkFAJgB_ILpLVp6wYHAezFnhzs";
-    
+
         async function subscribeToNotifications() {
             if (!("serviceWorker" in navigator)) return console.error("Service Worker non supporté");
             if (!("PushManager" in window)) return console.error("Notifications non supportées");
-    
+
             // 1️⃣ Enregistrer le Service Worker
             const registration = await navigator.serviceWorker.register("/sw.js");
-    
+
             // 2️⃣ Demander la permission de notification
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
                 applicationServerKey: publicVapidKey,
             });
-    
+
             // 3️⃣ Envoyer l'abonnement au serveur (Netlify Functions)
             await fetch("/.netlify/functions/saveSubscription", {
                 method: "POST",
@@ -79,14 +79,14 @@
                 headers: { "Content-Type": "application/json" },
             });
         }
-    
+
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("subscribeButton").addEventListener("click", subscribeToNotifications);
         });
     </script>
-    
+
     <button id="subscribeButton">Activer les notifications</button>
-    
+
     <!--script type="application/ld+json"-->
     <script type="application/ld+json">
         {
@@ -139,7 +139,7 @@
         <a href="#momentum-indicator"><i class="fa-solid fa-magnifying-glass"></i>
             <p>search</p>
         </a>
-        <a href="#narratif"><i class="fa-solid fa-sliders"></i>
+        <a href="./narratif/index.html"><i class="fa-solid fa-sliders"></i>
             <p>narratif</p>
         </a>
         <a href="./chart-comparator/index.html"><i class="fa-solid fa-layer-group"></i>
@@ -175,7 +175,7 @@
             </div>
             <div class="feature-card">
                 <i class="fas fa-bell"></i>
-                <h3>Alarme de Prix</h3>
+                <h3>Notif</h3>
                 <p>Recevez des alertes en temps réel.</p>
             </div>
             <div class="feature-card">
@@ -344,24 +344,13 @@
         <br>
         <button onclick="requestPushPermission()">🔔 Activer les notifications</button>
     </section>
-    <br>
-    <section id="crash-detector">
-        <h2 id="narratif">Comparaison des Narratifs Crypto</h2>
-        <p>Visualiser l'évolution des narratifs majeur de 2025.</p>
-        <select id="timeRange">
-            <option value="7">7 Jours</option>
-            <option value="30">1 Mois</option>
-            <option value="365">1 An</option>
-        </select>
-        <br>
-        <canvas id="cryptoChart"></canvas>
-    </section>
+
     <br>
     <p>Providing the data</p>
     <div id="partner">
         <img src="./img/CoinGeckoSMALL.png" alt="coingecko API">
         <img src="./img/TradingViewSMALL.png" alt="tradingview API">
-        <img src="./img/BinanceSMALL.png" alt="Binance API">
+        <a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ"><img src="./img/BinanceSMALL.png" alt="Binance API"></a>
     </div>
     <br>
     <div id="pub">
@@ -379,9 +368,11 @@
             développeurs qui veulent participer au dev de cette app n'hésitez pas à me contacter. Merci</p>
         <br>
         <ul>
-            <li>✅ Si vous souhaitez des explications sur le retracement de fibonacci <a
+            <li>✅ Pour commencer, <a href="https://medium.com/@gael-berru/cest-quoi-le-web-3-523ad4a0aa0c"
+                    target="_blank" rel="noopener">c'est quoi le web3</a> ?</li><br>
+            <li>✅ Si vous souhaitez des explications sur le <a
                     href="https://medium.com/@gael-berru/fibonacci-retracement-a56d53d5863d" target="_blank"
-                    rel="noopener">medium.com</a>.</li><br>
+                    rel="noopener">retracement de fibonacci</a>.</li><br>
             <li>✅ Si vous êtes débutant, je vous conseille cet article, <a
                     href="https://savoir-relatif-et-absolu.netlify.app/comment-choisir-un-bon-token">Comment
                     choisir
@@ -389,6 +380,9 @@
             <li>🔐 Sécurité : Lire la checklist de<a
                     href="https://medium.com/@gael-berru/checklist-de-v%C3%A9rification-dun-airdrop-anti-scam-5e12ec55ca53">
                     vérification d'un AIRDROP antiscam</a> 🚩</li><br>
+            <li>🎁 Offres: <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5">Gagner
+                    de la crypto</a> en vendant une partie de votre bande passante et participer à l'intenet de demain.
+            </li>
         </ul>
     </section>
     <br>
@@ -410,7 +404,7 @@
     <nav class="navbar">
         <a href="index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
         <a href="#tradingview"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
-        <a href="./alarm/index.html"><span><i class="fa-solid fa-bell"></i></span>alarm</a>
+        <a href="./narratif/index.html"><span><i class="fa-solid fa-sliders"></i></span>narratif</a>
         <a href="./chart-comparator/index.html"><span><i class="fa-solid fa-layer-group"></i></span>multi</a>
         <a href="./indicateur-technique/index.html"><span><i class="fa-solid fa-chart-gantt"></i></span>tech</a>
         <!--<a href="./wallet/index.html"><span><i class="fa-solid fa-wallet"></i></span>wallet</a>-->
