@@ -122,6 +122,8 @@ hamburgerMenu.addEventListener('click', () => {
 });
 
 
+
+// test firebase pour les notif MA
 function getUserToken() {
     getToken(messaging, { vapidKey: "****" })
         .then((currentToken) => {
