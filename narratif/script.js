@@ -24,7 +24,7 @@ async function updateChart() {
             let percentageChange = ((price - arr[0]) / arr[0]) * 100;
             return { x: new Date(Date.now() - (arr.length - 1 - i) * 86400000), y: percentageChange };
         }),
-        borderColor: ["#bab1f2", "#b7d5dd", "#95f98a", "#fff370", "#ffcd71", "#fd9886"][index],
+        borderColor: ["#5086eb", "#fad646", "#fdd5dc", "#3ad38b", "#f56545", "#1a1a1a"][index],
         fill: false,
         tension: 0.1,
         pointRadius: 2

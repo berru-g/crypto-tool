@@ -65,13 +65,13 @@ function updateChart() {
                 {
                     label: crypto,
                     data: cryptoData[crypto],
-                    borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                    borderColor: ['#5086eb', '#fad646', '#fdd5dc', '#f4a261', '#f56545'][index % 5],
                     fill: false,
                 },
                 {
                     label: `${crypto} (SMA 7)`,
                     data: calculateSMA(cryptoData[crypto], 7),
-                    borderColor: ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51'][index % 5],
+                    borderColor: ['#5086eb', '#fad646', '#fdd5dc', '#f4a261', '#f56545'][index % 5],
                     borderDash: [5, 5],
                     fill: false,
                     responsive: true,

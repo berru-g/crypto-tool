@@ -212,27 +212,40 @@ a:hover {
 
 #box {
     display: flex;
-    flex-wrap: wrap; /* Permet le retour à la ligne */
-    justify-content: center; /* Centre horizontalement */
-    gap: 0px; /* Espace entre les éléments */
-    max-width: 350px; /* Largeur maximale */
-    margin: 10px auto; /* Centrer la boîte */
+    flex-wrap: wrap;
+    /* Permet le retour à la ligne */
+    justify-content: center;
+    /* Centre horizontalement */
+    gap: 0px;
+    /* Espace entre les éléments */
+    max-width: 350px;
+    /* Largeur maximale */
+    margin: 10px auto;
+    /* Centrer la boîte */
     padding: 10px;
 }
 
 #box a {
     display: flex;
-    flex-direction: column; /* Alignement vertical */
-    align-items: center; /* Centre horizontalement */
-    text-align: center; /* Centre le texte */
-    text-decoration: none; /* Supprime le soulignement */
-    color: inherit; /* Couleur du texte par défaut */
-    gap: 8px; /* Espace entre l'icône et le texte */
-    width: 70px; /* Largeur fixe pour chaque élément */
+    flex-direction: column;
+    /* Alignement vertical */
+    align-items: center;
+    /* Centre horizontalement */
+    text-align: center;
+    /* Centre le texte */
+    text-decoration: none;
+    /* Supprime le soulignement */
+    color: inherit;
+    /* Couleur du texte par défaut */
+    gap: 8px;
+    /* Espace entre l'icône et le texte */
+    width: 70px;
+    /* Largeur fixe pour chaque élément */
 }
 
 #box i {
-    width: 50px; /* Taille fixe pour les icônes */
+    width: 50px;
+    /* Taille fixe pour les icônes */
     height: 50px;
     display: flex;
     justify-content: center;
@@ -245,13 +258,15 @@ a:hover {
     border: 1px solid #878787;
     box-shadow: -12px 12px 0px -1px #878787;
 }
+
 #box p {
     font-size: small;
     color: #555;
 }
 
 #box i:hover {
-    transform: scale(1.05); /* Effet de zoom au survol */
+    transform: scale(1.05);
+    /* Effet de zoom au survol */
 }
 
 section {
@@ -277,6 +292,7 @@ section {
     margin-bottom: 20px;
     color: var(--primary-color);
 }
+
 .features-grid-intro {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
@@ -294,9 +310,11 @@ section {
     text-align: center;
     animation: fadeIn 1s ease-in-out;
 }
+
 .feature-card-intro p {
     font-size: x-small;
 }
+
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -311,7 +329,7 @@ section {
     /* border: 1px solid var(--border-color);
     box-shadow: 0 2px 10px var(--shadow-color);*/
     border: 1px solid black;
-    
+
     animation: fadeIn 1s ease-in-out;
 }
 
@@ -365,10 +383,14 @@ section {
 
 #partner {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes de taille égale */
-    gap: 20px; /* Espace entre les images */
-    justify-content: center; /* Centre horizontalement */
-    align-items: center; /* Centre verticalement */
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 colonnes de taille égale */
+    gap: 20px;
+    /* Espace entre les images */
+    justify-content: center;
+    /* Centre horizontalement */
+    align-items: center;
+    /* Centre verticalement */
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px 20px;
@@ -376,7 +398,8 @@ section {
 
 #partner img {
     width: 100%;
-    max-width: 80px; /* Taille maximale des images */
+    max-width: 80px;
+    /* Taille maximale des images */
     height: auto;
     transition: transform 0.3s ease;
     padding: 20px 20px;
@@ -660,13 +683,13 @@ a {
     text-decoration: none;
 }
 
+/*
 canvas {
     width: 100%;
     min-height: 550px;
     margin: 10px 10px;
     display: block;
 }
-
 
 #cryptoChart {
     width: 100%;
@@ -681,7 +704,6 @@ canvas {
 
 @media (max-width: 768px) {
     #cryptoChart {
-        /* Augmenter la hauteur sur les petits écrans */
         width: 100%;
         height: 170vh;
         max-height: none !important;
@@ -698,7 +720,53 @@ canvas {
     border-radius: 12px;
     overflow: hidden;
     background-color: var(--background-color);
+}*/
+/* Conteneur principal */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    /* Centrer le conteneur */
+    background-color: var(--background-color);
+    border-radius: 12px;
+    overflow: hidden;
 }
+
+/* Canvas pour la chart */
+#cryptoChart {
+    width: 100%;
+    height: 550px;
+    /* Hauteur par défaut */
+    display: block;
+}
+
+/* Filigrane */
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* Media Query pour les petits écrans */
+@media (max-width: 768px) {
+    #cryptoChart {
+        height: 70vh;
+        /* Hauteur relative pour les petits écrans */
+    }
+
+    .watermark {
+        width: 50%;
+        /* Agrandir le filigrane sur les petits écrans */
+    }
+}
+
 
 #chart {
     width: 100%;
