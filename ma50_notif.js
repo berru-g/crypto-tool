@@ -35,18 +35,18 @@ async function checkMovingAverages(cryptoId) {
 
         if (prevMA50 < prevMA200 && lastMA50 > lastMA200) {
             alert("Potentiel Pump 📈");
-            triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "#60d394", "./img/notif.mp3");
+            triggerAlert("Golden Cross détecté ! Potentiel Pump 📈", "#3ad38b", "./img/notif.mp3");
             sendNotification("Golden Cross détecté ! 📈", "La MA50 est passée au-dessus de la MA200.");
-            displayAlertHistory("Golden Cross détecté ! Potentiel Pump 📈", "#60d394");
+            displayAlertHistory("Golden Cross détecté ! Potentiel Pump 📈", "#3ad38b");
         } else if (prevMA50 > prevMA200 && lastMA50 < lastMA200) {
             alert("Risque de chute");
-            triggerAlert("Death Cross détecté ! Risque de chute du marché.", "#ee6055", "./img/notif.mp3");
+            triggerAlert("Death Cross détecté ! Risque de chute du marché.", "#f56545", "./img/notif.mp3");
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
-            displayAlertHistory("Death Cross détecté ! Risque de chute du marché.", "#ee6055");
+            displayAlertHistory("Death Cross détecté ! Risque de chute du marché.", "#f56545");
         } else {
-            triggerAlert("Zéro Notif", "grey");
+            triggerAlert("Zéro Notif", "#5086eb");
             sendNotification("Test Notif ! 📉", "La MA50.");
-            displayAlertHistory("Test Notif", "grey");
+            displayAlertHistory("Test Notif", "#5086eb");
         }
     }
 }

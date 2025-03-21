@@ -9,11 +9,22 @@
     --border-color: #dcdcdc;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --input-background: #f9f9f9;
-    --accent-color: #ffd97d;
-    --success-color: #60d394;
-    --error-color: #ee6055;
+    --accent-color: #fad646;
+    --success-color: #3ad38b;
+    --error-color: #f56545;
+    --blue-color: #5086eb;
+    --orange-color: #f4a261;
 }
-
+/*
+#chartre-graphique-phantom-wallet {
+    color: #5086eb;
+    color: #fad646;
+    color: #fdd5dc;
+    color: #f4a261;
+    color: #f56545;
+    color: #3ad38b;
+}
+*/
 body.light-mode {
     --background-color: #0f0f0f;
 
@@ -506,7 +517,7 @@ button:hover {
 }
 
 #alert-box {
-    background: #ee6055;
+    background: var(--error-color);
     color: white;
     padding: 10px;
     border-radius: 5px;
@@ -523,7 +534,7 @@ button:hover {
     position: absolute;
     top: 15px;
     right: 20px;
-    background: #ee6055;
+    background: var(--error-color);
     color: white;
     border-radius: 50%;
     width: 15px;
@@ -854,22 +865,22 @@ canvas {
 
 .red {
     color: #fff;
-    background-color: #ff4d4d;
+    background-color: var(--error-color);
 }
 
 .orange {
     color: #fff;
-    background-color: #ffa500;
+    background-color: var(--orange-color);
 }
 
 .blue {
     color: #fff;
-    background-color: #3b82f6;
+    background-color: var(--blue-color);
 }
 
 .green {
     color: #fff;
-    background-color: #34d399;
+    background-color: var(--success-color);
 }
 
 
