@@ -78,12 +78,6 @@
   <script src="../momentum.js" defer></script>
 </head>
 <header>
-  <div class="hamburger-menu">
-    <img src="../img/logo.png" alt="Logo de l’app">
-    <span id="momentum-indicator"></span>
-  </div>
-  <button id="themeToggle" class="theme-toggle"></button>
-
   <script>
     function showPopup() {
       Swal.fire({
@@ -104,39 +98,53 @@
     // Lancer le popup immédiatement au chargement
     window.onload = showPopup;
   </script>
+  <div class="logo-container">
+    <img src="../img/logo.png" alt="Logo de l’app">
+    <span id="momentum-indicator"></span>
+    <h1>Crypto tool</h1>
+  </div>
+
+  <div class="search-container">
+    <input type="text" id="tokenSearch" placeholder="🔍 Token" list="tokenList" />
+    <datalist id="tokenList"></datalist>
+    <button class="barre-head" id="searchButton">Search</button>
+  </div>
 </header>
 
 <body>
+  <section id="features">
+    <div id="tokenResults"></div>
+  </section>
   <section id="features">
     <h2>Comparer plusieurs chart.</h2> <br>
     <p>En mode app retournez l'écran. Lire notre <a href="#features">F.A.Q</a></p>
   </section>
   <br>
- 
-    <div id="searchContainer">
-      <input type="text" id="cryptoInput" placeholder="🔍 Rechercher une cryptomonnaie..." list="tokenList" />
-      <datalist id="tokenList"></datalist>
-      
-  </div>
-    
 
-    <select class="btn" id="period">
-      <option value="7">7 jours</option>
-      <option value="30" selected>30 jours</option>
-      <option value="90">90 jours</option>
-      <option value="365">1 an</option>
-    </select>
-    <div class="btn-grid">
-      <button class="btn" onclick="addCrypto()">Ajouter</button>
-      <button class="btn" onclick="clearChart()">Effacer</button>
-      <button class="btn" onclick="exportData()">Exporter en CSV <i class="fa-solid fa-file-export"></i></button>
-    </div>
+  <div id="searchContainer">
+    <input type="text" id="cryptoInput" placeholder="🔍 Rechercher une cryptomonnaie..." list="tokenList" />
+    <datalist id="tokenList"></datalist>
+
+  </div>
+
+
+  <select class="btn" id="period">
+    <option value="7">7 jours</option>
+    <option value="30" selected>30 jours</option>
+    <option value="90">90 jours</option>
+    <option value="365">1 an</option>
+  </select>
+  <div class="btn-grid">
+    <button class="btn" onclick="addCrypto()">Ajouter</button>
+    <button class="btn" onclick="clearChart()">Effacer</button>
+    <button class="btn" onclick="exportData()">Exporter en CSV <i class="fa-solid fa-file-export"></i></button>
+  </div>
   <br>
   <!-- Graphique -->
   <div class="chart-container">
     <img src="../img/logoC.png" alt="Watermark" class="watermark">
     <canvas id="cryptoChart"></canvas>
-</div>
+  </div>
   <br>
   <!----------------------------FOOTER----------------------------------------->
   <br>
@@ -209,6 +217,7 @@
     </h5>
   </footer>
   <script src="script.js"></script>
+  <script src="../token_search.js"></script>
 </body>
 
 </html>

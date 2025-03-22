@@ -71,12 +71,23 @@
     <script src="../momentum.js" defer></script>
 </head>
 <header>
-    <div class="hamburger-menu">
+    <div class="logo-container">
         <img src="../img/logo.png" alt="Logo de l’app">
         <span id="momentum-indicator"></span>
+        <h1>Crypto tool</h1>
     </div>
-    <button id="themeToggle" class="theme-toggle"></button>
+
+    <div class="search-container">
+        <input type="text" id="tokenSearch" placeholder="🔍 Token" list="tokenList" />
+        <datalist id="tokenList"></datalist>
+        <button class="barre-head" id="searchButton">Search</button>
+    </div>
 </header>
+
+<body>
+    <section id="features">
+        <div id="tokenResults"></div>
+    </section>
 
 <body>
     <section></section>
@@ -112,6 +123,7 @@
         </h5>
     </footer>
     <script src="script.js"></script>
+    <script src="../token_search.js"></script>
 </body>
 
 </html>
