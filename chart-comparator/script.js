@@ -1,7 +1,6 @@
 ////////////////// COMPARE CHART
 let chart;
 let cryptoData = {};
-//let priceAlert = null;
 
 // Récupérer les 100 premiers tokens
 async function fetchTopTokens() {
@@ -20,6 +19,27 @@ async function fetchTopTokens() {
 
 fetchTopTokens();
 
+// Récupérer la liste des cryptomonnaies et remplir le datalist
+async function fetchAndPopulateTokenList() {
+    const tokenList = document.getElementById('tokenList');
+    const response = await fetch('https://api.coingecko.com/api/v3/coins/list');
+    const data = await response.json();
+
+    // Vider la liste actuelle
+    tokenList.innerHTML = '';
+
+    // Ajouter chaque cryptomonnaie à la liste
+    data.forEach(token => {
+        const option = document.createElement('option');
+        option.value = token.name; // Afficher le nom de la cryptomonnaie
+        option.dataset.id = token.id; // Stocker l'ID pour une utilisation ultérieure
+        tokenList.appendChild(option);
+    });
+}
+
+// Appeler cette fonction au chargement de la page
+fetchAndPopulateTokenList();
+
 // Fonction pour récupérer les données d'un crypto
 async function fetchCryptoData(crypto, days) {
     try {
@@ -35,23 +55,32 @@ async function fetchCryptoData(crypto, days) {
 
 // Fonction pour ajouter un crypto au graphique
 async function addCrypto() {
-    const crypto = document.getElementById("cryptoInput").value.toLowerCase().trim();
-    if (!crypto || cryptoData[crypto]) return;
+    const cryptoInput = document.getElementById('cryptoInput');
+    const cryptoName = cryptoInput.value.trim();
+    if (!cryptoName) return;
 
-    const tokens = JSON.parse(localStorage.getItem('topTokens')) || [];
-    const token = tokens.find(t => t.id === crypto || t.symbol === crypto);
+    // Trouver l'ID de la cryptomonnaie sélectionnée
+    const tokenList = document.getElementById('tokenList');
+    const tokenOption = Array.from(tokenList.options).find(option => option.value === cryptoName);
 
-    if (!token) {
-        alert("Notez le nom complet avec un tiret si nécessaire. Ex: pour btc notez (bitcoin), pour injective notez (injective-protocol), pour Akash notez (akash-network), pour RSR notez (reserve-rights-token) etc.");
+    if (!tokenOption) {
+        alert("Cryptomonnaie non trouvée. Veuillez sélectionner une cryptomonnaie valide dans la liste.");
         return;
     }
 
-    const period = document.getElementById("period").value;
-    const data = await fetchCryptoData(token.id, period);
+    const cryptoId = tokenOption.dataset.id;
+    if (cryptoData[cryptoId]) return; // Ne pas ajouter deux fois la même cryptomonnaie
+
+    const period = document.getElementById('period').value;
+    const data = await fetchCryptoData(cryptoId, period);
+
     if (data) {
-        cryptoData[token.id] = data;
+        cryptoData[cryptoId] = data;
         updateChart();
     }
+
+    // Réinitialiser la barre de recherche
+    cryptoInput.value = '';
 }
 
 // Fonction pour mettre à jour le graphique
@@ -111,7 +140,7 @@ function updateChart() {
             maintainAspectRatio: false,
         },
     });
-    // forcer la redimenssion
+    // Forcer la redimension
     setTimeout(() => chart.resize(), 0);
 }
 
@@ -130,6 +159,7 @@ function calculateSMA(data, period) {
     }
     return sma;
 }
+
 // Ajuster la hauteur du graphique dynamiquement
 function adjustChartHeight() {
     const chartContainer = document.querySelector('#chart-container');
@@ -145,6 +175,7 @@ function adjustChartHeight() {
 // Appliquer l'ajustement au chargement et au redimensionnement
 window.addEventListener('load', adjustChartHeight);
 window.addEventListener('resize', adjustChartHeight);
+
 // Fonction pour exporter les données en CSV
 function exportData() {
     const csvContent = Object.keys(cryptoData).map(crypto => {
@@ -161,42 +192,3 @@ function exportData() {
     a.click();
     URL.revokeObjectURL(url);
 }
-
-//////////////////////////// MENU
-const hamburgerMenu = document.querySelector('.hamburger-menu');
-
-hamburgerMenu.addEventListener('click', () => {
-    // Utilisation de SweetAlert pour afficher la fenêtre contextuelle
-    Swal.fire({
-        title: 'Cryptool',
-        html: '<ul><p><a href="../index.html">Home</a></p><br><p><a href="https://github.com/berru-g/">Open Source</a></p><br><p><a href="../wallet/index.html">Wallet</a></p><br><p><a href="https://medium.com/@gael-berru">Articles</a></p><br><p><a href="https://berru-g.github.io/berru-g/blog/donation.html">Donation</a></p></ul>',
-        showCloseButton: true,
-        showConfirmButton: false,
-        customClass: {
-            popup: 'custom-swal-popup',
-            closeButton: 'custom-swal-close-button',
-            content: 'custom-swal-content',
-        }
-    });
-});
-
-const currentTheme = localStorage.getItem('theme') || 'dark';
-document.body.classList.add(currentTheme + '-mode');
-
-// Gestion du bouton de bascule
-const themeToggleButton = document.createElement('button');
-themeToggleButton.className = 'theme-toggle';
-themeToggleButton.textContent = currentTheme === 'dark' ? 'Light' : 'Dark';
-document.body.appendChild(themeToggleButton);
-
-themeToggleButton.addEventListener('click', () => {
-    if (document.body.classList.contains('dark-mode')) {
-        document.body.classList.replace('dark-mode', 'light-mode');
-        themeToggleButton.textContent = 'Dark';
-        localStorage.setItem('theme', 'light');
-    } else {
-        document.body.classList.replace('light-mode', 'dark-mode');
-        themeToggleButton.textContent = 'Light';
-        localStorage.setItem('theme', 'dark');
-    }
-});

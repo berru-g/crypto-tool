@@ -113,7 +113,11 @@
   </section>
   <br>
  
-    <input type="text" id="cryptoInput" placeholder="Ajouter un token (ex: bitcoin, ethereum)">
+    <div id="searchContainer">
+      <input type="text" id="cryptoInput" placeholder="🔍 Rechercher une cryptomonnaie..." list="tokenList" />
+      <datalist id="tokenList"></datalist>
+      
+  </div>
     
 
     <select class="btn" id="period">
