@@ -3,7 +3,7 @@ import webpush from "web-push";
 const VAPID_PUBLIC_KEY = "BPrQaIhgAMm0epPTot0L804INFeqGY_BXCAnOQNHsRD2lcHtaKgQGOy61R-ITdkFAJgB_ILpLVp6wYHAezFnhzs";
 const VAPID_PRIVATE_KEY = "fuck";
 
-webpush.setVapidDetails("mailto:g.leberruyer@gmail.com", VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
+webpush.setVapidDetails("mailto:---@gmail.com", VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 
 let subscriptions = [];
 
