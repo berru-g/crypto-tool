@@ -44,6 +44,11 @@ async function checkMovingAverages(cryptoId) {
             sendNotification("Death Cross détecté ! 📉", "La MA50 est passée en dessous de la MA200.");
             displayAlertHistory("Death Cross détecté ! Risque de chute du marché.", "#f56545");
         }
+        if (true) {
+            triggerAlert("R.A.S", "#f56545", "./img/notif.mp3");
+            sendNotification("R.A.S");
+            displayAlertHistory("R.A.S", "#f56545");
+        }
     }
 }
 
@@ -96,7 +101,7 @@ function displayAlertHistory(message, color) {
 }
 
 // Vérifier les moyennes mobiles toutes les 60 secondes
-setInterval(() => checkMovingAverages("bitcoin"), 60000);
+setInterval(() => checkMovingAverages("bitcoin"), 900000);
 
 // Exécution au chargement
 document.addEventListener("DOMContentLoaded", () => {

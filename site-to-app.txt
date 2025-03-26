@@ -92,3 +92,105 @@ En suivant ces étapes, tu pourras transformer ton site FiboScope en une Progres
 
 /// Notif RWA sur l'app meme fermé = MA50.js
 
+
+// Migration vers Astro
+
+1️⃣ Installer Astro
+
+📌 Prérequis : Assure-toi d’avoir Node.js installé (v16+ recommandé).
+
+👉 Ouvre un terminal et exécute :
+
+npm create astro@latest my-project
+cd my-project
+npm install
+npm run dev
+
+🔹 Cela crée un dossier my-project avec un site Astro de base.
+🔹 npm run dev démarre le serveur en local.
+2️⃣ Organiser ton projet
+
+Dans Astro, tu peux structurer ton site comme ceci :
+
+/src
+ ├── /components    → Fichiers réutilisables (Header, Footer, etc.)
+ ├── /pages         → Tes pages principales (`index.astro`, `about.astro`)
+ ├── /layouts       → Templates globaux (ex: `BaseLayout.astro`)
+ ├── /styles        → Fichiers CSS (optionnel)
+
+👉 Déplace ton HTML dans /pages
+Si tu as un index.html, renomme-le en index.astro et mets-y ton code.
+3️⃣ Convertir les includes (header, footer, etc.)
+
+En PHP, tu faisais :
+
+<?php include('header.php'); ?>
+
+En Astro, tu crées un composant Header.astro dans /src/components/ :
+
+---
+// Pas de script ici, c'est juste du HTML
+---
+<header>
+  <h1>Mon Site</h1>
+  <nav>
+    <a href="/">Accueil</a>
+    <a href="/about">À propos</a>
+  </nav>
+</header>
+
+Ensuite, dans tes pages, tu l’intègres comme ceci :
+
+---
+import Header from "../components/Header.astro";
+---
+<Header />
+<h1>Bienvenue sur mon site</h1>
+
+Fais pareil avec Footer.astro et tout ce que tu réutilises. 🎯
+4️⃣ Ajouter du CSS & JS
+
+Astro te laisse le choix :
+✔️ Tu peux garder ton CSS en l’état et l’importer dans src/styles/.
+✔️ Tu peux aussi écrire du CSS directement dans tes fichiers .astro :
+
+<style>
+  h1 {
+    color: red;
+  }
+</style>
+
+✔️ Pour le JS, Astro le charge uniquement si nécessaire (plus rapide que React).
+5️⃣ Convertir les scripts JavaScript
+
+🔹 Si ton site a déjà du JS (ex: script.js), Astro te permet de l’importer dans tes fichiers .astro :
+
+<script src="/scripts/script.js"></script>
+
+🔹 Si tu veux utiliser du JS interactif, utilise <script> dans un composant :
+
+---
+import { onMount } from "astro/runtime";
+
+onMount(() => {
+  console.log("Page chargée !");
+});
+---
+
+6️⃣ Déployer ton site 🚀
+
+1️⃣ Build ton projet :
+
+npm run build
+
+2️⃣ Déploie sur Netlify (ou autre hébergeur statique) :
+
+    Si tu utilises GitHub → Connecte ton repo à Netlify.
+
+    Si tu veux déployer manuellement →
+
+        Va sur Netlify Drop.
+
+        Glisse ton dossier dist/.
+
+🎉 Ton site est maintenant en Astro et déployé sur Netlify !
