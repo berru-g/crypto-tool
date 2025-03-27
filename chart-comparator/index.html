@@ -79,24 +79,48 @@
 </head>
 <header>
   <script>
-    function showPopup() {
-      Swal.fire({
-        title: "Buy Me a Coffee ☕",
-        text: "Soutenez-nous en offrant un café !",
-        imageUrl: "../img/sol.png",
-        imageWidth: 180,
-        imageHeight: 180,
-        imageAlt: "Buy Me a Coffee",
-        confirmButtonText: "OK",
-        timer: 15000 // Auto-fermeture après 15 secondes
-      });
-    }
-
-    // Afficher le popup toutes les 3 minutes
-    setInterval(showPopup, 180000);
-
-    // Lancer le popup immédiatement au chargement
-    window.onload = showPopup;
+    Swal.fire({
+      title: "Buy Me a Coffee ☕",
+      imageUrl: "../img/sol.png",
+      imageWidth: 180,
+      imageHeight: 180,
+      html: `
+        <div style="margin: 0rem 0; text-align: center;">
+          <div id="donnation" style="
+            background: #f0f0f0;
+            padding: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            max-width: 200px;
+            z-index: 9999;
+          ">
+            <span id="displayedAddress" style="font-family: monospace;">D6k...ZeTC</span>
+            <span id="fullAddress" style="display: none;">D6khWoqvc2zX46HVtSZcNrPumnPLPM72SnSuDhBrZeTC</span>
+          </div>
+          <small style="color: #666; display: block; margin-top: 5px;">copier</small>
+        </div>
+      `,
+      confirmButtonText: "Non Merci",
+      didOpen: () => {
+        const container = document.getElementById('donnation');
+        const fullAddress = document.getElementById('fullAddress').textContent;
+    
+        container.addEventListener('click', () => {
+          navigator.clipboard.writeText(fullAddress)
+            .then(() => {
+              const displayed = document.getElementById('displayedAddress');
+              displayed.textContent = 'Adresse copiée !';
+              container.style.backgroundColor = '#e6f7e6';
+              
+              setTimeout(() => {
+                displayed.textContent = '0x742d...f44e';
+                container.style.backgroundColor = '#f0f0f0';
+              }, 1500);
+            });
+        });
+      }
+    });
   </script>
   <div class="logo-container">
     <img src="../img/logo.png" alt="Logo de l’app">

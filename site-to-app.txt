@@ -95,6 +95,7 @@ En suivant ces étapes, tu pourras transformer ton site FiboScope en une Progres
 
 // Migration vers Astro
 
+
 1️⃣ Installer Astro
 
 📌 Prérequis : Assure-toi d’avoir Node.js installé (v16+ recommandé).
@@ -112,11 +113,33 @@ npm run dev
 
 Dans Astro, tu peux structurer ton site comme ceci :
 
-/src
- ├── /components    → Fichiers réutilisables (Header, Footer, etc.)
- ├── /pages         → Tes pages principales (`index.astro`, `about.astro`)
- ├── /layouts       → Templates globaux (ex: `BaseLayout.astro`)
- ├── /styles        → Fichiers CSS (optionnel)
+/mon-projet-astro
+│── /public               (📂 Fichiers accessibles directement)
+│   ├── /assets           (📂 Images, icônes, etc.)
+│   ├── script1.js        (📜 JS utilisé sur certaines pages)
+│   ├── script2.js        (📜 JS spécifique à d'autres pages)
+│   ├── script3.js        (📜 ...)
+│   ├── script4.js
+│   ├── script5.js
+│   ├── style.css         (🎨 CSS global)
+│
+│── /src                  (📂 Fichiers sources Astro)
+│   ├── /components       (📂 Composants réutilisables)
+│   │   ├── Header.astro  (🔝 Header commun)
+│   │   ├── Footer.astro  (🔻 Footer commun)
+│   │
+│   ├── /layouts          (📂 Template principal)
+│   │   ├── Layout.astro  (🖼️ Layout qui englobe header, footer)
+│   │
+│   ├── /pages            (📂 Pages principales)
+│   │   ├── index.astro   (🏠 Page d’accueil)
+│   │   ├── about.astro   (📄 Page "À propos")
+│   │   ├── contact.astro (📩 Page "Contact")
+│   │   ├── services.astro(🔧 Page "Services")
+│   │   ├── blog.astro    (📝 Page "Blog")
+│
+└── astro.config.mjs      (⚙️ Configuration d’Astro)
+
 
 👉 Déplace ton HTML dans /pages
 Si tu as un index.html, renomme-le en index.astro et mets-y ton code.

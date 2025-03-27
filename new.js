@@ -17,7 +17,9 @@ window.addEventListener("beforeinstallprompt", (event) => {
         });
     });
 });
-//////////////////////// dark mode
+
+
+//////////////////////// dark mode 
 const currentTheme = localStorage.getItem('theme') || 'dark';
 document.body.classList.add(currentTheme + '-mode');
 
