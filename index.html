@@ -355,10 +355,79 @@
                 src="./img/BinanceSMALL.png" alt="Binance API"></a>
     </div>
     <br>
-    <div id="pub">
-        <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b"><img id="pub"
-                src="https://affiliate.ledger.com/image/850/420/French"></a>
+    <div id="pub-container">
+        <div id="pub-carousel">
+            <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b" class="pub-slide">
+                <img src="./img/cl-ledger.png" alt="Pub 1">
+            </a>
+            <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b" class="pub-slide active">
+                <img src="https://affiliate.ledger.com/image/850/420/French" alt="Pub 2">
+            </a>
+            <a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" class="pub-slide">
+                <img src="./img/binance100.png" alt="Pub 3">
+            </a>
+            <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5" class="pub-slide">
+                <img src="./img/myst.png" alt="Pub 4">
+            </a>
+        </div>
     </div>
+    <style>
+        #pub-container {
+            display: block;
+            margin: 0 auto;
+            width: 95%;
+            max-width: 600px;
+            height: auto;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+    
+        #pub-carousel {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 49.41%; /* Ratio 850x420 (420/850) */
+        }
+    
+        .pub-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+    
+        .pub-slide.active {
+            opacity: 1;
+        }
+    
+        .pub-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.pub-slide');
+            let currentSlide = 0;
+            // Affiche la première slide
+            slides[currentSlide].classList.add('active');
+            // Change de slide toutes les 3 secondes
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000);
+        });
+    </script>
     <br>
     <section id="features">
         <h2 id="article">Annexe</h2>
