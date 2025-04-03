@@ -57,7 +57,7 @@ async function fetchCryptoData() {
         };
 
         // Associe chaque arbre avec un fichier GLB spécifique
-        const treeFiles = ['arbre1.glb', 'arbre2.glb', 'arbre3.glb', 'arbre4.glb', 'arbre5.glb', 'arbre6.glb'];
+        const treeFiles = ['https://raw.githubusercontent.com/berru-g/crypto-tool/raw/refs/heads/main/headmap-forest/arbre3.glb', 'https://raw.githubusercontent.com/berru-g/crypto-tool/raw/refs/heads/main/headmap-forest/arbre2.glb', 'https://raw.githubusercontent.com/berru-g/crypto-tool/raw/refs/heads/main/headmap-forest/arbre4.glb', 'https://raw.githubusercontent.com/berru-g/crypto-tool/raw/refs/heads/main/headmap-forest/arbre5.glb', 'https://raw.githubusercontent.com/berru-g/crypto-tool/raw/refs/heads/main/headmap-forest/arbre1.glb', 'https://raw.githubusercontent.com/berru-g/crypto-tool/raw/refs/heads/main/headmap-forest/arbre6.glb'];
         createTreeFromGLB(`assets/trees/${treeFiles[index]}`, position, size);
     });
 }
