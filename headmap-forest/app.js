@@ -1,266 +1,267 @@
-//V1 fonctionnel - a revoir, afficher plusieurs glb
-import * as THREE from "https://esm.sh/three";
-import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "https://esm.sh/three/examples/jsm/loaders/GLTFLoader";
-
-// Initialisation
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth / window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-// Fond d'écran
-new THREE.TextureLoader().load('https://github.com/berru-g/plane/blob/main/avion/layered.jpg?raw=true',
-    texture => scene.background = texture
-);
-
-// Contrôles
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.25;
-
-// Sphère (Terre)
-const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
-const earthTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/refs/heads/dev/examples/textures/terrain/grasslight-big.jpg');
-const earthMaterial = new THREE.MeshPhongMaterial({
-    map: earthTexture,
-    specular: new THREE.Color(0x111111),
-    shininess: 5
-});
-const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-scene.add(earth);
-
-// Lumière directionnelle fixe (par rapport à l'écran)
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-directionalLight.position.set(1, 1, 1).normalize();
-scene.add(directionalLight);
-
-// Lumière ambiante
-scene.add(new THREE.AmbientLight(0x404040, 0.7));
-
-// Position caméra
-camera.position.z = 10;
-
-// Tooltip
-const tooltip = document.getElementById('tooltip');
-const loadingElement = document.getElementById('loading');
-
-// Chargement du modèle d'arbre
-let treeModel = null;
-const loader = new GLTFLoader();
-
-loader.load(
-    'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre1.glb',
-    (gltf) => {
-        treeModel = gltf.scene;
-        treeModel.traverse(child => {
-            if (child.isMesh) {
-                child.castShadow = true;
-                child.receiveShadow = true;
-            }
-        });
-        // Une fois le modèle chargé, charger les données
-        fetchTokenData();
-    },
-    (xhr) => {
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-    },
-    (error) => {
-        console.error('Erreur chargement modèle:', error);
-        loadingElement.textContent = "Erreur de chargement du modèle 3D. Utilisation des cylindres simples.";
-        treeModel = null;
-        fetchTokenData();
-    }
-);
-
-// Création d'un arbre avec le modèle GLB ou un cylindre simple
-function createTree(size, lat, lon, tokenData) {
-    const baseSize = Math.max(0.3, Math.log10(tokenData.total_volume + 1) / 2);
-    const treeGroup = new THREE.Group();
-
-    if (treeModel) {
-        // Utilisation du modèle GLB
-        const treeInstance = treeModel.clone();
-        treeInstance.scale.set(baseSize, baseSize, baseSize);
-        treeGroup.add(treeInstance);
-    } else {
-        // Fallback: cylindre simple
-        const trunkHeight = baseSize * 0.5;
-        const trunkGeometry = new THREE.CylinderGeometry(0.05, 0.08, trunkHeight, 8);
-        const trunkMaterial = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
-        const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
-        trunk.position.y = trunkHeight / 2;
-        treeGroup.add(trunk);
-
-        const foliageSize = baseSize * 0.4;
-        const foliageGeometry = new THREE.SphereGeometry(foliageSize, 16, 16);
-        const foliageMaterial = new THREE.MeshPhongMaterial({
-            color: new THREE.Color(`hsl(${100 + Math.random() * 40}, 70%, 50%)`),
-            transparent: true,
-            opacity: 0.9
-        });
-        const foliage = new THREE.Mesh(foliageGeometry, foliageMaterial);
-        foliage.position.y = trunkHeight + foliageSize * 0.3;
-        treeGroup.add(foliage);
-    }
-
-    // Positionnement sur la sphère
-    const phi = (90 - lat) * (Math.PI / 180);
-    const theta = (lon + 180) * (Math.PI / 180);
-    const radius = 5.05;
-
-    treeGroup.position.x = - (radius * Math.sin(phi) * Math.cos(theta));
-    treeGroup.position.y = radius * Math.cos(phi);
-    treeGroup.position.z = radius * Math.sin(phi) * Math.sin(theta);
-
-    treeGroup.lookAt(earth.position);
-    treeGroup.rotateX(Math.PI / 2);
-
-    // Stockage des données du token
-    treeGroup.userData = {
-        name: tokenData.name,
-        symbol: tokenData.symbol,
-        volume: tokenData.total_volume,
-        price: tokenData.current_price,
-        isTree: true
-    };
-
-    return treeGroup;
-}
-
-// Récupération données CoinGecko
-async function fetchTokenData() {
+// ====== INITIALISATION GARANTIE ======
+document.getElementById('loading').textContent = "Préparation de l'environnement...";
+document.getElementById('loading').textContent = "Dev by berru-g";
+// Attendre que tout soit prêt
+window.addEventListener('load', async function () {
     try {
-        loadingElement.textContent = "Chargement des données crypto...";
-        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=50');
-        const data = await response.json();
+        // ====== CONFIGURATION ======
+        const CONFIG = {
+            earthSize: 3.4,
+            earthTexture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
+            // 
+            treeModels: [
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre1.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre2.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre3.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre4.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre5.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre6.glb'
+            ],
+            fixedLightPosition: new THREE.Vector3(-5, 3, 5)
+        };
 
-        // Supprimer anciens arbres
-        scene.children.filter(child => child.userData?.isTree).forEach(tree => scene.remove(tree));
-
-        // Créer nouveaux arbres
-        data.forEach(token => {
-            if (token.total_volume > 0) {
-                const lat = Math.random() * 160 - 80;
-                const lon = Math.random() * 360 - 180;
-                const tree = createTree(1, lat, lon, token);
-                scene.add(tree);
-            }
+        // ====== SCÈNE THREE.JS ======
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
         });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-        console.log(`${data.length} tokens chargés`);
-        loadingElement.style.display = 'none';
-    } catch (error) {
-        console.error('Erreur API:', error);
-        loadingElement.textContent = "Erreur API. Utilisation des données de démo.";
+        /* ====== LUMIÈRES ======
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        directionalLight.position.copy(CONFIG.fixedLightPosition);
+        scene.add(directionalLight);
+        scene.add(new THREE.AmbientLight(0x404040, 0.6));
 
-        // Données de démo
-        const demoData = [
-            { name: "Bitcoin", symbol: "BTC", total_volume: 20000000000, current_price: 50000 },
-            { name: "Ethereum", symbol: "ETH", total_volume: 10000000000, current_price: 3000 },
-            { name: "Cardano", symbol: "ADA", total_volume: 5000000000, current_price: 1.5 },
-            { name: "Solana", symbol: "SOL", total_volume: 3000000000, current_price: 150 },
-            { name: "Polkadot", symbol: "DOT", total_volume: 2000000000, current_price: 30 }
-        ];
+        const haloLight = new THREE.PointLight(0x88ccff, 0.8, 10);
+        haloLight.position.copy(CONFIG.fixedLightPosition);
+        scene.add(haloLight); CONFIG*/
+        // ====== LUMIÈRES ======
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        directionalLight.position.set(-5, 0, 0); // À gauche de l'écran (ajuste la valeur en X si besoin)
+        scene.add(directionalLight);
 
-        demoData.forEach((token, i) => {
-            const tree = createTree(1, 30 + i * 20, -100 + i * 40, token);
-            scene.add(tree);
-        });
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+        scene.add(ambientLight);
 
-        setTimeout(() => {
-            loadingElement.style.display = 'none';
-        }, 2000);
-    }
-}
+        const haloLight = new THREE.PointLight(0x88ccff, 0.8, 10);
+        haloLight.position.set(-5, 0, 0); // Même position que la lumière directionnelle
+        scene.add(haloLight);
 
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-let hoveredTree = null;
+        // ====== TERRE ======
+        document.getElementById('loading').textContent = "Chargement de la Terre...";
+        
+        const earthTexture = await new THREE.TextureLoader().loadAsync(CONFIG.earthTexture);
+        const earth = new THREE.Mesh(
+            new THREE.SphereGeometry(CONFIG.earthSize, 64, 64),
+            new THREE.MeshPhongMaterial({
+                map: earthTexture,
+                specular: new THREE.Color(0x111111),
+                shininess: 15,
+                transparent: false,
+                //opacity: 0.97
+            })
+        );
+        scene.add(earth);
 
-function onMouseMove(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        // ====== ARBRES ======
+        document.getElementById('loading').textContent = "Chargement des modèles (0/6)...";
+        const treeTemplates = [];
+        const loader = new THREE.GLTFLoader();
 
-    raycaster.setFromCamera(mouse, camera);
-
-    // Cibler spécifiquement les arbres
-    const intersects = raycaster.intersectObjects(scene.children, true);
-
-    if (intersects.length > 0) {
-        // Trouver le premier objet qui a des userData de token
-        let tree = null;
-        for (let i = 0; i < intersects.length; i++) {
-            let obj = intersects[i].object;
-            // Remonter jusqu'au groupe parent si nécessaire
-            while (obj && !obj.userData?.isTree && obj.parent) {
-                obj = obj.parent;
-            }
-            if (obj.userData?.isTree) {
-                tree = obj;
-                break;
-            }
-        }
-
-        if (tree) {
-            if (hoveredTree !== tree) {
-                hoveredTree = tree;
-
-                // Afficher le tooltip
-                tooltip.style.display = 'block';
-                tooltip.style.left = `${event.clientX + 15}px`;
-                tooltip.style.top = `${event.clientY + 15}px`;
-                tooltip.innerHTML = `
-                        <strong>${tree.userData.name} (${tree.userData.symbol})</strong><br>
-                        Volume 24h: $${tree.userData.volume.toLocaleString()}<br>
-                        Prix: $${tree.userData.price?.toLocaleString() || 'N/A'}
-                    `;
-
-                // Surbrillance
-                tree.traverse(child => {
+        // Chargement séquentiel (plus stable que parallèle)
+        for (let i = 0; i < CONFIG.treeModels.length; i++) {
+            try {
+                const model = await loader.loadAsync(CONFIG.treeModels[i]);
+                model.scene.traverse(child => {
                     if (child.isMesh) {
-                        if (!child.originalEmissive) {
-                            child.originalEmissive = child.material.emissive?.clone() || new THREE.Color(0x000000);
-                        }
-                        child.material.emissive = new THREE.Color(0x555555);
+                        child.castShadow = true;
+                        child.receiveShadow = true;
                     }
                 });
+                model.scene.scale.set(0.35, 0.35, 0.35);
+                model.scene.visible = false;
+                scene.add(model.scene);
+                treeTemplates.push(model.scene);
+                document.getElementById('loading').textContent = `Chargement des modèles (${i + 1}/6)...`;
+            } catch (e) {
+                console.error(`Erreur modèle ${i}:`, e);
             }
-            return;
         }
-    }
 
-    // Si on arrive ici, aucun arbre n'est survolé
-    if (hoveredTree) {
-        hoveredTree.traverse(child => {
-            if (child.isMesh && child.originalEmissive) {
-                child.material.emissive = child.originalEmissive;
+        // Fallback si échec
+        if (treeTemplates.length < 3) {
+            console.warn("Création d'arbres basiques...");
+            for (let i = 0; i < 3; i++) {
+                const tree = new THREE.Group();
+                const trunk = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.1, 0.15, 0.8, 8),
+                    new THREE.MeshPhongMaterial({ color: 0x8B4513 })
+                );
+                trunk.position.y = 0.4;
+
+                const foliage = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.5, 16, 16),
+                    new THREE.MeshPhongMaterial({
+                        color: new THREE.Color(`hsl(${100 + i * 30}, 70%, 50%)`),
+                        transparent: true,
+                        opacity: 0.9
+                    })
+                );
+                foliage.position.y = 0.9;
+
+                tree.add(trunk);
+                tree.add(foliage);
+                tree.visible = false;
+                scene.add(tree);
+                treeTemplates.push(tree);
             }
+        }
+
+        // ====== DONNÉES CRYPTO ======
+        document.getElementById('loading').textContent = "Récupération des données...";
+        document.getElementById('loading').textContent = "Chaque arbre représente un token, sa taille varie selon son volume de transaction. Passer la souries au dessus des arbres pour voir son volume des dernières 24H. ";
+        let cryptoData;
+
+        try {
+            const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=volume_desc&per_page=50');
+            cryptoData = await response.json();
+            cryptoData = cryptoData.filter(token => token.total_volume > 0);
+        } catch (e) {
+            console.error("API hors ligne, données de test utilisées");
+            cryptoData = [
+                { name: "Bitcoin", symbol: "BTC", total_volume: 25000000000, current_price: 50000 },
+                { name: "Ethereum", symbol: "ETH", total_volume: 15000000000, current_price: 3000 },
+                { name: "Cardano", symbol: "ADA", total_volume: 5000000000, current_price: 1.5 }
+            ];
+        }
+
+        // ====== PLACEMENT DES ARBRES ======
+        document.getElementById('loading').textContent = "Placement des arbres...";
+        const trees = [];
+        const volumes = cryptoData.map(t => t.total_volume);
+        const minVol = Math.min(...volumes);
+        const maxVol = Math.max(...volumes);
+
+        cryptoData.forEach((token, i) => {
+            const size = 0.2 + 0.8 * (Math.log(token.total_volume) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
+            const lat = Math.random() * 160 - 80;
+            const lon = Math.random() * 360;
+
+            const tree = treeTemplates[i % treeTemplates.length].clone();
+            tree.visible = true;
+            tree.scale.set(size, size, size);
+
+            // Positionnement sphérique
+            const phi = (90 - lat) * Math.PI / 180;
+            const theta = lon * Math.PI / 180;
+            const radius = CONFIG.earthSize * 1.02;
+
+            tree.position.x = -radius * Math.sin(phi) * Math.cos(theta);
+            tree.position.y = radius * Math.cos(phi);
+            tree.position.z = radius * Math.sin(phi) * Math.sin(theta);
+
+            tree.lookAt(earth.position);
+            tree.rotateX(Math.PI / 2);
+
+            // Stockage des données
+            tree.userData = {
+                name: token.name,
+                symbol: token.symbol,
+                volume: token.total_volume,
+                price: token.current_price,
+                isTree: true
+            };
+
+            scene.add(tree);
+            trees.push(tree);
         });
-        hoveredTree = null;
-        tooltip.style.display = 'none';
+
+        // ====== INTERACTIONS ======
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        camera.position.z = 12;
+
+        const tooltipElement = document.getElementById('tooltip');
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(trees, true);
+
+            if (intersects.length > 0) {
+                let obj = intersects[0].object;
+                while (obj && !obj.userData?.isTree && obj.parent) {
+                    obj = obj.parent;
+                }
+
+                if (obj?.userData?.isTree) {
+                    const token = obj.userData;
+                    tooltipElement.style.display = 'block';
+                    tooltipElement.style.left = `${event.clientX + 15}px`;
+                    tooltipElement.style.top = `${event.clientY + 15}px`;
+                    tooltipElement.innerHTML = `
+                        <strong>${token.name} (${token.symbol})</strong><br>
+                        Volume 24h: $${(token.volume / 1000000000).toFixed(1)}B<br>
+                        Prix: $${token.price?.toLocaleString() || 'N/A'}
+                    `;
+                    return;
+                }
+            }
+
+            tooltipElement.style.display = 'none';
+        });
+
+        // ====== ANIMATION ======
+        /*function animate() {
+            requestAnimationFrame(animate);
+
+            // Maintient la lumière fixe
+            directionalLight.position.copy(CONFIG.fixedLightPosition);
+            haloLight.position.copy(CONFIG.fixedLightPosition);
+
+            controls.update();
+            renderer.render(scene, camera);
+        }*/
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Si tu veux que la lumière reste à gauche de la caméra :
+            directionalLight.position.copy(camera.position);
+            directionalLight.position.x -= 5; // Décalage à gauche
+            directionalLight.position.y += 0; // Ajuste en Y si besoin
+            directionalLight.position.z += 0; // Ajuste en Z si besoin
+
+            // (Optionnel) Même chose pour le haloLight si tu veux qu'il suive aussi
+            haloLight.position.copy(directionalLight.position);
+
+            renderer.render(scene, camera);
+        }
+
+
+
+        // ====== LANCEMENT FINAL ======
+        document.getElementById('loading').style.display = 'none';
+        animate();
+
+        // Redimensionnement
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+    } catch (error) {
+        console.error("ERREUR CRITIQUE:", error);
+        document.getElementById('loading').textContent = "Erreur : " + (error.message || "Voir console (F12)");
     }
-}
-window.addEventListener('mousemove', onMouseMove, false);
-
-// Animation
-function animate() {
-    requestAnimationFrame(animate);
-
-    // Maintenir la lumière fixe par rapport à la caméra
-    directionalLight.position.copy(camera.position).normalize();
-
-    controls.update();
-    renderer.render(scene, camera);
-}
-
-// Redimensionnement
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
-// Démarrer l'animation
-animate();

@@ -1,14 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : crypto-free-tools
+       Date : 04/04/2025
+       Version : 1.0.4  | 16/02/25
+       Mise à jour article : Weekly
+       Licence : The MIT License (MIT)
+       Copyright (c) 2025 Berru
+       Contact : https://crypto-free-tools.netlify.app
+    ============================================
+-->
+
 <head>
-    <meta charset="utf-8">
-    <title>Crypto Globe - Version Stable</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headmap forest - Crypto Free Tools</title>
+    <link rel="shortcut icon" href="./img/logo.png" />
+    <link rel="apple-touch-icon" href="./img/logo.png" />
+    <meta name="description"
+        content="Headmap comme vous ne l'avez jamais vue. Chaque arbre représente un token, sa taille varie selon son volume de transaction. Passer la souries au dessus des arbres pour voir son volume des dernières 24H. ">
+    <meta name="keywords"
+        content="comparer l'évolution des narratif crypto, quel narratif performe?, comparateur de chart crypto, niveaux de support et resistance de bitcoin, momentum alarme, Fibonacci retracement, Crypto free tools, Recevoir des notif des moyennes mobiles pour anticiper les gros mouvements, crypto price alarm, multi charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
+    <meta name="author" content="Gael Berru.">
+    <meta name="robots" content="noai">
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:title" content="Headmap forest - Crypto Free Tools">
+    <meta property="og:description" content="Headmap comme vous ne l'avez jamais vue. Chaque arbre représente un token, sa taille varie selon son volume de transaction. Passer la souries au dessus des arbres pour voir son volume des dernières 24H. ">
+    <meta property="og:image" content="https://crypto-free-tools.netlify.app/img/logo.png">
+    <meta property="og:url" content="https://crypto-free-tools.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="tool">
+    <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
     <style>
-        body { 
-            margin: 0; 
+        body {
+            margin: 0;
             overflow: hidden;
-            background: #000;
+            background: url('https://diapogram.com/upload/2019/04/18/20190418004743-1310baec.jpg') no-repeat center center fixed;
+            /*https://images.unsplash.com/photo-1454789548928-9efd52dc4031?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80*/
+            background-size: cover;
         }
+
         #loading {
             position: absolute;
             top: 50%;
@@ -17,115 +50,85 @@
             color: white;
             font-family: Arial;
             padding: 20px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
+            z-index: 100;
+            text-align: center;
         }
-        canvas { 
-            display: block; 
-            width: 100vw !important;
-            height: 100vh !important;
+
+        #tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: Arial;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 101;
+            max-width: 250px;
+            border: 1px solid #444;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+
+        #home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            background: #ab9ff2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: Arial;
+            cursor: pointer;
+            z-index: 102;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        #home-button:hover {
+            background: #8976f3;
+            transform: scale(1.05);
+        }
+        #lien {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: transparent;
+            color: #ab9ff2;
+            border: none;
+            font-family: Arial;
+            cursor: pointer;
+            z-index: 102;
+            transition: all 0.3s;
+            text-decoration: none;
         }
     </style>
 </head>
+
 <body>
+    <a id="home-button" href="../index.html">Revenir au site</a>
+    <a id="lien" href="https://github.com/berru-g/crypto-tool/">berru-g</a>
     <div id="loading">Initialisation...</div>
+    <div id="tooltip"></div>
 
-    <script type="module">
-        // CONFIGURATION DE BASE
-        const init = async () => {
-            const loadingElement = document.getElementById('loading');
-            
-            // 1. FORCER le redimensionnement initial
-            const handleResize = () => {
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-                renderer.setSize(width, height, false);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.render(scene, camera);
-            };
-
-            // 2. INIT Three.js avec vérification
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ 
-                antialias: true,
-                powerPreference: "high-performance"
-            });
-            
-            // 3. AJUSTEMENTS CRITIQUES
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            document.body.appendChild(renderer.domElement);
-            window.addEventListener('resize', handleResize);
-            
-            // 4. CHARGEMENT GARANTI
-            try {
-                // Terre
-                const earthGeometry = new THREE.SphereGeometry(5, 64, 64);
-                const earthTexture = await new THREE.TextureLoader().loadAsync(
-                    'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg'
-                );
-                const earth = new THREE.Mesh(
-                    earthGeometry,
-                    new THREE.MeshPhongMaterial({ map: earthTexture })
-                );
-                scene.add(earth);
-
-                // Lumière
-                const light = new THREE.DirectionalLight(0xffffff, 1);
-                light.position.set(5, 3, 5);
-                scene.add(light);
-                scene.add(new THREE.AmbientLight(0x404040));
-
-                // Test avec 1 arbre
-                const loader = new THREE.GLTFLoader();
-                const tree = await loader.loadAsync(
-                    'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre1.glb'
-                );
-                tree.scene.position.set(5.1, 0, 0);
-                tree.scene.scale.set(0.5, 0.5, 0.5);
-                scene.add(tree.scene);
-
-                // Contrôles
-                const controls = new THREE.OrbitControls(camera, renderer.domElement);
-                controls.enableDamping = true;
-                camera.position.z = 15;
-
-                // Animation
-                const animate = () => {
-                    requestAnimationFrame(animate);
-                    controls.update();
-                    renderer.render(scene, camera);
-                };
-                animate();
-
-                // FORCER le premier rendu
-                handleResize();
-                loadingElement.style.display = 'none';
-
-            } catch (error) {
-                console.error("Erreur:", error);
-                loadingElement.textContent = "Erreur de chargement - Voir console";
-            }
-        };
-
-        // SOLUTION ULTIME : Vérifier que Three.js est prêt
-        const checkThreeJS = () => {
-            if (window.THREE) {
-                init();
-            } else {
-                setTimeout(checkThreeJS, 100);
-            }
-        };
-
-        // Chargement asynchrone garanti
-        import('https://esm.sh/three').then(() => {
-            import('https://esm.sh/three/examples/jsm/controls/OrbitControls').then(() => {
-                import('https://esm.sh/three/examples/jsm/loaders/GLTFLoader').then(() => {
-                    checkThreeJS();
-                });
-            });
-        });
+    <script>
+        // ====== SOLUTION POUR LES EXTENSIONS ======
+        // Désactive certaines interférences d'extensions
+        if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
+            window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () { };
+        }
     </script>
+
+    <!-- Chargement SYNCHRONE pour éviter les conflits -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script src="app.js"></script>
 </body>
+
 </html>
