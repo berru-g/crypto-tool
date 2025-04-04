@@ -34,6 +34,17 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="og:type" content="tool">
     <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV2QSHTGCL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VV2QSHTGCL');
+    </script>
+
     <style>
         body {
             margin: 0;
@@ -137,13 +148,15 @@
     <div id="tooltip"></div>
     <div id="score-display">Score: 0</div>
 
+    <!--
     <script>
-        // ====== SOLUTION POUR LES EXTENSIONS ======
+        // ====== SOLUTION POUR LES EXTENSIONS ====== ne fonctionne pas avec firefox ???
         // Désactive certaines interférences d'extensions
         if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
             window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () { };
         }
     </script>
+    -->
 
     <!-- Chargement SYNCHRONE pour éviter les conflits -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
