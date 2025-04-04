@@ -6,9 +6,15 @@
     <priority>1</priority>
   </url>
   <url>
-    <loc>https://crypto-free-tools.netlify.app/chart-comparator</loc>
+    <loc>https://crypto-free-tools.netlify.app/narratif/</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://crypto-free-tools.netlify.app/heatmap-forest/</loc>
+    <lastmod>2025-04-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
   </url>
 </urlset>

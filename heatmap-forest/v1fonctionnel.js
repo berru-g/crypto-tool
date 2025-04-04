@@ -1,21 +1,20 @@
 // ====== INITIALISATION GARANTIE ======
 document.getElementById('loading').textContent = "Préparation de l'environnement...";
-document.getElementById('loading').textContent = "Dev by berru-g";
 // Attendre que tout soit prêt
 window.addEventListener('load', async function () {
     try {
         // ====== CONFIGURATION ======
         const CONFIG = {
-            earthSize: 3.4,
-            earthTexture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
-            // 
+            earthSize: 0.3,
+            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/my-map4.jpg',
+             
             treeModels: [
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre1.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre2.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre3.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre4.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre5.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre6.glb'
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/blue_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/boulot_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/coconut_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/tree_house.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/pine_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/orange_tree.glb'
             ],
             fixedLightPosition: new THREE.Vector3(-5, 3, 5),
             treeDensity: 1.5
@@ -23,7 +22,7 @@ window.addEventListener('load', async function () {
 
         // ====== SCÈNE THREE.JS ======
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(7, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true
@@ -41,14 +40,14 @@ window.addEventListener('load', async function () {
         haloLight.position.copy(CONFIG.fixedLightPosition);
         scene.add(haloLight); CONFIG*/
         // ====== LUMIÈRES ======
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(-5, 0, 0); // À gauche de l'écran (ajuste la valeur en X si besoin)
         scene.add(directionalLight);
 
         const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
         scene.add(ambientLight);
 
-        const haloLight = new THREE.PointLight(0x88ccff, 0.8, 10);
+        const haloLight = new THREE.PointLight(0x88ccff, 0.6, 4);
         haloLight.position.set(-5, 0, 0); // Même position que la lumière directionnelle
         scene.add(haloLight);
 
@@ -88,6 +87,7 @@ window.addEventListener('load', async function () {
                 scene.add(model.scene);
                 treeTemplates.push(model.scene);
                 document.getElementById('loading').textContent = `Chargement des modèles (${i + 1}/6)...`;
+                document.getElementById('loading').textContent = `La heatmap la plus fun du net`;
             } catch (e) {
                 console.error(`Erreur modèle ${i}:`, e);
             }
@@ -304,7 +304,7 @@ window.addEventListener('load', async function () {
         // ====== LANCEMENT FINAL ======
         document.getElementById('loading').style.display = 'none';
         animate();
-
+        
         // Redimensionnement
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
