@@ -7,7 +7,7 @@ window.addEventListener('load', async function () {
         // ====== CONFIGURATION ======
         const CONFIG = {
             earthSize: 0.5,
-            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map2.jpg',
+            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map3.jpg',
              
             treeModels: [
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/blue_tree.glb',
@@ -88,6 +88,7 @@ window.addEventListener('load', async function () {
                 scene.add(model.scene);
                 treeTemplates.push(model.scene);
                 document.getElementById('loading').textContent = `Chargement des modèles (${i + 1}/6)...`;
+                document.getElementById('loading').textContent = `La headmap la plus fun du net`;
             } catch (e) {
                 console.error(`Erreur modèle ${i}:`, e);
             }
