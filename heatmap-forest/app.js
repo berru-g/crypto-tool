@@ -1,6 +1,5 @@
 // ====== INITIALISATION GARANTIE ======
 document.getElementById('loading').textContent = "Préparation de l'environnement...";
-document.getElementById('loading').textContent = "Dev by berru-g";
 // Attendre que tout soit prêt
 window.addEventListener('load', async function () {
     try {
@@ -305,7 +304,7 @@ window.addEventListener('load', async function () {
         // ====== LANCEMENT FINAL ======
         document.getElementById('loading').style.display = 'none';
         animate();
-
+        
         // Redimensionnement
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
