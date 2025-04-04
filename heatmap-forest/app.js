@@ -7,15 +7,15 @@ window.addEventListener('load', async function () {
         // ====== CONFIGURATION ======
         const CONFIG = {
             earthSize: 0.3,
-            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map4.jpg',
+            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/my-map4.jpg',
              
             treeModels: [
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/blue_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/boulot_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/coconut_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/tree_house.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/pine_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/orange_tree.glb'
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/blue_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/boulot_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/coconut_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/tree_house.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/pine_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/orange_tree.glb'
             ],
             fixedLightPosition: new THREE.Vector3(-5, 3, 5),
             treeDensity: 1.5
@@ -88,7 +88,7 @@ window.addEventListener('load', async function () {
                 scene.add(model.scene);
                 treeTemplates.push(model.scene);
                 document.getElementById('loading').textContent = `Chargement des modèles (${i + 1}/6)...`;
-                document.getElementById('loading').textContent = `La headmap la plus fun du net`;
+                document.getElementById('loading').textContent = `La heatmap la plus fun du net`;
             } catch (e) {
                 console.error(`Erreur modèle ${i}:`, e);
             }
