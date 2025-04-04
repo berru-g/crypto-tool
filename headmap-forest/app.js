@@ -6,8 +6,8 @@ window.addEventListener('load', async function () {
     try {
         // ====== CONFIGURATION ======
         const CONFIG = {
-            earthSize: 0.5,
-            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map3.jpg',
+            earthSize: 0.3,
+            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map4.jpg',
              
             treeModels: [
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/blue_tree.glb',
@@ -23,7 +23,7 @@ window.addEventListener('load', async function () {
 
         // ====== SCÈNE THREE.JS ======
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(7, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true
@@ -41,14 +41,14 @@ window.addEventListener('load', async function () {
         haloLight.position.copy(CONFIG.fixedLightPosition);
         scene.add(haloLight); CONFIG*/
         // ====== LUMIÈRES ======
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(-5, 0, 0); // À gauche de l'écran (ajuste la valeur en X si besoin)
         scene.add(directionalLight);
 
         const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
         scene.add(ambientLight);
 
-        const haloLight = new THREE.PointLight(0x88ccff, 0.8, 10);
+        const haloLight = new THREE.PointLight(0x88ccff, 0.6, 4);
         haloLight.position.set(-5, 0, 0); // Même position que la lumière directionnelle
         scene.add(haloLight);
 
