@@ -7,8 +7,9 @@ window.addEventListener('load', async function () {
         // ====== CONFIGURATION ======
         const CONFIG = {
             earthSize: 3.4,
-            earthTexture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
-            // 
+            //earthTexture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
+            earthModels: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/globe.glb',
+
             treeModels: [
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre1.glb',
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre2.glb',
@@ -17,12 +18,18 @@ window.addEventListener('load', async function () {
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre5.glb',
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre6.glb'
             ],
-            fixedLightPosition: new THREE.Vector3(-5, 3, 5)
+            fixedLightPosition: new THREE.Vector3(-5, 3, 5),
+            treeDensity: 1.5
         };
+
+        // === Si le globe n'est pas une img ou texture chargement du globe.glb  ===
+        document.getElementById('loading').textContent = "Chargement du globe...";
+        const earthLoader = new THREE.GLTFLoader();
+        const earthModel = await earthLoader.loadAsync(CONFIG.earthModel);
 
         // ====== SCÈNE THREE.JS ======
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true
@@ -53,7 +60,7 @@ window.addEventListener('load', async function () {
 
         // ====== TERRE ======
         document.getElementById('loading').textContent = "Chargement de la Terre...";
-        
+
         const earthTexture = await new THREE.TextureLoader().loadAsync(CONFIG.earthTexture);
         const earth = new THREE.Mesh(
             new THREE.SphereGeometry(CONFIG.earthSize, 64, 64),
@@ -82,7 +89,7 @@ window.addEventListener('load', async function () {
                         child.receiveShadow = true;
                     }
                 });
-                model.scene.scale.set(0.35, 0.35, 0.35);
+                model.scene.scale.set(0.25, 0.25, 0.25);
                 model.scene.visible = false;
                 scene.add(model.scene);
                 treeTemplates.push(model.scene);
@@ -139,7 +146,7 @@ window.addEventListener('load', async function () {
             ];
         }
 
-        // ====== PLACEMENT DES ARBRES ======
+        /* ====== PLACEMENT DES ARBRES ======
         document.getElementById('loading').textContent = "Placement des arbres...";
         const trees = [];
         const volumes = cryptoData.map(t => t.total_volume);
@@ -166,6 +173,57 @@ window.addEventListener('load', async function () {
 
             tree.lookAt(earth.position);
             tree.rotateX(Math.PI / 2);
+
+            // Stockage des données
+            tree.userData = {
+                name: token.name,
+                symbol: token.symbol,
+                volume: token.total_volume,
+                price: token.current_price,
+                isTree: true
+            };
+
+            scene.add(tree);
+            trees.push(tree);
+        });*/
+        // ====== PLACEMENT DES ARBRES - VERSION AMÉLIORÉE ======
+        document.getElementById('loading').textContent = "Placement des arbres...";
+        const trees = [];
+        const volumes = cryptoData.map(t => t.total_volume);
+        const minVol = Math.min(...volumes);
+        const maxVol = Math.max(...volumes);
+
+        // Nouveau placement plus dense
+        cryptoData.forEach((token, i) => {
+            // Taille basée sur le volume (ajustée pour le nouveau globe)
+            const size = 0.15 + 0.6 * (Math.log(token.total_volume) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
+
+            // Position aléatoire mais plus serrée
+            const lat = 180 * (Math.random() - 0.5); // Latitude entre -90 et 90
+            const lon = 360 * Math.random(); // Longitude entre 0 et 360
+
+            // Clone le modèle
+            const tree = treeTemplates[i % treeTemplates.length].clone();
+            tree.visible = true;
+            tree.scale.set(size, size, size);
+
+            // Positionnement sphérique amélioré
+            const phi = (90 - lat) * Math.PI / 180;
+            const theta = lon * Math.PI / 180;
+            const radius = CONFIG.earthSize * (1.01 + 0.02 * Math.random()); // Léger offset aléatoire
+
+            tree.position.set(
+                -radius * Math.sin(phi) * Math.cos(theta),
+                radius * Math.cos(phi),
+                radius * Math.sin(phi) * Math.sin(theta)
+            );
+
+            // Alignement à la surface
+            tree.lookAt(earth.position);
+            tree.rotateX(Math.PI / 2);
+
+            // Ajustement pour que la base touche bien la sphère
+            tree.position.multiplyScalar(1 + (0.005 * size)); // Compensation en fonction de la taille
 
             // Stockage des données
             tree.userData = {
