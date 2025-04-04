@@ -6,10 +6,9 @@ window.addEventListener('load', async function () {
     try {
         // ====== CONFIGURATION ======
         const CONFIG = {
-            earthSize: 3.4,
-            //earthTexture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
-            earthModels: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/globe.glb',
-
+            earthSize: 0.5,
+            earthTexture: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/my-map.jpg',
+             
             treeModels: [
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre1.glb',
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre2.glb',
@@ -22,14 +21,9 @@ window.addEventListener('load', async function () {
             treeDensity: 1.5
         };
 
-        // === Si le globe n'est pas une img ou texture chargement du globe.glb  ===
-        document.getElementById('loading').textContent = "Chargement du globe...";
-        const earthLoader = new THREE.GLTFLoader();
-        const earthModel = await earthLoader.loadAsync(CONFIG.earthModel);
-
         // ====== SCÈNE THREE.JS ======
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true
@@ -197,11 +191,11 @@ window.addEventListener('load', async function () {
         cryptoData.forEach((token, i) => {
             // Taille basée sur le volume (ajustée pour le nouveau globe)
             const size = 0.15 + 0.6 * (Math.log(token.total_volume) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
-
+            
             // Position aléatoire mais plus serrée
             const lat = 180 * (Math.random() - 0.5); // Latitude entre -90 et 90
             const lon = 360 * Math.random(); // Longitude entre 0 et 360
-
+            
             // Clone le modèle
             const tree = treeTemplates[i % treeTemplates.length].clone();
             tree.visible = true;
