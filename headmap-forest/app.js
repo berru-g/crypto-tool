@@ -7,7 +7,7 @@ window.addEventListener('load', async function () {
         // ====== CONFIGURATION ======
         const CONFIG = {
             earthSize: 0.5,
-            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map.jpg',
+            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map2.jpg',
              
             treeModels: [
                 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/blue_tree.glb',
