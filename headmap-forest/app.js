@@ -10,12 +10,12 @@ window.addEventListener('load', async function () {
             earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/my-map.jpg',
              
             treeModels: [
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre1.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre2.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre3.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre4.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre5.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/arbre6.glb'
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/blue_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/boulot_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/coconut_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/tree_house.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/pine_tree.glb',
+                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/headmap-forest/orange_tree.glb'
             ],
             fixedLightPosition: new THREE.Vector3(-5, 3, 5),
             treeDensity: 1.5
