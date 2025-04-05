@@ -1,4 +1,4 @@
-// ====== INITIALISATION GARANTIE ======
+// ====== version du 05/04/25 ======
 document.getElementById('loading').textContent = "Préparation de l'environnement...";
 // Attendre que tout soit prêt
 window.addEventListener('load', async function () {
@@ -6,15 +6,19 @@ window.addEventListener('load', async function () {
         // ====== CONFIGURATION ======
         const CONFIG = {
             earthSize: 0.3,
-            earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/my-map4.jpg',
+            // probleme de sécurité détecté dans firefox et google - cause probable / appel du RAW
+            // revenir en 
+            // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
+            // pour le taf localsinon utiliser les chemins relatif !
+            earthTexture: './assets/my-map4.jpg',
              
             treeModels: [
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/blue_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/boulot_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/coconut_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/tree_house.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/pine_tree.glb',
-                'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/orange_tree.glb'
+                './assets/blue_tree.glb',
+                './assets/boulot_tree.glb',
+                './assets/coconut_tree.glb',
+                './assets/tree_house.glb',
+                './assets/pine_tree.glb',
+                './assets/orange_tree.glb'
             ],
             fixedLightPosition: new THREE.Vector3(-5, 3, 5),
             treeDensity: 1.5
@@ -124,7 +128,7 @@ window.addEventListener('load', async function () {
 
         // ====== DONNÉES CRYPTO ======
         document.getElementById('loading').textContent = "Récupération des données...";
-        document.getElementById('loading').textContent = "Chaque arbre représente un token, sa taille varie selon son volume de transaction. Passer la souries au dessus des arbres pour voir son volume des dernières 24H. ";
+        document.getElementById('loading').textContent = "Chaque arbre représente un token, sa taille varie selon son volume de transaction.";
         let cryptoData;
 
         try {

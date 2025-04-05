@@ -6,10 +6,12 @@ window.addEventListener('load', async function () {
         // ====== CONFIGURATION ======
         const CONFIG = {
             earthSize: 0.3,
-            // probleme de sécurité détecté dans firefox et google - teste de cdn ou cors
-            //const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+            // probleme de sécurité détecté dans firefox et google - cause probable / appel du RAW
+            // revenir en 
+            // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
+            // pour le taf localsinon utiliser les chemins relatif !
             earthTexture: './assets/my-map4.jpg',
-             
+
             treeModels: [
                 './assets/blue_tree.glb',
                 './assets/boulot_tree.glb',
@@ -142,46 +144,6 @@ window.addEventListener('load', async function () {
             ];
         }
 
-        /* ====== PLACEMENT DES ARBRES ======
-        document.getElementById('loading').textContent = "Placement des arbres...";
-        const trees = [];
-        const volumes = cryptoData.map(t => t.total_volume);
-        const minVol = Math.min(...volumes);
-        const maxVol = Math.max(...volumes);
-
-        cryptoData.forEach((token, i) => {
-            const size = 0.2 + 0.8 * (Math.log(token.total_volume) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
-            const lat = Math.random() * 160 - 80;
-            const lon = Math.random() * 360;
-
-            const tree = treeTemplates[i % treeTemplates.length].clone();
-            tree.visible = true;
-            tree.scale.set(size, size, size);
-
-            // Positionnement sphérique
-            const phi = (90 - lat) * Math.PI / 180;
-            const theta = lon * Math.PI / 180;
-            const radius = CONFIG.earthSize * 1.02;
-
-            tree.position.x = -radius * Math.sin(phi) * Math.cos(theta);
-            tree.position.y = radius * Math.cos(phi);
-            tree.position.z = radius * Math.sin(phi) * Math.sin(theta);
-
-            tree.lookAt(earth.position);
-            tree.rotateX(Math.PI / 2);
-
-            // Stockage des données
-            tree.userData = {
-                name: token.name,
-                symbol: token.symbol,
-                volume: token.total_volume,
-                price: token.current_price,
-                isTree: true
-            };
-
-            scene.add(tree);
-            trees.push(tree);
-        });*/
         // ====== PLACEMENT DES ARBRES - VERSION AMÉLIORÉE ======
         document.getElementById('loading').textContent = "Placement des arbres...";
         const trees = [];
@@ -193,11 +155,11 @@ window.addEventListener('load', async function () {
         cryptoData.forEach((token, i) => {
             // Taille basée sur le volume (ajustée pour le nouveau globe)
             const size = 0.15 + 0.6 * (Math.log(token.total_volume) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
-            
+
             // Position aléatoire mais plus serrée
             const lat = 180 * (Math.random() - 0.5); // Latitude entre -90 et 90
             const lon = 360 * Math.random(); // Longitude entre 0 et 360
-            
+
             // Clone le modèle
             const tree = treeTemplates[i % treeTemplates.length].clone();
             tree.visible = true;
@@ -274,20 +236,33 @@ window.addEventListener('load', async function () {
             tooltipElement.style.display = 'none';
         });
 
-        // ====== ANIMATION ======
-        /*function animate() {
-            requestAnimationFrame(animate);
+        // Crée un panel latéral :
+        function initInfoPanel() {
+            const panel = document.createElement('div');
+            panel.id = "crypto-info";
+            panel.innerHTML = `
+        <div class="header">📚 Crypto Forest</div>
+        <div class="content">
+            <p>Chaque arbre représente une cryptomonnaie :</p>
+            <ul>
+                <li>🌳 Taille = Capitalisation</li>
+                <li>🎨 Couleur = Utilité (Monnaie, NFT, DeFi...)</li>
+            </ul>
+        </div>
+    `;
+            document.body.appendChild(panel);
+        }
 
-            // Maintient la lumière fixe
-            directionalLight.position.copy(CONFIG.fixedLightPosition);
-            haloLight.position.copy(CONFIG.fixedLightPosition);
-
-            controls.update();
-            renderer.render(scene, camera);
-        }*/
+            
 
         function animate() {
             requestAnimationFrame(animate);
+            if (camera.position.z < 5) { // Si zoomé
+                document.getElementById("crypto-info").style.display = 'block';
+            } else {
+                document.getElementById("crypto-info").style.display = 'none';
+            }
+        }
 
             // Si tu veux que la lumière reste à gauche de la caméra :
             directionalLight.position.copy(camera.position);
@@ -306,7 +281,7 @@ window.addEventListener('load', async function () {
         // ====== LANCEMENT FINAL ======
         document.getElementById('loading').style.display = 'none';
         animate();
-        
+
         // Redimensionnement
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
