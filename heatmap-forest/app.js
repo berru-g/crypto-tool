@@ -13,7 +13,7 @@ window.addEventListener('load', async function () {
             earthTexture: './assets/my-map4.jpg',
              
             treeModels: [
-                './assets/blue_tree.glb',
+                '/assets/blue_tree.glb',
                 './assets/boulot_tree.glb',
                 './assets/coconut_tree.glb',
                 './assets/tree_house.glb',
@@ -34,15 +34,6 @@ window.addEventListener('load', async function () {
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        /* ====== LUMIÈRES ======
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-        directionalLight.position.copy(CONFIG.fixedLightPosition);
-        scene.add(directionalLight);
-        scene.add(new THREE.AmbientLight(0x404040, 0.6));
-
-        const haloLight = new THREE.PointLight(0x88ccff, 0.8, 10);
-        haloLight.position.copy(CONFIG.fixedLightPosition);
-        scene.add(haloLight); */
       
         // ====== LUMIÈRES ======
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -245,15 +236,13 @@ window.addEventListener('load', async function () {
             // Si tu veux que la lumière reste à gauche de la caméra :
             directionalLight.position.copy(camera.position);
             directionalLight.position.x -= 5; // Décalage à gauche
-            directionalLight.position.y += 0; // Ajuste en Y si besoin
-            directionalLight.position.z += 0; // Ajuste en Z si besoin
+            directionalLight.position.y += 2; // Ajuste en Y si besoin
+            directionalLight.position.z += 2; // Ajuste en Z si besoin
 
-            // (Optionnel) Même chose pour le haloLight si tu veux qu'il suive aussi
             haloLight.position.copy(directionalLight.position);
 
             renderer.render(scene, camera);
         }
-
 
 
         // ====== LANCEMENT FINAL ======

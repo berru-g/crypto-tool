@@ -22,7 +22,7 @@
     <meta name="description"
         content="Une Heatmap 3D comme vous ne l'avez jamais vue. Chaque arbre représente un token, sa taille varie selon son volume de transaction. Passer la souries au dessus des arbres pour voir son volume des dernières 24H. ">
     <meta name="keywords"
-        content="heatmap, heatmap 3D, heatmap forest 3D, heatmap forest, Crypto free tools, crypto technical analysis, gael leberruyer, berru-g, Gaël Berru, dev Nantes,">
+        content="heatmap, heatmap 3D, heatmap crypto 3D, heatmap forest, Crypto free tools, crypto technical analysis, gael leberruyer, berru-g, Gaël Berru, dev Nantes,">
     <meta name="author" content="Gael Leberruyer.">
     <meta name="robots" content="noai">
     <!-- Balises Open Graph pour les réseaux sociaux -->
@@ -171,17 +171,14 @@
     <div id="tooltip"></div>
     <div id="info">Heatmap</div>
 
-
     <script>
-        // ====== SOLUTION POUR LES EXTENSIONS ====== ne fonctionne pas avec firefox ???
-        // Désactive certaines interférences d'extensions
+
         if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
             window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () { };
         }
     </script>
 
 
-    <!-- Chargement SYNCHRONE pour éviter les conflits -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
