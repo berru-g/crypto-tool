@@ -6,6 +6,8 @@ window.addEventListener('load', async function () {
         // ====== CONFIGURATION ======
         const CONFIG = {
             earthSize: 0.3,
+            // probleme de sécurité détecté dans firefox et google - teste de cdn ou cors
+            //const corsProxy = 'https://cors-anywhere.herokuapp.com/';
             earthTexture: 'https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/my-map4.jpg',
              
             treeModels: [
