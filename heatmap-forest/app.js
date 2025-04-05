@@ -9,9 +9,9 @@ window.addEventListener('load', async function () {
             // probleme de sécurité détecté dans firefox et google - cause probable / appel du RAW
             // revenir en 
             // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
-            // pour le taf localsinon utiliser les chemins relatif !
+            // pour le taf local sinon utiliser les chemins relatif !
             earthTexture: './assets/my-map4.jpg',
-
+             
             treeModels: [
                 './assets/blue_tree.glb',
                 './assets/boulot_tree.glb',
@@ -42,7 +42,8 @@ window.addEventListener('load', async function () {
 
         const haloLight = new THREE.PointLight(0x88ccff, 0.8, 10);
         haloLight.position.copy(CONFIG.fixedLightPosition);
-        scene.add(haloLight); CONFIG*/
+        scene.add(haloLight); */
+      
         // ====== LUMIÈRES ======
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(-5, 0, 0); // À gauche de l'écran (ajuste la valeur en X si besoin)
@@ -155,11 +156,11 @@ window.addEventListener('load', async function () {
         cryptoData.forEach((token, i) => {
             // Taille basée sur le volume (ajustée pour le nouveau globe)
             const size = 0.15 + 0.6 * (Math.log(token.total_volume) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
-
+            
             // Position aléatoire mais plus serrée
             const lat = 180 * (Math.random() - 0.5); // Latitude entre -90 et 90
             const lon = 360 * Math.random(); // Longitude entre 0 et 360
-
+            
             // Clone le modèle
             const tree = treeTemplates[i % treeTemplates.length].clone();
             tree.visible = true;
@@ -236,33 +237,10 @@ window.addEventListener('load', async function () {
             tooltipElement.style.display = 'none';
         });
 
-        // Crée un panel latéral :
-        function initInfoPanel() {
-            const panel = document.createElement('div');
-            panel.id = "crypto-info";
-            panel.innerHTML = `
-        <div class="header">📚 Crypto Forest</div>
-        <div class="content">
-            <p>Chaque arbre représente une cryptomonnaie :</p>
-            <ul>
-                <li>🌳 Taille = Capitalisation</li>
-                <li>🎨 Couleur = Utilité (Monnaie, NFT, DeFi...)</li>
-            </ul>
-        </div>
-    `;
-            document.body.appendChild(panel);
-        }
-
-            
+        
 
         function animate() {
             requestAnimationFrame(animate);
-            if (camera.position.z < 5) { // Si zoomé
-                document.getElementById("crypto-info").style.display = 'block';
-            } else {
-                document.getElementById("crypto-info").style.display = 'none';
-            }
-        }
 
             // Si tu veux que la lumière reste à gauche de la caméra :
             directionalLight.position.copy(camera.position);
@@ -281,7 +259,7 @@ window.addEventListener('load', async function () {
         // ====== LANCEMENT FINAL ======
         document.getElementById('loading').style.display = 'none';
         animate();
-
+        
         // Redimensionnement
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
