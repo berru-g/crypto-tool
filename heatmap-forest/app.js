@@ -124,7 +124,7 @@ window.addEventListener('load', async function () {
 
         // ====== DONNÉES CRYPTO ======
         document.getElementById('loading').textContent = "Récupération des données...";
-        document.getElementById('loading').textContent = "Chaque arbre représente un token, sa taille varie selon son volume de transaction. Passer la souries au dessus des arbres pour voir son volume des dernières 24H. ";
+        document.getElementById('loading').textContent = "Chaque arbre représente un token, sa taille varie selon son volume de transaction.";
         let cryptoData;
 
         try {
