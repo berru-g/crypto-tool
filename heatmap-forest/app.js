@@ -13,7 +13,7 @@ window.addEventListener('load', async function () {
             earthTexture: './assets/my-map4.jpg',
              
             treeModels: [
-                '/assets/blue_tree.glb',
+                './assets/blue_tree.glb',
                 './assets/boulot_tree.glb',
                 './assets/coconut_tree.glb',
                 './assets/tree_house.glb',

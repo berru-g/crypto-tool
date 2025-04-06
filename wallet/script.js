@@ -7,10 +7,10 @@ fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoi
       bitcoin: 0,
       bittensor: 0,
       near: 0,
-      solana: 1.89,
+      solana: 2.3,
       ethereum: 0,
       'reserve-rights-token': 41560,
-      mysterium: 16.16,
+      mysterium: 20,
       aave: 1.31,
     };
 
