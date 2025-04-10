@@ -75,7 +75,7 @@ window.addEventListener('load', async function () {
                 model.scene.traverse(child => {
                     if (child.isMesh) {
                         child.castShadow = true;
-                        child.receiveShadow = true;
+                        child.receiveShadow = false;
                     }
                 });
                 model.scene.scale.set(0.25, 0.25, 0.25);
@@ -232,9 +232,15 @@ window.addEventListener('load', async function () {
 
         function animate() {
             requestAnimationFrame(animate);
-            directionalLight.position.set(-5, 3, 5); // Position fixe dans la scène
 
-            controls.update(); // Important pour OrbitControls
+            // Si tu veux que la lumière reste à gauche de la caméra :
+            directionalLight.position.copy(camera.position);// fous la merde !!!!
+            directionalLight.position.x -= 5; // Décalage à gauche
+            directionalLight.position.y += 2; // Ajuste en Y si besoin !
+            directionalLight.position.z += 2; // Ajuste en Z si besoin
+
+            haloLight.position.copy(directionalLight.position);
+
             renderer.render(scene, camera);
         }
 
