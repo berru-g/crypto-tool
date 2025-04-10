@@ -5,7 +5,7 @@ window.addEventListener('load', async function () {
     try {
         // ====== CONFIGURATION ======
         const CONFIG = {
-            earthSize: 0.4,
+            earthSize: 0.3,
             // probleme de sécurité détecté dans firefox et google - cause probable / appel du RAW
             // revenir en 
             // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
@@ -14,7 +14,8 @@ window.addEventListener('load', async function () {
              
             treeModels: [
                 './assets/satellite.glb',
-                './assets/iss.glb'
+                './assets/satellite2.glb',
+                './assets/satellite3.glb'
             ],
             fixedLightPosition: new THREE.Vector3(-5, 3, 5),
             treeDensity: 1.5
