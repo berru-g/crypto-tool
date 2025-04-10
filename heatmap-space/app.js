@@ -234,7 +234,8 @@ window.addEventListener('load', async function () {
             requestAnimationFrame(animate);
 
             // Si tu veux que la lumière reste à gauche de la caméra :
-            directionalLight.position.copy(camera.position);// fous la merde !!!!
+            //directionalLight.position.copy(camera.position);// fous la merde !!!!
+            directionalLight.position.set(-5, 3, 5); // Position fixe dans la scène
             directionalLight.position.x -= 5; // Décalage à gauche
             directionalLight.position.y += 2; // Ajuste en Y si besoin !
             directionalLight.position.z += 2; // Ajuste en Z si besoin
