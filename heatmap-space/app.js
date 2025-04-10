@@ -5,16 +5,16 @@ window.addEventListener('load', async function () {
     try {
         // ====== CONFIGURATION ======
         const CONFIG = {
-            earthSize: 0.2,
+            earthSize: 0.4,
             // probleme de sécurité détecté dans firefox et google - cause probable / appel du RAW
             // revenir en 
             // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
             // pour le taf local sinon utiliser les chemins relatif !
-            earthTexture: '../heatmap-forest/assets/moon-nasa.jpg',
+            earthTexture: './assets/moon-nasa.jpg',
              
             treeModels: [
-                '../heatmap-forest/assets/satellite.glb',
-                '../heatmap-forest/assets/iss.glb'
+                './assets/satellite.glb',
+                './assets/iss.glb'
             ],
             fixedLightPosition: new THREE.Vector3(-5, 3, 5),
             treeDensity: 1.5
@@ -59,7 +59,7 @@ window.addEventListener('load', async function () {
         );
         scene.add(earth);
 
-        // ====== ARBRES ======
+        // ====== satellite ======
         document.getElementById('loading').textContent = "Chargement des modèles (0/6)...";
         const treeTemplates = [];
         const loader = new THREE.GLTFLoader();
@@ -87,7 +87,7 @@ window.addEventListener('load', async function () {
 
         // Fallback si échec
         if (treeTemplates.length < 3) {
-            console.warn("Création d'arbres basiques...");
+            console.warn("Création d'satellite basiques...");
             for (let i = 0; i < 3; i++) {
                 const tree = new THREE.Group();
                 const trunk = new THREE.Mesh(
@@ -116,7 +116,7 @@ window.addEventListener('load', async function () {
 
         // ====== DONNÉES CRYPTO ======
         document.getElementById('loading').textContent = "Récupération des données...";
-        document.getElementById('loading').textContent = "Chaque satellite représente un token, sa taille varie selon son volume de transaction.";
+        document.getElementById('loading').textContent = "Chaque arbre représente un token, sa taille varie selon son volume de transaction.";
         let cryptoData;
 
         try {
@@ -132,8 +132,8 @@ window.addEventListener('load', async function () {
             ];
         }
 
-        // ====== PLACEMENT DES ARBRES - VERSION AMÉLIORÉE ======
-        document.getElementById('loading').textContent = "Placement des arbres...";
+        // ====== PLACEMENT DES satellite - VERSION AMÉLIORÉE ======
+        document.getElementById('loading').textContent = "Placement des satellite...";
         const trees = [];
         const volumes = cryptoData.map(t => t.total_volume);
         const minVol = Math.min(...volumes);
