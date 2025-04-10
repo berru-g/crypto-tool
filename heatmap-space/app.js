@@ -10,8 +10,8 @@ window.addEventListener('load', async function () {
             // revenir en 
             // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
             // pour le taf local sinon utiliser les chemins relatif !
-            earthTexture: './assets/moon-nasa.jpg',
-             
+            earthTexture: './assets/moon-1024.jpg',
+
             treeModels: [
                 './assets/satellite.glb',
                 './assets/satellite2.glb',
@@ -28,10 +28,12 @@ window.addEventListener('load', async function () {
             antialias: true,
             alpha: true
         });
+        renderer.shadowMap.enabled = true; 
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Ombre plus lissées
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-      
+
         // ====== LUMIÈRES ======
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(-5, 0, 0); // À gauche de l'écran (ajuste la valeur en X si besoin)
@@ -58,6 +60,7 @@ window.addEventListener('load', async function () {
                 //opacity: 0.97
             })
         );
+        earth.receiveShadow = true;
         scene.add(earth);
 
         // ====== satellite ======
@@ -144,11 +147,11 @@ window.addEventListener('load', async function () {
         cryptoData.forEach((token, i) => {
             // Taille basée sur le volume (ajustée pour le nouveau globe)
             const size = 0.15 + 0.6 * (Math.log(token.total_volume) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
-            
+
             // Position aléatoire mais plus serrée
             const lat = 180 * (Math.random() - 0.5); // Latitude entre -90 et 90
             const lon = 360 * Math.random(); // Longitude entre 0 et 360
-            
+
             // Clone le modèle
             const tree = treeTemplates[i % treeTemplates.length].clone();
             tree.visible = true;
@@ -225,19 +228,13 @@ window.addEventListener('load', async function () {
             tooltipElement.style.display = 'none';
         });
 
-        
+
 
         function animate() {
             requestAnimationFrame(animate);
+            directionalLight.position.set(-5, 3, 5); // Position fixe dans la scène
 
-            // Si tu veux que la lumière reste à gauche de la caméra :
-            directionalLight.position.copy(camera.position);
-            directionalLight.position.x -= 5; // Décalage à gauche
-            directionalLight.position.y += 2; // Ajuste en Y si besoin
-            directionalLight.position.z += 2; // Ajuste en Z si besoin
-
-            haloLight.position.copy(directionalLight.position);
-
+            controls.update(); // Important pour OrbitControls
             renderer.render(scene, camera);
         }
 
@@ -245,7 +242,7 @@ window.addEventListener('load', async function () {
         // ====== LANCEMENT FINAL ======
         document.getElementById('loading').style.display = 'none';
         animate();
-        
+
         // Redimensionnement
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
