@@ -10,11 +10,11 @@ window.addEventListener('load', async function () {
             // revenir en 
             // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
             // pour le taf local sinon utiliser les chemins relatif !
-            earthTexture: './heatmap-forest/assets/moon-nasa.jpg',
+            earthTexture: '../heatmap-forest/assets/moon-nasa.jpg',
              
             treeModels: [
-                './heatmap-forest/assets/satellite.glb',
-                './heatmap-forest/assets/iss.glb'
+                '../heatmap-forest/assets/satellite.glb',
+                '../heatmap-forest/assets/iss.glb'
             ],
             fixedLightPosition: new THREE.Vector3(-5, 3, 5),
             treeDensity: 1.5
