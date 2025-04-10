@@ -5,7 +5,7 @@ window.addEventListener('load', async function () {
     try {
         // ====== CONFIGURATION ======
         const CONFIG = {
-            earthSize: 0.3,
+            earthSize: 0.2,
             // probleme de sécurité détecté dans firefox et google - cause probable / appel du RAW
             // revenir en 
             // https://raw.githubusercontent.com/berru-g/crypto-tool/main/heatmap-forest/ 
