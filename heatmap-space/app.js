@@ -241,7 +241,7 @@ window.addEventListener('load', async function () {
             directionalLight.position.z += 2; // Ajuste en Z si besoin
 
             haloLight.position.copy(directionalLight.position);
-
+            //controls.update(); // Important pour OrbitControls
             renderer.render(scene, camera);
         }
 

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : crypto-free-tools is the simple fibonacci retracement tool
+       Date : 20/01/2025
+       Version : 1.0.4  | 16/02/25
+       Mise à jour article : Weekly
+       Licence : The MIT License (MIT)
+       Copyright (c) 2025 Berru
+       Contact : https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire
+    ============================================
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledger Nano X : Le Guide Ultime pour Sécuriser Vos Cryptos</title>
+    <link rel="shortcut icon" href="./img/logo.png" />
+    <link rel="apple-touch-icon" href="./img/logo.png" />
+    <meta name="description"
+        content="Découvrez comment sécuriser vos actifs avec le Ledger Nano X, le portefeuille matériel le plus fiable.">
+    <meta name="keywords"
+        content="ledger, proteger mes crypto, comment sécuriser mes crypto, Ledger Nano X, portefeuille matériel, sécurité blockchain, wallet crypto, ">
+    <meta name="author" content="Gael Berru.">
+    <meta name="robots" content="noai">
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:title" content="Ledger Nano X : Le Guide Ultime pour Sécuriser Vos Cryptos">
+    <meta property="og:description"
+        content="Sécurisez Vos Cryptos en 4 min. Découvrez comment sécuriser vos actifs avec le Ledger Nano X, le portefeuille matériel le plus fiable.">
+    <meta property="og:image" content="https://crypto-free-tools.netlify.app/img/logo.png">
+    <meta property="og:url" content="https://crypto-free-tools.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="tool">
+    <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="new.css">
+
+    <!-- JSON-LD Structuré (WebSite + Article) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://crypto-free-tools.netlify.app/#website",
+      "name": "Crypto Free Tools",
+      "url": "https://crypto-free-tools.netlify.app",
+      "description": "Plateforme d'outils gratuits pour l'analyse technique crypto (Fibonacci, alarmes, charts) et guides sur la sécurité blockchain.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://crypto-free-tools.netlify.app/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://crypto-free-tools.netlify.app/ledger-nano-x-securite-crypto",
+      "headline": "Ledger Nano X : Le Guide Ultime pour Sécuriser Vos Cryptos en 2024",
+      "description": "Pourquoi le Ledger Nano X est indispensable pour protéger vos actifs crypto contre les hackers. Comparaison, tutoriel et où l'acheter en sécurité.",
+      "url": "https://crypto-free-tools.netlify.app/ledger-nano-x-securite-crypto",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://crypto-free-tools.netlify.app/ledger-nano-x-securite-crypto"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Crypto Free Tools",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://crypto-free-tools.netlify.app/logo.png"
+        }
+      },
+      "datePublished": "2024-01-01",
+      "dateModified": "2024-01-01",
+      "author": {
+        "@type": "Person",
+        "name": "Gael Leberruyer"
+      }
+    }
+  ]
+}
+</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=#"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '#');
+    </script>
+    <style>
+        /* Style du tableau comparatif */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .comparison-table .yes {
+            color: #3ad38b;
+            font-weight: bold;
+        }
+
+        .comparison-table .no {
+            color: #f56545;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #3ad38b;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .warning-box {
+            background-color: #f6e6da;
+            border-left: 5px solid #f4a261;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+
+</head>
+<header>
+    <div class="logo-container">
+        <img src="./img/logo.png" alt="Logo de l’app">
+        <h1>Crypto tool</h1>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="tokenSearch" placeholder="🔍 Token" list="tokenList" />
+        <datalist id="tokenList"></datalist>
+        <button class="barre-head" id="searchButton">Search</button>
+    </div>
+</header>
+
+<body>
+    <section id="features">
+        <div id="tokenResults"></div>
+    </section>
+
+
+    <section id="features">
+
+        <h1>Pourquoi le Ledger Nano X est Indispensable pour Protéger Vos Cryptos (Guide Complet 2025)</h1>
+        <br>
+        <div class="warning-box">
+            <h2>⚠️ Avertissement Important : Achetez Uniquement chez Ledger ou Amazon Officiel</h2>
+            <p>Il est <strong>crucial</strong> d'acheter votre Ledger <strong>soit sur le <a
+                        href="https://shop.ledger.com/?r=97b532808e9b" target="_blank">site officiel</a>, soit sur la <a
+                        href="https://amzn.to/42AbLm6" target="_blank">boutique officielle Amazon Ledger</a></strong>.
+                <u>N'achetez jamais un Ledger
+                    d'occasion ou chez un revendeur tiers</u> : le risque que la seed phrase soit déjà connue par un
+                escroc est extrêmement élevé !
+            </p>
+        </div>
+    </section>
+    <br>
+    <section id="features">
+        <h2>Introduction : La Sécurité Crypto, une Urgence Ignorée</h2>
+        <br>
+        <p>Saviez-vous qu'en 2023, <strong>plus de 3 milliards de dollars</strong> de cryptos ont été volés à cause de
+            portefeuilles mal sécurisés ? Les hackers ciblent les débutants comme les experts. <strong>Si vous utilisez
+                un exchange (Coinbase, Binance) ou un simple portefeuille logiciel (MetaMask, Trust Wallet), vos fonds
+                sont en danger.</strong></p>
+
+        <p>La solution ? Un <strong>portefeuille matériel Ledger Nano X</strong>.</p>
+        <br>
+        <a href="https://amzn.to/42AbLm6" class="cta-button" target="_blank">➡️ Acheter le Ledger Nano X sur Amazon
+            (lien sécurisé)</a>
+    </section>
+    <br>
+    <section id="features">
+        <h2>1. Ledger Nano X : La Forteresse Impénétrable pour Vos Cryptos</h2>
+        <br>
+        <p>Le <strong>Ledger Nano X</strong> est un <em>hardware wallet</em> (portefeuille matériel) qui stocke vos clés
+            privées <strong>hors ligne</strong>, à l'abri des pirates. Contrairement aux portefeuilles logiciels, il est
+            invulnérable aux attaques en ligne.</p>
+    </section>
+    <br>
+    <section id="features">
+        <h3>🔒 Pourquoi Vos Cryptos Ne Sont PAS en Sécurité Sans Ledger</h3>
+        <br>
+        <ul>
+            <li><strong>Les exchanges peuvent faire faillite</strong> (ex. FTX, Celsius).</li>
+            <li><strong>MetaMask/Trust Wallet peuvent être hackés</strong> (phishing, malware).</li>
+            <li><strong>Votre téléphone/PC peut être infecté</strong> (keyloggers, screenshots).</li>
+        </ul>
+
+        <p><strong>Avec Ledger, même si votre ordinateur est piraté, vos cryptos restent intactes.</strong></p>
+    </section>
+    <br>
+    <section id="features">
+        <h2>2. Ledger Nano X vs. La Concurrence : Pourquoi C'est le Meilleur Choix</h2>
+        <br>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Fonctionnalité</th>
+                    <th>Ledger Nano X</th>
+                    <th>Trezor Model T</th>
+                    <th>Portefeuille Logiciel</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Stockage hors ligne</strong></td>
+                    <td class="yes">✅ Oui</td>
+                    <td class="yes">✅ Oui</td>
+                    <td class="no">❌ Non</td>
+                </tr>
+                <tr>
+                    <td><strong>Bluetooth</strong></td>
+                    <td class="yes">✅ Oui</td>
+                    <td class="no">❌ Non</td>
+                    <td class="no">❌ Non</td>
+                </tr>
+                <tr>
+                    <td><strong>Support + de 5 500 cryptos</strong></td>
+                    <td class="yes">✅ Oui</td>
+                    <td class="yes">✅ Oui</td>
+                    <td class="no">❌ Variable</td>
+                </tr>
+                <tr>
+                    <td><strong>Écran tactile</strong></td>
+                    <td class="no">❌ Non (boutons)</td>
+                    <td class="yes">✅ Oui</td>
+                    <td class="no">❌ Non</td>
+                </tr>
+                <tr>
+                    <td><strong>Prix</strong></td>
+                    <td>💰 149€</td>
+                    <td>💰 219€</td>
+                    <td>Gratuit (mais risqué)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <p><strong>👉 Verdict</strong> : Le Ledger Nano X offre le meilleur rapport <strong>sécurité/prix</strong>, avec
+            une compatibilité maximale.</p>
+    </section>
+    <br>
+    <section id="features">
+        <h2>3. Comment Fonctionne Ledger ? (Sécurité Infaillible)</h2>
+        <br>
+        <ol>
+            <li><strong>Clé privée jamais exposée</strong> → Générée et stockée dans le dispositif.</li>
+            <li><strong>Transactions signées hors ligne</strong> → Même connecté, le hacker ne peut rien voler.</li>
+            <li><strong>Code PIN + Recovery Phrase</strong> → Double protection contre le vol physique.</li>
+        </ol>
+
+        <p>⚠️ <strong>Sans Ledger, vos clés privées sont comme un mot de passe enregistré dans un fichier texte sur
+                votre PC.</strong></p>
+    </section>
+    <br>
+    <section id="features">
+        <h2>4. "Mais J'ai Peur que ce Soit Trop Compliqué..." (Démystification)</h2>
+        <br>
+        <p>Beaucoup pensent qu'un wallet matériel est réservé aux experts. <strong>Faux !</strong> Ledger est conçu pour
+            être simple :</p>
+        <ul>
+            <li><strong>Branchez, installez Ledger Live, transférez vos cryptos.</strong></li>
+            <li><strong>Aucune compétence technique requise.</strong></li>
+            <li><strong>Guide pas-à-pas inclus.</strong></li>
+        </ul>
+
+        <p>💡 <em>"Si vous savez utiliser MetaMask, vous savez utiliser un Ledger."</em></p>
+    </section>
+    <br>
+    <section id="features">
+        <h2>5. Ledger Nano X : Le Choix des Pros (Social Proof)</h2>
+        <br>
+        <ul>
+            <li><strong>Utilisé par des millions</strong> (dont des investisseurs institutionnels).</li>
+            <li><strong>Recommandé par Vitalik Buterin (Ethereum) et Andreas Antonopoulos.</strong></li>
+            <li><strong>Note moyenne : ⭐⭐⭐⭐⭐ (4.7/5 sur Amazon).</strong></li>
+        </ul>
+
+        <p>📌 <em>"Je dormais mal en laissant mes cryptos sur Binance. Depuis que j'ai un Ledger, je suis serein."</em>
+            – Marc, utilisateur depuis 2021.</p>
+    </section>
+    <br>
+    <section id="features">
+        <h2>6. "Et si Je Perds Mon Ledger ?" (Foire Aux Questions)</h2>
+        <br>
+        <h3>❓ "Que se passe-t-il si je le perds ou qu'on me le vole ?"</h3>
+        <p>→ <strong>Vos cryptos sont SAFU !</strong> Grâce à la <em>recovery phrase</em>, vous pouvez les récupérer sur
+            un nouveau Ledger.</p>
+
+        <h3>❓ "Puis-je l'utiliser avec mon iPhone ?"</h3>
+        <p>→ <strong>Oui !</strong> Bluetooth intégré pour une connexion mobile facile.</p>
+
+        <h3>❓ "Quelles cryptos sont supportées ?"</h3>
+        <p>→ <strong>Bitcoin, Ethereum, Solana, Cardano, etc. (+5 500 actifs).</strong></p>
+        <br>
+        <h2>7. Ne Prenez Pas de Risque : Agissez MAINTENANT</h2>
+        <br>
+        <p><strong>Chaque jour sans Ledger, vos cryptos sont exposées.</strong></p>
+        <ul>
+            <li>✅ <strong>Protection maximale contre les hackers.</strong></li>
+            <li>✅ <strong>Contrôle total sur vos actifs (not your keys, not your crypto).</strong></li>
+            <li>✅ <strong>Compatibilité avec tous les DApps (DeFi, NFTs, etc.).</strong></li>
+        </ul>
+
+        <p>🔥 <strong>Offre spéciale</strong> : En ce moment, le <strong>Ledger Nano X</strong> est livré avec
+            <strong>un câble USB et un guide de sécurité exclusif</strong> sur Amazon.
+        </p>
+        <br>
+        <a href="https://amzn.to/42AbLm6" class="cta-button" target="_blank">➡️ Protégez vos cryptos maintenant (lien
+            sécurisé)</a>
+    </section>
+    <br>
+    <section id="features">
+        <h2>Conclusion : Votre Argent Mérite une Vraie Sécurité</h2>
+        <br>
+        <p>Ne laissez pas un piratage ou une faillite d'exchange détruire des années d'investissement. <strong>Le Ledger
+                Nano X est l'assurance-vie de vos cryptos.</strong></p>
+
+        <p>💬 <strong>Dernier conseil</strong> : N'attendez pas de vous faire hacker pour agir. <strong>Commandez le
+                vôtre aujourd'hui.</strong></p>
+        <br>
+        <a href="https://amzn.to/42AbLm6" class="cta-button" target="_blank">🛒 Protégez vos cryptos maintenant</a>
+
+    </section>
+    <br>
+    <br>
+    <div id="pub-container">
+        <div id="pub-carousel">
+            <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b" class="pub-slide">
+                <img src="./img/cl-ledger.png" alt="Pub 1">
+            </a>
+            <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b" class="pub-slide active">
+                <img src="https://affiliate.ledger.com/image/850/420/French" alt="Pub 2">
+            </a>
+        </div>
+    </div>
+    <style>
+        #pub-container {
+            display: block;
+            margin: 0 auto;
+            width: 95%;
+            max-width: 600px;
+            height: auto;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #pub-carousel {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 49.41%;
+            /* Ratio 850x420 (420/850) */
+        }
+
+        .pub-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .pub-slide.active {
+            opacity: 1;
+        }
+
+        .pub-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.pub-slide');
+            let currentSlide = 0;
+            // Affiche la première slide
+            slides[currentSlide].classList.add('active');
+            // Change de slide toutes les 3 secondes
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000);
+        });
+    </script>
+    <br>
+    <br>
+    <nav class="navbar">
+        <a href="index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
+        <a href="index.html"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
+        <a href="./narratif/index.html"><span><i class="fa-solid fa-sliders"></i></span>narratif</a>
+        <a href="./chart-comparator/index.html"><span><i class="fa-solid fa-layer-group"></i></span>multi</a>
+        <a href="./4graphiques/index.html"><span><i class="fa-solid fa-table-cells-large"></i></span>4 chart</a>
+    </nav>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section links">
+                <h3>Offres</h3>
+                <ul>
+                    <li><a href="https://shop.ledger.com/?r=97b532808e9b" rel="noopener" target="_blank">Ledger</a>
+                    </li>
+                    <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" rel="noopener"
+                            target="_blank">Binance</a></li>
+                    <li><a href="https://app.getgrass.io/register/?referralCode=vuVMPERoPN8ecJe" rel="noopener"
+                            target="_blank">Grass.io</a>
+                    </li>
+                    <li><a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5"
+                            rel="noopener" target="_blank">Mysterium network</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-section links">
+                <h3>More +</h3>
+                <ul>
+                    <!--<li><button id="themeToggle"class="theme-toggle">Dark mode</button></li>-->
+                    <li><a href="https://medium.com/@gael-berru">Articles</a></li>
+                    <li><a href="#dyor" class="open-popup">Disclaimer</a></li>
+                    <li><a href="https://github.com/berru-g/">Open source</a></li>
+                    <li><a href="https://berru-g.github.io/berru-g/blog/donation.html">Buy Me a Coffee</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-section links">
+                <h3>A venir <i class="fa-solid fa-gears"></i></h3>
+                <ul>
+                    <li><a href="#">Profil <i class="fa-solid fa-user"></i></a></li>
+                    <li><a href="#">Forum</a></li>
+                    <li><a href="./wallet/index.html">Wallet <i class="fa-solid fa-wallet"></i></a></li>
+                    <li><a href="#">Dashboard <i class="fa-solid fa-right-to-bracket"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <button id="installApp">install the app <i class="fa-solid fa-download"></i></button>
+
+    </footer>
+    <h5 style="margin-bottom:70px;">crypto-free-tools &copy; 2025 by <a
+            href="https://berru-g.github.io/berru-g/">berru-g</a></h5>
+    <script src="token_search.js"></script>
+
+</body>
+
+</html>
