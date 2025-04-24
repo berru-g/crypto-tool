@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>ScamRadar MVP</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
@@ -9,13 +10,47 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <style>
         /* À adapter à ton CSS existant */
-        #scamradar { font-family: Arial; max-width: 600px; margin: 0 auto; padding: 20px; }
-        #contractAddress { width: 100%; padding: 10px; margin-bottom: 10px; }
-        #checkButton { background: #ab9ff2; color: white; border: none; padding: 10px 15px; cursor: pointer; }
-        #result { margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 7px; white-space: pre-line; }
-        .danger { color: #f56545; font-weight: bold; }
-        .warning { color: #f4a261; }
-        .safe { color: #3ad38b; }
+        #scamradar {
+            font-family: Arial;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #contractAddress {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #checkButton {
+            background: #ab9ff2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 7px;
+            white-space: pre-line;
+        }
+
+        .danger {
+            color: #f56545;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #f4a261;
+        }
+
+        .safe {
+            color: #3ad38b;
+        }
     </style>
 </head>
 <header>
@@ -40,9 +75,15 @@
     <div id="scamradar">
         <h2>🔍 ScamRadar MVP</h2>
         <br>
+        <!--V1
+        <input type="text" id="addressInput" placeholder="0x... ou adresse crypto">
+        <button onclick="checkAddress()">Vérifier</button>
+        -->
         <input type="text" id="contractAddress" placeholder="Coller l'adresse du contrat (ex: 0x123...)">
         <button id="checkButton">Analyser</button>
+        
         <div id="result">Résultats...</div>
+
     </div>
 
     <nav class="navbar">
@@ -61,4 +102,5 @@
     <script src="script.js"></script>
     <script src="../token_search.js"></script>
 </body>
+
 </html>
