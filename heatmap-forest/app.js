@@ -225,7 +225,7 @@ window.addEventListener('load', async function () {
                 }
             }
 
-            tooltipElement.style.display = 'block';
+            tooltipElement.style.display = 'none';
         });
 
         
