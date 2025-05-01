@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : crypto-free-tools is the simple fibonacci retracement tool
+       Date : 20/01/2025
+       Version : 1.0.4  | 16/02/25
+       Mise à jour article : Weekly
+       Licence : The MIT License (MIT)
+       Copyright (c) 2025 Berru
+       Contact : https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire
+    ============================================
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledger Nano X : Le Guide Ultime pour Sécuriser Vos Cryptos</title>
+    <link rel="shortcut icon" href="../img/logo.png" />
+    <link rel="apple-touch-icon" href="../img/logo.png" />
+    <meta name="description"
+        content="Découvrez comment sécuriser vos actifs avec le Ledger Nano X, le portefeuille matériel le plus fiable.">
+    <meta name="keywords"
+        content="ledger, proteger mes crypto, comment sécuriser mes crypto, Ledger Nano X, portefeuille matériel, sécurité blockchain, wallet crypto, ">
+    <meta name="author" content="Gael Berru.">
+    <meta name="robots" content="noai">
+    <!-- Balises Open Graph pour les réseaux sociaux -->
+    <meta property="og:title" content="Ledger Nano X : Le Guide Ultime pour Sécuriser Vos Cryptos">
+    <meta property="og:description"
+        content="Sécurisez Vos Cryptos en 4 min. Découvrez comment sécuriser vos actifs avec le Ledger Nano X, le portefeuille matériel le plus fiable.">
+    <meta property="og:image" content="https://crypto-free-tools.netlify.app/img/logo.png">
+    <meta property="og:url" content="https://crypto-free-tools.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="blog">
+    <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../new.css">
+
+    <!-- JSON-LD Structuré (WebSite + Article) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://crypto-free-tools.netlify.app/#website",
+      "name": "Crypto Free Tools",
+      "url": "https://crypto-free-tools.netlify.app",
+      "description": "Plateforme d'outils gratuits pour l'analyse technique crypto (Fibonacci, alarmes, charts) et guides sur la sécurité blockchain.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://crypto-free-tools.netlify.app/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://crypto-free-tools.netlify.app/ledger-nano-x-securite-crypto",
+      "headline": "Ledger Nano X : Le Guide Ultime pour Sécuriser Vos Cryptos en 2024",
+      "description": "Pourquoi le Ledger Nano X est indispensable pour protéger vos actifs crypto contre les hackers. Comparaison, tutoriel et où l'acheter en sécurité.",
+      "url": "https://crypto-free-tools.netlify.app/ledger-nano-x-securite-crypto",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://crypto-free-tools.netlify.app/ledger-nano-x-securite-crypto"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Crypto Free Tools",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://crypto-free-tools.netlify.app/logo.png"
+        }
+      },
+      "datePublished": "2024-01-01",
+      "dateModified": "2024-01-01",
+      "author": {
+        "@type": "Person",
+        "name": "Gael Leberruyer"
+      }
+    }
+  ]
+}
+</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=#"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '#');
+    </script>
+    <style>
+        .cta-button {
+            display: inline-block;
+            background-color: #3ad38b;
+            color: white;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .warning-box {
+            background-color: #f6e6da;
+            border-left: 5px solid #f4a261;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        img {
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" alt="Logo de l’app">
+        <h1>----</h1>
+    </div>
+    <div class="search-container">
+        <input type="text" id="tokenSearch" placeholder="🔍 Token" list="tokenList" />
+        <datalist id="tokenList"></datalist>
+        <button class="barre-head" id="searchButton">Search</button>
+    </div>
+</header>
+<body>
+    <section id="features">
+        <div id="tokenResults"></div>
+    </section>
+
+
+    <section id="features">
+
+        <h1>Pourquoi le Ledger Nano X est Indispensable pour Protéger Vos Cryptos (Guide Complet 2025)</h1>
+        <br>
+        <div class="warning-box">
+            <h2>⚠️ Avertissement Important : Achetez Uniquement chez Ledger ou Amazon Officiel</h2>
+            <p>Il est <strong>crucial</strong> d'acheter votre Ledger <strong>soit sur le <a
+                        href="https://shop.ledger.com/?r=97b532808e9b" target="_blank">site officiel</a>, soit sur la <a
+                        href="https://amzn.to/42AbLm6" target="_blank">boutique officielle Amazon Ledger</a></strong>.
+                <u>N'achetez jamais un Ledger
+                    d'occasion ou chez un revendeur tiers</u> : le risque que la seed phrase soit déjà connue par un
+                escroc est extrêmement élevé !
+            </p>
+        </div>
+    </section>
+
+    <br>
+    <div id="pub-container">
+        <div id="pub-carousel">
+            <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b" class="pub-slide">
+                <img src="../img/cl-ledger.png" alt="Pub 1">
+            </a>
+            <a href="https://shop.ledger.com/pages/ledger-nano-s-plus/?r=97b532808e9b" target="_blank"
+                class="pub-slide active">
+                <img src="https://affiliate.ledger.com/image/850/420/French" alt="Pub 2">
+            </a>
+        </div>
+    </div>
+    <style>
+        #pub-container {
+            display: block;
+            margin: 0 auto;
+            width: 95%;
+            max-width: 600px;
+            height: auto;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #pub-carousel {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 49.41%;
+            /* Ratio 850x420 (420/850) */
+        }
+
+        .pub-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .pub-slide.active {
+            opacity: 1;
+        }
+
+        .pub-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.pub-slide');
+            let currentSlide = 0;
+            // Affiche la première slide
+            slides[currentSlide].classList.add('active');
+            // Change de slide toutes les 3 secondes
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000);
+        });
+    </script>
+    <br>
+    <br>
+    <nav class="navbar">
+        <a href="../index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
+        <a href="../index.html"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
+        <a href="../narratif/index.html"><span><i class="fa-solid fa-sliders"></i></span>narratif</a>
+        <a href="../chart-comparator/index.html"><span><i class="fa-solid fa-layer-group"></i></span>multi</a>
+        <a href="../4graphiques/index.html"><span><i class="fa-solid fa-table-cells-large"></i></span>4 chart</a>
+    </nav>
+
+    <section id="features">
+        <a href="https://shop.ledger.com/?r=97b532808e9b" class="cta-button" rel="noopener" target="_blank">Ledger :
+            bénéficiez de 30€ en BTC pour l'achat d'une ledger nano S plus à 79€.</a>
+
+        <a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" class="cta-button"
+            rel="noopener" target="_blank">Binance : bénéficiez de 100usd offert sur vos trade pour toute nouvelle
+            inscription.</a>
+        <a href="https://app.getgrass.io/register/?referralCode=vuVMPERoPN8ecJe" class="cta-button" rel="noopener"
+            target="_blank">Grass.io : Partager votre bande passante contre des airdrop du projet Grass.</a>
+
+        <a href="https://mystnodes.co/?referral_code=3ullsxCv7CT5LTmXysyJxpqRlZ96UxeujciprQn5" class="cta-button"
+            rel="noopener" target="_blank">Mysterium network : Devenez un node pour le premier VPN décentralisé 100%
+            chiffré et soyez payé en token MYST.</a>
+
+        <a href="https://amzn.to/3EqGb2e" class="cta-button" target="_blank">Amazon : offres variable selon la
+            saison.</a>
+    </section>
+
+
+
+
+    <h5 style="margin-bottom:70px;">crypto-free-tools &copy; 2025 by <a
+            href="https://berru-g.github.io/berru-g/">berru-g</a></h5>
+    <script src="../token_search.js"></script>
+
+</body>
+
+</html>
