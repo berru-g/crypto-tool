@@ -119,6 +119,13 @@
             margin: 20px 0;
         }
 
+        .detail {
+            background-color: #d8d4f1;
+            border-left: 5px solid #ab9ff2;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
         img {
             border-radius: 12px;
         }
@@ -174,28 +181,75 @@
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
+
+        .why-buy {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .why-buy .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .why-buy h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .why-buy .intro {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #555;
+        }
+
+        .reasons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .reason {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .reason h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .reason p {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            background: #0056b3;
+        }
     </style>
 </head>
-<header>
-    <div class="logo-container">
-        <img src="../img/logo.png" alt="Logo de l’app">
-        <h1>Premier Wallet Crypto en 2025, le guide pour débutant.</h1>
-    </div>
-    <div class="search-container">
-        <input type="text" id="tokenSearch" placeholder="🔍 Token" list="tokenList" />
-        <datalist id="tokenList"></datalist>
-        <button class="barre-head" id="searchButton">Search</button>
-    </div>
-</header>
 
 <body>
     <section id="features">
-        <div id="tokenResults"></div>
-    </section>
-
-
-    <section id="features">
-        <h1>🧠 Introduction : À qui s’adresse ce guide ?</h1>
+        <h1>Premier Wallet Crypto en 2025, le guide pour débutant : À qui s’adresse ce guide ?</h1>
         <br>
         <p>Vous avez entendu parler de Solana, des cryptos, ou de Bitcoin... mais :</p>
 
@@ -210,34 +264,73 @@
         <section class="warning-box">
             <h2>⚠️ Avertissement honnête :</h2>
             <br>
-            <p>Ce guide ne vous rendra pas riche. Si c'est ce que vous chercher, vous pouvez fermer ce site.<br>
-                Il vous aidera à :</p>
+            <p>Ce guide ne vous rendra pas riche. Si c'est ce que vous chercher, vous pouvez fermer ce site.</p><br>
+            <p>Ce guide vous aidera à :</p>
 
             <p>Acheter des cryptos sans vous faire arnaquer.</p>
             <p>Les sécuriser sans prise de tête.</p>
             <p>Gagner un rendement passif en les laissant travailler pour vous.</p>
         </section>
         <br>
-        <h2>🎁 Ce que vous allez apprendre</h2>
+        <section class="why-buy">
+            <div class="container">
+                <h2>Pourquoi acheter ce PDF ?</h2>
+                <p class="intro">
+                    Tu débutes dans l’univers des cryptos ? Ce guide a été conçu spécialement pour toi.
+                    Pas de jargon inutile, que du concret. En quelques minutes, tu sauras exactement quoi faire.
+                </p>
+
+                <div class="reasons">
+                    <div class="reason">
+                        <h3>✅ Pas besoin d’être expert</h3>
+                        <p>Ce guide est ultra simplifié, pensé pour les vrais débutants. Pas besoin de connaissance
+                            technique.</p>
+                    </div>
+                    <div class="reason">
+                        <h3>🎁 170 USDC offerts</h3>
+                        <p>En suivant les étapes du guide, tu gagnes jusqu’à <strong>100 USDC en bonus sur
+                                Binance</strong>
+                            et <strong>70 USDC avec l’achat d’une clé Ledger</strong>, via nos liens partenaires.</p>
+                    </div>
+                    <div class="reason">
+                        <h3>🔒 Sécurité & stratégie</h3>
+                        <p>Apprends à protéger tes cryptos et à démarrer avec une démarche sécurisé, concrète et durable.
+                        </p>
+                    </div>
+                    <div class="reason">
+                        <h3>🧠 Gagne du temps</h3>
+                        <p>Pas besoin de fouiller YouTube pendant des heures. On te guide pas à pas, de A à Z en 35 min.</p>
+                    </div>
+                </div>
+
+                <a href="#cta" class="btn-cta">Je veux mon guide ➜</a>
+            </div>
+        </section>
+        <br>
+        <h2>👉 Ce que vous allez apprendre</h2>
         <br>
         <p>Comment acheter vos premiers SOL en euros sans vous faire avoir.</p>
-        <p>Comment créer un wallet Phantom sécurisé, pas à pas.</p>
+        <p>Comment créer un wallet Phantom sécurisé et décentralisé, pas à pas.</p>
         <p>Comment envoyer vos SOL en toute sécurité.</p>
         <p>Comment gagner 5 à 7 % par an en les "stackant".</p>
         <p>Comment éviter les erreurs fréquentes (arnaques, faux tokens...).</p>
         <br>
-        <p>👉 Bonus : En passant par mes liens affiliés :</p>
+        <p>🎁 Bonus : En passant par mes liens affiliés :</p>
 
-        <p>100 USDC offerts sur vos premiers trades Binance.</p>
-        <p>Jusqu'à 70 USDC de réduction à l'achat d'une clé Ledger (optionnel mais recommandé).</p>
+        <p>100 USDC offerts sur vos faris de trades Binance.</p>
+        <p>Jusqu'à 70 USDC offert à l'achat d'une clé Ledger (clé optionnel mais recommandé pour optimiser la sécurité de vos fonds.).</p>
         <br>
         <h2>📌 Partie 1 : Pourquoi Solana ?</h2>
+        <p class="detail">*Ce guide fonctionne avec n'importe qu'elle autre cryptomonnaie. L'exemple ici, Solana, fait
+            partie des ecosystemes qui ont fait leurs preuves au même titre que Bitcoin ou Ethereum à la différence que les frais de transfere sont beaucoup moins élevés.</p>
         <h3>✅ Résilience</h3>
         <br>
         <p>Solana a traversé :</p>
 
-        <p>3 gros krachs crypto.</p>
-        <p>Des périodes de congestion réseau.</p>
+        <ul>
+            <li>3 gros krachs crypto.</li>
+            <li>Des périodes de congestion réseau.</li>
+        </ul>
 
         <p>Et pourtant, elle est toujours là. C'est l'une des blockchains les plus actives du monde, soutenue par :</p>
 
@@ -247,10 +340,11 @@
         <br>
         <h3>💰 Rentabilité passive</h3>
         <br>
-        <p>Grâce au stacking, vous pouvez gagner entre 5 % et 7 % par an, simplement en laissant vos SOL dans votre
-            wallet Phantom.</p>
+        <p class="detail">Le staking Solana consiste à déléguer vos SOL depuis votre portefeuille Phantom à un
+            validateur de la blockchain. En retour, vous gagnez entre 5 % et 7 % par an. C’est une manière simple de
+            faire fructifier vos cryptos tout en soutenant la sécurité du réseau.</p>
 
-        <p>C'est comme un livret A nouvelle génération :</p>
+        <p>C'est comme un livret A boosté contre l'inflation :</p>
 
         <p>Pas besoin de trading.</p>
         <p>Pas besoin de surveillance.</p>
@@ -271,7 +365,7 @@
         <p>C'est la plus grande plateforme crypto au monde.</p>
         <p>Elle permet d'acheter des cryptos en euros par virement ou carte bancaire.</p>
         <p>Interface traduite en français.</p>
-        <p>Service client réactif.</p>
+        <p>Service client avec des vrais humains réactif.</p>
         <br>
         <h3>Inscription pas à pas :</h3>
         <br>
@@ -282,29 +376,31 @@
         <p>Effectuez le KYC (photo d'identité + selfie automatique).</p>
         <p>Une fois validé (quelques minutes), vous pouvez déposer des euros par :</p>
 
-        <p>Virement SEPA (sans frais)</p>
+        <p>Virement SEPA (1€ de frais qu'importe le montant)</p>
         <p>Carte bancaire (frais autour de 1,8 %)</p>
 
-        <p>💡 Astuce : Faites un virement de 100 € minimum pour recevoir le bonus de 100 USDC offerts.</p>
+        <p>💡 Astuce : Faites un virement de 100 € minimum pour recevoir le bonus de 100 USDC offerts sur vos frais de
+            trade.</p>
         <br>
         <h2>💳 Étape 2 : Acheter des USDC, puis des SOL</h2>
 
         <h3>Pourquoi USDC ?</h3>
         <br>
         <p>C'est un stablecoin (1 USDC = 1 dollar).</p>
-        <p>Il est moins taxé en Europe et plus pratique pour échanger.</p>
+        <p>Il est moins taxé en Europe et plus pratique pour échanger que de l'USDT.</p>
         <br>
         <h3>Étapes :</h3>
         <br>
         <p>Recherchez "EUR/USDC" dans la barre de recherche Binance.</p>
         <p>Cliquez sur "Acheter".</p>
         <p>Une fois les USDC achetés, allez sur le marché "USDC/SOL".</p>
-        <p>Achetez le nombre de SOL que vous souhaitez (1 SOL ≈ 120 € en 2025, à adapter).</p>
+        <p>Achetez le nombre de SOL que vous souhaitez (1 SOL ≈ 120 € en 2025).</p>
         <br>
         <h2>🦊 Étape 3 : Créer un Wallet Phantom</h2>
         <h3>Qu'est-ce qu'un wallet ?</h3>
         <br>
-        <p>C'est comme un coffre-fort numérique qui vous permet de garder vos cryptos en sécurité, sans passer par une
+        <p>C'est comme un coffre-fort numérique décentralisé qui vous permet de garder vos cryptos en sécurité, sans
+            passer par une
             banque ni un tiers.</p>
 
         <p>Phantom est une extension navigateur (Chrome, Brave, Firefox).</p>
@@ -312,18 +408,18 @@
         <h3>Étapes :</h3>
         <br>
         <p>Allez sur le site officiel : https://phantom.app.</p>
-        <p>Téléchargez l'extension.</p>
+        <p>Téléchargez l'extension, uniquement sur le site officiel.</p>
         <p>Cliquez sur "Créer un nouveau wallet".</p>
         <p>Notez la seed phrase (12 mots) : c'est votre clef de secours.</p>
 
-        <p>❌ Ne la stockez jamais sur votre téléphone ou dans un fichier.</p>
+        <p>❌ Ne la stockez jamais sur votre téléphone ou dans un fichier sur PC ou cloud, drive etc.</p>
         <p>✅ Écrivez-la à la main sur du papier, et rangez-la dans un endroit sûr.</p>
 
         <p>Créez un mot de passe de connexion.</p>
         <br>
         <h3>🔐 Sécurité maximale : la clé Ledger</h3>
         <br>
-        <p>Vous pouvez connecter une clé Ledger Nano à Phantom :</p>
+        <p>Vous pouvez connecter une clé Ledger à Phantom :</p>
 
         <p>C'est un portefeuille physique qui garde vos clés hors-ligne.</p>
         <p>Ultra-sécurisé contre les piratages.</p>
@@ -350,7 +446,8 @@
         <p>Choisissez un validateur :</p>
 
         <p>✅ Favorisez ceux à faibles frais (0% à 5%).</p>
-        <p>❌ Évitez ceux à 100% de commission.</p>
+        <p>✅ Favorisez les validateurs par defaut du wallet "validateur Phantom".</p>
+        <p>❌ Évitez ceux à plus de 20% de commission.</p>
 
         <p>💡 Vous pouvez changer de validateur plus tard sans perdre vos SOL.</p>
 
@@ -389,27 +486,30 @@
         <h2>📎 Bonus</h2>
         <br>
 
-        <a href="#" class="cta-button">Télécharger le PDF complet avec captures d'écran - 15€</a>
+        <a href="#" class="cta-button">Télécharger le PDF complet avec captures d'écran et toute les démarches de sécurité global détaillé- 15€</a>
         </p>
         <br>
-        <a href="#" class="cta-button">Créer votre compte Binance + 100 USDC offerts</a>
+        <a href="#" class="cta-button">Créer votre compte Binance + 100 USDC offerts sur les frais de trade.</a>
         </p>
         <br>
-        <a href="#" class="cta-button">Acheter votre Ledger + 70 USDC remboursés</a>
+        <a href="#" class="cta-button">Acheter votre Ledger + 70 USDC remboursés en BTC.</a>
         </p>
 
     </section>
     <br>
     <section id="formulaire">
         <h2>📩 Contact</h2><br>
-        <p class="form-subtitle">Vous souhaitez faire un retour sur cette formation, la noter sur 5. Envoyez moi un message et précisez si vous souhaitez afficher votre nom et photo dans l'espace commentaireou si vous souhaitez rester anonime!</p><br>
+        <p class="form-subtitle">Vous souhaitez faire un retour sur cette formation, la noter sur 5. Envoyez moi un
+            message et précisez si vous souhaitez afficher votre nom et photo dans l'espace commentaire ou si vous
+            souhaitez rester anonyme!</p><br>
 
         <form action="https://formspree.io/f/#" method="POST">
             <label for="email"></label>
             <input type="email" name="email" id="email" placeholder="contact@email.com" required>
 
             <label for="message"></label>
-            <textarea name="message" id="message" placeholder="Voici ce que j'ai pensé de votre formation..." required></textarea>
+            <textarea name="message" id="message" placeholder="Voici ce que j'ai pensé de votre formation..."
+                required></textarea>
 
             <button type="submit">Envoyer <i class="fa-solid fa-paper-plane"></i></button>
         </form>
@@ -417,7 +517,7 @@
     <br>
     <section class="testimonials-section">
         <h2>💬 Ce qu'ils en disent</h2>
-        <p class="subtitle">Plus de 150 débutants ont déjà suivi ce guide avec succès 👇</p>
+        <p class="subtitle">Plus de 20 débutants ont déjà suivi ce guide avec succès 👇</p>
 
         <div class="testimonials-grid">
             <div class="testimonial-card">
@@ -453,12 +553,11 @@
         <a href="../index.html"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
         <a href="../narratif/index.html"><span><i class="fa-solid fa-sliders"></i></span>narratif</a>
         <a href="../chart-comparator/index.html"><span><i class="fa-solid fa-layer-group"></i></span>multi</a>
-        <a href="../4graphiques/index.html"><span><i class="fa-solid fa-table-cells-large"></i></span>4 chart</a>
+        <a href="../blog/mysterium-network.html"><span><i class="fa-solid fa-list"></i></span>articles</a>
     </nav>
 
-    <h5 style="margin-bottom:70px;">crypto-free-tools &copy; 2025 by <a
+    <h5 style="margin-bottom:70px;">Guide pour débutant par <a
             href="https://berru-g.github.io/berru-g/">berru-g</a></h5>
-    <script src="../token_search.js"></script>
 </body>
 
 </html>
