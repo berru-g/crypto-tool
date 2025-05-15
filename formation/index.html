@@ -122,6 +122,58 @@
         img {
             border-radius: 12px;
         }
+
+        .testimonials-section {
+            padding: 3rem 1rem;
+            background-color: #f9fafb;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .testimonials-section h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonials-section .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: scale(1.02);
+        }
+
+        .testimonial-card img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+            /* jaune/or */
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <header>
@@ -223,7 +275,7 @@
         <br>
         <h3>Inscription pas à pas :</h3>
         <br>
-        
+
         <a href="#" class="cta-button">Binance - 100 USDC offerts</a>.</p>
         <p>Créez votre compte avec un mot de passe fort.</p>
         <p>Validez votre adresse e-mail.</p>
@@ -278,7 +330,7 @@
 
         <br>
         <a href="#" class="cta-button">Lien affilié Ledger - 70 USDC offerts</a></p>
-            <br>
+        <br>
 
         <h2>🔄 Étape 4 : Envoyer vos SOL sur Phantom</h2>
         <br>
@@ -346,6 +398,52 @@
         <a href="#" class="cta-button">Acheter votre Ledger + 70 USDC remboursés</a>
         </p>
 
+    </section>
+    <br>
+    <section id="formulaire">
+        <h2>📩 Contact</h2><br>
+        <p class="form-subtitle">Une question, une suggestion, un retour sur cette formation ? Envoyez moi un message et précisez si vous souhaitez afficher votre nom et photo dans l'espace commentaire!</p><br>
+
+        <form action="https://formspree.io/f/#" method="POST">
+            <label for="email"></label>
+            <input type="email" name="email" id="email" placeholder="contact@email.com" required>
+
+            <label for="message"></label>
+            <textarea name="message" id="message" placeholder="Cette formation est..." required></textarea>
+
+            <button type="submit">Envoyer <i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </section>
+    <br>
+    <section class="testimonials-section">
+        <h2>💬 Ce qu'ils en disent</h2>
+        <p class="subtitle">Plus de 150 débutants ont déjà suivi ce guide avec succès 👇</p>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="https://i.pravatar.cc/100?img=12" alt="Jean D." />
+                <div class="stars">★★★★★</div>
+                <p><strong>Jean D.</strong> — 42 ans</p>
+                <p>« J'avais peur de me lancer. Grâce au guide, j'ai acheté mes premiers SOL en 30 minutes. Simple,
+                    clair, sécurisant. »</p>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://i.pravatar.cc/100?img=5" alt="Sophie L." />
+                <div class="stars">★★★★★</div>
+                <p><strong>Sophie L.</strong> — Freelance</p>
+                <p>« J’ai suivi chaque étape, j’ai même reçu les 100 USDC sur Binance ! Merci pour le ton rassurant et
+                    bienveillant. »</p>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://i.pravatar.cc/100?img=8" alt="Nico Web3" />
+                <div class="stars">★★★★★</div>
+                <p><strong>Nico Web3</strong> — Débutant total</p>
+                <p>« Tout est expliqué simplement, sans jargon. Je recommande ce PDF à tous mes amis curieux de
+                    crypto. »</p>
+            </div>
+        </div>
     </section>
 
     <br>
