@@ -135,9 +135,16 @@ Ce guide est fait pour vous. Pas de blabla, juste **les étapes simples** que j�
 - Le **tutoriel Ledger** en bonus.  
 - La **liste des validateurs** à jour."*  
 
-**Urgence** : *"Les 20 premiers lecteurs l’obtiennent à 10€ au lieu de 15€."*  
 
 ---
+## Step : 
+    
+    - Optimiser le SEO
+    - Créer le PDF ( screenshot + detail de sécurité) Canva
+    - S'inscrire sur plateforme de paiement
+    X Redirection - Page de remerciment et telechargement du PDF
+    - Partage sur les réseaux
+    - 
 
 ### **📌 Pour Toi : Checklist de Création**  
 1. **Rédiger l’article** (reprends ma structure + tes mots).  
