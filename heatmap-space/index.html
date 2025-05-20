@@ -12,7 +12,6 @@
        Contact : https://crypto-free-tools.netlify.app
     ============================================
 -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,159 +33,26 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="og:type" content="tool">
     <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
-
-    <!-- Google tag (gtag.js) -->
-    
-
     <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: url('./assets/space.jpg') no-repeat center center fixed;
-            /*
-            https://images.unsplash.com/photo-1454789548928-9efd52dc4031?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80
-            https://diapogram.com/upload/2019/04/18/20190418004743-1310baec.jpg
-            */
-            background-size: cover;
-        }
-
-        #loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-family: Arial;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 5px;
-            z-index: 100;
-            text-align: center;
-        }
-
-        #tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 12px;
-            border-radius: 5px;
-            font-family: Arial;
-            font-size: 14px;
-            pointer-events: none;
-            z-index: 101;
-            max-width: 250px;
-            border: 1px solid #444;
-            backdrop-filter: blur(5px);
-            display: none;
-        }
-
-        /* Popup de quête */
-        .crypto-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-radius: 15px;
-            z-index: 100;
-        }
-
-        /* Panel latéral */
-        #crypto-info {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 250px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        #home-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            padding: 10px 15px;
-            background: #ab9ff2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-family: Arial;
-            cursor: pointer;
-            z-index: 102;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        #home-button:hover {
-            background: #8976f3;
-            transform: scale(1.05);
-        }
-
-        #lien {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background: transparent;
-            color: #ab9ff2;
-            border: none;
-            font-family: Arial;
-            cursor: pointer;
-            z-index: 102;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        #lien:hover {
-            color: white;
-            text-decoration: none;
-        }
-
-        #info {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: Arial;
-        }
-        a {
-            color: #ab9ff2;
-            text-decoration: none;
-        }
-        a:hover {
-            color: white;
-            text-decoration: none;
-        }
+        #loading,#tooltip{border-radius:5px;color:#fff}#loading,.crypto-popup{top:50%;left:50%;transform:translate(-50%,-50%);padding:20px;z-index:100}#home-button,#lien{padding:10px 15px;cursor:pointer;z-index:102;transition:.3s}#crypto-info,#info,#loading{background:rgba(0,0,0,.7)}#info,#lien:hover,#loading,#tooltip,a:hover{color:#fff}#home-button,#info,#lien,#loading,#tooltip{position:absolute;font-family:Arial}#lien,a{color:#ab9ff2;text-decoration:none}#home-button,#lien,#lien:hover,a,a:hover{text-decoration:none}body{margin:0;overflow:hidden;background:url('./assets/space.jpg') center center/cover no-repeat fixed}#loading{text-align:center}#tooltip,.crypto-popup{background:rgba(0,0,0,.9)}#tooltip{padding:12px;font-size:14px;pointer-events:none;z-index:101;max-width:250px;border:1px solid #444;backdrop-filter:blur(5px);display:none}.crypto-popup{position:fixed;border-radius:15px}#crypto-info{position:absolute;top:20px;left:20px;width:250px;padding:15px;border-radius:10px}#home-button{top:20px;left:20px;background:#ab9ff2;color:#fff;border:none;border-radius:5px}#home-button:hover{background:#8976f3;transform:scale(1.05)}#lien{bottom:20px;right:20px;background:0 0;border:none}#info{top:20px;right:20px;padding:10px;border-radius:5px}
     </style>
 </head>
-
 <body>
     <a id="home-button" href="../index.html">Revenir au site</a>
     <a id="lien" href="https://berru-g.github.io/berru-g/">berru-g</a>
     <div id="loading">Initialisation...</div>
     <div id="tooltip"></div>
     <div id="info">Heatmap <a href="../heatmap-forest/index.html">forest</a></div>
-
     <script>
-
         if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object') {
             window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () { };
         }
     </script>
-
-
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
     <!--<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>-->
-
     <script src="app.js"></script>
 </body>
-
 </html>

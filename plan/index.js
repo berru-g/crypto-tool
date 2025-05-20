@@ -4,10 +4,6 @@
  - payement via ...
  - redirection + inscription ( php, sql 'en cour' )
 -->
-
-
-
-
 <head>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 	<title>Carrousel Outils Crypto</title>

@@ -12,7 +12,6 @@
        Contact : https://savoir-relatif-et-absolu.netlify.app/#espace-commentaire
     ============================================
 -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +24,6 @@
         content="crypto analysis, Fibonacci retracement, Fiboscope, crypto price alarm, crypto price alarm, crypto charts, crypto investment, free crypto tools, crypto growth potential, crypto ATH, crypto technical analysis, gael leberruyer">
     <meta name="author" content="Gael Berru.">
     <meta name="robots" content="noai">
-    <!-- Balises Open Graph pour les réseaux sociaux -->
     <meta property="og:title" content="crypto-free-tools">
     <meta property="og:description"
         content="Analyze token potential, activate an alarm, compare charts. Discover tokens with the lowest percentage of their maximum capacity, with high growth potential. Ideal tool during the bear market.">
@@ -33,11 +31,6 @@
     <meta property="og:url" content="https://crypto-free-tools.netlify.app">
     <link rel="canonical" href="https://crypto-free-tools.netlify.app/" />
     <link rel="manifest" href="/manifest.json">
-
-    <!--
-    <link rel="alternate" hreflang="fr" href="https://crypto-free-tools.netlify.app/fr/" />
-    <link rel="alternate" hreflang="en" href="https://crypto-free-tools.netlify.app/en/" />
--->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.0"></script>
@@ -47,13 +40,10 @@
     <script src="https://cdn.jsdelivr.net/npm/luxon"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../new.css">
-    <!--script type="application/ld+json"-->
     <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -68,7 +58,6 @@
           }
         }
         </script>
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5GVLEC0TV"></script>
     <script>
@@ -80,21 +69,18 @@
     </script>
     <script src="momentum.js" defer></script>
 </head>
-
 <header>
     <div class="logo-container">
         <img src="../img/logo.png" alt="Logo de l’app">
         <span id="momentum-indicator"></span>
         <h1>Crypto tool</h1>
     </div>
-
     <div class="search-container">
         <input type="text" id="tokenSearch" placeholder="🔍 Token" list="tokenList" />
         <datalist id="tokenList"></datalist>
         <button class="barre-head" id="searchButton">Search</button>
     </div>
 </header>
-
 <body>
     <section id="features">
         <div id="tokenResults"></div>
@@ -129,7 +115,6 @@
         </ul>
         <br>
     </section>
-    
     <br>
     <section id="crash-detector">
         <h2 id="fibonacci">FiboScope</h2>
@@ -159,8 +144,6 @@
         </div>
     </div>
     <br>
-
-    <!-- Le popup -->
     <div id="dyor-popup" class="popup">
         <div class="popup-content">
             <span class="close-popup">&times;</span>
@@ -202,10 +185,7 @@
             </ul>
         </div>
     </div>
-
-    <!----------------------------FOOTER----------------------------------------->
     <br>
-    <!--<div id="navbar-container"></div>-->
     <nav class="navbar">
         <a href="../index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
         <a href="./index.html"><span><i class="fa-solid fa-chart-line"></i></span>fibo</a>
@@ -213,14 +193,11 @@
         <a href="../chart-comparator/index.html"><span><i class="fa-solid fa-chart-area"></i></span>multi</a>
         <a href="../indicateur-technique/index.html"><span><i class="fa-solid fa-chart-gantt"></i></span>tech</a>
     </nav>
-
     <footer>
         <h5 style="margin-bottom:40px;">crypto-free-tools &copy; 2025 by <a
                 href="https://github.com/berru-g/">berru-g</a>
         </h5>
     </footer>
     <script src="script.js"></script>
-    <!--<script src="../new.js"></script>-->
 </body>
-
 </html>
