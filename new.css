@@ -138,7 +138,7 @@ header img {
 header h1 {
     font-size: 1em;
     margin-top: 0px;
-    color: var(--shadow-color);
+    color: var(--primary-color);
 }
 
 /* Conteneur de la barre de recherche et du bouton */
