@@ -1,20 +1,2 @@
 [build]
-  functions = "netlify/functions"  # Dossier des fonctions serverless (optionnel)
-
-[[redirects]]
-  from = "http://crypto-free-tools.netlify.app/*"
-  to = "https://www.crypto-free-tools.netlify.app/:splat"
-  status = 301
-  force = true  # Force la redirection même si Netlify a des règles par défaut
-
-[[redirects]]
-  from = "http://www.crypto-free-tools.netlify.app/*"
-  to = "https://www.crypto-free-tools.netlify.app/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://crypto-free-tools.netlify.app/*"
-  to = "https://www.crypto-free-tools.netlify.app/:splat"
-  status = 301
-  force = true
+  functions = "netlify/functions"
