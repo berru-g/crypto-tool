@@ -3,15 +3,21 @@
 <!-- 
     ============================================
        Developed by : https://github.com/berru-g/
+       V_1.1
        Licence : The MIT License (MIT)
        Copyright (c) 2025 Berru
+
+    Process:
+       Tunnel > Formulaire > Supabase > Stripe > merci > canva 
+              
+       Guide pdf : https://www.canva.com/design/DAGnmI8_0yc/0nHhYDZOZGHRTc7Pkq54iQ/view?utm_content=DAGnmI8_0yc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h991d14aa6c
     ============================================
 -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide: créer et sécuriser son premier wallet en 2025</title>
+    <title>Crypto Starter - Le Guide Ultime pour Débuter en Cryptomonnaie</title>
     <link rel="shortcut icon" href="../img/logo.png" />
     <link rel="apple-touch-icon" href="../img/logo.png" />
     <meta name="description"
@@ -33,9 +39,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../new.css">
+    <link rel="stylesheet" href="style.css">
     <!-- JSON-LD Structuré (WebSite + Article)-->
-     <script type="application/ld+json">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Course",
@@ -84,188 +90,436 @@
 
         gtag('config', 'G-BV6CGYCSEM');
     </script>
-    <style>
-        h1{font-size:2em;margin-top:20px;color:#5086eb}.btn-cta,.stars{font-size:1.1rem}.btn-cta,.cta-button{font-weight:700;text-decoration:none}.cta-button{display:block;background-color:#3ad38b;color:#fff;padding:12px 24px;text-align:center;border-radius:5px;margin:0 auto}ul{margin-top:1rem;margin-bottom:1.5rem;padding-left:1.5rem;line-height:1.7;list-style-position:inside}ul li{margin-bottom:.75rem;padding-left:.5rem;position:relative}ul li::before{content:"•";position:absolute;left:0;color:#5086eb;font-weight:700;font-size:1.2rem;line-height:1;top:0}.reason,.testimonial-card{border-radius:12px}.detail,.warning-box{padding:15px;margin:20px 0}.warning-box{background-color:#f6e6da;border-left:5px solid #f4a261}.detail{background-color:#d8d4f1;border-left:5px solid #ab9ff2}.testimonials-section{padding:3rem 1rem;background-color:#f9fafb;text-align:center;font-family:Arial,sans-serif}.testimonials-section h2{font-size:2rem;margin-bottom:.5rem}.testimonials-section .subtitle{font-size:1.1rem;color:#555;margin-bottom:2rem}.testimonials-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1000px;margin:0 auto}.testimonial-card{background:#fff;padding:1.5rem;box-shadow:0 0 10px rgba(0,0,0,.06);transition:transform .2s}.testimonial-card:hover{transform:scale(1.02)}.testimonial-card img{width:70px;height:70px;border-radius:50%;margin-bottom:1rem}.stars{color:#fbbf24;margin-bottom:.5rem}.why-buy{background:#f8f9fa;padding:60px 20px;text-align:center}.why-buy .container{max-width:900px;margin:auto}.why-buy h2{font-size:2.5rem;margin-bottom:20px}.why-buy .intro{font-size:1.2rem;margin-bottom:40px;color:#555}.reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;margin-bottom:40px}.reason{background:#fff;padding:25px;box-shadow:0 4px 10px rgba(0,0,0,.05)}.reason h3{font-size:1.2rem;margin-bottom:10px;color:#222}.reason p{color:#555;font-size:1rem}.btn-cta{display:inline-block;background:#5086eb;color:#fff;padding:14px 30px;border-radius:50px;transition:background .3s}.btn-cta:hover{background:#0056b3}
-    </style>
 </head>
 
 <body>
-    <section id="features">
-        <h1>Guide : comment acheter et sécuriser de la crypto en 2025 ?</h1>
-        <br>
-        <img src="../img/guide.png" style="width:50%;height:auto;display:block;margin: 0 auto;"
-            alt="guide crypto debutant 2025">
-        <br>
-        <p>Vous avez entendu parler de Solana ou de Bitcoin... mais :</p>
-        <ul>
-            <li>Vous ne savez pas par où commencer ?</li>
-            <li>Vous avez peur de perdre votre argent ?</li>
-            <li>Vous avez l’impression que c’est réservé aux "geeks" ?</li>
-        </ul>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <span class="logo-icon">₿</span>
+                <span>Crypto Starter</span>
+            </a>
+            <nav>
+                <a href="#solution" style="color: white; text-decoration: none; margin-left: 20px;">La Solution</a>
+                <a href="#pricing" style="color: white; text-decoration: none; margin-left: 20px;">Offre</a>
+                <a href="#guarantee" style="color: white; text-decoration: none; margin-left: 20px;">Garantie</a>
+            </nav>
+        </div>
+    </header>
 
-        <p>Rassurez-vous, vous n’êtes pas seul. Ce guide est fait pour les vrais débutants, ceux qui n’ont jamais
-            utilisé un portefeuille crypto ni acheté un seul token. Il a été rédigé avec des mots simples, des
-            instructions détaillées et des conseils concrets. Aucune connaissance technique n’est requise.</p>
-        <br>
-        <section class="warning-box">
-            <h2>⚠️ Avertissement :</h2>
-            <br>
-            <p>Ce guide ne vous rendra pas riche. Si c'est ce que vous chercher, vous pouvez fermer ce site.</p><br>
-            <p>Ce guide vous aidera à :</p>
-
-            <p>Acheter des cryptos sans vous faire arnaquer.</p>
-            <p>Les sécuriser sans prise de tête.</p>
-            <p>Gagner un rendement passif ( 5 à 7% par an ) en les laissant travailler pour vous.</p>
-            <p>Objectif : conserver vos Solana pendant 4 ans ( jusqu'au prochain bull-run ) et gagner 30 à 60% en plus
-                du stacking.</p>
-        </section>
-    </section>
-    <br>
-    <section class="why-buy">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <h2>Pourquoi acheter ce PDF ?</h2>
-            <p class="intro">
-                Tu débutes dans l’univers des cryptos ? Ce guide a été conçu spécialement pour toi.
-                Pas de jargon inutile, que du concret. En 30 minutes, tu sauras exactement quoi faire.
-            </p>
-            <div class="reasons">
-                <div class="reason">
-                    <h3>✅ Pas besoin d’être expert</h3>
-                    <p>Ce guide est ultra simplifié, pensé pour les vrais débutants. Pas besoin de connaissance
-                        technique.</p>
+            <h1>Le Guide Ultime pour Débuter : comment acheter et sécuriser de la crypto en 2025 ?</h1>
+            <p>Découvrez comment investir intelligemment dans les cryptos sans prendre de risques inutiles, même si vous
+                n'y connaissez rien aujourd'hui.</p>
+            <button class="cta-button" onclick="scrollToSection('offer')">Obtenir le guide maintenant</button>
+        </div>
+    </section>
+
+    <!-- Pain Points Section -->
+    <section class="pain-points">
+        <div class="container">
+            <h2 class="section-title">Vous vous reconnaissez ?</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto;">Vous avez entendu parler de Solana ou de
+                Bitcoin... mais :</p>
+
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">💸</div>
+                    <h3>Perdre de l'argent inutilement</h3>
+                    <p>Vous investissez dans des projets sans avenir ou vous vendez au pire moment par manque de
+                        connaissances.</p>
                 </div>
-                <div class="reason">
-                    <h3>🎁 170 USDC offerts</h3>
-                    <p>En suivant les étapes du guide, tu gagnes jusqu’à <strong>100 USDC en bonus sur
-                            Binance</strong>
-                        et <strong>70 USDC avec l’achat d’une clé Ledger</strong>, via nos liens partenaires.</p>
+                <div class="pain-card">
+                    <div class="pain-icon">🤯</div>
+                    <h3>Submergé par la complexité</h3>
+                    <p>Vous ne savez pas par où commencer ? Entre les wallets, les exchanges, la sécurité... vous ne
+                        savez pas par où commencer et vous vous sentez perdu.</p>
                 </div>
-                <div class="reason">
-                    <h3>🔒 Sécurité & stratégie</h3>
-                    <p>Apprends à protéger tes cryptos et à démarrer avec une démarche sécurisé, concrète et durable.
+                <div class="pain-card">
+                    <div class="pain-icon">📉</div>
+                    <h3>Vous avez l’impression que c’est réservé aux "geeks" ?</h3>
+                    <p>Rassurez-vous, vous n’êtes pas seul. Ce guide est fait pour les vrais débutants, ceux qui n’ont
+                        jamais
+                        utilisé un portefeuille crypto ni acheté un seul token. Il a été rédigé avec des mots simples,
+                        des
+                        instructions détaillées et des conseils concrets. Aucune connaissance technique n’est requise.
                     </p>
                 </div>
-                <div class="reason">
-                    <h3>🧠 Gagne du temps</h3>
-                    <p>Pas besoin de fouiller YouTube pendant des heures. On te guide pas à pas, de A à Z en 25 min.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2>⚠️ Avertissement :</h2>
+        <br>
+        <p>Ce guide ne vous rendra pas riche. Si c'est ce que vous chercher, vous pouvez fermer ce site.</p><br>
+        <p>Ce guide vous aidera à :</p>
+
+        <p>Acheter des cryptos sans vous faire arnaquer.</p>
+        <p>Les sécuriser sans prise de tête.</p>
+        <p>Gagner un rendement passif ( 5 à 7% par an ) en les laissant travailler pour vous.</p>
+        <p>Objectif : conserver vos Solana pendant 4 ans ( jusqu'au prochain bull-run ) et gagner 30 à 60% en plus
+            du stacking.</p>
+    </div>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="container">
+            <div class="solution-content">
+                <div class="solution-image">
+                    <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55" alt="Guide Crypto Starter">
+                </div>
+                <div class="solution-text">
+                    <h2>La solution pour démarrer sereinement</h2>
+                    <p>Nos guide "Crypto Starter" + "Comment choisir un bon token ?" ont été spécialement conçu pour les
+                        débutants qui veulent investir intelligemment sans se prendre la tête.</p>
+
+                    <ul>
+                        <li>Comprendre les bases des cryptomonnaies en termes simples</li>
+                        <li>Configurer son premier portefeuille en 15 minutes</li>
+                        <li>Les 10 critères pour identifier les bons projets</li>
+                        <li>Éviter les 7 erreurs qui font perdre 90% des débutants</li>
+                        <li>Notre stratégie simple pour investir sans stress</li>
+                    </ul>
+
+                    <button class="cta-button" onclick="scrollToSection('offer')">Je veux le guide</button>
                 </div>
             </div>
-            <a href="https://cryptoguide2025.gumroad.com/l/ntamdc" class="btn-cta">Commencer mon parcours crypto 19€</a>
         </div>
     </section>
-    <section id="features">
-        <br>
-        <h2>👉 Ce que vous allez apprendre en 7 chapitres :</h2>
-        <br>
-        <ul>
-            <li>Comment acheter vos premiers SOL en euros sans vous faire avoir via Binance.</li>
-            <li>Comment créer un wallet décentralisé et sécurisé avec "Phantom", pas à pas.</li>
-            <li>Comment envoyer vos SOL ou autre token en toute sécurité sur le web3.</li>
-            <li>Comment gagner 5 à 7 % par an en les "stackant".</li>
-            <li>Comment éviter les erreurs fréquentes (arnaques, faux tokens...).</li>
-            <li>Comment acheter en toute sécurité tout autre token sur le web3.</li>
-        </ul>
-        <br>
-        <p>🎁 Bonus : En passant par mes liens affiliés :</p>
 
-        <p>100 USDC offerts sur vos faris de trades Binance.</p>
-        <p>Jusqu'à 70 USDC offert à l'achat d'une clé Ledger (clé optionnel mais recommandé pour optimiser la sécurité
-            de vos fonds.).</p>
+    <!-- Bonuses Section -->
+    <section class="bonuses">
+        <div class="container">
+            <h2 class="section-title">Votre pack de bienvenue</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto;">##:</p>
 
-    </section>
-    <br>
-    <br>
-    <section id="crash-detector">
-        <h2>📚 Sommaire</h2>
-        <ul>
-            <li><a href="#pourquoi">Pourquoi Solana ?</a></li>
-            <li><a href="#binance">Créer un compte Binance</a></li>
-            <li><a href="#achat">Acheter des SOL</a></li>
-            <li><a href="#wallet">Créer un Wallet Phantom</a></li>
-            <li><a href="#transfert">Transférer vos SOL</a></li>
-            <li><a href="#staking">Stacker vos SOL</a></li>
-            <li><a href="#securite">Sécurité & Arnaques</a></li>
-            <li><a href="#sortir">Sortir du marché intelligemment</a></li>
-            <li><a href="#conclusion">Conclusion</a></li>
-        </ul>
-        <br>
-        <a href="https://cryptoguide2025.gumroad.com/l/ntamdc" class="btn-cta">Découvrir la crypto ➜</a>
-        <br>
-    </section>
-    <br>
-    <section id="features">
-        <h2>📎 Bonus</h2>
-        <br>
-        <a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" class="cta-button">Créer votre
-            compte Binance + 100 USDC offerts sur les frais de trade.</a>
-        </p>
-        <br>
-        <a href="https://shop.ledger.com/?r=97b532808e9b" class="cta-button">Acheter votre Ledger + 70 USDC remboursés
-            en BTC.</a>
-        </p>
-    </section>
-    <br>
-    <section id="formulaire">
-        <h2 class="#contact">📩 Contact</h2><br>
-        <p class="form-subtitle">Vous souhaitez faire un retour sur cette formation, la noter sur 5. Envoyez moi un
-            message et précisez si vous souhaitez afficher votre nom et photo dans l'espace commentaire ou si vous
-            souhaitez rester anonyme!</p><br>
-        <form action="https://formspree.io/f/xdkaqozr" method="POST">
-            <label for="email"></label>
-            <input type="email" name="email" id="email" placeholder="contact@email.com" required>
-            <label for="message"></label>
-            <textarea name="message" id="message" placeholder="Voici ce que j'ai pensé de votre formation..."
-                required></textarea>
-            <button type="submit">Envoyer <i class="fa-solid fa-paper-plane"></i></button>
-        </form>
-    </section>
-    <br>
-    <section class="testimonials-section">
-        <h2>💬 Ce qu'ils en disent</h2>
-        <p class="subtitle">8 débutants ont déjà suivi ce guide avec succès 👇</p>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <img src="https://i.pravatar.cc/100?img=12" alt="Jean D." />
-                <div class="stars">★★★★★</div>
-                <p><strong>Jean D.</strong> — 22 ans</p>
-                <p>« J'avais peur de me lancer sans faire d'erreur. Grâce au guide, j'ai acheté mes premiers SOL en 30
-                    minutes. Simple,
-                    clair, sécurisant. Merci Gael »</p>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://i.pravatar.cc/100?img=5" alt="Sophie L." />
-                <div class="stars">★★★★★</div>
-                <p><strong>Sophie L.</strong> — Freelance</p>
-                <p>« J’ai suivi chaque étape. Merci pour le ton rassurant et
-                    bienveillant. »</p>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://i.pravatar.cc/100?img=8" alt="Nico Web3" />
-                <div class="stars">★★★★★</div>
-                <p><strong>Nico Web3</strong> — Débutant total</p>
-                <p>« Tout est expliqué simplement, sans jargon. Je recommande ce PDF à tous mes amis curieux de
-                    crypto. »</p>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://i.pravatar.cc/100?img=2" alt="Hammed" />
-                <div class="stars">★★★★★</div>
-                <p><strong>Hammed</strong> — pas deçu</p>
-                <p>« Salut Gael, je suis de la partie depuis deux ans donc je ne pensais pas apprendre grand chose
-                    mais, ton chapitre sur la vérification des smart contract ne m'as pas fait regreter mon achat.
-                    Franchement beau travail, merci à toi. »</p>
+            <div class="bonuses-grid">
+                <div class="bonus-card">
+                    <div class="bonus-tag">Bonus #1</div>
+                    <h3>Liste des outils essentiels</h3>
+                    <p>Notre sélection des meilleurs exchanges, wallets et outils d'analyse pour bien démarrer.</p>
+                </div>
+                <div class="bonus-card">
+                    <div class="bonus-tag">Bonus #2</div>
+                    <h3>Guide de sécurité</h3>
+                    <p>Toutes nos astuces pour protéger vos cryptos contre le piratage et les arnaques.</p>
+                </div>
+                <div class="bonus-card">
+                    <div class="bonus-tag">Bonus #3</div>
+                    <h3>🎁 Bonus : En passant par mes liens affiliés :</h3>
+                    <p>Créer votre
+                            compte Binance + 100 USDC offerts sur les frais de trade.</p>
+                    <p>Acheter votre Ledger + 70
+                            USDC remboursés
+                            en BTC.</a></p>
+                </div>
             </div>
         </div>
     </section>
-    <a href="https://cryptoguide2025.gumroad.com/l/ntamdc" class="btn-cta">Télécharger le guide maintenant - 19€</a>
-    <br>
-    <nav class="navbar">
-        <a href="../index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
-        <a href="../index.html"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
-        <a href="../narratif/index.html"><span><i class="fa-solid fa-sliders"></i></span>narratif</a>
-        <a href="../chart-comparator/index.html"><span><i class="fa-solid fa-layer-group"></i></span>multi</a>
-        <a href="../blog/mysterium-network.html"><span><i class="fa-solid fa-list"></i></span>articles</a>
-    </nav>
-    <h6 style="margin-bottom:70px;margin-top:20px">Garantie satisfait ou remboursé.</h6>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Choisissez votre formule</h2>
+
+            <div class="pricing-card">
+                <div class="pricing-badge">OFFRE SPÉCIALE</div>
+                <h3>Pack Crypto Starter Complet</h3>
+                <p>Tout ce dont vous avez besoin pour bien démarrer en cryptomonnaie</p>
+
+                <div class="price">
+                    <span class="original-price">38€</span>
+                    <span>19€</span>
+                </div>
+
+                <ul class="pricing-features">
+                    <li>📑 Le guide "Crypto Starter" + screenshot (20 pages)</li>
+                    <li>✅ Comment acheter vos premiers SOL en euros sans vous faire avoir via Binance.</li>
+                    <li>✅ Comment créer un wallet décentralisé et sécurisé avec "Phantom", pas à pas.</li>
+                    <li>✅ Comment envoyer vos SOL ou autre token en toute sécurité sur le web3.</li>
+                    <li>✅ Comment gagner 5 à 7 % par an en les "stackant".</li>
+                    <li>✅ Comment éviter les erreurs fréquentes (arnaques, faux tokens...).</li>
+                    <li>✅ Comment acheter en toute sécurité tout autre token sur le web3.</li>
+                    <br>
+                    <li>Guide de sécurité complet </li>
+                    <li>Guide : Comment chosir un bon token? (17 pages) </li>
+                    <br>
+                    <li>🎁 Bonus : En passant par mes liens affiliés :</li>
+                    <li><a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ"
+                            class="link">Créer votre
+                            compte Binance + 100 USDC offerts sur les frais de trade.</a></li>
+                    <li><a href="https://shop.ledger.com/?r=97b532808e9b" class="link">Acheter votre Ledger + 70
+                            USDC remboursés
+                            en BTC.</a></li>
+                </ul>
+
+                <button class="cta-button" onclick="showOrderForm()">Je commande maintenant 19€</button>
+
+                <p style="margin-top: 20px;"><small>Paiement sécurisé - Garantie 30 jours satisfait ou remboursé</small>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Ils ont utilisé notre méthode</h2>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Ce guide m'a évité de faire des erreurs coûteuses. En 3 mois, j'ai
+                        réussi à constituer un portefeuille diversifié et je comprends enfin ce que je fais!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <div class="author-name">Marc D.</div>
+                            <div class="author-title">Débutant en crypto</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"La partie sur la sécurité est inestimable. Je dormirai mieux en sachant
+                        que mes investissements sont bien protégés."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <div class="author-name">Sophie L.</div>
+                            <div class="author-title">Investisseuse débutante</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Enfin un guide qui parle simplement sans jargon technique
+                        incompréhensible. J'ai pu mettre en pratique immédiatement."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <div class="author-name">Thomas P.</div>
+                            <div class="author-title">Nouvel adepte des cryptos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="guarantee" id="guarantee">
+        <div class="container">
+            <div class="guarantee-content">
+                <div class="guarantee-icon">🔒</div>
+                <h2>Garantie Satisfait ou Remboursé 30 Jours</h2>
+                <p>Nous sommes tellement convaincus de la qualité de notre guide que nous vous offrons une garantie
+                    inconditionnelle de 30 jours. Si vous n'êtes pas satisfait, nous vous remboursons sans poser de
+                    questions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Questions fréquentes</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Le guide est-il adapté aux débutants complets ?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolument ! Nous avons spécialement conçu ce guide pour les personnes qui n'ont aucune
+                        connaissance préalable en cryptomonnaie. Tout est expliqué en termes simples avec des exemples
+                        concrets, dans une démarche sécurisé.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment vais-je recevoir le guide ?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Immédiatement après votre achat, vous recevrez un email avec un lien pour accéder aux deux guide
+                        mis à jour réguliérement ou télécharger le guide au
+                        format PDF ainsi que tous les bonus. Vous pourrez y accéder à vie.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Faut-il investir beaucoup d'argent pour commencer ?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Non, surtout pas, nous expliquons justement comment démarrer avec un petit budget et comment
+                        augmenter
+                        progressivement ses investissements de manière intelligente via le DCA. L'objectif est de
+                        comprendre sans prendre de risque. Pour rappel nous avons ici des objectifs long terme. Je le
+                        répète, vous ne deviendrais pas millionaires dans l'année. Désolé.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta" id="offer">
+        <div class="container">
+            <h2>Prêt à démarrer votre aventure crypto ?</h2>
+            <p>Obtenez maintenant le guide complet et tous les bonus pour seulement 19€ au lieu de <s>48€</s>. Cette
+                offre spéciale est valable pour un temps limité.</p>
+            <button class="cta-button" onclick="showOrderForm()">Je commande le guide</button>
+        </div>
+    </section>
+
+    <!-- Order Form Modal -->
+    <div id="orderModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto; padding: 20px;">
+        <div
+            style="background-color: white; max-width: 600px; margin: 50px auto; padding: 40px; border-radius: 10px; position: relative;">
+            <button onclick="hideOrderForm()"
+                style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+
+            <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark);">Finalisez votre commande</h2>
+
+            <form id="orderForm" style="margin-top: 20px;">
+                <div style="margin-bottom: 20px;">
+                    <label for="name" style="display: block; margin-bottom: 8px; font-weight: bold;">Nom complet</label>
+                    <input type="text" id="name" required
+                        style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label for="email" style="display: block; margin-bottom: 8px; font-weight: bold;">Email</label>
+                    <input type="email" id="email" required
+                        style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <label for="payment" style="display: block; margin-bottom: 8px; font-weight: bold;">Méthode de
+                        paiement</label>
+                    <select id="payment" required
+                        style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;">
+                        <option value="">Sélectionnez...</option>
+                        <option value="card">Carte bancaire</option>
+                        <!--<option value="paypal">PayPal</option>
+                        <option value="crypto">Cryptomonnaie</option>-->
+                    </select>
+                </div>
+
+                <button type="submit" class="cta-button" style="width: 100%; border: none;">Payer 19€ et accéder au
+                    guide</button>
+
+                <p style="text-align: center; margin-top: 20px; font-size: 14px;">
+                    <img src="https://via.placeholder.com/15" alt="lock"
+                        style="vertical-align: middle; margin-right: 5px;"> Paiement sécurisé via Stripe - Vos
+                    informations sont
+                    protégées
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Mentions légales</a>
+                <a href="#">CGV</a>
+                <a href="https://gael-berru@netlify.app#formulaire">Contact</a>
+                <a href="#">Politique de confidentialité</a>
+            </div>
+            <p>&copy; 2023 Crypto Starter. Tous droits réservés.</p>
+            <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">Disclaimer : Les cryptomonnaies sont des
+                investissements à risque. Ce guide est à titre éducatif seulement et ne constitue pas un conseil
+                financier.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide order form
+        function showOrderForm() {
+            document.getElementById('orderModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideOrderForm() {
+            document.getElementById('orderModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Toggle FAQ items
+        function toggleFaq(question) {
+            const answer = question.nextElementSibling;
+            const isActive = answer.classList.contains('active');
+
+            // Close all first
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                item.classList.remove('active');
+                item.previousElementSibling.querySelector('span:last-child').textContent = '+';
+            });
+
+            // Open current if not active
+            if (!isActive) {
+                answer.classList.add('active');
+                question.querySelector('span:last-child').textContent = '-';
+            }
+        }
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const payment = document.getElementById('payment').value;
+
+            // Simple validation
+            if (!name || !email || !payment) {
+                alert('Veuillez remplir tous les champs du formulaire.');
+                return;
+            }
+
+            // Here you would typically send the data to your payment processor
+            // For this example, we'll just show a success message
+            alert(`Merci ${name} pour votre commande ! Vous allez recevoir un email avec les instructions pour accéder au guide.`);
+
+            // Reset and hide form
+            this.reset();
+            hideOrderForm();
+        });
+
+        // Countdown timer for special offer (example)
+        let minutes = 30;
+        let seconds = 0;
+
+        function updateTimer() {
+            if (seconds === 0) {
+                if (minutes === 0) return;
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+
+            document.querySelector('.pricing-badge').textContent = `OFFRE EXPIRE DANS ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        }
+
+        setInterval(updateTimer, 1000);
+    </script>
 </body>
 
 </html>
