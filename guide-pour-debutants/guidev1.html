@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       V_1.1
+       Licence : The MIT License (MIT)
+       Copyright (c) 2025 Berru
+
+    Process:
+       Tunnel > Formulaire > Supabase > Stripe > merci > canva 
+              
+       Guide pdf : https://www.canva.com/design/DAGnmI8_0yc/0nHhYDZOZGHRTc7Pkq54iQ/view?utm_content=DAGnmI8_0yc&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h991d14aa6c
+    ============================================
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide: créer et sécuriser son premier wallet en 2025</title>
+    <link rel="shortcut icon" href="../img/logo.png" />
+    <link rel="apple-touch-icon" href="../img/logo.png" />
+    <meta name="description"
+        content="Guide 2025 pour créer, sécuriser et rentabiliser votre premier wallet Solana. Étapes simples pour débutants, PDF complet téléchargeable." />
+    <meta name="keywords"
+        content="acheter crypto facilement, Starter Crypto 2025, créer mon wallet solana, Comment créer un wallet décentralisée, guide crypto pour débutant, créer wallet crypto, sécurité wallet, stacking solana, acheter SOL, phantom wallet" />
+    <meta name="author" content="Gael Berru.">
+    <meta name="robots" content="noai">
+    <meta property="og:title" content="Comment créer et sécuriser son premier wallet Solana en 2025" />
+    <meta property="og:description"
+        content="Tutoriel complet pour acheter de la crypto en euros, créer un wallet Phantom et gagner 5-7%/an avec le staking. Évitez les arnaques (Bonus : 100 USDC offerts)" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://crypto-free-tools.netlify.app/img/logo.png">
+    <meta property="og:url" content="https://crypto-free-tools.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="blog">
+    <link rel="canonical" href="https://www.crypto-free-tools.netlify.app/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../new.css">
+    <!-- JSON-LD Structuré (WebSite + Article)-->
+     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Guide Crypto pour Débutants : Comprendre et Investir Sereinement",
+  "description": "Un pas-à-pas clair pour démarrer en crypto-monnaies sans se faire arnaquer. De la création de portefeuille à la sélection des bons tokens.",
+  "url": "https://crypto-free-tools.netlify.app/guide-pour-debutants/",
+  "provider": {
+    "@type": "Person",
+    "name": "Gaël Leberruyer (Berru-G)",
+    "url": "https://gael-berru.netlify.app/",
+    "sameAs": ["https://gael-berru.netlify.app/", "https://medium.com/@gael-berru"]
+  },
+  "timeRequired": "PT40M", <!-- Durée estimée 1H ou 40M -->
+  "hasPart": [
+    {
+      "@type": "HowToSection",
+      "name": "Créer un portefeuille sécurisé",
+      "step": [
+        {"@type": "HowToStep", "text": "Choisir entre un wallet logiciel (Phantom) ou matériel (Ledger)"},
+        {"@type": "HowToStep", "text": "Sauvegarder sa phrase de récupération"}
+      ]
+    },
+    {
+      "@type": "HowToSection",
+      "name": "Éviter les arnaques courantes",
+      "step": [
+        {"@type": "HowToStep", "text": "Reconnaître les faux token sur le web3"},
+        {"@type": "HowToStep", "text": "Vérifier les smart contracts avant d'investir"}
+      ]
+    }
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "19", <!-- ou "0" si gratuit -->
+    "priceCurrency": "EUR",
+    "url": "https://crypto-free-tools.netlify.app/guide-pour-debutants/"
+  }
+}
+</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BV6CGYCSEM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BV6CGYCSEM');
+    </script>
+    <style>
+        h1{font-size:2em;margin-top:20px;color:#5086eb}.btn-cta,.stars{font-size:1.1rem}.btn-cta,.cta-button{font-weight:700;text-decoration:none}.cta-button{display:block;background-color:#3ad38b;color:#fff;padding:12px 24px;text-align:center;border-radius:5px;margin:0 auto}ul{margin-top:1rem;margin-bottom:1.5rem;padding-left:1.5rem;line-height:1.7;list-style-position:inside}ul li{margin-bottom:.75rem;padding-left:.5rem;position:relative}ul li::before{content:"•";position:absolute;left:0;color:#5086eb;font-weight:700;font-size:1.2rem;line-height:1;top:0}.reason,.testimonial-card{border-radius:12px}.detail,.warning-box{padding:15px;margin:20px 0}.warning-box{background-color:#f6e6da;border-left:5px solid #f4a261}.detail{background-color:#d8d4f1;border-left:5px solid #ab9ff2}.testimonials-section{padding:3rem 1rem;background-color:#f9fafb;text-align:center;font-family:Arial,sans-serif}.testimonials-section h2{font-size:2rem;margin-bottom:.5rem}.testimonials-section .subtitle{font-size:1.1rem;color:#555;margin-bottom:2rem}.testimonials-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:1000px;margin:0 auto}.testimonial-card{background:#fff;padding:1.5rem;box-shadow:0 0 10px rgba(0,0,0,.06);transition:transform .2s}.testimonial-card:hover{transform:scale(1.02)}.testimonial-card img{width:70px;height:70px;border-radius:50%;margin-bottom:1rem}.stars{color:#fbbf24;margin-bottom:.5rem}.why-buy{background:#f8f9fa;padding:60px 20px;text-align:center}.why-buy .container{max-width:900px;margin:auto}.why-buy h2{font-size:2.5rem;margin-bottom:20px}.why-buy .intro{font-size:1.2rem;margin-bottom:40px;color:#555}.reasons{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;margin-bottom:40px}.reason{background:#fff;padding:25px;box-shadow:0 4px 10px rgba(0,0,0,.05)}.reason h3{font-size:1.2rem;margin-bottom:10px;color:#222}.reason p{color:#555;font-size:1rem}.btn-cta{display:inline-block;background:#5086eb;color:#fff;padding:14px 30px;border-radius:50px;transition:background .3s}.btn-cta:hover{background:#0056b3}
+    </style>
+</head>
+
+<body>
+    <section id="features">
+        <h1>Guide : comment acheter et sécuriser de la crypto en 2025 ?</h1>
+        <br>
+        <img src="../img/guide.png" style="width:50%;height:auto;display:block;margin: 0 auto;"
+            alt="guide crypto debutant 2025">
+        <br>
+        <p>Vous avez entendu parler de Solana ou de Bitcoin... mais :</p>
+        <ul>
+            <li>Vous ne savez pas par où commencer ?</li>
+            <li>Vous avez peur de perdre votre argent ?</li>
+            <li>Vous avez l’impression que c’est réservé aux "geeks" ?</li>
+        </ul>
+
+        <p>Rassurez-vous, vous n’êtes pas seul. Ce guide est fait pour les vrais débutants, ceux qui n’ont jamais
+            utilisé un portefeuille crypto ni acheté un seul token. Il a été rédigé avec des mots simples, des
+            instructions détaillées et des conseils concrets. Aucune connaissance technique n’est requise.</p>
+        <br>
+        <section class="warning-box">
+            <h2>⚠️ Avertissement :</h2>
+            <br>
+            <p>Ce guide ne vous rendra pas riche. Si c'est ce que vous chercher, vous pouvez fermer ce site.</p><br>
+            <p>Ce guide vous aidera à :</p>
+
+            <p>Acheter des cryptos sans vous faire arnaquer.</p>
+            <p>Les sécuriser sans prise de tête.</p>
+            <p>Gagner un rendement passif ( 5 à 7% par an ) en les laissant travailler pour vous.</p>
+            <p>Objectif : conserver vos Solana pendant 4 ans ( jusqu'au prochain bull-run ) et gagner 30 à 60% en plus
+                du stacking.</p>
+        </section>
+    </section>
+    <br>
+    <section class="why-buy">
+        <div class="container">
+            <h2>Pourquoi acheter ce PDF ?</h2>
+            <p class="intro">
+                Tu débutes dans l’univers des cryptos ? Ce guide a été conçu spécialement pour toi.
+                Pas de jargon inutile, que du concret. En 30 minutes, tu sauras exactement quoi faire.
+            </p>
+            <div class="reasons">
+                <div class="reason">
+                    <h3>✅ Pas besoin d’être expert</h3>
+                    <p>Ce guide est ultra simplifié, pensé pour les vrais débutants. Pas besoin de connaissance
+                        technique.</p>
+                </div>
+                <div class="reason">
+                    <h3>🎁 170 USDC offerts</h3>
+                    <p>En suivant les étapes du guide, tu gagnes jusqu’à <strong>100 USDC en bonus sur
+                            Binance</strong>
+                        et <strong>70 USDC avec l’achat d’une clé Ledger</strong>, via nos liens partenaires.</p>
+                </div>
+                <div class="reason">
+                    <h3>🔒 Sécurité & stratégie</h3>
+                    <p>Apprends à protéger tes cryptos et à démarrer avec une démarche sécurisé, concrète et durable.
+                    </p>
+                </div>
+                <div class="reason">
+                    <h3>🧠 Gagne du temps</h3>
+                    <p>Pas besoin de fouiller YouTube pendant des heures. On te guide pas à pas, de A à Z en 25 min.</p>
+                </div>
+            </div>
+            <a href="https://cryptoguide2025.gumroad.com/l/ntamdc" class="btn-cta">Commencer mon parcours crypto 19€</a>
+        </div>
+    </section>
+    <section id="features">
+        <br>
+        <h2>👉 Ce que vous allez apprendre en 7 chapitres :</h2>
+        <br>
+        <ul>
+            <li>Comment acheter vos premiers SOL en euros sans vous faire avoir via Binance.</li>
+            <li>Comment créer un wallet décentralisé et sécurisé avec "Phantom", pas à pas.</li>
+            <li>Comment envoyer vos SOL ou autre token en toute sécurité sur le web3.</li>
+            <li>Comment gagner 5 à 7 % par an en les "stackant".</li>
+            <li>Comment éviter les erreurs fréquentes (arnaques, faux tokens...).</li>
+            <li>Comment acheter en toute sécurité tout autre token sur le web3.</li>
+        </ul>
+        <br>
+        <p>🎁 Bonus : En passant par mes liens affiliés :</p>
+
+        <p>100 USDC offerts sur vos faris de trades Binance.</p>
+        <p>Jusqu'à 70 USDC offert à l'achat d'une clé Ledger (clé optionnel mais recommandé pour optimiser la sécurité
+            de vos fonds.).</p>
+
+    </section>
+    <br>
+    <br>
+    <section id="crash-detector">
+        <h2>📚 Sommaire</h2>
+        <ul>
+            <li><a href="#pourquoi">Pourquoi Solana ?</a></li>
+            <li><a href="#binance">Créer un compte Binance</a></li>
+            <li><a href="#achat">Acheter des SOL</a></li>
+            <li><a href="#wallet">Créer un Wallet Phantom</a></li>
+            <li><a href="#transfert">Transférer vos SOL</a></li>
+            <li><a href="#staking">Stacker vos SOL</a></li>
+            <li><a href="#securite">Sécurité & Arnaques</a></li>
+            <li><a href="#sortir">Sortir du marché intelligemment</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+        <br>
+        <a href="https://cryptoguide2025.gumroad.com/l/ntamdc" class="btn-cta">Découvrir la crypto ➜</a>
+        <br>
+    </section>
+    <br>
+    <section id="features">
+        <h2>📎 Bonus</h2>
+        <br>
+        <a href="https://www.binance.info/activity/referral-entry/CPA?ref=CPA_00U44FY1PQ" class="cta-button">Créer votre
+            compte Binance + 100 USDC offerts sur les frais de trade.</a>
+        </p>
+        <br>
+        <a href="https://shop.ledger.com/?r=97b532808e9b" class="cta-button">Acheter votre Ledger + 70 USDC remboursés
+            en BTC.</a>
+        </p>
+    </section>
+    <br>
+    <section id="formulaire">
+        <h2 class="#contact">📩 Contact</h2><br>
+        <p class="form-subtitle">Vous souhaitez faire un retour sur cette formation, la noter sur 5. Envoyez moi un
+            message et précisez si vous souhaitez afficher votre nom et photo dans l'espace commentaire ou si vous
+            souhaitez rester anonyme!</p><br>
+        <form action="https://formspree.io/f/xdkaqozr" method="POST">
+            <label for="email"></label>
+            <input type="email" name="email" id="email" placeholder="contact@email.com" required>
+            <label for="message"></label>
+            <textarea name="message" id="message" placeholder="Voici ce que j'ai pensé de votre formation..."
+                required></textarea>
+            <button type="submit">Envoyer <i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </section>
+    <br>
+    <section class="testimonials-section">
+        <h2>💬 Ce qu'ils en disent</h2>
+        <p class="subtitle">8 débutants ont déjà suivi ce guide avec succès 👇</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="https://i.pravatar.cc/100?img=12" alt="Jean D." />
+                <div class="stars">★★★★★</div>
+                <p><strong>Jean D.</strong> — 22 ans</p>
+                <p>« J'avais peur de me lancer sans faire d'erreur. Grâce au guide, j'ai acheté mes premiers SOL en 30
+                    minutes. Simple,
+                    clair, sécurisant. Merci Gael »</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.pravatar.cc/100?img=5" alt="Sophie L." />
+                <div class="stars">★★★★★</div>
+                <p><strong>Sophie L.</strong> — Freelance</p>
+                <p>« J’ai suivi chaque étape. Merci pour le ton rassurant et
+                    bienveillant. »</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.pravatar.cc/100?img=8" alt="Nico Web3" />
+                <div class="stars">★★★★★</div>
+                <p><strong>Nico Web3</strong> — Débutant total</p>
+                <p>« Tout est expliqué simplement, sans jargon. Je recommande ce PDF à tous mes amis curieux de
+                    crypto. »</p>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.pravatar.cc/100?img=2" alt="Hammed" />
+                <div class="stars">★★★★★</div>
+                <p><strong>Hammed</strong> — pas deçu</p>
+                <p>« Salut Gael, je suis de la partie depuis deux ans donc je ne pensais pas apprendre grand chose
+                    mais, ton chapitre sur la vérification des smart contract ne m'as pas fait regreter mon achat.
+                    Franchement beau travail, merci à toi. »</p>
+            </div>
+        </div>
+    </section>
+    <a href="https://cryptoguide2025.gumroad.com/l/ntamdc" class="btn-cta">Télécharger le guide maintenant - 19€</a>
+    <br>
+    <nav class="navbar">
+        <a href="../index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
+        <a href="../index.html"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
+        <a href="../narratif/index.html"><span><i class="fa-solid fa-sliders"></i></span>narratif</a>
+        <a href="../chart-comparator/index.html"><span><i class="fa-solid fa-layer-group"></i></span>multi</a>
+        <a href="../blog/mysterium-network.html"><span><i class="fa-solid fa-list"></i></span>articles</a>
+    </nav>
+    <h6 style="margin-bottom:70px;margin-top:20px">Garantie satisfait ou remboursé.</h6>
+</body>
+
+</html>
