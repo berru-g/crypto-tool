@@ -7,7 +7,7 @@
 
 ## Features
 
-- **Bitcoin Forensic Toolkit** : Scan blockcahin [Essayer]("https://crypto-free-tools.netlify.app/scam-radar/")
+- **Bitcoin Forensic Toolkit** :  [Scan blockcahin](https://crypto-free-tools.netlify.app/scam-radar/)
 - **Fibonacci Retracement Tool**: Identify key support and resistance levels with precision.
 - **Price Alerts**: Set real-time price notifications for your favorite cryptocurrencies.
 - **Chart Comparator**: Compare multiple crypto charts side-by-side for better analysis.
