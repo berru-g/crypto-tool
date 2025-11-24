@@ -3,436 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Tracer</title>
+    <title>Bitcoin Tracer </title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vis-network/standalone/umd/vis-network.min.js"></script>
-    <!--<style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #00b4db, #0083b0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-            justify-content: center;
-        }
-
-        .search-box input {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 25px;
-            width: 500px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .search-box button {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            background: linear-gradient(45deg, #00b4db, #0083b0);
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-
-        .search-box button:hover {
-            transform: translateY(-2px);
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .network-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            height: 700px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        #network {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .info-panel {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            overflow-y: auto;
-            max-height: 700px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .transaction-item {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border-left: 4px solid #00b4db;
-            cursor: pointer;
-        }
-
-        .risk-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-
-        .risk-high { background: #ff4757; }
-        .risk-medium { background: #ffa502; }
-        .risk-low { background: #2ed573; }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            font-size: 18px;
-        }
-
-        .error {
-            background: #ff4757;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-
-        .address-details {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-family: monospace;
-            font-size: 12px;
-            word-break: break-all;
-        }
-    </style>-->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Bitcoin Tracer</h1>
-            <p>Outil de traçage blockchain</p>
+            <h1>Wallet bc1 Tracer</h1>
+            <p>Suivez les mouvements d'un wallet à un autre simplement et remontez la piste</p>
             
-            <div class="search-box">
-                <input type="text" id="btcAddress" placeholder="Entrez une adresse Bitcoin réelle" value="">
-                <button onclick="startRealAnalysis()">Analyser</button>
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="btcAddress" placeholder="Entrez une adresse Bitcoin pour investigation" value="1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa">
+                    <button onclick="startDeepAnalysis()"><i class="fas fa-search fa-icon"></i>Investigation Profonde</button>
+                </div>
+                <button class="control-btn" onclick="expandNetwork()"><i class="fas fa-expand fa-icon"></i>Étendre l'Analyse</button>
+                <button class="control-btn" onclick="findKYCPaths()"><i class="fas fa-bullseye fa-icon"></i>Chercher KYC</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3><i class="fas fa-address-card fa-icon"></i>Adresses Traçées</h3>
+                <div id="totalAddresses">0</div>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-exchange-alt fa-icon"></i>Transactions</h3>
+                <div id="totalTransactions">0</div>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-coins fa-icon"></i>Montant Total</h3>
+                <div id="totalAmount">0 BTC</div>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-shield-alt fa-icon"></i>Risque Identifié</h3>
+                <div id="riskLevel">-</div>
             </div>
         </div>
 
         <div class="dashboard">
             <div class="network-container">
+                <div class="network-controls">
+                    <button class="action-btn" onclick="exportData()"><i class="fas fa-download fa-icon"></i>Export</button>
+                    <button class="action-btn" onclick="clearNetwork()"><i class="fas fa-trash fa-icon"></i>Reset</button>
+                </div>
                 <div id="network"></div>
             </div>
 
             <div class="info-panel">
-                <h3>Transactions</h3>
-                <div id="transactionList" class="transaction-list">
-                    <div class="loading">Entrez une adresse Bitcoin pour commencer l'analyse...</div>
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('transactions')"><i class="fas fa-exchange-alt fa-icon"></i>Transactions</div>
+                    <div class="tab" onclick="switchTab('addresses')"><i class="fas fa-address-book fa-icon"></i>Adresses</div>
+                    <div class="tab" onclick="switchTab('details')"><i class="fas fa-info-circle fa-icon"></i>Détails</div>
+                    <div class="tab" onclick="switchTab('investigation')"><i class="fas fa-search-plus fa-icon"></i>Investigation</div>
                 </div>
-                <div id="nodeInfo" class="address-details" style="display: none;">
-                    <h4>Détails de l'Adresse</h4>
-                    <div id="nodeDetails"></div>
+
+                <div class="tab-content active" id="transactions-tab">
+                    <h3><i class="fas fa-exchange-alt fa-icon"></i>Transactions Détectées</h3>
+                    <div id="transactionList" class="transaction-list">
+                        <div class="loading">En attente d'analyse...</div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="addresses-tab">
+                    <h3><i class="fas fa-address-book fa-icon"></i>Adresses Connectées</h3>
+                    <div id="addressList" class="address-list">
+                        <div class="loading">En attente d'analyse...</div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="details-tab">
+                    <h3><i class="fas fa-info-circle fa-icon"></i>Détails de l'Adresse</h3>
+                    <div id="nodeDetails" class="node-details">
+                        <div class="loading">Cliquez sur un nœud pour voir les détails</div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="investigation-tab">
+                    <h3><i class="fas fa-search-plus fa-icon"></i>Pistes d'Investigation</h3>
+                    <div id="investigationPaths" class="investigation-paths">
+                        <div class="loading">Analyse des pistes en attente...</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // 🚨 VRAI OUTIL FONCTIONNEL avec API Blockchain
-        let network = null;
-        let currentData = { nodes: [], edges: [] };
+    <!--<div id="navbar-container"></div>-->
+    <nav class="navbar">
+        <a href="../index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
+        <a href="../index.html#tradingview"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
+        <a href="../narratif/index.html"><span><i class="fa-solid fa-sliders"></i></span>narratif</a>
+        <a href="../chart-comparator/index.html"><span><i class="fa-solid fa-layer-group"></i></span>multi</a>
+        <a href="../4graphiques/index.html"><span><i class="fa-solid fa-table-cells-large"></i></span>4 chart</a>
+    </nav>
 
-        // Base de données des exchanges connus (adresses réelles)
-        const knownExchanges = {
-            '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa': 'Genesis (Création Bitcoin)',
-            '3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy': 'Binance Hot Wallet',
-            '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2': 'Coinbase Hot Wallet',
-            'bc1q34aq5drpkwy6d3g9q8t4z5q6x5k6q5jq4x5k6q': 'Kraken Hot Wallet',
-            '1CounterpartyXXXXXXXXXXXXXXXUWLpVr': 'Counterparty',
-            '1BitcoinEaterAddressDontSendf59kuE': 'Bitcoin Eater'
-        };
-
-        async function startRealAnalysis() {
-            const address = document.getElementById('btcAddress').value.trim();
-            if (!address) {
-                alert('Veuillez entrer une adresse Bitcoin');
-                return;
-            }
-
-            document.getElementById('transactionList').innerHTML = '<div class="loading">🔍 Connexion à la blockchain... Récupération des données réelles</div>';
-
-            try {
-                // 🎯 UTILISATION DE L'API BLOCKCHAIN.COM (GRATUITE)
-                const response = await fetch(`https://blockchain.info/rawaddr/${address}?limit=50`);
-                
-                if (!response.ok) {
-                    throw new Error('Adresse non trouvée ou erreur API');
-                }
-
-                const data = await response.json();
-                processRealData(data, address);
-                
-            } catch (error) {
-                document.getElementById('transactionList').innerHTML = 
-                    `<div class="error">❌ Erreur: ${error.message}<br>Essayez une autre adresse ou vérifiez la connexion</div>`;
-            }
-        }
-
-        function processRealData(blockchainData, originalAddress) {
-            currentData = { nodes: [], edges: [] };
-            
-            // Nœud source (adresse originale)
-            const sourceNode = {
-                id: originalAddress,
-                label: 'SOURCE\n' + originalAddress.substring(0, 8) + '...',
-                color: '#00b4db',
-                group: 'source',
-                address: originalAddress,
-                balance: (blockchainData.final_balance / 100000000).toFixed(8) + ' BTC',
-                txCount: blockchainData.n_tx
-            };
-            currentData.nodes.push(sourceNode);
-
-            // Traiter les transactions
-            blockchainData.txs.forEach((tx, index) => {
-                // Limiter pour éviter la surcharge
-                if (index < 20) {
-                    processTransaction(tx, originalAddress);
-                }
-            });
-
-            visualizeRealData();
-            displayRealTransactions(blockchainData);
-        }
-
-        function processTransaction(tx, originalAddress) {
-            // Trouver les outputs qui vont de l'adresse source
-            tx.inputs.forEach(input => {
-                if (input.prev_out && input.prev_out.addr === originalAddress) {
-                    // C'est une transaction sortante
-                    tx.out.forEach(output => {
-                        if (output.addr && output.addr !== originalAddress) {
-                            addAddressNode(output.addr);
-                            currentData.edges.push({
-                                from: originalAddress,
-                                to: output.addr,
-                                label: (output.value / 100000000).toFixed(4) + ' BTC',
-                                value: output.value / 100000000,
-                                color: '#ff4757',
-                                txHash: tx.hash,
-                                timestamp: new Date(tx.time * 1000).toLocaleDateString()
-                            });
-                        }
-                    });
-                }
-            });
-
-            // Trouver les inputs qui viennent vers l'adresse source
-            tx.out.forEach(output => {
-                if (output.addr === originalAddress) {
-                    // C'est une transaction entrante
-                    tx.inputs.forEach(input => {
-                        if (input.prev_out && input.prev_out.addr && input.prev_out.addr !== originalAddress) {
-                            addAddressNode(input.prev_out.addr);
-                            currentData.edges.push({
-                                from: input.prev_out.addr,
-                                to: originalAddress,
-                                label: (input.prev_out.value / 100000000).toFixed(4) + ' BTC',
-                                value: input.prev_out.value / 100000000,
-                                color: '#2ed573',
-                                txHash: tx.hash,
-                                timestamp: new Date(tx.time * 1000).toLocaleDateString()
-                            });
-                        }
-                    });
-                }
-            });
-        }
-
-        function addAddressNode(address) {
-            // Éviter les doublons
-            if (!currentData.nodes.find(node => node.id === address)) {
-                const isExchange = knownExchanges[address];
-                const node = {
-                    id: address,
-                    label: (isExchange ? 'EXCHANGE\n' : 'WALLET\n') + address.substring(0, 8) + '...',
-                    color: isExchange ? '#ff4757' : '#ffa502',
-                    group: isExchange ? 'exchange' : 'wallet',
-                    address: address,
-                    type: isExchange ? 'Exchange Connu' : 'Wallet Inconnu'
-                };
-                currentData.nodes.push(node);
-            }
-        }
-
-        function visualizeRealData() {
-            const container = document.getElementById('network');
-            
-            // Options de visualisation
-            const options = {
-                nodes: {
-                    shape: 'dot',
-                    size: 25,
-                    font: {
-                        size: 12,
-                        color: '#ffffff'
-                    },
-                    borderWidth: 2
-                },
-                edges: {
-                    width: 2,
-                    arrows: {
-                        to: { enabled: true, scaleFactor: 1.2 }
-                    },
-                    font: {
-                        color: '#ffffff',
-                        size: 10
-                    }
-                },
-                physics: {
-                    enabled: true,
-                    stabilization: { iterations: 100 }
-                }
-            };
-
-            // Créer le réseau
-            network = new vis.Network(container, currentData, options);
-
-            // Événement de clic
-            network.on("click", function (params) {
-                if (params.nodes.length > 0) {
-                    const nodeId = params.nodes[0];
-                    const node = currentData.nodes.find(n => n.id === nodeId);
-                    showRealNodeDetails(node);
-                }
-            });
-        }
-
-        function showRealNodeDetails(node) {
-            const nodeInfo = document.getElementById('nodeInfo');
-            const nodeDetails = document.getElementById('nodeDetails');
-            
-            nodeDetails.innerHTML = `
-                <strong>Adresse Complète:</strong><br>
-                <span style="background: rgba(0,0,0,0.3); padding: 5px; border-radius: 5px; display: inline-block; margin: 5px 0;">
-                    ${node.address}
-                </span><br>
-                <button onclick="copyToClipboard('${node.address}')" style="background: #00b4db; border: none; color: white; padding: 5px 10px; border-radius: 5px; margin: 5px 0; cursor: pointer;">
-                    📋 Copier
-                </button>
-                <button onclick="openInExplorer('${node.address}')" style="background: #ffa502; border: none; color: white; padding: 5px 10px; border-radius: 5px; margin: 5px 0; cursor: pointer;">
-                    🔍 Explorer
-                </button>
-                <br>
-                <strong>Type:</strong> ${node.type}<br>
-                ${node.balance ? `<strong>Balance:</strong> ${node.balance}<br>` : ''}
-                ${node.txCount ? `<strong>Transactions:</strong> ${node.txCount}<br>` : ''}
-            `;
-            
-            nodeInfo.style.display = 'block';
-        }
-
-        function displayRealTransactions(blockchainData) {
-            const container = document.getElementById('transactionList');
-            let html = '';
-
-            blockchainData.txs.slice(0, 15).forEach(tx => {
-                // Déterminer le type de transaction
-                let isIncoming = false;
-                let amount = 0;
-
-                tx.out.forEach(output => {
-                    if (output.addr === blockchainData.address) {
-                        isIncoming = true;
-                        amount += output.value;
-                    }
-                });
-
-                if (!isIncoming) {
-                    tx.inputs.forEach(input => {
-                        if (input.prev_out && input.prev_out.addr === blockchainData.address) {
-                            amount += input.prev_out.value;
-                        }
-                    });
-                }
-
-                const risk = isIncoming ? 'low' : 'medium';
-
-                html += `
-                    <div class="transaction-item">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <strong>${(amount / 100000000).toFixed(8)} BTC</strong>
-                            <span class="risk-badge risk-${risk}">${isIncoming ? 'ENTRANT' : 'SORTANT'}</span>
-                        </div>
-                        <div style="font-size: 12px; margin-top: 8px;">
-                            <div>Hash: ${tx.hash.substring(0, 20)}...</div>
-                            <div style="color: #ccc; margin-top: 5px;">${new Date(tx.time * 1000).toLocaleString()}</div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        // Fonctions utilitaires
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text);
-            alert('Adresse copiée: ' + text);
-        }
-
-        function openInExplorer(address) {
-            window.open(`https://blockchain.com/explorer/addresses/btc/${address}`, '_blank');
-        }
-
-        // Exemple d'adresses pour tester
-        document.addEventListener('DOMContentLoaded', function() {
-            // Quelques adresses d'exemple pour tester
-            document.getElementById('btcAddress').value = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'; // Genesis
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
