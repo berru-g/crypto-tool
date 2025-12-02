@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquête Bitcoin - Dossier d'Investigation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #1a237e;
+            --color-secondary: #283593;
+            --color-accent: #ff5722;
+            --color-success: #4caf50;
+            --color-danger: #f44336;
+            --color-warning: #ff9800;
+            --color-light: #f5f5f5;
+            --color-dark: #212121;
+            --color-text: #333;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 4px solid var(--color-accent);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .investigation-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 25px;
+            background: var(--color-light);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .meta-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .meta-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-card p {
+            font-family: 'Roboto Mono', monospace;
+            word-break: break-all;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 25px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--color-secondary), #3949ab);
+            color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header i {
+            font-size: 1.4rem;
+        }
+
+        .card-content {
+            padding: 25px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .wallet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .wallet-item {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wallet-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--color-accent);
+        }
+
+        .wallet-item.active {
+            border-color: var(--color-accent);
+            background: #fff3e0;
+        }
+
+        .wallet-address {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .wallet-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        #network {
+            width: 100%;
+            height: 450px;
+            border-radius: var(--border-radius);
+            border: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .transaction-timeline {
+            padding: 20px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            border-left: 4px solid transparent;
+        }
+
+        .timeline-item.incoming {
+            border-left-color: var(--color-success);
+        }
+
+        .timeline-item.outgoing {
+            border-left-color: var(--color-danger);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .transaction-from-to {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .tools-section {
+            padding: 25px;
+            background: var(--color-light);
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-card h3 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--color-danger), #d32f2f);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--color-warning), #f57c00);
+        }
+
+        .notes-section {
+            padding: 25px;
+            background: white;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .notes-editor {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .notes-editor:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .export-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--color-dark);
+            color: white;
+            margin-top: 30px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .risk-high { background: var(--color-danger); color: white; }
+        .risk-medium { background: var(--color-warning); color: white; }
+        .risk-low { background: var(--color-success); color: white; }
+
+        .timestamp {
+            font-size: 0.8rem;
+            color: #888;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .kyc-flag {
+            background: #ffebee;
+            color: #c62828;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            border: 1px solid #ffcdd2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 ENQUÊTE BITCOIN - DOSSIER D'INVESTIGATION</h1>
+            <div class="subtitle">Suivi des transactions • Cartographie des wallets • Dossier légal</div>
+        </div>
+
+        <div class="investigation-meta">
+            <div class="meta-card">
+                <h3>URL d'arnaque initiale</h3>
+                <p>tps://app.rampnetwork.com/account?enabledCryptoAssets=BTC_BTC&hostApiKey=n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56&inAsset=USD&inAssetValue=20000&outAsset=BTC_BTC&paymentMethodType=CARD&userAddress=bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp&enabledFlows=ONRAMP&defaultFlow=ONRAMP</p>
+            </div>
+            <div class="meta-card">
+                <h3>Clé API identifiée</h3>
+                <p>n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56</p>
+            </div>
+            <div class="meta-card">
+                <h3>Wallet source (arnaque)</h3>
+                <p>bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp</p>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    📋 WALLETS IDENTIFIÉS
+                </div>
+                <div class="card-content">
+                    <div class="wallet-list" id="walletList">
+                        <!-- Les wallets seront ajoutés dynamiquement -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    🗺️ CARTE DES TRANSACTIONS
+                </div>
+                <div class="card-content">
+                    <div id="network"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    📈 STATISTIQUES DU WALLET
+                </div>
+                <div class="card-content">
+                    <canvas id="walletChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    🔄 TIMELINE DES TRANSACTIONS
+                </div>
+                <div class="card-content">
+                    <div class="transaction-timeline" id="transactionTimeline">
+                        <!-- Timeline sera ajoutée dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tools-section">
+            <h2 style="color: var(--color-primary); margin-bottom: 20px;">🛠️ OUTILS D'INVESTIGATION</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>🔍 Explorer sur Blockchain.com</h3>
+                    <p>Accédez aux détails complets de chaque wallet sur l'explorateur officiel</p>
+                    <button class="btn" onclick="openInBlockchain()">Ouvrir l'explorateur</button>
+                </div>
+                <div class="tool-card">
+                    <h3>📊 Analyse Blockstream</h3>
+                    <p>Données techniques avancées et API pour l'analyse</p>
+                    <button class="btn" onclick="openInBlockstream()">Analyser sur Blockstream</button>
+                </div>
+                <div class="tool-card">
+                    <h3>⚡ Mempool.space (temps réel)</h3>
+                    <p>Surveillance en direct des transactions non confirmées</p>
+                    <button class="btn" onclick="openInMempool()">Voir Mempool</button>
+                </div>
+                <div class="tool-card">
+                    <h3>🎯 Scam Radar (outil maison)</h3>
+                    <p>Détection automatique de patterns d'arnaque</p>
+                    <a href="https://crypto-free-tools.netlify.app/scam-radar/" target="_blank" class="btn btn-warning">Utiliser Scam Radar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes-section">
+            <h2 style="color: var(--color-primary); margin-bottom: 20px;">📝 NOTES D'ENQUÊTE</h2>
+            <textarea class="notes-editor" id="investigationNotes" placeholder="Ajoutez ici vos notes d'enquête, hypothèses, observations..."></textarea>
+            
+            <div class="export-controls">
+                <button class="btn" onclick="exportToPDF()">📄 Exporter en PDF</button>
+                <button class="btn" onclick="exportToJSON()">💾 Sauvegarder JSON</button>
+                <button class="btn btn-danger" onclick="addNewWallet()">➕ Ajouter un wallet</button>
+                <button class="btn btn-warning" onclick="clearLocalData()">🗑️ Effacer les données</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Enquête initiée le 23 Novembre • Dossier mis à jour automatiquement</p>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
+                ⚠️ Ce dossier constitue une preuve technique. Conservez-le pour toute procédure légale.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Données de l'enquête
+        const investigationData = {
+            metadata: {
+                caseName: "ENZO - Arnaque Ramp Network",
+                startDate: "2024-11-23",
+                investigator: "Enquêteur Bitcoin",
+                lastUpdated: new Date().toISOString()
+            },
+            wallets: [
+                {
+                    address: "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+                    alias: "Wallet source (arnaque)",
+                    balance: "0.15 BTC",
+                    balanceEUR: "6,750 €",
+                    incomingTx: 1,
+                    outgoingTx: 3,
+                    risk: "high",
+                    notes: "Wallet créé pour l'arnaque - one shot use",
+                    transactions: [
+                        { type: "incoming", amount: "0.15 BTC", from: "arnaque", to: "this", timestamp: "2024-11-23 19:17", hash: "abc123" },
+                        { type: "outgoing", amount: "0.05 BTC", from: "this", to: "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj", timestamp: "2024-11-23 19:30", hash: "def456" },
+                        { type: "outgoing", amount: "0.05 BTC", from: "this", to: "bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej", timestamp: "2024-11-23 19:31", hash: "ghi789" },
+                        { type: "outgoing", amount: "0.05 BTC", from: "this", to: "other_wallet", timestamp: "2024-11-23 19:32", hash: "jkl012" }
+                    ]
+                },
+                {
+                    address: "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+                    alias: "Wallet intermédiaire 1",
+                    balance: "0.05 BTC",
+                    balanceEUR: "2,250 €",
+                    incomingTx: 1,
+                    outgoingTx: 2,
+                    risk: "medium",
+                    notes: "Redistribution vers d'autres wallets",
+                    transactions: [
+                        { type: "incoming", amount: "0.05 BTC", from: "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp", to: "this", timestamp: "2024-11-23 19:30", hash: "def456" },
+                        { type: "outgoing", amount: "0.02 BTC", from: "this", to: "next_wallet", timestamp: "2024-11-23 19:45", hash: "mno345" }
+                    ]
+                },
+                {
+                    address: "bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej",
+                    alias: "Wallet intermédiaire 2",
+                    balance: "0.05 BTC",
+                    balanceEUR: "2,250 €",
+                    incomingTx: 1,
+                    outgoingTx: 1,
+                    risk: "medium",
+                    notes: "Redistribution",
+                    transactions: [
+                        { type: "incoming", amount: "0.05 BTC", from: "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp", to: "this", timestamp: "2024-11-23 19:31", hash: "ghi789" }
+                    ]
+                },
+                {
+                    address: "bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc",
+                    alias: "WALLET PRINCIPAL (27 BTC)",
+                    balance: "27 BTC",
+                    balanceEUR: "1,215,000 €",
+                    incomingTx: 26,
+                    outgoingTx: 8,
+                    risk: "critical",
+                    kyc: "À identifier",
+                    notes: "Wallet de concentration - 26 wallets reliés - Potentiel KYC",
+                    transactions: [
+                        { type: "incoming", amount: "1.5 BTC", from: "wallet_x", to: "this", timestamp: "2024-11-22", hash: "pqr678" },
+                        { type: "incoming", amount: "2.3 BTC", from: "wallet_y", to: "this", timestamp: "2024-11-21", hash: "stu901" }
+                    ]
+                }
+            ],
+            notes: "Pattern identifié : création de wallet one-shot par arnaque → redistribution multiple → concentration sur wallet principal. Recherche de KYC sur le wallet principal de 27 BTC.",
+            patterns: {
+                oneShotWallets: true,
+                multipleRedistribution: true,
+                concentrationWallet: true,
+                possibleKYC: true
+            }
+        };
+
+        // Initialisation
+        let network = null;
+        let selectedWallet = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadInvestigationData();
+            renderWalletList();
+            renderNetworkGraph();
+            renderTimeline();
+            renderChart();
+            loadNotes();
+        });
+
+        // Fonctions principales
+        function loadInvestigationData() {
+            const savedData = localStorage.getItem('bitcoinInvestigation');
+            if (savedData) {
+                Object.assign(investigationData, JSON.parse(savedData));
+            }
+        }
+
+        function saveInvestigationData() {
+            localStorage.setItem('bitcoinInvestigation', JSON.stringify(investigationData));
+            investigationData.metadata.lastUpdated = new Date().toISOString();
+        }
+
+        function renderWalletList() {
+            const container = document.getElementById('walletList');
+            container.innerHTML = '';
+            
+            investigationData.wallets.forEach((wallet, index) => {
+                const walletElement = document.createElement('div');
+                walletElement.className = `wallet-item ${selectedWallet === index ? 'active' : ''}`;
+                walletElement.innerHTML = `
+                    <div class="wallet-address">${wallet.address}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>${wallet.alias}</strong>
+                            <span class="risk-badge risk-${wallet.risk}">${wallet.risk.toUpperCase()}</span>
+                            ${wallet.kyc ? '<span class="kyc-flag">KYC POTENTIEL</span>' : ''}
+                        </div>
+                        <div style="text-align: right;">
+                            <div><strong>${wallet.balance}</strong></div>
+                            <div style="font-size: 0.9rem; color: #666;">${wallet.balanceEUR}</div>
+                        </div>
+                    </div>
+                    <div class="wallet-stats">
+                        <div class="stat">
+                            <div class="stat-label">TX Entrantes</div>
+                            <div class="stat-value">${wallet.incomingTx}</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">TX Sortantes</div>
+                            <div class="stat-value">${wallet.outgoingTx}</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Total</div>
+                            <div class="stat-value">${wallet.incomingTx + wallet.outgoingTx}</div>
+                        </div>
+                    </div>
+                    ${wallet.notes ? `<div style="margin-top: 10px; font-size: 0.9rem; color: #666; background: #f0f0f0; padding: 8px; border-radius: 4px;">${wallet.notes}</div>` : ''}
+                `;
+                
+                walletElement.onclick = () => selectWallet(index);
+                container.appendChild(walletElement);
+            });
+        }
+
+        function selectWallet(index) {
+            selectedWallet = index;
+            renderWalletList();
+            renderTimeline();
+            renderChart();
+        }
+
+        function renderNetworkGraph() {
+            const nodes = [];
+            const edges = [];
+            
+            // Création des nœuds
+            investigationData.wallets.forEach((wallet, index) => {
+                const isBigWallet = wallet.balance.includes('27 BTC') || wallet.balance.includes('10 BTC');
+                nodes.push({
+                    id: wallet.address,
+                    label: wallet.alias.split(' ')[0] + '\n' + wallet.balance,
+                    color: wallet.risk === 'critical' ? '#ff4444' : 
+                           wallet.risk === 'high' ? '#ff8800' :
+                           wallet.risk === 'medium' ? '#ffbb33' : '#33b5e5',
+                    shape: isBigWallet ? 'star' : 'dot',
+                    size: isBigWallet ? 30 : 20,
+                    font: { size: 14, face: 'Montserrat' }
+                });
+            });
+            
+            // Création des arêtes (connexions)
+            investigationData.wallets.forEach(wallet => {
+                wallet.transactions.forEach(tx => {
+                    if (tx.type === 'outgoing' && tx.to !== 'this') {
+                        edges.push({
+                            from: wallet.address,
+                            to: tx.to.includes('bc1') ? tx.to : wallet.address, // Pour démo
+                            label: tx.amount,
+                            arrows: 'to',
+                            color: '#ff4444',
+                            width: 2
+                        });
+                    }
+                });
+            });
+            
+            // Configuration du réseau
+            const container = document.getElementById('network');
+            const data = { nodes, edges };
+            const options = {
+                nodes: {
+                    shape: 'dot',
+                    font: { size: 14, face: 'Montserrat' },
+                    borderWidth: 2
+                },
+                edges: {
+                    width: 2,
+                    arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+                    font: { size: 12, background: 'white' }
+                },
+                physics: {
+                    enabled: true,
+                    stabilization: { iterations: 100 }
+                },
+                interaction: {
+                    hover: true,
+                    tooltipDelay: 300
+                }
+            };
+            
+            if (network) {
+                network.destroy();
+            }
+            network = new vis.Network(container, data, options);
+            
+            network.on("click", function(params) {
+                if (params.nodes.length > 0) {
+                    const walletIndex = investigationData.wallets.findIndex(w => w.address === params.nodes[0]);
+                    if (walletIndex > -1) {
+                        selectWallet(walletIndex);
+                    }
+                }
+            });
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('transactionTimeline');
+            container.innerHTML = '';
+            
+            if (selectedWallet === null) {
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">Sélectionnez un wallet pour voir ses transactions</div>';
+                return;
+            }
+            
+            const wallet = investigationData.wallets[selectedWallet];
+            
+            wallet.transactions.forEach(tx => {
+                const item = document.createElement('div');
+                item.className = `timeline-item ${tx.type}`;
+                item.innerHTML = `
+                    <div class="timeline-content">
+                        <div class="transaction-amount">${tx.type === 'incoming' ? '⬇️ ' : '⬆️ '}${tx.amount}</div>
+                        <div class="transaction-from-to">
+                            ${tx.type === 'incoming' ? `De: ${tx.from}` : `Vers: ${tx.to}`}
+                        </div>
+                        <div class="timestamp">${tx.timestamp}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('walletChart').getContext('2d');
+            
+            if (window.walletChart instanceof Chart) {
+                window.walletChart.destroy();
+            }
+            
+            if (selectedWallet === null) {
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.fillStyle = '#666';
+                ctx.textAlign = 'center';
+                ctx.fillText('Sélectionnez un wallet', ctx.canvas.width/2, ctx.canvas.height/2);
+                return;
+            }
+            
+            const wallet = investigationData.wallets[selectedWallet];
+            
+            window.walletChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Balance BTC', 'TX Entrantes', 'TX Sortantes'],
+                    datasets: [{
+                        label: 'Statistiques',
+                        data: [
+                            parseFloat(wallet.balance.split(' ')[0]),
+                            wallet.incomingTx,
+                            wallet.outgoingTx
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 87, 34, 0.8)',
+                            'rgba(76, 175, 80, 0.8)',
+                            'rgba(244, 67, 54, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 87, 34)',
+                            'rgb(76, 175, 80)',
+                            'rgb(244, 67, 54)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: `Statistiques: ${wallet.alias}`,
+                            font: { size: 16, family: 'Montserrat' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(0,0,0,0.1)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadNotes() {
+            const savedNotes = localStorage.getItem('investigationNotes');
+            if (savedNotes) {
+                document.getElementById('investigationNotes').value = savedNotes;
+            } else {
+                document.getElementById('investigationNotes').value = investigationData.notes;
+            }
+            
+            document.getElementById('investigationNotes').addEventListener('input', function() {
+                localStorage.setItem('investigationNotes', this.value);
+                investigationData.notes = this.value;
+                saveInvestigationData();
+            });
+        }
+
+        // Fonctions utilitaires
+        function openInBlockchain() {
+            if (selectedWallet !== null) {
+                const wallet = investigationData.wallets[selectedWallet];
+                window.open(`https://blockchain.com/explorer/addresses/btc/${wallet.address}`, '_blank');
+            } else {
+                window.open('https://blockchain.com/explorer', '_blank');
+            }
+        }
+
+        function openInBlockstream() {
+            if (selectedWallet !== null) {
+                const wallet = investigationData.wallets[selectedWallet];
+                window.open(`https://blockstream.info/address/${wallet.address}`, '_blank');
+            } else {
+                window.open('https://blockstream.info', '_blank');
+            }
+        }
+
+        function openInMempool() {
+            if (selectedWallet !== null) {
+                const wallet = investigationData.wallets[selectedWallet];
+                window.open(`https://mempool.space/address/${wallet.address}`, '_blank');
+            } else {
+                window.open('https://mempool.space', '_blank');
+            }
+        }
+
+        function exportToPDF() {
+            alert('Fonction PDF à implémenter avec une bibliothèque comme jsPDF');
+            // Implémentation possible avec jsPDF
+        }
+
+        function exportToJSON() {
+            const dataStr = JSON.stringify(investigationData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `enquete-bitcoin-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            alert('Dossier exporté en JSON');
+        }
+
+        function addNewWallet() {
+            const address = prompt('Adresse Bitcoin du nouveau wallet:');
+            if (address && address.startsWith('bc1') || address.startsWith('1') || address.startsWith('3')) {
+                const alias = prompt('Alias/Description du wallet:');
+                
+                investigationData.wallets.push({
+                    address: address,
+                    alias: alias || 'Nouveau wallet',
+                    balance: '0 BTC',
+                    balanceEUR: '0 €',
+                    incomingTx: 0,
+                    outgoingTx: 0,
+                    risk: 'medium',
+                    notes: 'Ajouté manuellement',
+                    transactions: []
+                });
+                
+                saveInvestigationData();
+                renderWalletList();
+                renderNetworkGraph();
+                alert('Wallet ajouté à l\'enquête');
+            } else if (address) {
+                alert('Adresse Bitcoin invalide');
+            }
+        }
+
+        function clearLocalData() {
+            if (confirm('Voulez-vous vraiment effacer toutes les données locales ?')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        // Mise à jour automatique
+        setInterval(() => {
+            const now = new Date();
+            document.querySelector('footer p:first-child').textContent = 
+                `Enquête initiée le 23 Novembre • Dernière mise à jour: ${now.toLocaleTimeString('fr-FR')}`;
+        }, 60000);
+    </script>
+</body>
+</html>

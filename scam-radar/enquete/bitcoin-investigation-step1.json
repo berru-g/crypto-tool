@@ -1,0 +1,114 @@
+{
+  "nodes": [
+    {
+      "id": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "label": "Possible Binance\nbc1quj...",
+      "color": "#f56545",
+      "group": "exchange",
+      "address": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "depth": 0,
+      "balance": "0.00000000",
+      "total_received": "0.00221091",
+      "total_sent": "0.00221091",
+      "txCount": 4,
+      "first_seen": "N/A",
+      "kycScore": 0
+    },
+    {
+      "id": "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+      "label": "Possible Binance\nbc1q69...",
+      "color": "#f56545",
+      "group": "exchange",
+      "address": "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+      "kycScore": 0
+    },
+    {
+      "id": "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw",
+      "label": "Possible Binance\nbc1qke...",
+      "color": "#f56545",
+      "group": "exchange",
+      "address": "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw",
+      "kycScore": 0
+    }
+  ],
+  "edges": [
+    {
+      "id": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp-bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj-15004f3aea64408a7e1fc125c0f4da24d8a56c68282ee7bc2d402fd85605de61",
+      "from": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "to": "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+      "label": "0.0012 BTC",
+      "value": 0.00116556,
+      "color": "#ffa502",
+      "txHash": "15004f3aea64408a7e1fc125c0f4da24d8a56c68282ee7bc2d402fd85605de61",
+      "timestamp": "15/11/2025 03:03:11",
+      "arrows": "to",
+      "width": 1.0116556,
+      "type": "dust"
+    },
+    {
+      "id": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp-bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw-15004f3aea64408a7e1fc125c0f4da24d8a56c68282ee7bc2d402fd85605de61",
+      "from": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "to": "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw",
+      "label": "0.0003 BTC",
+      "value": 0.00029215,
+      "color": "#ffa502",
+      "txHash": "15004f3aea64408a7e1fc125c0f4da24d8a56c68282ee7bc2d402fd85605de61",
+      "timestamp": "15/11/2025 03:03:11",
+      "arrows": "to",
+      "width": 1.0029215,
+      "type": "dust"
+    },
+    {
+      "id": "bc1qws8yeyfxzykuq7tevwwxezyv3ad99emlyy9uls-bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp-a7ecd5c2215b1a216e23ea1a2e9b829bf3b39fe37cd74b0a7d1e053d30ac65ff",
+      "from": "bc1qws8yeyfxzykuq7tevwwxezyv3ad99emlyy9uls",
+      "to": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "label": "0.0006 BTC",
+      "value": 0.00061813,
+      "color": "#3ad38b",
+      "txHash": "a7ecd5c2215b1a216e23ea1a2e9b829bf3b39fe37cd74b0a7d1e053d30ac65ff",
+      "timestamp": "15/11/2025 02:48:04",
+      "arrows": "to",
+      "width": 1.0061813,
+      "type": "dust"
+    },
+    {
+      "id": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp-bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj-867d72f96dc9c455fd925cb973548c2e1f01e9b421cf326ff37a3d438d0e0e8b",
+      "from": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "to": "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+      "label": "0.0006 BTC",
+      "value": 0.00059712,
+      "color": "#ffa502",
+      "txHash": "867d72f96dc9c455fd925cb973548c2e1f01e9b421cf326ff37a3d438d0e0e8b",
+      "timestamp": "15/11/2025 02:32:53",
+      "arrows": "to",
+      "width": 1.0059712,
+      "type": "dust"
+    },
+    {
+      "id": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp-bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw-867d72f96dc9c455fd925cb973548c2e1f01e9b421cf326ff37a3d438d0e0e8b",
+      "from": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "to": "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw",
+      "label": "0.0002 BTC",
+      "value": 0.00015004,
+      "color": "#ffa502",
+      "txHash": "867d72f96dc9c455fd925cb973548c2e1f01e9b421cf326ff37a3d438d0e0e8b",
+      "timestamp": "15/11/2025 02:32:53",
+      "arrows": "to",
+      "width": 1.0015004,
+      "type": "dust"
+    },
+    {
+      "id": "bc1qws8yeyfxzykuq7tevwwxezyv3ad99emlyy9uls-bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp-3ad495a822dbc034b8c5c3764893fad62ae71620a0592d4bea4d53206c7d55eb",
+      "from": "bc1qws8yeyfxzykuq7tevwwxezyv3ad99emlyy9uls",
+      "to": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "label": "0.1004 BTC",
+      "value": 0.10044278,
+      "color": "#3ad38b",
+      "txHash": "3ad495a822dbc034b8c5c3764893fad62ae71620a0592d4bea4d53206c7d55eb",
+      "timestamp": "15/11/2025 02:25:09",
+      "arrows": "to",
+      "width": 2.0044278,
+      "type": "small"
+    }
+  ]
+}
