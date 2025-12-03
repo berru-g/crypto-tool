@@ -82,3 +82,46 @@ Liste des wallets identifiés dans la chaîne de l'arnaque, par ordre de propaga
 ## Objectif actuel : Recherche d'un KYC (03/12/2025)
 
 L'objectif est d'identifier un wallet ayant subi une procédure KYC (Know Your Customer) parmi les 8 wallets principaux ou dans la liste de tous les wallets reliés (soit environ 400 wallets) via des transactions entrantes ou sortantes.
+
+## Suite de l'equete auprés des autorités :
+
+*D'après l'ia ; *
+
+Vos éléments ne suffisent pas, voici ce qu'il manque pour un dossier solide, structuré en deux catégories :
+
+### 1. Éléments CRUCIAUX MANQUANTS (pour la plainte)
+*   **Identité de la victime et preuve du préjudice :**
+    *   Copie de sa pièce d'identité.
+    *   Relevés bancaires ou de carte prouvant le ou les virements vers Ramp Network.
+    *   Captures d'écran de **tous les échanges** (messages, emails) avec l'arnaqueur (promesses, instructions, menaces).
+*   **Contexte de l'arnaque :**
+    *   Une **déposition écrite et détaillée** de la victime expliquant : comment le contact a été établi (site web, réseau social, application), les promesses faites (rendement, projet), le processus suivi, et le moment où elle a compris l'arnaque.
+*   **Preuves de la plateforme utilisée (Ramp Network) :**
+    *   Les emails de confirmation de transaction reçus de **Ramp Network**.
+    *   L'historique complet du compte sur la plateforme Ramp (captures d'écran).
+
+### 2. Recommandations FORTELLES pour la suite
+1.  **Déposer plainte IMMÉDIATEMENT :**
+    *   À la gendarmerie ou au commissariat de police, ou via une plainte en ligne si disponible.
+    *   **Apporter TOUS** les éléments ci-dessus ainsi que votre analyse technique.
+2.  **Signaler à Ramp Network :**
+    *   Contacter leur support avec le numéro de transaction, l'adresse frauduleuse (`bc1quje...`), et la clé API. Ils peuvent potentiellement geler des fonds ou fournir des informations sur le compte qui a généré cette clé API (si elle est liée à un KYC de l'arnaqueur).
+3.  **Protéger la victime :**
+    *   Vérifier qu'elle n'a pas transmis de documents d'identité. Si c'est le cas, prévoir une alerte à la fraude documentaire.
+    *   S'assurer qu'elle change ses mots de passe si elle les a partagés.
+
+### ✅ Ce que votre analyse technique apporte de VALEUR à la plainte :
+*   **Preuve de l'intention frauduleuse :** La structure "one-shot wallet" démontre une volonté délibérée de dissimuler les fonds.
+*   **Cartographie de la fuite des fonds :** Vous montrez où est passé l'argent et identifiez des points de concentration (wallets 4 et 8) qui pourraient être ciblés par une enquête.
+*   **Élément technique concret :** L'URL avec la clé API est une preuve directe du mécanisme de l'arnaque.
+
+### 📋 Checklist pour le dossier de plainte :
+- [ ] Déposition écrite de la victime (récit détaillé)
+- [ ] Copie pièce d'identité de la victime
+- [ ] Relevés bancaires prouvant le virement
+- [ ] Captures d'écran de toute la conversation avec l'arnaqueur
+- [ ] Emails/reçus de Ramp Network
+- [ ] Votre analyse technique imprimée (avec les diagrammes et la liste des wallets)
+- [ ] L'URL frauduleuse en clair
+
+**Conclusion :** Votre travail est **excellent et nécessaire**, mais il doit s'inscrire dans un dossier plus large centré sur la **victime et son parcours**. La plainte doit raconter l'histoire humaine de la fraude, étayée par vos preuves techniques. **Agissez vite**, car la rapidité est cruciale pour le gel éventuel de fonds.
