@@ -1,69 +1,84 @@
-# Enquete ENZO :
-Il s'agit d'une arnaque basé sur une promesse d'investissement, ou la victime doit envoyer des fonds à depuis une url. 
+# Enquête ENZO : Analyse d'une arnaque à l'investissement
 
-    Process :
-        - Identifié tout les wallet relié par des transactions Entrante ou Sortante
-        - Dessiner la roadmap via diagramme
-        - Chercher un wallet avec un KYC pour trouver l'identité de l'arnaqueur.
+Il s'agit d'une arnaque basée sur une promesse d'investissement, où la victime est incitée à envoyer des fonds via une URL frauduleuse.
 
-    Outils utilisé : 
-        - blockchain.com
-        - blockstream  
-        - Mempool
-        - https://www.crypto-free-tools.netlify.app/scam-radar/ (fait maison pour l'occas)
-        - https://www.crypto-free-tools.netlify.app/scam-radar/enquete/ 
+## Processus d'investigation
 
+1.  **Identifier** tous les wallets reliés par des transactions entrantes ou sortantes.
+2.  **Cartographier** les flux financiers via un diagramme.
+3.  **Rechercher** un wallet avec un KYC pour identifier l'arnaqueur.
 
+## Outils utilisés
 
-## Voici l'url que l'arnaqueur à fournie à la victime :
+*   [blockchain.com](https://www.blockchain.com/explorer)
+*   [blockstream.info](https://blockstream.info/)
+*   [Mempool.space](https://mempool.space/)
+*   [Outil Scam Radar (fait maison)](https://www.crypto-free-tools.netlify.app/scam-radar/)
+*   [Page d'enquête Scam Radar](https://www.crypto-free-tools.netlify.app/scam-radar/enquete/)
 
-	
-    ht->tps://app.rampnetwork.com/account?enabledCryptoAssets=BTC_BTC&hostApiKey=n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56&inAsset=USD&inAssetValue=20000&outAsset=BTC_BTC&paymentMethodType=CARD&userAddress=bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp&enabledFlows=ONRAMP&defaultFlow=ONRAMP
+---
 
-<img src="premier_element.png">
-        screen* 
-<img src="arnaqueur.png">
-        l'arnaqueur
+## Analyse de l'URL fournie à la victime
 
-#### On distingue clairement l'adress d'un wallet bitcoin dans l'url = 
-        bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp
+L'arnaqueur a fourni l'URL suivante :
+`https://app.rampnetwork.com/account?enabledCryptoAssets=BTC_BTC&hostApiKey=n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56&inAsset=USD&inAssetValue=20000&outAsset=BTC_BTC&paymentMethodType=CARD&userAddress=bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp&enabledFlows=ONRAMP&defaultFlow=ONRAMP`
 
-#### Et une clef API = 
-        n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56
+### Éléments identifiés dans l'URL
 
-##### Premiere déduction
-    L'api key sert certainement à automatiser le transfert d'un wallet vers plusieurs, en divisant le montant, pour compliquer la track.  L'achat de bitcoin en euro s'effectue le réseaux décentralisé https://rampnetwork.com/ comme nous pouvons le constater sur les screen* partagé par la victime. 
-    Ramp Network est une plateforme légitime dans le domaine, elle permet notamment de simplifier l'achat de crypto avec une CB avec la possibilité d'envoyer ces tokens sur un wallet décentralisé (anonyme), c'est ce process qu'a suivi l'arnaqueur, en demandant à la victime de s'inscrire sur la plateforme, acheter du btc puis de le transferer sur le wallet bc1qu...27yp.
-<img src="ramp.png">
+*   **Adresse Bitcoin du destinataire** : `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp`
+*   **Clé API** : `n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56`
 
-#### On commence la quête depuis l'adresse :
-Premier wallet. 
-    - 3 wallet sont relié via des transaction entrante ou sortante [Voir json](./bitcoin-investigation-step1.json)
+### Captures d'écran fournies par la victime
 
+![Premier élément](premier_element.png)
+![Conversation avec l'arnaqueur](arnaqueur.png)
 
-**NB :** *on constate que le wallet originel n'as reçu que le montant de l'arnaque et à était divisé puis envoyé sur le wallet bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj. On peut en déduire qu'un wallet est créer pour chaque arnaque et qu'il ne sert qu'une fois. One shot using*
+### Première déduction
 
+La clé API sert probablement à automatiser le transfert des fonds d'un wallet vers plusieurs autres, en divisant les montants pour brouiller les pistes.
 
-#### Suivi des plus gros montant :
-Liste des wallets identifié dans l'arnaque :
-    - bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp
-    - bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj
-    - bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej
-    - bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc  [à ce wallet 27 BTC et 26 wallet relié, Voir le json](./bitcoin-investigation-step4.json)
-    - bc1qy3896n4zy8jh62scnag6482e4khep0xsr3hn8w
-    - 1B5hVExEx5DjAMueQGESP2b6jzBu5UfTkP
-    - 3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2
-    - bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz [à ce wallet 267 BTC plus de 21 million € et 50 wallet relié, Voir le json](./bitcoin-investigation-step8.json)
+L'achat de Bitcoins en euros s'effectue via [Ramp Network](https://rampnetwork.com/), une plateforme légitime qui simplifie l'achat de cryptomonnaies par carte bancaire et leur envoi vers un wallet externe. L'arnaqueur a détourné ce processus en demandant à la victime d'utiliser la plateforme pour acheter des BTC et les envoyer sur son wallet.
 
-<img src="./Wallet_4.png">
-        Wallet 4
+![Interface Ramp Network](ramp.png)
 
-<img src="./Wallet_8.png">
-        Wallet 8
+---
 
+## Traçabilité des transactions
 
-#### Rechercher un wallet KYC 03/12/2025
-Identifié un KYC dans la liste des 8 wallets ou depuis la liste de chaque wallet relié entre eux dans le process par des transactions entrante ou sortante, ce qui représente environ 400 wallets...
+### Départ de l'enquête
 
+L'analyse commence depuis l'adresse cible : `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp`.
 
+*   **Résultat initial** : 3 wallets sont reliés via des transactions entrantes ou sortantes.
+    *   [Voir le détail (JSON)](./bitcoin-investigation-step1.json)
 
+> **Note importante** : Le wallet d'origine n'a reçu que le montant de l'arnaque. Ce montant a ensuite été divisé et envoyé vers un autre wallet (`bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj`). On peut en déduire qu'un wallet est créé pour chaque arnaque et n'est utilisé qu'une seule fois (*one shot use*).
+
+### Suivi des flux principaux
+
+Liste des wallets identifiés dans la chaîne de l'arnaque, par ordre de propagation :
+
+1.  `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp` (adresse source)
+2.  `bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj`
+3.  `bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej`
+4.  `bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc` → **27 BTC** ; 26 wallets reliés.
+    *   [Voir le détail (JSON)](./bitcoin-investigation-step4.json)
+5.  `bc1qy3896n4zy8jh62scnag6482e4khep0xsr3hn8w`
+6.  `1B5hVExEx5DjAMueQGESP2b6jzBu5UfTkP`
+7.  `3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2`
+8.  `bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz` → **267 BTC** (≈ 21M€) ; 50+ wallets reliés.
+    *   [Voir le détail (JSON)](./bitcoin-investigation-step8.json)
+
+### Visualisation des wallets clés
+
+![Détails du Wallet 4](./Wallet_4.png)
+*Wallet n°4 (`bc1q202lj4...`)*
+
+![Détails du Wallet 8](./Wallet_8.png)
+*Wallet n°8 (`bc1q9wvygkq...`)*
+
+---
+
+## Objectif actuel : Recherche d'un KYC (03/12/2025)
+
+L'objectif est d'identifier un wallet ayant subi une procédure KYC (Know Your Customer) parmi les 8 wallets principaux ou dans la liste de tous les wallets reliés (soit environ 400 wallets) via des transactions entrantes ou sortantes.
