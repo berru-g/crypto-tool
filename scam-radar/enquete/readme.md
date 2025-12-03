@@ -1,4 +1,4 @@
-# Enquête ENZO : Analyse d'une arnaque à l'investissement
+# Enquête E*** : Analyse d'une arnaque à l'investissement
 
 Il s'agit d'une arnaque basée sur une promesse d'investissement, où la victime est incitée à envoyer des fonds via une URL frauduleuse.
 
