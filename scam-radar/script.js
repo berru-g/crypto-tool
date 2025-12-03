@@ -22,7 +22,7 @@ const BLOCKCHAIN_APIS = [
 // BASE DE DONNÉES ÉTENDUE
 const knownEntities = {
     //'bc1q9hk2gs7zj80tqynu5skerc0clwasagzmcar0an': { name: 'BerruWallet12', type: 'Phantom', risk: 'low' },
-    '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa': { name: 'Genesis', type: 'exchange', risk: 'low' },
+    //'1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa': { name: 'Genesis', type: 'exchange', risk: 'low' },
     '3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy': { name: 'Binance', type: 'exchange', risk: 'high' },
     '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2': { name: 'Coinbase', type: 'exchange', risk: 'high' },
     'bc1q34aq5drpkwy6d3g9q8t4z5q6x5k6q5jq4x5k6q': { name: 'Kraken', type: 'exchange', risk: 'high' },
