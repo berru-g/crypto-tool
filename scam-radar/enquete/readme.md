@@ -13,8 +13,8 @@ Il s'agit d'une arnaque basée sur une promesse d'investissement, où la victime
 *   [blockchain.com](https://www.blockchain.com/explorer)
 *   [blockstream.info](https://blockstream.info/)
 *   [Mempool.space](https://mempool.space/)
-*   [Outil Scam Radar (fait maison)](https://www.crypto-free-tools.netlify.app/scam-radar/)
-*   [Page d'enquête Scam Radar](https://www.crypto-free-tools.netlify.app/scam-radar/enquete/)
+*   [Outil Scam Radar (fait maison)](https://crypto-free-tools.netlify.app/scam-radar/)
+*   [Page d'enquête Scam Radar](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
 
 ---
 
