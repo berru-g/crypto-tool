@@ -18,13 +18,15 @@ const INITIAL_WALLETS = [
     "bc1qy3896n4zy8jh62scnag6482e4khep0xsr3hn8w",
     "1B5hVExEx5DjAMueQGESP2b6jzBu5UfTkP",
     "3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2",
-    "bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz"
+    "bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz",
+    "bc1qjjp862nj209kp4uhtnqtd3uxg7rxshqsudeq3n",
+    "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw"
 ];
 
 let network = null;
 let selectedWallet = null;
 let physicsEnabled = true;
-let btcPrice = 60000; // Valeur par défaut
+let btcPrice = 80000; // Valeur par défaut
 let btcPriceChange = 0;
 let priceUpdateInterval = null;
 let walletDataInterval = null;
@@ -44,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Configurer les intervalles
     priceUpdateInterval = setInterval(fetchBTCPrice, 30 * 60 * 1000); // 30 minutes
-    walletDataInterval = setInterval(fetchAllWalletData, 2 * 60 * 1000); // 2 minutes
+    walletDataInterval = setInterval(fetchAllWalletData, 10 * 60 * 1000); // 10 minutes
 
     // Initialiser le widget prix BTC
     updateBTCPriceWidget();
