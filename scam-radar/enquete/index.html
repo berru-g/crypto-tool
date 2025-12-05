@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOSSIER ENQUÊTE BITCOIN - Cartographie Wallets</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vis-network/standalone/umd/vis-network.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>DOSSIER ENQUÊTE E***</h1>
-            <div class="subtitle">Cartographie des wallets avec les plus grosses transaction sortante depuis l'adress source</div>
+            <div class="subtitle">Cartographie des wallets avec les plus grosses transaction sortante depuis l'adress
+                source</div>
         </div>
 
         <div class="main-content">
@@ -25,7 +31,7 @@
                         <input type="text" id="newWalletInput" placeholder="bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp">
                         <button onclick="addWalletFromInput()">Ajouter</button>
                     </div>
-                    
+
                     <!--<div class="search-box">
                         <input type="text" id="searchWallet" placeholder="Rechercher un wallet..." onkeyup="searchWallets()">
                     </div>-->
@@ -39,9 +45,12 @@
                 </div>
 
                 <div class="import-export">
-                    <button class="btn btn-primary" onclick="importWallets()"><i class="fa-solid fa-file-arrow-up"></i> Importer liste</button>
-                    <button class="btn btn-success" onclick="exportWallets()"><i class="fa-solid fa-file-arrow-up"></i> Exporter liste</button>
-                    <button class="btn btn-warning" onclick="clearAllWallets()"><i class="fa-solid fa-trash-can"></i> Tout effacer</button>
+                    <button class="btn btn-primary" onclick="importWallets()"><i class="fa-solid fa-file-arrow-up"></i>
+                        Importer liste</button>
+                    <button class="btn btn-success" onclick="exportWallets()"><i class="fa-solid fa-file-arrow-up"></i>
+                        Exporter liste</button>
+                    <button class="btn btn-warning" onclick="clearAllWallets()"><i class="fa-solid fa-trash-can"></i>
+                        Tout effacer</button>
                 </div>
 
                 <div class="wallet-list" id="walletListContainer">
@@ -51,12 +60,43 @@
 
             <!-- PANEL DROITE - CARTE -->
             <div class="map-panel">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h2 style="color: var(--color-primary);"><i class="fa-solid fa-diagram-project"></i> CARTE DES CONNEXIONS</h2>
+                <!--<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h2 style="color: var(--color-primary);"><i class="fa-solid fa-diagram-project"></i> CARTE DES
+                        CONNEXIONS</h2>
                     <div class="map-controls">
-                        <button class="btn btn-primary" onclick="refreshNetwork()"><i class="fa-solid fa-arrows-rotate"></i> Actualiser</button>
-                        <button class="btn btn-warning" onclick="togglePhysics()"><i class="fa-solid fa-gear"></i> Physique ON/OFF</button>
-                        <button class="btn btn-success" onclick="exportNetworkImage()"><i class="fa-solid fa-image"></i> Exporter image</button>
+                        <button class="btn btn-primary" onclick="refreshNetwork()"><i
+                                class="fa-solid fa-arrows-rotate"></i> Actualiser</button>
+                        <button class="btn btn-warning" onclick="togglePhysics()"><i class="fa-solid fa-gear"></i>
+                            Physique ON/OFF</button>
+                        <button class="btn btn-success" onclick="exportNetworkImage()"><i class="fa-solid fa-image"></i>
+                            Exporter image</button>
+                    </div>
+                </div>-->
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h2 style="color: var(--color-primary);">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        RÉSEAU DES TRANSACTIONS +=>0.01 BTC
+                        <span style="font-size: 0.8rem; color: var(--color-text-secondary); margin-left: 10px;">
+                            du wallet crée pour l'arnaque 
+                        </span>
+                    </h2>
+                    <div class="map-controls">
+                        <button class="btn btn-primary" onclick="fetchAllWalletData()"
+                            title="Forcer la mise à jour des données">
+                            <i class="fa-solid fa-arrows-rotate"></i> Actualiser
+                        </button>
+                        <button class="btn btn-warning" onclick="togglePhysics()"
+                            title="Activer/désactiver la physique">
+                            <i class="fa-solid fa-gear"></i> Physique
+                        </button>
+                        <button class="btn btn-success" onclick="exportNetworkImage()"
+                            title="Exporter l'image du réseau">
+                            <i class="fa-solid fa-camera"></i> Capture
+                        </button>
+                        <button class="btn btn-info" onclick="network.fit()" title="Recentrer la vue">
+                            <i class="fa-solid fa-maximize"></i> Zoom auto
+                        </button>
                     </div>
                 </div>
 
@@ -107,23 +147,29 @@
         </div>
 
         <div class="notes-section">
-            <h3 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fa-regular fa-message"></i> NOTES D'ENQUÊTE</h3>
-            <textarea class="notes-editor" id="investigationNotes" placeholder="Ajoutez ici vos notes, hypothèses, observations sur l'enquête..."></textarea>
+            <h3 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fa-regular fa-message"></i> NOTES
+                D'ENQUÊTE</h3>
+            <textarea class="notes-editor" id="investigationNotes"
+                placeholder="Ajoutez ici vos notes, hypothèses, observations sur l'enquête..."></textarea>
             <div class="export-controls">
-                <button class="btn btn-primary" onclick="exportFullDossier()"><i class="fa-solid fa-file-export"></i> Exporter Diagramm.JSON</button>
-                <button class="btn btn-success" onclick="saveNotes()"><i class="fa-regular fa-floppy-disk"></i> Sauvegarder notes</button>
-                <button class="btn btn-warning" onclick="addTimestamp()"><i class="fa-solid fa-tower-cell"></i> Ajouter horodatage</button>
+                <button class="btn btn-primary" onclick="exportFullDossier()"><i class="fa-solid fa-file-export"></i>
+                    Exporter Diagramm.JSON</button>
+                <button class="btn btn-success" onclick="saveNotes()"><i class="fa-regular fa-floppy-disk"></i>
+                    Sauvegarder notes</button>
+                <button class="btn btn-warning" onclick="addTimestamp()"><i class="fa-solid fa-tower-cell"></i> Ajouter
+                    horodatage</button>
             </div>
         </div>
 
         <footer>
             <p>Dossier d'enquête Bitcoin • Mis à jour automatiquement</p>
             <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
-                ⚠️ API 
+                ⚠️ API
             </p>
         </footer>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

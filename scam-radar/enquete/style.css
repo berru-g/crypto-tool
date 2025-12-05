@@ -73,7 +73,7 @@ body {
     border-right: 2px solid #e0e0e0;
     padding: 25px;
     overflow-y: auto;
-    max-height: 700px;
+    max-height: 800px;
 }
 
 .wallet-controls {
@@ -396,4 +396,17 @@ footer {
     top: 50%;
     transform: translateY(-50%);
     color: #666;
+}
+
+/* AJOUTER À TON STYLE.CSS */
+#custom-tooltip a {
+    pointer-events: auto !important;
+}
+
+#custom-tooltip {
+    transition: opacity 0.2s ease;
+}
+
+#custom-tooltip:hover {
+    opacity: 0.95;
 }

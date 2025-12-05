@@ -24,6 +24,10 @@ const INITIAL_WALLETS = [
 let network = null;
 let selectedWallet = null;
 let physicsEnabled = true;
+let btcPrice = 60000; // Valeur par défaut
+let btcPriceChange = 0;
+let priceUpdateInterval = null;
+let walletDataInterval = null;
 
 // INITIALISATION
 document.addEventListener('DOMContentLoaded', function () {
@@ -33,6 +37,17 @@ document.addEventListener('DOMContentLoaded', function () {
     renderNetwork();
     loadNotes();
     updateStats();
+
+    // Initialiser les données temps réel
+    fetchAllWalletData();
+    fetchBTCPrice();
+
+    // Configurer les intervalles
+    priceUpdateInterval = setInterval(fetchBTCPrice, 30 * 60 * 1000); // 30 minutes
+    walletDataInterval = setInterval(fetchAllWalletData, 2 * 60 * 1000); // 2 minutes
+
+    // Initialiser le widget prix BTC
+    updateBTCPriceWidget();
 });
 
 // FONCTIONS DE GESTION DES WALLETS
@@ -63,7 +78,7 @@ function addWallet(address, isInitial = false) {
         addedDate: new Date().toISOString(),
         risk: 'medium',
         notes: isInitial ? 'Wallet identifié dans l\'enquête initiale' : 'Ajouté manuellement',
-        balance: "? BTC",
+        balance: "0 BTC",
         incomingTx: 0,
         outgoingTx: 0,
         connections: []
@@ -76,6 +91,11 @@ function addWallet(address, isInitial = false) {
     if (!isInitial) {
         fetchWalletData(address, investigationData.wallets.length - 1);
         document.getElementById('newWalletInput').value = '';
+    } else {
+        // Pour les wallets initiaux, charger les données immédiatement
+        setTimeout(() => {
+            fetchWalletData(address, investigationData.wallets.length - 1);
+        }, 100);
     }
 }
 
@@ -123,54 +143,67 @@ function renderWalletList() {
 
     if (investigationData.wallets.length === 0) {
         container.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #666;">
-                        <div>Aucun wallet identifié</div>
-                        <div style="margin-top: 10px; font-size: 0.9rem;">
-                            Ajoutez des adresses Bitcoin pour commencer
-                        </div>
-                    </div>
-                `;
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <div>Aucun wallet identifié</div>
+                <div style="margin-top: 10px; font-size: 0.9rem;">
+                    Ajoutez des adresses Bitcoin pour commencer
+                </div>
+            </div>
+        `;
         return;
     }
 
     investigationData.wallets.forEach((wallet, index) => {
+        const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
+        const balanceUSD = balance * btcPrice;
+        const totalTx = wallet.incomingTx + wallet.outgoingTx;
+
         const walletElement = document.createElement('div');
         walletElement.className = `wallet-item ${selectedWallet === index ? 'active' : ''}`;
 
         walletElement.innerHTML = `
-                    <div class="wallet-header">
-                        <div class="wallet-alias">${wallet.alias}</div>
-                        <span class="risk-badge risk-${wallet.risk}">${wallet.risk.toUpperCase()}</span>
+            <div class="wallet-header">
+                <div class="wallet-alias">${wallet.alias}</div>
+                <span class="risk-badge risk-${wallet.risk}">${wallet.risk.toUpperCase()}</span>
+            </div>
+            
+            <div class="wallet-address">${wallet.address}</div>
+            
+            <div class="wallet-info">
+                <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+                    <div>
+                        <strong>Balance:</strong><br>
+                        ${wallet.balance}<br>
+                        <span style="font-size: 0.85rem; color: #4caf50;">
+                            $${balanceUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </span>
                     </div>
-                    
-                    <div class="wallet-address">${wallet.address}</div>
-                    
-                    <div class="wallet-info">
-                        <div style="display: flex; gap: 15px; margin-bottom: 10px;">
-                            <div><strong>Balance:</strong> ${wallet.balance}</div>
-                            <div><strong>TX:</strong> ${wallet.incomingTx + wallet.outgoingTx}</div>
-                        </div>
-                        <div style="font-size: 0.85rem; color: #888;">
-                            Ajouté: ${new Date(wallet.addedDate).toLocaleDateString('fr-FR')}
-                        </div>
-                        ${wallet.notes ? `<div style="margin-top: 10px; padding: 8px; background: #f0f0f0; border-radius: 4px; font-size: 0.85rem;">${wallet.notes}</div>` : ''}
+                    <div>
+                        <strong>Transactions:</strong><br>
+                        ${totalTx} (↓${wallet.incomingTx} ↑${wallet.outgoingTx})<br>
+                        <span style="font-size: 0.85rem; color: #888;">
+                            Connexions: ${wallet.connections.length}
+                        </span>
                     </div>
-                    
-                    <div class="wallet-actions">
-                        <a href="https://blockchain.com/explorer/addresses/btc/${wallet.address}" target="_blank" class="action-btn">
-                            <i class="fa-solid fa-magnifying-glass"></i> Blockchain.com
-                        </a>
-                        <a href="https://blockstream.info/address/${wallet.address}" target="_blank" class="action-btn">
-                            📊 Blockstream
-                        </a>
-                        <a href="https://www.crypto-free-tools.netlify.app/scam-radar/?address=${wallet.address}" target="_blank" class="action-btn">
-                            🎯 Scam Radar
-                        </a>
-                        <button class="action-btn" onclick="removeWallet(${index})">
-                            🗑️ Supprimer
-                        </button>
-                    </div>
-                `;
+                </div>
+                <div style="font-size: 0.85rem; color: #888;">
+                    Ajouté: ${new Date(wallet.addedDate).toLocaleDateString('fr-FR')}
+                    ${wallet.notes ? `<div style="margin-top: 10px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; font-size: 0.85rem;">${wallet.notes}</div>` : ''}
+                </div>
+            </div>
+            
+            <div class="wallet-actions">
+                <a href="https://blockchain.com/explorer/addresses/btc/${wallet.address}" target="_blank" class="action-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i> Blockchain
+                </a>
+                <a href="https://blockstream.info/address/${wallet.address}" target="_blank" class="action-btn">
+                    <i class="fa-solid fa-chart-line"></i> Blockstream
+                </a>
+                <button class="action-btn" onclick="removeWallet(${index})">
+                    <i class="fa-solid fa-trash"></i> Supprimer
+                </button>
+            </div>
+        `;
 
         walletElement.onclick = (e) => {
             if (!e.target.closest('.wallet-actions')) {
@@ -182,7 +215,138 @@ function renderWalletList() {
     });
 }
 
-// CARTE DES CONNEXIONS
+// FONCTIONS API TEMPS RÉEL
+async function fetchBTCPrice() {
+    try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+        const data = await response.json();
+        btcPrice = data.bitcoin.usd;
+        btcPriceChange = data.bitcoin.usd_24h_change;
+        updateBTCPriceWidget();
+        updateStats();
+    } catch (error) {
+        console.error('Erreur lors de la récupération du prix BTC:', error);
+        btcPrice = 60000;
+        updateBTCPriceWidget();
+    }
+}
+
+function updateBTCPriceWidget() {
+    let widget = document.getElementById('btcPriceWidget');
+    if (!widget) {
+        widget = document.createElement('div');
+        widget.id = 'btcPriceWidget';
+        widget.className = 'btc-price';
+        document.querySelector('.header').appendChild(widget);
+    }
+
+    const changeColor = btcPriceChange >= 0 ? '#4caf50' : '#f44336';
+    const changeIcon = btcPriceChange >= 0 ? '↗' : '↘';
+
+    widget.innerHTML = `
+        <i class="fa-brands fa-bitcoin"></i>
+        <div>
+            <div>$${btcPrice.toLocaleString('fr-FR')}</div>
+            <div class="change" style="color: ${changeColor}">
+                ${changeIcon} ${Math.abs(btcPriceChange).toFixed(2)}%
+            </div>
+        </div>
+    `;
+}
+
+async function fetchWalletData(address, index) {
+    try {
+        // Utiliser Blockstream API
+        const response = await fetch(`https://blockstream.info/api/address/${address}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Calculer le solde
+        const balanceBTC = (data.chain_stats.funded_txo_sum - data.chain_stats.spent_txo_sum) / 100000000;
+
+        // Mettre à jour le wallet
+        investigationData.wallets[index].balance = `${balanceBTC.toFixed(8)} BTC`;
+        investigationData.wallets[index].incomingTx = data.chain_stats.tx_count;
+        investigationData.wallets[index].outgoingTx = data.mempool_stats.tx_count;
+
+        // Calculer le risque dynamique
+        investigationData.wallets[index].risk = calculateRisk(balanceBTC, data.chain_stats.tx_count);
+
+        // Mettre à jour les connexions
+        await fetchWalletConnections(address, index);
+
+        saveInvestigationData();
+        renderWalletList();
+        renderNetwork();
+        updateStats();
+
+    } catch (error) {
+        console.error(`Erreur lors de la récupération des données pour ${address}:`, error);
+
+        // Valeurs par défaut en cas d'erreur
+        investigationData.wallets[index].balance = "0 BTC";
+        investigationData.wallets[index].incomingTx = 0;
+        investigationData.wallets[index].outgoingTx = 0;
+        investigationData.wallets[index].risk = 'low';
+    }
+}
+
+async function fetchAllWalletData() {
+    console.log('Mise à jour des données wallets...');
+    for (let i = 0; i < investigationData.wallets.length; i++) {
+        await fetchWalletData(investigationData.wallets[i].address, i);
+        // Petit délai pour éviter de surcharger l'API
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+}
+
+async function fetchWalletConnections(address, index) {
+    try {
+        const response = await fetch(`https://blockstream.info/api/address/${address}/txs`);
+        const txs = await response.json();
+
+        const connections = new Set();
+
+        // Analyser les 10 dernières transactions
+        txs.slice(0, 10).forEach(tx => {
+            // Adresses d'entrée
+            tx.vin?.forEach(input => {
+                if (input.prevout?.scriptpubkey_address) {
+                    connections.add(input.prevout.scriptpubkey_address);
+                }
+            });
+
+            // Adresses de sortie
+            tx.vout?.forEach(output => {
+                if (output.scriptpubkey_address) {
+                    connections.add(output.scriptpubkey_address);
+                }
+            });
+        });
+
+        // Filtrer pour ne garder que les wallets que nous suivons
+        investigationData.wallets[index].connections = Array.from(connections)
+            .filter(addr => investigationData.wallets.some(w => w.address === addr))
+            .filter(addr => addr !== address);
+
+    } catch (error) {
+        console.error('Erreur lors de la récupération des connexions:', error);
+        investigationData.wallets[index].connections = [];
+    }
+}
+
+function calculateRisk(balanceBTC, txCount) {
+    if (balanceBTC > 10) return 'high';
+    if (balanceBTC > 1) return 'medium';
+    if (balanceBTC > 0.1 && txCount > 10) return 'medium';
+    return 'low';
+}
+
+// CARTE DES CONNEXIONS - STYLE JSONCRACK
 function renderNetwork() {
     const container = document.getElementById('network');
 
@@ -194,97 +358,94 @@ function renderNetwork() {
     const nodes = [];
     const edges = [];
 
-    // Créer les nœuds
+    // Créer les nœuds avec style JSONCrack
     investigationData.wallets.forEach((wallet, index) => {
         const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
+        const balanceUSD = balance * btcPrice;
 
-        let nodeColor = '#4caf50'; // Vert par défaut (faible)
-        let nodeShape = 'dot';
-        let nodeSize = 20;
-
-        // Déterminer la couleur et la taille par risque/solde
-        if (balance > 10) {
-            nodeColor = '#f44336'; // Rouge (critique)
-            nodeSize = 40;
-            nodeShape = 'star';
-        } else if (balance > 1) {
-            nodeColor = '#ff5722'; // Orange (élevé)
-            nodeSize = 30;
-            nodeShape = 'dot';
-        } else if (balance > 0.1) {
-            nodeColor = '#ff9800'; // Jaune (moyen)
-            nodeSize = 25;
-            nodeShape = 'dot';
-        }
-
-        // Wallet source spécial
-        if (wallet.address === "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp") {
-            nodeColor = '#283593'; // Violet
-            nodeShape = 'diamond';
-            nodeSize = 35;
-        }
+        // Déterminer le style du nœud
+        const nodeStyle = getNodeStyle(wallet, balance);
 
         nodes.push({
             id: wallet.address,
-            label: `${wallet.alias.split(' ')[0]}\n${wallet.balance}`,
-            color: nodeColor,
-            shape: nodeShape,
-            size: nodeSize,
+            label: `${wallet.alias.split(' ')[0]}\n${balance.toFixed(2)} BTC`,
+            color: nodeStyle.color,
+            shape: nodeStyle.shape,
+            size: nodeStyle.size,
             font: {
-                size: 14,
+                size: nodeStyle.fontSize,
                 face: 'Montserrat',
-                color: '#000000',
-                strokeWidth: 3,
-                strokeColor: 'rgba(255,255,255,0.7)'
+                color: '#ffffff',
+                bold: true,
+                strokeWidth: 2,
+                strokeColor: 'rgba(0,0,0,0.8)'
             },
-            borderWidth: 2,
-            shadow: true,
-            title: `
-                    <div style="padding: 10px; font-family: Montserrat;">
-                        <strong>${wallet.alias}</strong><br>
-                        ${wallet.address}<br>
-                        Balance: ${wallet.balance}<br>
-                        Transactions: ${wallet.incomingTx + wallet.outgoingTx}<br>
-                        Risque: ${wallet.risk}<br>
-                        <a href="https://blockchain.com/explorer/addresses/btc/${wallet.address}" target="_blank" style="color: #1a237e;"><i class="fa-solid fa-magnifying-glass"></i> Explorer</a>
-                    </div>
-                    `
+            borderWidth: 3,
+            borderColor: nodeStyle.borderColor,
+            shadow: {
+                enabled: true,
+                color: 'rgba(0,0,0,0.5)',
+                size: 10,
+                x: 5,
+                y: 5
+            },
+            title: generateTooltipHTML(wallet, balanceUSD),
+            group: wallet.risk,
+            x: Math.cos((index / investigationData.wallets.length) * 2 * Math.PI) * 300,
+            y: Math.sin((index / investigationData.wallets.length) * 2 * Math.PI) * 300
         });
     });
 
-    // Créer les connexions (basées sur les patterns d'arnaque)
-    // Pour l'instant, connexions factices basées sur l'ordre d'ajout
-    for (let i = 0; i < investigationData.wallets.length - 1; i++) {
-        edges.push({
-            from: investigationData.wallets[i].address,
-            to: investigationData.wallets[i + 1].address,
-            arrows: 'to',
-            color: { color: '#666', opacity: 0.6 },
-            width: 2,
-            smooth: { enabled: true, type: 'continuous' },
-            label: '→',
-            font: { size: 12 }
-        });
-    }
+    // Créer les connexions basées sur les données réelles
+    investigationData.wallets.forEach((wallet, index) => {
+        wallet.connections.forEach(connectedAddress => {
+            const connectedWallet = investigationData.wallets.find(w => w.address === connectedAddress);
+            if (connectedWallet) {
+                const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
+                const connectedBalance = parseFloat(connectedWallet.balance.split(' ')[0]) || 0;
 
-    // Ajouter des connexions supplémentaires pour les gros wallets
-    investigationData.wallets.forEach(wallet => {
-        if (parseFloat(wallet.balance.split(' ')[0]) > 5) {
-            investigationData.wallets.forEach(otherWallet => {
-                if (wallet.address !== otherWallet.address &&
-                    parseFloat(otherWallet.balance.split(' ')[0]) < 1) {
-                    edges.push({
-                        from: otherWallet.address,
-                        to: wallet.address,
-                        arrows: 'to',
-                        color: { color: '#ff5722', opacity: 0.4 },
-                        width: 1,
-                        dashes: true
-                    });
-                }
+                edges.push({
+                    from: wallet.address,
+                    to: connectedAddress,
+                    arrows: 'to',
+                    color: {
+                        color: balance > connectedBalance ? '#ff5722' : '#4caf50',
+                        opacity: 0.7
+                    },
+                    width: Math.min(3, Math.log(balance + 1)),
+                    smooth: {
+                        enabled: true,
+                        type: 'continuous',
+                        roundness: 0.5
+                    },
+                    dashes: balance < 1,
+                    label: balance > 0 ? `${balance.toFixed(2)} BTC` : '',
+                    font: {
+                        size: 10,
+                        color: '#ffffff',
+                        strokeWidth: 2,
+                        strokeColor: '#000000'
+                    }
+                });
+            }
+        });
+    });
+
+    // Ajouter des connexions pour la lisibilité si pas de connexions réelles
+    if (edges.length === 0 && investigationData.wallets.length > 1) {
+        for (let i = 0; i < Math.min(3, investigationData.wallets.length - 1); i++) {
+            const balance = parseFloat(investigationData.wallets[i].balance.split(' ')[0]) || 0;
+            edges.push({
+                from: investigationData.wallets[i].address,
+                to: investigationData.wallets[i + 1].address,
+                arrows: 'to',
+                color: { color: '#666', opacity: 0.5 },
+                width: 1,
+                dashes: true,
+                label: balance > 0 ? '→' : ''
             });
         }
-    });
+    }
 
     const data = { nodes, edges };
     const options = {
@@ -292,6 +453,15 @@ function renderNetwork() {
             shapeProperties: {
                 useBorderWithImage: true,
                 interpolation: false
+            },
+            scaling: {
+                min: 20,
+                max: 50,
+                label: {
+                    enabled: true,
+                    min: 12,
+                    max: 16
+                }
             }
         },
         edges: {
@@ -306,18 +476,22 @@ function renderNetwork() {
                     scaleFactor: 0.8,
                     type: 'arrow'
                 }
+            },
+            scaling: {
+                min: 1,
+                max: 5
             }
         },
         physics: {
             enabled: physicsEnabled,
             solver: 'forceAtlas2Based',
             forceAtlas2Based: {
-                gravitationalConstant: -100,
-                centralGravity: 0.01,
-                springLength: 150,
-                springConstant: 0.08,
-                damping: 0.4,
-                avoidOverlap: 1
+                gravitationalConstant: -150,
+                centralGravity: 0.05,
+                springLength: 200,
+                springConstant: 0.06,
+                damping: 0.5,
+                avoidOverlap: 1.2
             },
             stabilization: {
                 enabled: true,
@@ -327,7 +501,8 @@ function renderNetwork() {
         },
         interaction: {
             hover: true,
-            tooltipDelay: 200,
+            hoverConnectedEdges: true,
+            tooltipDelay: 100,
             navigationButtons: true,
             keyboard: {
                 enabled: true,
@@ -336,6 +511,20 @@ function renderNetwork() {
         },
         layout: {
             improvedLayout: true
+        },
+        groups: {
+            high: {
+                color: { background: '#d32f2f', border: '#b71c1c' },
+                shape: 'star'
+            },
+            medium: {
+                color: { background: '#ff9800', border: '#f57c00' },
+                shape: 'diamond'
+            },
+            low: {
+                color: { background: '#4caf50', border: '#388e3c' },
+                shape: 'dot'
+            }
         }
     };
 
@@ -364,24 +553,200 @@ function renderNetwork() {
 
     // Zoom optimal au démarrage
     setTimeout(() => {
-        network.fit({ animation: { duration: 1000, easingFunction: 'easeInOutQuad' } });
+        network.fit({ animation: { duration: 1500, easingFunction: 'easeInOutQuad' } });
     }, 500);
+}
+
+// FONCTIONS UTILITAIRES POUR LE STYLE JSONCRACK
+function getNodeStyle(wallet, balance) {
+    if (wallet.address === "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp") {
+        return {
+            color: { background: '#283593', border: '#1a237e' },
+            borderColor: '#5c6bc0',
+            shape: 'diamond',
+            size: 45,
+            fontSize: 14
+        };
+    }
+
+    if (balance > 10) {
+        return {
+            color: { background: '#d32f2f', border: '#b71c1c' },
+            borderColor: '#ef5350',
+            shape: 'star',
+            size: 50,
+            fontSize: 14
+        };
+    } else if (balance > 1) {
+        return {
+            color: { background: '#ff9800', border: '#f57c00' },
+            borderColor: '#ffb74d',
+            shape: 'diamond',
+            size: 40,
+            fontSize: 13
+        };
+    } else if (balance > 0.1) {
+        return {
+            color: { background: '#4caf50', border: '#388e3c' },
+            borderColor: '#81c784',
+            shape: 'dot',
+            size: 30,
+            fontSize: 12
+        };
+    } else {
+        return {
+            color: { background: '#757575', border: '#616161' },
+            borderColor: '#bdbdbd',
+            shape: 'dot',
+            size: 25,
+            fontSize: 11
+        };
+    }
+}
+
+function generateTooltipHTML(wallet, balanceUSD) {
+    const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
+    const totalTx = wallet.incomingTx + wallet.outgoingTx;
+    return `
+                ${wallet.alias}
+                ${wallet.address}
+                Balance: ${wallet.balance}
+                Valeur USD: $${balanceUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                Transactions:${totalTx} (↓${wallet.incomingTx} ↑${wallet.outgoingTx})
+                ${wallet.risk.toUpperCase()}
+                Connexions: ${wallet.connections.length}
+    `;
+    /*  
+      return `
+          <div style="
+              background: #1e2530;
+              border: 2px solid #283593;
+              border-radius: 8px;
+              padding: 15px;
+              color: #e1e7ef;
+              font-family: 'Montserrat', sans-serif;
+              max-width: 350px;
+              box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+          ">
+              <div style="
+                  background: linear-gradient(135deg, #1a237e, #283593);
+                  color: white;
+                  padding: 10px 15px;
+                  border-radius: 6px;
+                  margin: -15px -15px 15px -15px;
+                  font-weight: 700;
+                  font-size: 1.1rem;
+              ">
+                  ${wallet.alias}
+              </div>
+              
+              <div style="margin-bottom: 10px;">
+                  <code style="
+                      background: rgba(0,0,0,0.3);
+                      padding: 8px;
+                      border-radius: 4px;
+                      font-size: 0.85rem;
+                      font-family: 'Roboto Mono', monospace;
+                      word-break: break-all;
+                      display: block;
+                      border-left: 3px solid #283593;
+                  ">
+                      ${wallet.address}
+                  </code>
+              </div>
+              
+              <div style="
+                  display: grid;
+                  gap: 8px;
+                  font-size: 0.9rem;
+                  margin-bottom: 15px;
+              ">
+                  <div><strong>Balance:</strong> ${wallet.balance}</div>
+                  <div><strong>Valeur USD:</strong> $${balanceUSD.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+                  <div><strong>Transactions:</strong> ${totalTx} (↓${wallet.incomingTx} ↑${wallet.outgoingTx})</div>
+                  <div><strong>Risque:</strong> <span style="
+                      padding: 2px 8px;
+                      border-radius: 12px;
+                      background: ${wallet.risk === 'high' ? 'rgba(211, 47, 47, 0.2)' : wallet.risk === 'medium' ? 'rgba(245, 124, 0, 0.2)' : 'rgba(56, 142, 60, 0.2)'};
+                      color: ${wallet.risk === 'high' ? '#ff6b6b' : wallet.risk === 'medium' ? '#ffa726' : '#66bb6a'};
+                      font-weight: 700;
+                      font-size: 0.8rem;
+                  ">${wallet.risk.toUpperCase()}</span></div>
+                  <div><strong>Connexions:</strong> ${wallet.connections.length}</div>
+                  <div><strong>Ajouté:</strong> ${new Date(wallet.addedDate).toLocaleDateString('fr-FR')}</div>
+              </div>
+              
+              <div style="
+                  display: flex;
+                  gap: 8px;
+                  flex-wrap: wrap;
+              ">
+                  <a href="https://blockchain.com/explorer/addresses/btc/${wallet.address}" 
+                     target="_blank" 
+                     style="
+                          background: #1a237e;
+                          color: white;
+                          padding: 6px 12px;
+                          border-radius: 6px;
+                          text-decoration: none;
+                          font-size: 0.8rem;
+                          font-weight: 600;
+                          display: inline-flex;
+                          align-items: center;
+                          gap: 5px;
+                          transition: all 0.2s;
+                     "
+                     onmouseover="this.style.background='#283593'"
+                     onmouseout="this.style.background='#1a237e'">
+                      <i class="fa-solid fa-magnifying-glass"></i> Blockchain.com
+                  </a>
+                  <a href="https://blockstream.info/address/${wallet.address}" 
+                     target="_blank" 
+                     style="
+                          background: #0288d1;
+                          color: white;
+                          padding: 6px 12px;
+                          border-radius: 6px;
+                          text-decoration: none;
+                          font-size: 0.8rem;
+                          font-weight: 600;
+                          display: inline-flex;
+                          align-items: center;
+                          gap: 5px;
+                          transition: all 0.2s;
+                     "
+                     onmouseover="this.style.background='#039be5'"
+                     onmouseout="this.style.background='#0288d1'">
+                      <i class="fa-solid fa-chart-line"></i> Blockstream
+                  </a>
+              </div>
+          </div>
+      `;
+      */
 }
 
 // FONCTIONS UTILITAIRES
 function updateStats() {
-    const totalBTC = investigationData.wallets.reduce((sum, wallet) => {
-        const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
-        return sum + balance;
-    }, 0);
+    let totalBTC = 0;
+    let totalUSD = 0;
+    let criticalWallets = 0;
+    let totalConnections = 0;
 
-    const criticalWallets = investigationData.wallets.filter(wallet =>
-        parseFloat(wallet.balance.split(' ')[0]) > 10
-    ).length;
+    investigationData.wallets.forEach(wallet => {
+        const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
+        totalBTC += balance;
+        totalUSD += balance * btcPrice;
+
+        if (balance > 10) criticalWallets++;
+        totalConnections += wallet.connections.length;
+    });
+
+    // Utiliser les connexions réelles ou calculées
+    const displayedConnections = totalConnections > 0 ? totalConnections : Math.max(0, investigationData.wallets.length - 1);
 
     document.getElementById('totalWallets').textContent = investigationData.wallets.length;
-    document.getElementById('totalConnections').textContent = Math.max(0, investigationData.wallets.length - 1);
-    document.getElementById('totalBTC').textContent = totalBTC.toFixed(2) + ' BTC';
+    document.getElementById('totalConnections').textContent = displayedConnections;
+    document.getElementById('totalBTC').textContent = `${totalBTC.toFixed(2)} BTC\n$${totalUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     document.getElementById('criticalWallets').textContent = criticalWallets;
 }
 
@@ -395,6 +760,7 @@ function togglePhysics() {
     if (network) {
         network.setOptions({ physics: { enabled: physicsEnabled } });
     }
+    alert(`Physique ${physicsEnabled ? 'activée' : 'désactivée'}`);
 }
 
 function exportNetworkImage() {
@@ -485,7 +851,9 @@ function exportFullDossier() {
         ...investigationData,
         exportDate: new Date().toISOString(),
         totalWallets: investigationData.wallets.length,
-        totalBTC: investigationData.wallets.reduce((sum, w) => sum + (parseFloat(w.balance.split(' ')[0]) || 0), 0)
+        totalBTC: investigationData.wallets.reduce((sum, w) => sum + (parseFloat(w.balance.split(' ')[0]) || 0), 0),
+        totalUSD: investigationData.wallets.reduce((sum, w) => sum + (parseFloat(w.balance.split(' ')[0]) || 0) * btcPrice, 0),
+        btcPrice: btcPrice
     };
 
     const dataStr = JSON.stringify(dossier, null, 2);
@@ -524,4 +892,8 @@ function searchWallets() {
     });
 }
 
-// SIMULATION
+// Nettoyage des intervalles
+window.addEventListener('beforeunload', function () {
+    if (priceUpdateInterval) clearInterval(priceUpdateInterval);
+    if (walletDataInterval) clearInterval(walletDataInterval);
+});

@@ -34,6 +34,40 @@ const knownEntities = {
     '1CounterpartyXXXXXXXXXXXXXXXUWLpVr': { name: 'Counterparty', type: 'service', risk: 'low' }
 };
 
+// Nouvelle fonctionnalité KYC Check
+async function checkKYCForWallet(address) {
+    const response = await fetch(`/api/kyc-check?address=${address}`);
+    const data = await response.json();
+    
+    return {
+        isKYC: data.isKycVerified,
+        platform: data.platform,
+        riskScore: data.riskScore,
+        tags: data.tags
+    };
+}
+
+// Interface utilisateur
+function displayKYCInfo(wallet) {
+    const kycInfo = document.createElement('div');
+    kycInfo.className = 'kyc-badge';
+    
+    if (wallet.kycStatus === 'KYC_IDENTIFIED') {
+        kycInfo.innerHTML = `
+            <span class="kyc-verified">✅ KYC Verified</span>
+            <small>${wallet.platform}</small>
+        `;
+        kycInfo.style.background = '#4CAF50';
+    } else if (wallet.kycStatus === 'NO_KYC_DETECTED') {
+        kycInfo.innerHTML = `
+            <span class="kyc-unknown">⚠️ No KYC Detected</span>
+            <small>High risk</small>
+        `;
+        kycInfo.style.background = '#FF9800';
+    }
+    
+    return kycInfo;
+}
 // Détection intelligente des patterns KYC
 const exchangePatterns = {
     binance: /^(bc1q|3J|1A1)/,
