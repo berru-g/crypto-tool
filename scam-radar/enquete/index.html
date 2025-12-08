@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
-
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : 
+       Description : 
+       Date : 20/11/2025
+       Version : 1.2
+    ============================================
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,18 +68,8 @@
 
             <!-- PANEL DROITE - CARTE -->
             <div class="map-panel">
-                <!--<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h2 style="color: var(--color-primary);"><i class="fa-solid fa-diagram-project"></i> CARTE DES
-                        CONNEXIONS</h2>
-                    <div class="map-controls">
-                        <button class="btn btn-primary" onclick="refreshNetwork()"><i
-                                class="fa-solid fa-arrows-rotate"></i> Actualiser</button>
-                        <button class="btn btn-warning" onclick="togglePhysics()"><i class="fa-solid fa-gear"></i>
-                            Physique ON/OFF</button>
-                        <button class="btn btn-success" onclick="exportNetworkImage()"><i class="fa-solid fa-image"></i>
-                            Exporter image</button>
-                    </div>
-                </div>-->
+
+                <div id="network"></div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h2 style="color: var(--color-primary);">
@@ -101,8 +99,6 @@
                     </div>
                 </div>
 
-                <div id="network"></div>
-
                 <div class="stats-display">
                     <div class="stat-item">
                         <div class="stat-value" id="totalWallets">0</div>
@@ -124,19 +120,19 @@
 
                 <div class="legend">
                     <div class="legend-item">
-                        <div class="legend-color" style="background: #ff0000;"></div>
+                        <div class="legend-color" style="background: #ee6055;"></div>
                         <span>Critique (>10 BTC)</span>
                     </div>
                     <div class="legend-item">
-                        <div class="legend-color" style="background: #ff5722;"></div>
+                        <div class="legend-color" style="background: #ffd43b;"></div>
                         <span>Élevé (>1 BTC)</span>
                     </div>
                     <div class="legend-item">
-                        <div class="legend-color" style="background: #ff9800;"></div>
+                        <div class="legend-color" style="background: #74c0fc;"></div>
                         <span>Moyen</span>
                     </div>
                     <div class="legend-item">
-                        <div class="legend-color" style="background: #4caf50;"></div>
+                        <div class="legend-color" style="background: #63e6be;"></div>
                         <span>Faible</span>
                     </div>
                     <div class="legend-item">
@@ -165,7 +161,7 @@
         <footer>
             <p>Dossier d'enquête Bitcoin • Mis à jour automatiquement</p>
             <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
-                ⚠️ API
+                via API <span style="font-weight: bold;">Blockstream.info</span> • <span style="font-weight: bold;">Blockchain.com</span> • <span style="font-weight: bold;">Mempool.space</span>   
             </p>
         </footer>
     </div>

@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!-- 
+    ============================================
+       Developed by : https://github.com/berru-g/
+       Project : Bitcoin Tracer
+       Description : Bitcoin Forensic Toolkit
+       Date : 20/11/2025
+       Version : 1.2
+    ============================================
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,19 +18,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vis-network/standalone/umd/vis-network.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>Bitcoin Forensic Toolkit</h1>
-            <p>Suivez les mouvements d'un wallet à un autre simplement et remontez la piste. <a href="enquete/index.html">Créez vos diagrammes</a>.</p>
-            
+            <p>Suivez les mouvements d'un wallet à un autre simplement et remontez la piste. <a
+                    href="enquete/index.html">Créez vos diagrammes</a>.</p>
+
             <div class="controls">
                 <div class="search-box">
-                    <input type="text" id="btcAddress" placeholder="Entrez une adresse Bitcoin pour investigation" value="3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy">
-                    <button onclick="startDeepAnalysis()"><i class="fas fa-search fa-icon"></i>Investigation Profonde</button>
+                    <input type="text" id="btcAddress" placeholder="Entrez une adresse Bitcoin pour investigation"
+                        value="3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy">
+                    <button onclick="startDeepAnalysis()"><i class="fas fa-search fa-icon"></i>Investigation
+                        Profonde</button>
                 </div>
-                <button class="control-btn" onclick="expandNetwork()"><i class="fas fa-expand fa-icon"></i>Étendre l'Analyse</button>
-                <button class="control-btn" onclick="findKYCPaths()"><i class="fas fa-bullseye fa-icon"></i>Chercher KYC</button>
+                <button class="control-btn" onclick="expandNetwork()"><i class="fas fa-expand fa-icon"></i>Étendre
+                    l'Analyse</button>
+                <button class="control-btn" onclick="findKYCPaths()"><i class="fas fa-bullseye fa-icon"></i>Chercher
+                    KYC</button>
             </div>
         </div>
 
@@ -47,18 +62,24 @@
         <div class="dashboard">
             <div class="network-container">
                 <div class="network-controls">
-                    <button class="action-btn" onclick="exportData()"><i class="fas fa-download fa-icon"></i>Export</button>
-                    <button class="action-btn" onclick="clearNetwork()"><i class="fas fa-trash fa-icon"></i>Reset</button>
+                    <button class="action-btn" onclick="exportData()"><i
+                            class="fas fa-download fa-icon"></i>Export</button>
+                    <button class="action-btn" onclick="clearNetwork()"><i
+                            class="fas fa-trash fa-icon"></i>Reset</button>
                 </div>
                 <div id="network"></div>
             </div>
 
             <div class="info-panel">
                 <div class="tabs">
-                    <div class="tab active" onclick="switchTab('transactions')"><i class="fas fa-exchange-alt fa-icon"></i>Transactions</div>
-                    <div class="tab" onclick="switchTab('addresses')"><i class="fas fa-address-book fa-icon"></i>Adresses</div>
-                    <div class="tab" onclick="switchTab('details')"><i class="fas fa-info-circle fa-icon"></i>Détails</div>
-                    <div class="tab" onclick="switchTab('investigation')"><i class="fas fa-search-plus fa-icon"></i>Investigation</div>
+                    <div class="tab active" onclick="switchTab('transactions')"><i
+                            class="fas fa-exchange-alt fa-icon"></i>Transactions</div>
+                    <div class="tab" onclick="switchTab('addresses')"><i
+                            class="fas fa-address-book fa-icon"></i>Adresses</div>
+                    <div class="tab" onclick="switchTab('details')"><i class="fas fa-info-circle fa-icon"></i>Détails
+                    </div>
+                    <div class="tab" onclick="switchTab('investigation')"><i
+                            class="fas fa-search-plus fa-icon"></i>Investigation</div>
                 </div>
 
                 <div class="tab-content active" id="transactions-tab">
@@ -90,10 +111,18 @@
                 </div>
             </div>
         </div>
+        <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
+            via API <span style="font-weight: bold;">Blockstream.info</span> • <span
+                style="font-weight: bold;">Blockchain.com</span> • <span style="font-weight: bold;">Mempool.space</span>
+        </p>
+
+        <br>
     </div>
+
+
     <img src="https://gael-berru.com/smart_phpixel/pixel.php?source=scam-radar" width="1" height="1"
         style="display:none;">
-    <!--<div id="navbar-container"></div>-->
+    <div style="height:40px;"></div>
     <nav class="navbar">
         <a href="../index.html"><span><i class="fa-solid fa-house"></i></span>home</a>
         <a href="../index.html#tradingview"><span><i class="fa-solid fa-chart-line"></i></span>chart</a>
@@ -105,4 +134,5 @@
     <script src="script.js"></script>
     <script src="V1.js"></script>
 </body>
+
 </html>

@@ -20,7 +20,9 @@ const INITIAL_WALLETS = [
     "3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2",
     "bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz",
     "bc1qjjp862nj209kp4uhtnqtd3uxg7rxshqsudeq3n",
-    "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw"
+    "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw",
+    "bc1qu5e06feh08754jm3zappfkgut8cfqcl7th22nn",
+    "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw"
 ];
 
 let network = null;
@@ -176,7 +178,7 @@ function renderWalletList() {
                     <div>
                         <strong>Balance:</strong><br>
                         ${wallet.balance}<br>
-                        <span style="font-size: 0.85rem; color: #4caf50;">
+                        <span style="font-size: 0.85rem; color: #63e6be;">
                             $${balanceUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
                     </div>
@@ -242,7 +244,7 @@ function updateBTCPriceWidget() {
         document.querySelector('.header').appendChild(widget);
     }
 
-    const changeColor = btcPriceChange >= 0 ? '#4caf50' : '#f44336';
+    const changeColor = btcPriceChange >= 0 ? '#63e6be' : '#f44336';
     const changeIcon = btcPriceChange >= 0 ? '↗' : '↘';
 
     widget.innerHTML = `
@@ -411,8 +413,8 @@ function renderNetwork() {
                     to: connectedAddress,
                     arrows: 'to',
                     color: {
-                        color: balance > connectedBalance ? '#ff5722' : '#4caf50',
-                        opacity: 0.7
+                        color: balance > connectedBalance ? '#ee6055' : '#63e6be',
+                        opacity: 1
                     },
                     width: Math.min(3, Math.log(balance + 1)),
                     smooth: {
@@ -441,7 +443,7 @@ function renderNetwork() {
                 from: investigationData.wallets[i].address,
                 to: investigationData.wallets[i + 1].address,
                 arrows: 'to',
-                color: { color: '#666', opacity: 0.5 },
+                color: { color: '#8f4b8bff', opacity: 0.9 },
                 width: 1,
                 dashes: true,
                 label: balance > 0 ? '→' : ''
@@ -516,20 +518,37 @@ function renderNetwork() {
         },
         groups: {
             high: {
-                color: { background: '#d32f2f', border: '#b71c1c' },
-                shape: 'star'
+                color: { background: '#ee6055', border: '#ee6055' },
+                shape: 'box'
             },
             medium: {
-                color: { background: '#ff9800', border: '#f57c00' },
-                shape: 'diamond'
+                color: { background: '#ffd43b', border: '#ffd43b' },
+                shape: 'box'
             },
             low: {
-                color: { background: '#4caf50', border: '#388e3c' },
-                shape: 'dot'
+                color: { background: '#63e6be', border: '#63e6be' },
+                shape: 'box'
             }
         }
     };
-
+    /*
+        // Formes de base
+            'dot'           // Cercle simple
+            'circle'        // Cercle (identique à dot)
+            'diamond'       // Losange
+            'star'          // Étoile
+            'triangle'      // Triangle pointant vers le haut
+            'triangleDown'  // Triangle pointant vers le bas
+            'square'        // Carré
+            'box'           // Boîte (identique à square)
+            'rectangle'     // Rectangle
+            'ellipse'       // Ellipse
+            'database'      // Cylindre (base de données)
+            'image'         // Image personnalisée
+            'circularImage' // Image circulaire
+            'labeledImage'  // Image avec label
+            'shapeProperties' // Personnalisé
+            */
     if (network) {
         network.destroy();
     }
@@ -563,9 +582,9 @@ function renderNetwork() {
 function getNodeStyle(wallet, balance) {
     if (wallet.address === "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp") {
         return {
-            color: { background: '#283593', border: '#1a237e' },
+            color: { background: '#74c0fc', border: '#74c0fc' },
             borderColor: '#5c6bc0',
-            shape: 'diamond',
+            shape: 'box',
             size: 45,
             fontSize: 14
         };
@@ -573,25 +592,25 @@ function getNodeStyle(wallet, balance) {
 
     if (balance > 10) {
         return {
-            color: { background: '#d32f2f', border: '#b71c1c' },
+            color: { background: '#ee6055', border: '#ee6055' },
             borderColor: '#ef5350',
-            shape: 'star',
+            shape: 'box',
             size: 50,
             fontSize: 14
         };
     } else if (balance > 1) {
         return {
-            color: { background: '#ff9800', border: '#f57c00' },
+            color: { background: '#ffd43b', border: '#ffd43b' },
             borderColor: '#ffb74d',
-            shape: 'diamond',
+            shape: 'box',
             size: 40,
             fontSize: 13
         };
     } else if (balance > 0.1) {
         return {
-            color: { background: '#4caf50', border: '#388e3c' },
+            color: { background: '#63e6be', border: '#63e6be' },
             borderColor: '#81c784',
-            shape: 'dot',
+            shape: 'box',
             size: 30,
             fontSize: 12
         };
@@ -599,7 +618,7 @@ function getNodeStyle(wallet, balance) {
         return {
             color: { background: '#757575', border: '#616161' },
             borderColor: '#bdbdbd',
-            shape: 'dot',
+            shape: 'box',
             size: 25,
             fontSize: 11
         };
@@ -614,15 +633,12 @@ function generateTooltipHTML(wallet, balanceUSD) {
                 ${wallet.address}
                 Balance: ${wallet.balance}
                 Valeur USD: $${balanceUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                Transactions:${totalTx} (↓${wallet.incomingTx} ↑${wallet.outgoingTx})
-                ${wallet.risk.toUpperCase()}
-                Connexions: ${wallet.connections.length}
     `;
     /*  
       return `
           <div style="
               background: #1e2530;
-              border: 2px solid #283593;
+              border: 2px solid #74c0fc;
               border-radius: 8px;
               padding: 15px;
               color: #e1e7ef;
@@ -631,7 +647,7 @@ function generateTooltipHTML(wallet, balanceUSD) {
               box-shadow: 0 8px 25px rgba(0,0,0,0.5);
           ">
               <div style="
-                  background: linear-gradient(135deg, #1a237e, #283593);
+                  background: linear-gradient(135deg, #74c0fc, #74c0fc);
                   color: white;
                   padding: 10px 15px;
                   border-radius: 6px;
@@ -651,7 +667,7 @@ function generateTooltipHTML(wallet, balanceUSD) {
                       font-family: 'Roboto Mono', monospace;
                       word-break: break-all;
                       display: block;
-                      border-left: 3px solid #283593;
+                      border-left: 3px solid #74c0fc;
                   ">
                       ${wallet.address}
                   </code>
@@ -686,7 +702,7 @@ function generateTooltipHTML(wallet, balanceUSD) {
                   <a href="https://blockchain.com/explorer/addresses/btc/${wallet.address}" 
                      target="_blank" 
                      style="
-                          background: #1a237e;
+                          background: #74c0fc;
                           color: white;
                           padding: 6px 12px;
                           border-radius: 6px;
@@ -698,8 +714,8 @@ function generateTooltipHTML(wallet, balanceUSD) {
                           gap: 5px;
                           transition: all 0.2s;
                      "
-                     onmouseover="this.style.background='#283593'"
-                     onmouseout="this.style.background='#1a237e'">
+                     onmouseover="this.style.background='#74c0fc'"
+                     onmouseout="this.style.background='#74c0fc'">
                       <i class="fa-solid fa-magnifying-glass"></i> Blockchain.com
                   </a>
                   <a href="https://blockstream.info/address/${wallet.address}" 
