@@ -2,11 +2,13 @@
 
 Il s'agit d'une arnaque basée sur une promesse d'investissement, où la victime est incitée à envoyer des fonds via une URL frauduleuse.
 
+[Suivre l'enquete en temps réel](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
+
 ## Processus d'investigation
 
 1.  **Identifier** tous les wallets reliés par des transactions entrantes ou sortantes.
 2.  **Cartographier** les flux financiers via un diagramme.
-3.  **Rechercher** un wallet avec un KYC pour identifier l'arnaqueur.
+3.  **Rechercher** un wallet avec un KYC pour identifier l'id de l'arnaqueur.
 
 ## Outils utilisés
 
@@ -50,7 +52,7 @@ L'achat de Bitcoins en euros s'effectue via [Ramp Network](https://rampnetwork.c
 L'analyse commence depuis l'adresse cible : `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp`.
 
 *   **Résultat initial** : 3 wallets sont reliés via des transactions entrantes ou sortantes.
-    *   [Voir le détail (JSON)](./bitcoin-investigation-step1.json)
+    *   [Voir le détail (JSON)](../json/bitcoin-investigation-step1.json)
 
 > **Note importante** : Le wallet d'origine n'a reçu que le montant de l'arnaque. Ce montant a ensuite été divisé et envoyé vers un autre wallet (`bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj`). On peut en déduire qu'un wallet est créé pour chaque arnaque et n'est utilisé qu'une seule fois (*one shot use*).
 
@@ -62,12 +64,12 @@ Liste des wallets identifiés dans la chaîne de l'arnaque, par ordre de propaga
 2.  `bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj`
 3.  `bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej`
 4.  `bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc` → **27 BTC** ; 26 wallets reliés.
-    *   [Voir le détail (JSON)](./bitcoin-investigation-step4.json)
+    *   [Voir le détail (JSON)](../json/bitcoin-investigation-step4.json)
 5.  `bc1qy3896n4zy8jh62scnag6482e4khep0xsr3hn8w`
 6.  `1B5hVExEx5DjAMueQGESP2b6jzBu5UfTkP`
 7.  `3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2`
 8.  `bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz` → **267 BTC** (≈ 21M€) ; 50+ wallets reliés.
-    *   [Voir le détail (JSON)](./bitcoin-investigation-step8.json)
+    *   [Voir le détail (JSON)](../json/bitcoin-investigation-step8.json)
 
 ### Visualisation des wallets clés
 
@@ -77,7 +79,12 @@ Liste des wallets identifiés dans la chaîne de l'arnaque, par ordre de propaga
 ![Détails du Wallet 8](./Wallet_8.png)
 *Wallet n°8 (`bc1q9wvygkq...`)*
 
+### Schéma du Mixer 
+![Détails du Wallet 8](./carte-wallets-2025-12-11.png)
+*Les wallet gris sont des one-shot (utilisez pour une arnaque) Les montants sont ensuite concentré sur les wallets intérmediaire vert, puis vers les rouges (wallet KYC ?)*
+
 ---
+
 
 ## Objectif actuel : Recherche d'un KYC (03/12/2025)
 

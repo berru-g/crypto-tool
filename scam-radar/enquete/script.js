@@ -413,14 +413,14 @@ function renderNetwork() {
                     to: connectedAddress,
                     arrows: 'to',
                     color: {
-                        color: balance > connectedBalance ? '#ee6055' : '#63e6be',
+                        color: balance > connectedBalance ? '#4b0e09ff' : '#0d4b38ff',
                         opacity: 1
                     },
                     width: Math.min(3, Math.log(balance + 1)),
                     smooth: {
                         enabled: true,
                         type: 'continuous',
-                        roundness: 0.5
+                        roundness: 1
                     },
                     dashes: balance < 1,
                     label: balance > 0 ? `${balance.toFixed(2)} BTC` : '',
@@ -472,7 +472,7 @@ function renderNetwork() {
             smooth: {
                 enabled: true,
                 type: 'continuous',
-                roundness: 0.5
+                roundness: 1
             },
             arrows: {
                 to: {
