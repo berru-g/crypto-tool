@@ -241,7 +241,7 @@ function updateBTCPriceWidget() {
         widget = document.createElement('div');
         widget.id = 'btcPriceWidget';
         widget.className = 'btc-price';
-        document.querySelector('.header').appendChild(widget);
+        document.querySelector('.map-controls').appendChild(widget);
     }
 
     const changeColor = btcPriceChange >= 0 ? '#63e6be' : '#f44336';

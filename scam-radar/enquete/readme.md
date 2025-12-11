@@ -1,4 +1,8 @@
-# Enquête E*** : Analyse d'une arnaque à l'investissement
+# Analyse d'une arnaque à l'investissement
+
+Tout commence lorsque le fils de ma patronne me dit s'être fait arnaqué ( la réalité c'est qu'on lui à promis un retour sur investissemnt et ce c** à envoyer 200€).
+
+Les faits ;
 
 Il s'agit d'une arnaque basée sur une promesse d'investissement, où la victime est incitée à envoyer des fonds via une URL frauduleuse.
 
@@ -32,8 +36,8 @@ L'arnaqueur a fourni l'URL suivante :
 
 ### Captures d'écran fournies par la victime
 
-![Premier élément](premier_element.png)
-![Conversation avec l'arnaqueur](arnaqueur.png)
+![Premier élément](./img/premier_element.png)
+![Conversation avec l'arnaqueur](./img/arnaqueur.png)
 
 ### Première déduction
 
@@ -41,7 +45,7 @@ La clé API sert probablement à automatiser le transfert des fonds d'un wallet 
 
 L'achat de Bitcoins en euros s'effectue via [Ramp Network](https://rampnetwork.com/), une plateforme légitime qui simplifie l'achat de cryptomonnaies par carte bancaire et leur envoi vers un wallet externe. L'arnaqueur a détourné ce processus en demandant à la victime d'utiliser la plateforme pour acheter des BTC et les envoyer sur son wallet.
 
-![Interface Ramp Network](ramp.png)
+![Interface Ramp Network](./img/ramp.png)
 
 ---
 
@@ -73,14 +77,14 @@ Liste des wallets identifiés dans la chaîne de l'arnaque, par ordre de propaga
 
 ### Visualisation des wallets clés
 
-![Détails du Wallet 4](./Wallet_4.png)
+![Détails du Wallet 4](./img/Wallet_4.png)
 *Wallet n°4 (`bc1q202lj4...`)*
 
-![Détails du Wallet 8](./Wallet_8.png)
+![Détails du Wallet 8](./img/Wallet_8.png)
 *Wallet n°8 (`bc1q9wvygkq...`)*
 
 ### Schéma du Mixer 
-![Détails du Wallet 8](./carte-wallets-2025-12-11.png)
+![Détails du Wallet 8](./img/carte-wallets-2025-12-11.png)
 *Les wallet gris sont des one-shot (utilisez pour une arnaque) Les montants sont ensuite concentré sur les wallets intérmediaire vert, puis vers les rouges (wallet KYC ?)*
 
 ---

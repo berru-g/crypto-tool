@@ -1,0 +1,173 @@
+{
+  "metadata": {
+    "caseName": "Arnaque Ramp Network",
+    "startDate": "2025-12-11",
+    "lastUpdated": "2025-12-11T17:22:29.431Z"
+  },
+  "wallets": [
+    {
+      "address": "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp",
+      "alias": "🎯 Wallet source (arnaque)",
+      "addedDate": "2025-12-11T08:44:46.257Z",
+      "risk": "low",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.00000000 BTC",
+      "incomingTx": 4,
+      "outgoingTx": 0,
+      "connections": [
+        "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+        "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw"
+      ]
+    },
+    {
+      "address": "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.277Z",
+      "risk": "medium",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.16814934 BTC",
+      "incomingTx": 1928,
+      "outgoingTx": 2,
+      "connections": [
+        "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw"
+      ]
+    },
+    {
+      "address": "bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.278Z",
+      "risk": "medium",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.30781330 BTC",
+      "incomingTx": 59,
+      "outgoingTx": 0,
+      "connections": [
+        "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj"
+      ]
+    },
+    {
+      "address": "bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc",
+      "alias": "💰 WALLET PRINCIPAL (27 BTC)",
+      "addedDate": "2025-12-11T08:44:46.279Z",
+      "risk": "low",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.00000000 BTC",
+      "incomingTx": 70,
+      "outgoingTx": 0,
+      "connections": [
+        "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw",
+        "bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej"
+      ]
+    },
+    {
+      "address": "bc1qy3896n4zy8jh62scnag6482e4khep0xsr3hn8w",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.280Z",
+      "risk": "low",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.00000000 BTC",
+      "incomingTx": 2,
+      "outgoingTx": 0,
+      "connections": [
+        "1B5hVExEx5DjAMueQGESP2b6jzBu5UfTkP",
+        "bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc"
+      ]
+    },
+    {
+      "address": "1B5hVExEx5DjAMueQGESP2b6jzBu5UfTkP",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.281Z",
+      "risk": "low",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.00000000 BTC",
+      "incomingTx": 2,
+      "outgoingTx": 0,
+      "connections": [
+        "3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2",
+        "bc1qy3896n4zy8jh62scnag6482e4khep0xsr3hn8w"
+      ]
+    },
+    {
+      "address": "3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.283Z",
+      "risk": "low",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.00000000 BTC",
+      "incomingTx": 660,
+      "outgoingTx": 0,
+      "connections": [
+        "bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz"
+      ]
+    },
+    {
+      "address": "bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.284Z",
+      "risk": "high",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "209.69993926 BTC",
+      "incomingTx": 104677,
+      "outgoingTx": 2,
+      "connections": []
+    },
+    {
+      "address": "bc1qjjp862nj209kp4uhtnqtd3uxg7rxshqsudeq3n",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.285Z",
+      "risk": "low",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.00000000 BTC",
+      "incomingTx": 2,
+      "outgoingTx": 0,
+      "connections": [
+        "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw",
+        "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj"
+      ]
+    },
+    {
+      "address": "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.288Z",
+      "risk": "high",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "165.04704152 BTC",
+      "incomingTx": 952261,
+      "outgoingTx": 39,
+      "connections": []
+    },
+    {
+      "address": "bc1qu5e06feh08754jm3zappfkgut8cfqcl7th22nn",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.289Z",
+      "risk": "low",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.00000000 BTC",
+      "incomingTx": 8,
+      "outgoingTx": 0,
+      "connections": [
+        "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj",
+        "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw"
+      ]
+    },
+    {
+      "address": "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw",
+      "alias": "🔄 Wallet intermédiaire",
+      "addedDate": "2025-12-11T08:44:46.292Z",
+      "risk": "medium",
+      "notes": "Wallet identifié dans l'enquête initiale",
+      "balance": "0.49740405 BTC",
+      "incomingTx": 41042,
+      "outgoingTx": 16,
+      "connections": [
+        "bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj"
+      ]
+    }
+  ],
+  "notes": "",
+  "exportDate": "2025-12-11T17:27:28.869Z",
+  "totalWallets": 12,
+  "totalBTC": 375.72034747,
+  "totalUSD": 33758848.94052697,
+  "btcPrice": 89851
+}

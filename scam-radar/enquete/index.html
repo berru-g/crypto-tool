@@ -19,16 +19,16 @@
     <script src="https://cdn.jsdelivr.net/npm/vis-network/standalone/umd/vis-network.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./script/style.css">
 </head>
 
 <body>
     <div class="container">
-        <div class="header">
+        <!--<div class="header">
             <h1>DOSSIER ENQUÊTE E***</h1>
             <div class="subtitle">Cartographie des wallets avec les plus grosses transaction sortante depuis l'adress
                 source</div>
-        </div>
+        </div>-->
 
         <div class="main-content">
             <!-- PANEL GAUCHE - LISTE DES WALLETS -->
@@ -70,11 +70,10 @@
             <div class="map-panel">
 
                 <div id="network"></div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            
+                <div style="display: absolute; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h2 style="color: var(--color-primary);">
-                        <i class="fa-solid fa-diagram-project"></i>
-                        RÉSEAU DES TRANSACTIONS
+                        
                         <span style="font-size: 0.8rem; color: var(--color-text-secondary); margin-left: 10px;">
                             <a href="https://github.com/berru-g/crypto-tool/blob/main/scam-radar/enquete/readme.md" style="color: var(--color-text-secondary); text-decoration: underline;">Read me</a> 
                         </span>
@@ -86,18 +85,18 @@
                     <div class="map-controls">
                         <button class="btn btn-primary" onclick="fetchAllWalletData()"
                             title="Forcer la mise à jour des données">
-                            <i class="fa-solid fa-arrows-rotate"></i> Actualiser
+                            <i class="fa-solid fa-arrows-rotate"></i>
                         </button>
                         <button class="btn btn-warning" onclick="togglePhysics()"
                             title="Activer/désactiver la physique">
-                            <i class="fa-solid fa-gear"></i> Physique
+                            <i class="fa-solid fa-gear"></i>
                         </button>
                         <button class="btn btn-success" onclick="exportNetworkImage()"
                             title="Exporter l'image du réseau">
-                            <i class="fa-solid fa-camera"></i> Capture
+                            <i class="fa-solid fa-camera"></i>
                         </button>
                         <button class="btn btn-info" onclick="network.fit()" title="Recentrer la vue">
-                            <i class="fa-solid fa-maximize"></i> Zoom auto
+                            <i class="fa-solid fa-maximize"></i>
                         </button>
                     </div>
                 </div>
@@ -169,7 +168,7 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="./script/script.js"></script>
 </body>
 
 </html>
