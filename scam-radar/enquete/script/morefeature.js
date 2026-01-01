@@ -237,7 +237,7 @@ function showExtendedSearchModal() {
                             border-radius: 8px;
                             background: rgba(255,255,255,0.1);
                             border: 1px solid #74c0fc;
-                            color: white;
+                            color: grey;
                             font-size: 1rem;
                             margin-bottom: 20px;
                         ">
@@ -248,6 +248,7 @@ function showExtendedSearchModal() {
                     <div id="extendedAnalysisResults" style="
                         background: rgba(0,0,0,0.3);
                         border-radius: 10px;
+                        color: white;
                         padding: 20px;
                         margin-bottom: 20px;
                         min-height: 200px;
