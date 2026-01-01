@@ -294,7 +294,9 @@ body {
     padding: 20px;
     border-radius: var(--border-radius);
 }
-
+.map-controls button {
+    border-radius: 12px;
+}
 .stats-display {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

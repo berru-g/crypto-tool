@@ -20,7 +20,7 @@ Il s'agit d'une arnaque basée sur une promesse d'investissement, où la victime
 *   [blockstream.info](https://blockstream.info/)
 *   [Mempool.space](https://mempool.space/)
 *   [Outil Scam Radar (fait maison)](https://crypto-free-tools.netlify.app/scam-radar/)
-*   [Page d'enquête Scam Radar](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
+*   [Outil d'enquête Scam Radar V2](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
 
 ---
 
@@ -62,7 +62,7 @@ L'analyse commence depuis l'adresse cible : `bc1qujeavxy7wu4tdr45rfph590h4u6ayt4
 
 ### Suivi des flux principaux
 
-Liste des wallets identifiés dans la chaîne de l'arnaque, par ordre de propagation :
+Liste des wallets identifiés dans la chaîne de l'arnaque, par volume de propagation :
 
 1.  `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp` (adresse source)
 2.  `bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj`
@@ -94,9 +94,30 @@ Liste des wallets identifiés dans la chaîne de l'arnaque, par ordre de propaga
 
 L'objectif est d'identifier un wallet ayant subi une procédure KYC (Know Your Customer) parmi les 8 wallets principaux ou dans la liste de tous les wallets reliés (soit environ 400 wallets) via des transactions entrantes ou sortantes.
 
+## Suite de l'enquête 01/01/26 :
+
+Je viens d'ajouter des feature à mon tool [ScamRadarV2](https://crypto-free-tools.netlify.app/scam-radar/enquete/), permettant  en autre d'export des données forensique et rapport complet en json
+[Acceder aux données completes](./rapport/donnees-forensiques-2026-01-01.json)
+
+![Exchange probable](./img/carte-wallets-2026-01-01.png)
+*Exchange probable (`bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz`)*
+
+    KYC potentiel en sortie de mixer, une adresse ce confirme :
+    - https://www.bitcoinwhoswho.com/address/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz
+    - https://www.blockchain.com/explorer/addresses/btc/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz
+
+
+
+
+
+
+
+
+
+
 ## Suite de l'equete auprés des autorités :
 
-*D'après l'ia ; *
+*D'après l'ia Deepseek; *
 
 Vos éléments ne suffisent pas, voici ce qu'il manque pour un dossier solide, structuré en deux catégories :
 

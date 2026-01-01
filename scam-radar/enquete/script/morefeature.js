@@ -1,0 +1,817 @@
+// ============================================================================
+// AMÉLIORATIONS SCAM RADAR - AJOUTS SANS CONFLITS
+// ============================================================================
+
+// 1. DIAGRAMME AMÉLIORÉ STYLE JSONCRACK
+let extendedWalletsData = new Map(); // Map pour stocker les données étendues
+
+function enhanceNetworkVisualization() {
+    if (!network) return;
+    
+    // Améliorer les options de visualisation
+    network.setOptions({
+        nodes: {
+            shapeProperties: {
+                useBorderWithImage: true,
+                interpolation: false,
+                borderDashes: false,
+            },
+            scaling: {
+                min: 20,
+                max: 80, // Augmenter la taille max
+                label: {
+                    enabled: true,
+                    min: 12,
+                    max: 18,
+                    maxVisible: 20
+                }
+            },
+            shape: 'box',
+            shadow: {
+                enabled: true,
+                color: 'rgba(0,0,0,0.7)',
+                size: 15,
+                x: 5,
+                y: 5
+            }
+        },
+        edges: {
+            smooth: {
+                enabled: true,
+                type: 'curvedCW', // Courbes plus élégantes
+                roundness: 0.6
+            },
+            color: {
+                inherit: 'from',
+                opacity: 0.8
+            },
+            scaling: {
+                min: 1,
+                max: 8,
+                label: {
+                    enabled: true,
+                    min: 8,
+                    max: 20
+                }
+            },
+            font: {
+                size: 11,
+                face: 'Courier New',
+                color: '#ffffff',
+                background: 'rgba(0,0,0,0.7)',
+                strokeWidth: 2,
+                strokeColor: '#000000'
+            }
+        },
+        groups: {
+            source: {
+                color: { background: '#ff6b6b', border: '#ff4757' },
+                shape: 'star',
+                size: 60,
+                font: { size: 16, color: '#ffffff', bold: true }
+            },
+            high: {
+                color: { background: '#ff4757', border: '#ff3838' },
+                shape: 'box',
+                size: 50,
+                font: { size: 14 }
+            },
+            medium: {
+                color: { background: '#ffa502', border: '#ff9f1a' },
+                shape: 'circle',
+                size: 40,
+                font: { size: 13 }
+            },
+            low: {
+                color: { background: '#2ed573', border: '#20bf6b' },
+                shape: 'ellipse',
+                size: 35,
+                font: { size: 12 }
+            },
+            external: {
+                color: { background: '#a4b0be', border: '#747d8c' },
+                shape: 'database',
+                size: 30,
+                font: { size: 11, color: '#dfe4ea' }
+            }
+        }
+    });
+}
+
+// 2. DÉTECTION DES TRANSACTIONS EXTERNES
+async function detectExternalTransactions(walletAddress, index) {
+    try {
+        console.log(`🔍 Analyse des transactions externes pour: ${walletAddress}`);
+        
+        const response = await fetch(`https://blockstream.info/api/address/${walletAddress}/txs`);
+        if (!response.ok) return new Set();
+        
+        const txs = await response.json();
+        const externalAddresses = new Set();
+        
+        // Analyser les 20 dernières transactions
+        txs.slice(0, 20).forEach(tx => {
+            // Adresses d'entrée (sources)
+            tx.vin?.forEach(input => {
+                if (input.prevout?.scriptpubkey_address) {
+                    const addr = input.prevout.scriptpubkey_address;
+                    // Vérifier si c'est une adresse externe (pas dans notre liste)
+                    if (!investigationData.wallets.some(w => w.address === addr)) {
+                        externalAddresses.add(addr);
+                    }
+                }
+            });
+            
+            // Adresses de sortie (destinations)
+            tx.vout?.forEach(output => {
+                if (output.scriptpubkey_address) {
+                    const addr = output.scriptpubkey_address;
+                    if (!investigationData.wallets.some(w => w.address === addr)) {
+                        externalAddresses.add(addr);
+                    }
+                }
+            });
+        });
+        
+        // Stocker les données étendues
+        extendedWalletsData.set(walletAddress, {
+            externalConnections: Array.from(externalAddresses),
+            lastUpdated: new Date().toISOString(),
+            totalExternal: externalAddresses.size
+        });
+        
+        console.log(`✅ ${externalAddresses.size} connexions externes détectées pour ${walletAddress}`);
+        return externalAddresses;
+        
+    } catch (error) {
+        console.error(`❌ Erreur détection transactions externes: ${error}`);
+        return new Set();
+    }
+}
+
+// 3. BOUTON POUR VISUALISER LA RECHERCHE ÉTENDUE
+function addExtendedSearchButton() {
+    const controls = document.querySelector('.map-controls');
+    if (!controls) return;
+    
+    // Vérifier si le bouton existe déjà
+    if (document.getElementById('extendedSearchBtn')) return;
+    
+    const extendedBtn = document.createElement('button');
+    extendedBtn.id = 'extendedSearchBtn';
+    extendedBtn.className = 'control-btn';
+    extendedBtn.innerHTML = '<i class="fa-solid fa-radar"></i> Recherche étendue';
+    extendedBtn.onclick = showExtendedSearchModal;
+    
+    // Ajouter après les autres boutons
+    const exportBtn = document.querySelector('[onclick="exportNetworkImage()"]');
+    if (exportBtn) {
+        exportBtn.parentNode.insertBefore(extendedBtn, exportBtn.nextSibling);
+    } else {
+        controls.appendChild(extendedBtn);
+    }
+}
+
+// 4. MODAL POUR LA RECHERCHE ÉTENDUE
+function showExtendedSearchModal() {
+    // Créer le modal s'il n'existe pas
+    let modal = document.getElementById('extendedSearchModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'extendedSearchModal';
+        modal.className = 'modal';
+        modal.style.cssText = `
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        `;
+        
+        modal.innerHTML = `
+            <div class="modal-content" style="
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                margin: 5% auto;
+                padding: 0;
+                border: 1px solid #74c0fc;
+                width: 90%;
+                max-width: 800px;
+                border-radius: 15px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+                color: white;
+                max-height: 80vh;
+                overflow-y: auto;
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #74c0fc, #74c0fc);
+                    padding: 20px;
+                    border-radius: 15px 15px 0 0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                ">
+                    <h2 style="margin: 0; font-size: 1.5rem;">
+                        <i class="fa-solid fa-radar"></i> Recherche étendue
+                    </h2>
+                    <button onclick="closeExtendedSearchModal()" style="
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 1.5rem;
+                        cursor: pointer;
+                    ">&times;</button>
+                </div>
+                
+                <div style="padding: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">
+                            <i class="fa-solid fa-wallet"></i> Sélectionnez un wallet pour analyse approfondie:
+                        </label>
+                        <select id="extendedWalletSelect" style="
+                            width: 100%;
+                            padding: 12px;
+                            border-radius: 8px;
+                            background: rgba(255,255,255,0.1);
+                            border: 1px solid #74c0fc;
+                            color: white;
+                            font-size: 1rem;
+                            margin-bottom: 20px;
+                        ">
+                            <option value="">-- Choisir un wallet --</option>
+                        </select>
+                    </div>
+                    
+                    <div id="extendedAnalysisResults" style="
+                        background: rgba(0,0,0,0.3);
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin-bottom: 20px;
+                        min-height: 200px;
+                    ">
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            Sélectionnez un wallet pour voir l'analyse des transactions externes
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <button onclick="startExtendedAnalysis()" style="
+                            background: linear-gradient(135deg, #74c0fc, #74c0fc);
+                            color: white;
+                            border: none;
+                            padding: 12px 24px;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        ">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i> Lancer l'analyse
+                        </button>
+                        <button onclick="closeExtendedSearchModal()" style="
+                            background: rgba(255,255,255,0.1);
+                            color: white;
+                            border: 1px solid #666;
+                            padding: 12px 24px;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                        ">
+                            Fermer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+    }
+    
+    // Mettre à jour la liste des wallets
+    updateExtendedWalletSelect();
+    
+    // Afficher le modal
+    modal.style.display = 'block';
+}
+
+function updateExtendedWalletSelect() {
+    const select = document.getElementById('extendedWalletSelect');
+    if (!select) return;
+    
+    // Sauvegarder la sélection actuelle
+    const currentValue = select.value;
+    
+    // Vider les options
+    select.innerHTML = '<option value="">-- Choisir un wallet --</option>';
+    
+    // Ajouter les wallets
+    investigationData.wallets.forEach((wallet, index) => {
+        const option = document.createElement('option');
+        option.value = wallet.address;
+        option.textContent = `${wallet.alias} (${wallet.address.slice(0, 8)}...${wallet.address.slice(-6)})`;
+        option.dataset.index = index;
+        select.appendChild(option);
+    });
+    
+    // Restaurer la sélection si possible
+    if (currentValue && Array.from(select.options).some(opt => opt.value === currentValue)) {
+        select.value = currentValue;
+    }
+}
+
+async function startExtendedAnalysis() {
+    const select = document.getElementById('extendedWalletSelect');
+    if (!select || !select.value) {
+        alert('Veuillez sélectionner un wallet');
+        return;
+    }
+    
+    const walletAddress = select.value;
+    const wallet = investigationData.wallets.find(w => w.address === walletAddress);
+    if (!wallet) return;
+    
+    const resultsDiv = document.getElementById('extendedAnalysisResults');
+    resultsDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 2rem; color: #74c0fc; margin-bottom: 10px;">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+            </div>
+            <div>Analyse en cours...</div>
+            <div style="font-size: 0.9rem; color: #888; margin-top: 10px;">
+                Recherche des transactions externes pour ${walletAddress.slice(0, 15)}...
+            </div>
+        </div>
+    `;
+    
+    try {
+        // Détecter les transactions externes
+        const externalAddresses = await detectExternalTransactions(walletAddress);
+        
+        // Afficher les résultats
+        displayExtendedResults(wallet, Array.from(externalAddresses));
+        
+    } catch (error) {
+        resultsDiv.innerHTML = `
+            <div style="color: #ff6b6b; text-align: center; padding: 20px;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div style="margin-top: 10px;">Erreur lors de l'analyse</div>
+                <div style="font-size: 0.9rem; margin-top: 10px;">${error.message}</div>
+            </div>
+        `;
+    }
+}
+
+function displayExtendedResults(wallet, externalAddresses) {
+    const resultsDiv = document.getElementById('extendedAnalysisResults');
+    
+    if (externalAddresses.length === 0) {
+        resultsDiv.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #2ed573; margin-bottom: 20px;"></i>
+                <div style="font-size: 1.2rem; margin-bottom: 10px;">Aucune transaction externe détectée</div>
+                <div>Ce wallet semble n'avoir transité qu'avec les wallets suivis</div>
+            </div>
+        `;
+        return;
+    }
+    
+    // Grouper par nombre de transactions suspectes
+    const groupedAddresses = externalAddresses.slice(0, 20); // Limiter à 20 pour la lisibilité
+    
+    resultsDiv.innerHTML = `
+        <div style="margin-bottom: 20px;">
+            <div style="
+                background: rgba(116, 192, 252, 0.1);
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                border-left: 4px solid #74c0fc;
+            ">
+                <div style="font-weight: 600; margin-bottom: 5px;">
+                    <i class="fa-solid fa-chart-network"></i> 
+                    ${externalAddresses.length} connexions externes détectées
+                </div>
+                <div style="font-size: 0.9rem; color: #aaa;">
+                    Ces adresses ont transité avec ${wallet.alias} mais ne font pas partie de l'enquête initiale
+                </div>
+            </div>
+            
+            <div style="
+                max-height: 300px;
+                overflow-y: auto;
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 8px;
+                padding: 10px;
+            ">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="
+                            background: rgba(116, 192, 252, 0.2);
+                            position: sticky;
+                            top: 0;
+                        ">
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #74c0fc;">Adresse</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #74c0fc;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${groupedAddresses.map(addr => `
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 10px; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                                    ${addr}
+                                </td>
+                                <td style="padding: 10px;">
+                                    <div style="display: flex; gap: 8px;">
+                                        <button onclick="addExternalAddress('${addr}')" style="
+                                            background: rgba(46, 213, 115, 0.2);
+                                            color: #2ed573;
+                                            border: 1px solid #2ed573;
+                                            padding: 6px 12px;
+                                            border-radius: 4px;
+                                            cursor: pointer;
+                                            font-size: 0.85rem;
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 5px;
+                                        ">
+                                            <i class="fa-solid fa-plus"></i> Ajouter
+                                        </button>
+                                        <button onclick="viewAddressExplorer('${addr}')" style="
+                                            background: rgba(116, 192, 252, 0.2);
+                                            color: #74c0fc;
+                                            border: 1px solid #74c0fc;
+                                            padding: 6px 12px;
+                                            border-radius: 4px;
+                                            cursor: pointer;
+                                            font-size: 0.85rem;
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 5px;
+                                        ">
+                                            <i class="fa-solid fa-magnifying-glass"></i> Explorer
+                                        </button>
+                                        <button onclick="copyToClipboard('${addr}')" style="
+                                            background: rgba(255, 107, 107, 0.2);
+                                            color: #ff6b6b;
+                                            border: 1px solid #ff6b6b;
+                                            padding: 6px 12px;
+                                            border-radius: 4px;
+                                            cursor: pointer;
+                                            font-size: 0.85rem;
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 5px;
+                                        ">
+                                            <i class="fa-regular fa-copy"></i> Copier
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            
+            ${externalAddresses.length > 20 ? `
+                <div style="
+                    background: rgba(255, 165, 2, 0.1);
+                    padding: 12px;
+                    border-radius: 6px;
+                    margin-top: 15px;
+                    border-left: 3px solid #ffa502;
+                    font-size: 0.9rem;
+                ">
+                    <i class="fa-solid fa-info-circle"></i>
+                    ${externalAddresses.length - 20} autres adresses détectées (affichage limité aux 20 premières)
+                </div>
+            ` : ''}
+        </div>
+    `;
+}
+
+function closeExtendedSearchModal() {
+    const modal = document.getElementById('extendedSearchModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// 5. FONCTIONS POUR LES ACTIONS DES BOUTONS
+function addExternalAddress(address) {
+    if (!address) return;
+    
+    // Vérifier si l'adresse est déjà dans la liste
+    if (investigationData.wallets.some(w => w.address === address)) {
+        alert('Cette adresse est déjà dans la liste');
+        return;
+    }
+    
+    // Ajouter le wallet
+    addWallet(address);
+    
+    // Mettre à jour la sélection
+    const select = document.getElementById('extendedWalletSelect');
+    if (select) {
+        select.value = address;
+    }
+    
+    // Afficher un message de confirmation
+    alert(`Adresse ${address.slice(0, 10)}... ajoutée à l'enquête`);
+}
+
+function viewAddressExplorer(address) {
+    window.open(`https://blockchain.com/explorer/addresses/btc/${address}`, '_blank');
+}
+
+// 6. FONCTION DE COPIE D'ADRESSE
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        // Afficher une notification temporaire
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(46, 213, 115, 0.95);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        notification.innerHTML = `
+            <i class="fa-solid fa-check"></i>
+            Adresse copiée dans le presse-papier
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Supprimer après 2 secondes
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+        
+    }).catch(err => {
+        console.error('Erreur lors de la copie:', err);
+        alert('Erreur lors de la copie');
+    });
+}
+
+// 7. AMÉLIORER LE RENDU DES WALLETS POUR AJOUTER LE BOUTON COPY
+function enhanceWalletCards() {
+    // Cette fonction sera appelée après chaque rendu de wallet
+    document.querySelectorAll('.wallet-item').forEach((item, index) => {
+        const addressElement = item.querySelector('.wallet-address');
+        if (addressElement && !addressElement.querySelector('.copy-btn')) {
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+            copyBtn.title = 'Copier l\'adresse';
+            copyBtn.style.cssText = `
+                background: rgba(255, 107, 107, 0.1);
+                color: #ff6b6b;
+                border: 1px solid #ff6b6b;
+                border-radius: 4px;
+                padding: 4px 8px;
+                cursor: pointer;
+                font-size: 0.8rem;
+                margin-left: 10px;
+                transition: all 0.2s;
+            `;
+            
+            copyBtn.onmouseover = () => {
+                copyBtn.style.background = 'rgba(255, 107, 107, 0.3)';
+            };
+            
+            copyBtn.onmouseout = () => {
+                copyBtn.style.background = 'rgba(255, 107, 107, 0.1)';
+            };
+            
+            copyBtn.onclick = (e) => {
+                e.stopPropagation(); // Empêcher la sélection du wallet
+                const address = addressElement.textContent;
+                copyToClipboard(address);
+            };
+            
+            addressElement.appendChild(copyBtn);
+        }
+    });
+}
+
+// 8. INTÉGRATION AVEC LE CODE EXISTANT (hooks)
+function integrateEnhancements() {
+    // Hook pour améliorer le rendu des wallets
+    const originalRenderWalletList = window.renderWalletList;
+    window.renderWalletList = function() {
+        originalRenderWalletList();
+        enhanceWalletCards();
+    };
+    
+    // Hook pour améliorer le réseau après rendu
+    const originalRenderNetwork = window.renderNetwork;
+    window.renderNetwork = function() {
+        originalRenderNetwork();
+        setTimeout(enhanceNetworkVisualization, 100);
+    };
+    
+    // Hook pour les mises à jour de données
+    const originalFetchWalletData = window.fetchWalletData;
+    window.fetchWalletData = async function(address, index) {
+        await originalFetchWalletData(address, index);
+        // Détecter aussi les transactions externes en arrière-plan
+        setTimeout(() => detectExternalTransactions(address, index), 1000);
+    };
+    
+    // Ajouter le bouton de recherche étendue
+    setTimeout(addExtendedSearchButton, 500);
+}
+
+// 9. AJOUTER LES STYLES CSS NÉCESSAIRES
+function addEnhancementStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        /* Styles pour le modal */
+        .modal-content {
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Amélioration des tooltips du réseau */
+        .vis-tooltip {
+            background: rgba(30, 37, 48, 0.95) !important;
+            border: 2px solid #74c0fc !important;
+            border-radius: 10px !important;
+            padding: 15px !important;
+            color: white !important;
+            font-family: 'Montserrat', sans-serif !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+            backdrop-filter: blur(10px) !important;
+            max-width: 400px !important;
+        }
+        
+        /* Bouton de contrôle amélioré */
+        #extendedSearchBtn {
+            background: linear-gradient(135deg, #74c0fc, #74c0fc) !important;
+            color: white !important;
+            border: none !important;
+        }
+        
+        #extendedSearchBtn:hover {
+            background: linear-gradient(135deg, #74c0fc, #74c0fc) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(116, 192, 252, 0.4);
+        }
+        
+        /* Style pour les lignes du tableau */
+        tbody tr:hover {
+            background: rgba(116, 192, 252, 0.1) !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// 10. INITIALISATION DES AMÉLIORATIONS
+document.addEventListener('DOMContentLoaded', function() {
+    // Attendre que le code original soit chargé
+    setTimeout(() => {
+        addEnhancementStyles();
+        integrateEnhancements();
+        console.log('✅ Améliorations Scam Radar chargées');
+    }, 1000);
+});
+
+// ============================================================================
+// FONCTIONS D'UTILITAIRE POUR L'ANALYSE AVANCÉE
+// ============================================================================
+
+// Analyse de patterns suspects
+function analyzeSuspiciousPatterns() {
+    const patterns = {
+        mixingPatterns: [],
+        highFrequency: [],
+        largeTransfers: []
+    };
+    
+    investigationData.wallets.forEach(wallet => {
+        const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
+        const totalTx = wallet.incomingTx + wallet.outgoingTx;
+        
+        // Pattern 1: Wallets avec beaucoup de transactions mais peu de balance (mixing)
+        if (totalTx > 50 && balance < 0.1) {
+            patterns.mixingPatterns.push({
+                address: wallet.address,
+                alias: wallet.alias,
+                transactions: totalTx,
+                balance: balance
+            });
+        }
+        
+        // Pattern 2: Wallets avec transactions fréquentes
+        if (totalTx > 100) {
+            patterns.highFrequency.push({
+                address: wallet.address,
+                alias: wallet.alias,
+                transactions: totalTx
+            });
+        }
+        
+        // Pattern 3: Grands transferts
+        if (balance > 10) {
+            patterns.largeTransfers.push({
+                address: wallet.address,
+                alias: wallet.alias,
+                balance: balance,
+                valueUSD: balance * btcPrice
+            });
+        }
+    });
+    
+    return patterns;
+}
+
+// Fonction pour exporter l'analyse complète
+function exportCompleteAnalysis() {
+    const analysis = {
+        timestamp: new Date().toISOString(),
+        caseName: investigationData.metadata.caseName,
+        wallets: investigationData.wallets,
+        extendedData: Array.from(extendedWalletsData.entries()),
+        patterns: analyzeSuspiciousPatterns(),
+        statistics: {
+            totalWallets: investigationData.wallets.length,
+            totalExternalConnections: Array.from(extendedWalletsData.values())
+                .reduce((sum, data) => sum + (data.totalExternal || 0), 0),
+            btcPrice: btcPrice
+        }
+    };
+    
+    const dataStr = JSON.stringify(analysis, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `analyse-complete-${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+}
+
+// Ajouter un bouton pour l'analyse complète
+function addCompleteAnalysisButton() {
+    setTimeout(() => {
+        const controls = document.querySelector('.map-controls');
+        if (!controls || document.getElementById('completeAnalysisBtn')) return;
+        
+        const analysisBtn = document.createElement('button');
+        analysisBtn.id = 'completeAnalysisBtn';
+        analysisBtn.className = 'control-btn';
+        analysisBtn.innerHTML = '<i class="fa-solid fa-upload"></i> json';
+        analysisBtn.onclick = exportCompleteAnalysis;
+        
+        controls.appendChild(analysisBtn);
+    }, 1500);
+}
+
+// Initialiser le bouton d'analyse complète
+document.addEventListener('DOMContentLoaded', addCompleteAnalysisButton);
+
+// ============================================================================
+// FONCTION DE DÉBOGAGE ET LOGS
+// ============================================================================
+
+function debugEnhancements() {
+    console.group('🔧 Debug des améliorations Scam Radar');
+    console.log('✅ Extended wallets data:', extendedWalletsData);
+    console.log('✅ Network enhanced:', network !== null);
+    console.log('✅ Modal available:', document.getElementById('extendedSearchModal') !== null);
+    console.groupEnd();
+}
+
+// Exposer les fonctions pour le débogage
+window.debugEnhancements = debugEnhancements;
+window.exportCompleteAnalysis = exportCompleteAnalysis;
+
+

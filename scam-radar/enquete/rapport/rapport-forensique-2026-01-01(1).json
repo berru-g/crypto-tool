@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-01-01T16:53:35.197Z",
+  "caseName": "Arnaque Ramp Network",
+  "analysis": {
+    "mixerPatterns": [
+      {
+        "name": "Structure en Grappe",
+        "icon": "diagram-project",
+        "confidence": 0.9,
+        "description": "Réseau interconnecté avec multiples wallets",
+        "indicators": [
+          "31 wallets",
+          "Connexions multiples"
+        ]
+      },
+      {
+        "name": "Distribution de Valeurs",
+        "icon": "chart-pie",
+        "confidence": 0.3,
+        "description": "Montants similaires distribués entre différents wallets",
+        "indicators": [
+          "2 wallets > 1 BTC"
+        ]
+      },
+      {
+        "name": "Pattern de Mixing",
+        "icon": "shuffle",
+        "confidence": 0.7,
+        "description": "Transactions en chaîne caractéristiques des mixers",
+        "indicators": [
+          "Transferts en cascade",
+          "Montants standardisés"
+        ]
+      }
+    ],
+    "statistics": {
+      "totalWallets": 31,
+      "totalBTC": 360.23886102,
+      "totalConnections": 55
+    },
+    "conclusions": [
+      "Structure typique de mixer crypto",
+      "Points de sortie identifiés vers Binance et Coinbase",
+      "Pattern temporel identifiable",
+      "Opsec faible détecté"
+    ]
+  }
+}
