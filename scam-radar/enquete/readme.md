@@ -96,8 +96,17 @@ L'objectif est d'identifier un wallet ayant subi une procédure KYC (Know Your C
 
 ## Suite de l'enquête 01/01/26 :
 
-Je viens d'ajouter des feature à mon tool [ScamRadarV2](https://crypto-free-tools.netlify.app/scam-radar/enquete/), permettant  en autre d'export des données forensique et rapport complet en json
-[Acceder aux données completes](./rapport/donnees-forensiques-2026-01-01.json)
+Je viens d'ajouter des feature à mon tool [ScamRadarV2](https://crypto-free-tools.netlify.app/scam-radar/enquete/), permettant  en autre d'export des données forensique et rapport complet en json et
+
+    deep_transaction_fetch.js
+    exchange_databases.js
+    mixer_analysis.js
+    op_return_analysis.js
+
+[Acceder aux rapports complets](./rapport/)
+
+## Resultat : 
+    la moindre transaction est détecté et affiche de nouveau wallet jusque la invisible dans le mixer ( à moins de passer 2h sur la blockchain)
 
 ![Exchange probable](./img/carte-wallets-2026-01-01.png)
 *Exchange probable (`bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz`)*
@@ -107,7 +116,22 @@ Je viens d'ajouter des feature à mon tool [ScamRadarV2](https://crypto-free-too
     - https://www.blockchain.com/explorer/addresses/btc/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz
 
 
+##  **Indicateurs CLÉS pour identifier un exchange :**
 
+| **Indicateur** | **Exchange** | **Wallet normal** |
+|----------------|--------------|-------------------|
+| **Transactions/jour** | 50+ | < 10 |
+| **Contreparties uniques** | 1000+ | < 100 |
+| **Ratio Input/Output** | < 0.5 | ~1 |
+| **Batch processing** | ✓ | ✗ |
+| **Activité 24/7** | ✓ | Heures locales |
+| **Montants standardisés** | ✓ | Variables |
+| **Frais constants** | ✓ | Variables |
+
+
+**Si score > 70%** → C'est très probablement un exchange
+**Cherche les sorties** vers cette adresse dans ton réseau
+**Suis l'argent** → Exchange → KYC → Identité potentielle
 
 
 

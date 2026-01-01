@@ -531,24 +531,7 @@ function renderNetwork() {
             }
         }
     };
-    /*
-        // Formes de base
-            'dot'           // Cercle simple
-            'circle'        // Cercle (identique à dot)
-            'diamond'       // Losange
-            'star'          // Étoile
-            'triangle'      // Triangle pointant vers le haut
-            'triangleDown'  // Triangle pointant vers le bas
-            'square'        // Carré
-            'box'           // Boîte (identique à square)
-            'rectangle'     // Rectangle
-            'ellipse'       // Ellipse
-            'database'      // Cylindre (base de données)
-            'image'         // Image personnalisée
-            'circularImage' // Image circulaire
-            'labeledImage'  // Image avec label
-            'shapeProperties' // Personnalisé
-            */
+
     if (network) {
         network.destroy();
     }
@@ -634,113 +617,6 @@ function generateTooltipHTML(wallet, balanceUSD) {
                 Balance: ${wallet.balance}
                 Valeur USD: $${balanceUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
     `;
-    /*  
-      return `
-          <div style="
-              background: #1e2530;
-              border: 2px solid #74c0fc;
-              border-radius: 8px;
-              padding: 15px;
-              color: #e1e7ef;
-              font-family: 'Montserrat', sans-serif;
-              max-width: 350px;
-              box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-          ">
-              <div style="
-                  background: linear-gradient(135deg, #74c0fc, #74c0fc);
-                  color: white;
-                  padding: 10px 15px;
-                  border-radius: 6px;
-                  margin: -15px -15px 15px -15px;
-                  font-weight: 700;
-                  font-size: 1.1rem;
-              ">
-                  ${wallet.alias}
-              </div>
-              
-              <div style="margin-bottom: 10px;">
-                  <code style="
-                      background: rgba(0,0,0,0.3);
-                      padding: 8px;
-                      border-radius: 4px;
-                      font-size: 0.85rem;
-                      font-family: 'Roboto Mono', monospace;
-                      word-break: break-all;
-                      display: block;
-                      border-left: 3px solid #74c0fc;
-                  ">
-                      ${wallet.address}
-                  </code>
-              </div>
-              
-              <div style="
-                  display: grid;
-                  gap: 8px;
-                  font-size: 0.9rem;
-                  margin-bottom: 15px;
-              ">
-                  <div><strong>Balance:</strong> ${wallet.balance}</div>
-                  <div><strong>Valeur USD:</strong> $${balanceUSD.toLocaleString('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-                  <div><strong>Transactions:</strong> ${totalTx} (↓${wallet.incomingTx} ↑${wallet.outgoingTx})</div>
-                  <div><strong>Risque:</strong> <span style="
-                      padding: 2px 8px;
-                      border-radius: 12px;
-                      background: ${wallet.risk === 'high' ? 'rgba(211, 47, 47, 0.2)' : wallet.risk === 'medium' ? 'rgba(245, 124, 0, 0.2)' : 'rgba(56, 142, 60, 0.2)'};
-                      color: ${wallet.risk === 'high' ? '#ff6b6b' : wallet.risk === 'medium' ? '#ffa726' : '#66bb6a'};
-                      font-weight: 700;
-                      font-size: 0.8rem;
-                  ">${wallet.risk.toUpperCase()}</span></div>
-                  <div><strong>Connexions:</strong> ${wallet.connections.length}</div>
-                  <div><strong>Ajouté:</strong> ${new Date(wallet.addedDate).toLocaleDateString('fr-FR')}</div>
-              </div>
-              
-              <div style="
-                  display: flex;
-                  gap: 8px;
-                  flex-wrap: wrap;
-              ">
-                  <a href="https://blockchain.com/explorer/addresses/btc/${wallet.address}" 
-                     target="_blank" 
-                     style="
-                          background: #74c0fc;
-                          color: white;
-                          padding: 6px 12px;
-                          border-radius: 6px;
-                          text-decoration: none;
-                          font-size: 0.8rem;
-                          font-weight: 600;
-                          display: inline-flex;
-                          align-items: center;
-                          gap: 5px;
-                          transition: all 0.2s;
-                     "
-                     onmouseover="this.style.background='#74c0fc'"
-                     onmouseout="this.style.background='#74c0fc'">
-                      <i class="fa-solid fa-magnifying-glass"></i> Blockchain.com
-                  </a>
-                  <a href="https://blockstream.info/address/${wallet.address}" 
-                     target="_blank" 
-                     style="
-                          background: #0288d1;
-                          color: white;
-                          padding: 6px 12px;
-                          border-radius: 6px;
-                          text-decoration: none;
-                          font-size: 0.8rem;
-                          font-weight: 600;
-                          display: inline-flex;
-                          align-items: center;
-                          gap: 5px;
-                          transition: all 0.2s;
-                     "
-                     onmouseover="this.style.background='#039be5'"
-                     onmouseout="this.style.background='#0288d1'">
-                      <i class="fa-solid fa-chart-line"></i> Blockstream
-                  </a>
-              </div>
-          </div>
-      `;
-      */
 }
 
 // FONCTIONS UTILITAIRES
