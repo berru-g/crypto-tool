@@ -1,183 +1,165 @@
-# Analyse d'une arnaque à l'investissement
+### **Traque sur la Blockchain : Comment je suis la piste de 200€ volés**
 
-Tout commence lorsque le fils de ma patronne me dit s'être fait arnaqué ( la réalité c'est qu'on lui à promis un retour sur investissemnt et ce c** à envoyer 200€).
+*Une promesse de rendement mirobolant, 200€ envoyés sur un site et une trace numérique indélébile. Voici le récit d'une enquête pour retrouver un arnaqueur dans les nébuleuse de la blockchain.*
 
-Les faits ;
-
-Il s'agit d'une arnaque basée sur une promesse d'investissement, où la victime est incitée à envoyer des fonds via une URL frauduleuse.
-
-[Suivre l'enquete en temps réel](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
-
-## Processus d'investigation
-
-1.  **Identifier** tous les wallets reliés par des transactions entrantes ou sortantes.
-2.  **Cartographier** les flux financiers via un diagramme.
-3.  **Rechercher** un wallet avec un KYC pour identifier l'id de l'arnaqueur.
-
-## Outils utilisés
-
-*   [blockchain.com](https://www.blockchain.com/explorer)
-*   [blockstream.info](https://blockstream.info/)
-*   [Mempool.space](https://mempool.space/)
-*   [Outil Scam Radar (fait maison)](https://crypto-free-tools.netlify.app/scam-radar/)
-*   [Outil d'enquête Scam Radar V2](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
+[Suivre l'enquête en temps réel](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
 
 ---
 
-## Analyse de l'URL fournie à la victime
+### **Une Arnaque Classique**
 
-L'arnaqueur a fourni l'URL suivante :
-`https://app.rampnetwork.com/account?enabledCryptoAssets=BTC_BTC&hostApiKey=n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56&inAsset=USD&inAssetValue=20000&outAsset=BTC_BTC&paymentMethodType=CARD&userAddress=bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp&enabledFlows=ONRAMP&defaultFlow=ONRAMP`
+Tout a commencé par une confidence. Le fils d'une amie m'a avoué s'être fait avoir. Comme des milliers de personnes chaque jour, il a cru à une promesse d'investissement trop belle pour être vraie. Le schéma était simple : on lui a envoyé un lien, il a rentré ses coordonnées de carte et 200€ ont disparu vers un destinataire inconnu.
 
-### Éléments identifiés dans l'URL
+Dans le monde réel, l'histoire s'arrête souvent là. L'argent est parti, introuvable. Mais cette fois, l'arnaqueur a utilisé Bitcoin.
 
-*   **Adresse Bitcoin du destinataire** : `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp`
-*   **Clé API** : `n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56`
+![Premier élément](./img/arnaqueur.png)
 
-### Captures d'écran fournies par la victime
+### **La Piste Numérique : L'URL Piégée**
 
-![Premier élément](./img/premier_element.png)
-![Conversation avec l'arnaqueur](./img/arnaqueur.png)
-
-### Première déduction
-
-La clé API sert probablement à automatiser le transfert des fonds d'un wallet vers plusieurs autres, en divisant les montants pour brouiller les pistes.
-
-L'achat de Bitcoins en euros s'effectue via [Ramp Network](https://rampnetwork.com/), une plateforme légitime qui simplifie l'achat de cryptomonnaies par carte bancaire et leur envoi vers un wallet externe. L'arnaqueur a détourné ce processus en demandant à la victime d'utiliser la plateforme pour acheter des BTC et les envoyer sur son wallet.
+L'arnaqueur a détourné l'interface d'un service parfaitement légal, [Ramp Network](https://rampnetwork.com/), une plateforme qui permet d'acheter des cryptomonnaies avec une carte bancaire.
 
 ![Interface Ramp Network](./img/ramp.png)
 
----
+Voici le lien piégé :
+`https://app.rampnetwork.com/account?enabledCryptoAssets=BTC_BTC&hostApiKey=n695b47tmp8k2hyn37mvhtsnz2pfmoe64qxc4z56&inAsset=USD&inAssetValue=20000&outAsset=BTC_BTC&paymentMethodType=CARD&userAddress=bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp&enabledFlows=ONRAMP&defaultFlow=ONRAMP`
 
-## Traçabilité des transactions
+Deux éléments clés sautent aux yeux :
+*   **`userAddress=...`** : C'est l'**adresse Bitcoin du portefeuille de l'arnaqueur**. C'est l'équivalent d'un numéro de compte bancaire, mais public. C'est notre point de départ.
+*   **`hostApiKey=...`** : C'est une **clé secrète** qui sert probablement à automatiser le transfert et la division des fonds pour brouiller les pistes.
 
-### Départ de l'enquête
-
-L'analyse commence depuis l'adresse cible : `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp`.
-
-*   **Résultat initial** : 3 wallets sont reliés via des transactions entrantes ou sortantes.
-    *   [Voir le détail (JSON)](../json/bitcoin-investigation-step1.json)
-
-> **Note importante** : Le wallet d'origine n'a reçu que le montant de l'arnaque. Ce montant a ensuite été divisé et envoyé vers un autre wallet (`bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj`). On peut en déduire qu'un wallet est créé pour chaque arnaque et n'est utilisé qu'une seule fois (*one shot use*).
-
-### Suivi des flux principaux
-
-Liste des wallets identifiés dans la chaîne de l'arnaque, par volume de propagation :
-
-1.  `bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp` (adresse source)
-2.  `bc1q69lrvcrwnv7sqjxyuq2rtu7e5st8z39kphfhsj`
-3.  `bc1qzjv5s09zuepsaj808jlxcjcvhw7nprr9kytwej`
-4.  `bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc` → **27 BTC** ; 26 wallets reliés.
-    *   [Voir le détail (JSON)](../json/bitcoin-investigation-step4.json)
-5.  `bc1qy3896n4zy8jh62scnag6482e4khep0xsr3hn8w`
-6.  `1B5hVExEx5DjAMueQGESP2b6jzBu5UfTkP`
-7.  `3HaVwfq3hYxVaqZUSEJnUajYe6iyDydfz2`
-8.  `bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz` → **267 BTC** (≈ 21M€) ; 50+ wallets reliés.
-    *   [Voir le détail (JSON)](../json/bitcoin-investigation-step8.json)
-
-### Visualisation des wallets clés
-
-![Détails du Wallet 4](./img/Wallet_4.png)
-*Wallet n°4 (`bc1q202lj4...`)*
-
-![Détails du Wallet 8](./img/Wallet_8.png)
-*Wallet n°8 (`bc1q9wvygkq...`)*
-
-### Schéma du Mixer 
-![Détails du Wallet 8](./img/carte-wallets-2025-12-11.png)
-*Les wallet gris sont des one-shot (utilisez pour une arnaque) Les montants sont ensuite concentré sur les wallets intérmediaire vert, puis vers les rouges (wallet KYC ?)*
+**La grande différence avec un virement bancaire ?**  
+Sur la blockchain, chaque transaction est écrite dans un grand **registre public et infalsifiable**. C'est comme publier un reçu indélébile que tout le monde peut consulter. Une aubaine pour les enquêteurs.
 
 ---
 
+### **Première étape : suivre l'argent à la trace**
 
-## Objectif actuel : Recherche d'un KYC (03/12/2025)
+Avec l'adresse de départ (`bc1qujeavxy7w...`), il faut explorer le registre public. J'ai utilisé les explorateurs légitimes :
+*   [blockchain.com](https://www.blockchain.com/explorer)
+*   [blockstream.info](https://blockstream.info/)
+*   [Mempool.space](https://mempool.space/)
 
-L'objectif est d'identifier un wallet ayant subi une procédure KYC (Know Your Customer) parmi les 8 wallets principaux ou dans la liste de tous les wallets reliés (soit environ 400 wallets) via des transactions entrantes ou sortantes.
+![Capture d'écran d'un explorateur](./img/blockchaindotcom.png)
 
-## Suite de l'enquête 01/01/26 :
-
-Je viens d'ajouter des feature à mon tool [ScamRadarV2](https://crypto-free-tools.netlify.app/scam-radar/enquete/), permettant  en autre d'export des données forensique et rapport complet en json et
-
-    deep_transaction_fetch.js
-    exchange_databases.js
-    mixer_analysis.js
-    op_return_analysis.js
-
-[Acceder aux rapports complets](./rapport/)
-
-## Resultat : 
-    la moindre transaction est détecté et affiche de nouveau wallet jusque la invisible dans le mixer ( à moins de passer 2h sur la blockchain)
-
-![Exchange probable](./img/carte-wallets-2026-01-01.png)
-*Exchange probable (`bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz`)*
-
-    KYC potentiel en sortie de mixer, une adresse ce confirme :
-    - https://www.bitcoinwhoswho.com/address/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz
-    - https://www.blockchain.com/explorer/addresses/btc/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz
+Le résultat est immédiat : notre wallet source a effectué seulement les deux transactions de notre arnaque ( j'ai eu la confirmation de la victime, il à envoyer virements...). L'arnaqueur lui a divisé le montant et l'a envoyé vers **deux autres portefeuilles**, alors on suit.
 
 
-##  **Indicateurs CLÉS pour identifier un exchange :**
+**Preuves de transaction direct avec un wallet au fort potentiel d'etre sous KYC (exchange)**
 
-| **Indicateur** | **Exchange** | **Wallet normal** |
-|----------------|--------------|-------------------|
-| **Transactions/jour** | 50+ | < 10 |
-| **Contreparties uniques** | 1000+ | < 100 |
-| **Ratio Input/Output** | < 0.5 | ~1 |
-| **Batch processing** | ✓ | ✗ |
-| **Activité 24/7** | ✓ | Heures locales |
-| **Montants standardisés** | ✓ | Variables |
-| **Frais constants** | ✓ | Variables |
+L'adresse de reception (``bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp``) des 200€ envoie sur (``bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw``), et je suis les plus gros montant. 
+Les meme schéma se répetent, le wallet recoit une somme une seul fois, envoie la somme à un autre wallet qui lui reçoit bcp de petite somme, puis envoie le tout à deux autres etc.
 
+**La liste commence :**
+    bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp
+    bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw
 
-**Si score > 70%** → C'est très probablement un exchange
-**Cherche les sorties** vers cette adresse dans ton réseau
-**Suis l'argent** → Exchange → KYC → Identité potentielle
+![preuve2](./img/screen_preuves_transaction.png)
+**Et déja là on voit que ce wallet brasse bcp de btc**
+![preuve3](./img/Screenshot%202026-01-03%20at%2023-17-42%20Address%20bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw.png)
+
+ Donc je suis la piste à jour depuis [blockchain.com](https://www.blockchain.com/explorer/addresses/btc/bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw)
 
 
+Mais visuellement, c'est limitant. Je voulais une **carte**, quelque chose de concret et "palpable" pour voir tous les liens.
+
+### 🗺️ Création de l'outil de cartographie
+
+J'ai donc codé un premier outil, aidé par l'IA pour gérer les algorithmes et les appels aux APIs des explorateurs. L'objectif : prendre une adresse et **dessiner automatiquement** tous les wallets reliés et leurs transactions.
+
+Et voilà, on **VOIT** enfin les connexions.
+
+![Première carte générée](./img/montool.png)
+
+Mais il fallait aller plus loin : pouvoir, sur cette carte, étendre la recherche aux nouveaux wallets qui apparaissent. C'est comme ça qu'est né **[la V2](https://crypto-free-tools.netlify.app/scam-radar/enquete/)**, l'outil sur mesure pour cette enquête.
+
+![preuve1](./img/carte-wallets-2026-01-032026-01-03_PREUVE_TRANSACTION_DIRECT.png)
+
+Voila c'est mieux .
+**Maintenant on étend la recherche**
+Hey bim bam boum !
+![V2](./img/V2.png)
 
 
+[Suivre l'enquête en temps réel avec l'outil](https://crypto-free-tools.netlify.app/scam-radar/enquete/)
+
+---
+
+### 💰 Le Schéma du "Mixer" et la Nébuleuse
+
+En lançant l'outil sur l'adresse source, un schéma s'est dessiné clairement. L'argent suit un chemin précis, comme dans un lave-linge à money (*mixer*), que j'appelle la "nébuleuse" :
+
+1.  **Wallets "One-Shot" (Gris)** : Ils reçoivent l'argent directement des victimes. Un par arnaque.
+2.  **Wallets Intermédiaires (Verts)** : Ils servent d'entonnoir. Les petits paquets de plusieurs arnaques y sont rassemblés.
+3.  **Wallets de Concentration (Rouges)** : C'est le cœur de la nébuleuse ou la sortie du mixer. Les sommes massives y sont centralisées.
+
+![Nouvelle carte avec piste d'échange](./img/carte-wallets-2026-01-01.png)
+
+En suivant automatiquement les flux, l'outil a identifié **plus de 50 wallets** dans la chaîne. Deux géants émergent :
+
+*   **Un premier concentré** (`bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc`) : **27 BTC** (plus de 2M€), connecté à 26 autres wallets. Il perdra 3/4 de sa valeur en décembre. 
+*   **La cagnotte principale** (`bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz`) : **267 BTC** (plus de 21M€). Connecté à plus de 50 wallets. L'échelle change complètement. ( wallet à 207btc le 01/01/26)
+
+---
+
+### 🎯 L'Objectif : Trouver le Maillon Faible (le KYC)
+
+L'argent est localisé, public. Mais les adresses sont pseudonymes. Pour remonter à une personne, il faut trouver la faille : le **KYC** (*Know Your Customer*).
+
+Quand tu utilises une plateforme légitime (un *exchange*) pour convertir tes cryptos en euros, tu dois fournir ta pièce d'identité. C'est la loi. **Notre objectif :** trouver, parmi les centaines de wallets de la nébuleuse, celui qui a interagi avec un service à KYC.
+
+### 🔬 L'Upgrade décisif et la Piste Brûlante (01/01/26)
+
+Pour traquer ces interactions cachées, j'ai ajouté des modules avancés à Scam Radar V2 (`deep_transaction_fetch.js`, `mixer_analysis.js`). Le but : détecter les schémas typiques des exchanges dans le flot de transactions.
+
+L'analyse est formelle : le **wallet principal** (`bc1q9wvygkq7h...`) présente tous les signes d'un **wallet appartenant à un exchange**.
+
+| Indicateur | Ce Wallet | Wallet Normal |
+| :--- | :--- | :--- |
+| **Activité** | **24/7**, sans pause | Heures locales |
+| **Transactions** | **Massives**, par lots (*batch*) | Peu, variables |
+| **Contreparties** | **Des centaines/ milliers** | Quelques dizaines |
+
+**Impression :** Nous avons mis le doigt sur un **mixer utilisé par de nombreux arnaqueurs**. Le wallet principal semble être le point de sortie vers une plateforme d'échange régulée et le départ vers... d'autres mixer, des galaxies de wallet dans la blockchain qui servent uniquement de blanchiment.
+
+![Carte de la Nébuleuse/Mixer](./img/nebuleuse1.png)
 
 
+### Scam Alert
 
-## Suite de l'equete auprés des autorités :
+Apprement l'adresse qui nous interressent estr déja déclaré comme étend un scam
 
-*D'après l'ia Deepseek; *
+![Scam-alet](./img/scam-alert.png)
 
-Vos éléments ne suffisent pas, voici ce qu'il manque pour un dossier solide, structuré en deux catégories :
+*[BitcoinWhosWho](https://www.bitcoinwhoswho.com/address/bc1q9wvygkq7h9xgcp59mc6ghzczrqlgrj9k3ey9tz) et d'autres commencent aussi à taguer cette adresse comme suspecte.*
 
-### 1. Éléments CRUCIAUX MANQUANTS (pour la plainte)
-*   **Identité de la victime et preuve du préjudice :**
-    *   Copie de sa pièce d'identité.
-    *   Relevés bancaires ou de carte prouvant le ou les virements vers Ramp Network.
-    *   Captures d'écran de **tous les échanges** (messages, emails) avec l'arnaqueur (promesses, instructions, menaces).
-*   **Contexte de l'arnaque :**
-    *   Une **déposition écrite et détaillée** de la victime expliquant : comment le contact a été établi (site web, réseau social, application), les promesses faites (rendement, projet), le processus suivi, et le moment où elle a compris l'arnaque.
-*   **Preuves de la plateforme utilisée (Ramp Network) :**
-    *   Les emails de confirmation de transaction reçus de **Ramp Network**.
-    *   L'historique complet du compte sur la plateforme Ramp (captures d'écran).
+### ⚖️ La Suite : Passer aux Autorités
 
-### 2. Recommandations FORTELLES pour la suite
-1.  **Déposer plainte IMMÉDIATEMENT :**
-    *   À la gendarmerie ou au commissariat de police, ou via une plainte en ligne si disponible.
-    *   **Apporter TOUS** les éléments ci-dessus ainsi que votre analyse technique.
-2.  **Signaler à Ramp Network :**
-    *   Contacter leur support avec le numéro de transaction, l'adresse frauduleuse (`bc1quje...`), et la clé API. Ils peuvent potentiellement geler des fonds ou fournir des informations sur le compte qui a généré cette clé API (si elle est liée à un KYC de l'arnaqueur).
-3.  **Protéger la victime :**
-    *   Vérifier qu'elle n'a pas transmis de documents d'identité. Si c'est le cas, prévoir une alerte à la fraude documentaire.
-    *   S'assurer qu'elle change ses mots de passe si elle les a partagés.
+J'ai demandé à une IA (Deepseek) de structurer un dossier pour les autorités. Son verdict : mon analyse technique est **solide et nécessaire**, mais pas suffisante pour déposer plainte. Il faut l'associer au **parcours complet de la victime**.
 
-### ✅ Ce que votre analyse technique apporte de VALEUR à la plainte :
-*   **Preuve de l'intention frauduleuse :** La structure "one-shot wallet" démontre une volonté délibérée de dissimuler les fonds.
-*   **Cartographie de la fuite des fonds :** Vous montrez où est passé l'argent et identifiez des points de concentration (wallets 4 et 8) qui pourraient être ciblés par une enquête.
-*   **Élément technique concret :** L'URL avec la clé API est une preuve directe du mécanisme de l'arnaque.
+**Ce que l'analyse apporte :**
+*   La preuve d'une intention de blanchiment (schéma *one-shot > mixer*).
+*   La cartographie complète de la fuite des fonds.
+*   La preuve matérielle (l'URL avec la clé API).
 
-### 📋 Checklist pour le dossier de plainte :
-- [ ] Déposition écrite de la victime (récit détaillé)
-- [ ] Copie pièce d'identité de la victime
-- [ ] Relevés bancaires prouvant le virement
-- [ ] Captures d'écran de toute la conversation avec l'arnaqueur
-- [ ] Emails/reçus de Ramp Network
-- [ ] Votre analyse technique imprimée (avec les diagrammes et la liste des wallets)
-- [ ] L'URL frauduleuse en clair
+**Pour une plainte solide, il manque :**
+*   Le récit détaillé et l'identité de la victime.
+*   Les preuves bancaires et les emails de confirmation de Ramp Network.
+*   L'intégralité des conversations avec l'arnaqueur.
 
-**Conclusion :** Votre travail est **excellent et nécessaire**, mais il doit s'inscrire dans un dossier plus large centré sur la **victime et son parcours**. La plainte doit raconter l'histoire humaine de la fraude, étayée par vos preuves techniques. **Agissez vite**, car la rapidité est cruciale pour le gel éventuel de fonds.
+**La marche à suivre est claire :**
+1.  **Déposer plainte** avec tous ces éléments.
+2.  **Signaler à Ramp Network** l'adresse et la clé API frauduleuses.
+3.  **Suivre la piste de l'exchange** : les autorités pourront requérir l'identité derrière le wallet suspecté. A moins qu' une personne haut placé ou influente soit concerné auquel cas rien ne changeras.
+
+Mon travail montre **où est l'argent** et **comment il a été caché**. Le travail avec les autorités permettra, peut-être, de **remonter à l'arnaqueur**.
+
+---
+Merci d'avoir suivi cette enquête. J'espère qu'elle vous donnera envie de creuser par vous-même et que l'outil mis en place servira à d'autre. 
+
+**Tous les outils et rapports de cette enquête sont publics :**
+*   **[Outil Scam Radar V2](https://crypto-free-tools.netlify.app/scam-radar/enquete/)** : Pour cartographier des adresses suspectes.
+*   **[Rapports JSON complets](./rapport/)** : Les données brutes de l'analyse.
+*   **[Dossier GitHub complet](https://github.com/berru-g/enquete)** : Avec l'historique, les images et le code.
+
+
+[Suivre l'enquête en temps réel](https://crypto-free-tools.netlify.app/scam-radar/enquete/)

@@ -110,9 +110,9 @@ function addWalletFromInput() {
 
 function generateAlias(address, isInitial) {
     if (isInitial) {
-        if (address === "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp") return "🎯 Wallet source (arnaque)";
-        if (address === "bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc") return "💰 WALLET PRINCIPAL (27 BTC)";
-        return "🔄 Wallet intermédiaire";
+        if (address === "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp") return "🚩 Wallet source (arnaque)";
+        if (address === "bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc") return "💰 WALLET intermédiaire";
+        return "🔄 Wallet mixer";
     }
     return "🆕 Nouveau wallet";
 }
@@ -298,13 +298,14 @@ async function fetchWalletData(address, index) {
         investigationData.wallets[index].risk = 'low';
     }
 }
-
+console.log('attention redepart...');
 async function fetchAllWalletData() {
     console.log('Mise à jour des données wallets...');
     for (let i = 0; i < investigationData.wallets.length; i++) {
         await fetchWalletData(investigationData.wallets[i].address, i);
         // Petit délai pour éviter de surcharger l'API
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        
     }
 }
 
