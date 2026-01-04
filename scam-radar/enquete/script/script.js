@@ -49,10 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchAllWalletData();
     fetchBTCPrice();
 
-    // Configurer les intervalles
+    // Configurer les intervalles BUG DE MAJ SANS CESSE A REVOIR (TROP D4APPEL ASYNC DE PARTOUT)
     priceUpdateInterval = setInterval(fetchBTCPrice, 30 * 60 * 1000); // 30 minutes
     walletDataInterval = setInterval(fetchAllWalletData, 10 * 60 * 1000); // 10 minutes
-
     // Initialiser le widget prix BTC
     updateBTCPriceWidget();
 });

@@ -7,7 +7,7 @@ let extendedWalletsData = new Map(); // Map pour stocker les données étendues
 
 function enhanceNetworkVisualization() {
     if (!network) return;
-    
+
     // Améliorer les options de visualisation
     network.setOptions({
         nodes: {
@@ -102,13 +102,13 @@ function enhanceNetworkVisualization() {
 async function detectExternalTransactions(walletAddress, index) {
     try {
         console.log(`🔍 Analyse des transactions externes pour: ${walletAddress}`);
-        
+
         const response = await fetch(`https://blockstream.info/api/address/${walletAddress}/txs`);
         if (!response.ok) return new Set();
-        
+
         const txs = await response.json();
         const externalAddresses = new Set();
-        
+
         // Analyser les 20 dernières transactions
         txs.slice(0, 20).forEach(tx => {
             // Adresses d'entrée (sources)
@@ -121,7 +121,7 @@ async function detectExternalTransactions(walletAddress, index) {
                     }
                 }
             });
-            
+
             // Adresses de sortie (destinations)
             tx.vout?.forEach(output => {
                 if (output.scriptpubkey_address) {
@@ -132,17 +132,17 @@ async function detectExternalTransactions(walletAddress, index) {
                 }
             });
         });
-        
+
         // Stocker les données étendues
         extendedWalletsData.set(walletAddress, {
             externalConnections: Array.from(externalAddresses),
             lastUpdated: new Date().toISOString(),
             totalExternal: externalAddresses.size
         });
-        
+
         console.log(`✅ ${externalAddresses.size} connexions externes détectées pour ${walletAddress}`);
         return externalAddresses;
-        
+
     } catch (error) {
         console.error(`❌ Erreur détection transactions externes: ${error}`);
         return new Set();
@@ -153,16 +153,16 @@ async function detectExternalTransactions(walletAddress, index) {
 function addExtendedSearchButton() {
     const controls = document.querySelector('.map-controls');
     if (!controls) return;
-    
+
     // Vérifier si le bouton existe déjà
     if (document.getElementById('extendedSearchBtn')) return;
-    
+
     const extendedBtn = document.createElement('button');
     extendedBtn.id = 'extendedSearchBtn';
     extendedBtn.className = 'control-btn';
-    extendedBtn.innerHTML = '<i class="fa-solid fa-radar"></i> Recherche étendue';
+    extendedBtn.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> ';
     extendedBtn.onclick = showExtendedSearchModal;
-    
+
     // Ajouter après les autres boutons
     const exportBtn = document.querySelector('[onclick="exportNetworkImage()"]');
     if (exportBtn) {
@@ -191,7 +191,7 @@ function showExtendedSearchModal() {
             background-color: rgba(0,0,0,0.8);
             backdrop-filter: blur(5px);
         `;
-        
+
         modal.innerHTML = `
             <div class="modal-content" style="
                 background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -215,7 +215,7 @@ function showExtendedSearchModal() {
                     align-items: center;
                 ">
                     <h2 style="margin: 0; font-size: 1.5rem;">
-                        <i class="fa-solid fa-radar"></i> Recherche étendue
+                        <i class="fa-solid fa-satellite-dish"></i> 
                     </h2>
                     <button onclick="closeExtendedSearchModal()" style="
                         background: none;
@@ -288,13 +288,13 @@ function showExtendedSearchModal() {
                 </div>
             </div>
         `;
-        
+
         document.body.appendChild(modal);
     }
-    
+
     // Mettre à jour la liste des wallets
     updateExtendedWalletSelect();
-    
+
     // Afficher le modal
     modal.style.display = 'block';
 }
@@ -302,13 +302,13 @@ function showExtendedSearchModal() {
 function updateExtendedWalletSelect() {
     const select = document.getElementById('extendedWalletSelect');
     if (!select) return;
-    
+
     // Sauvegarder la sélection actuelle
     const currentValue = select.value;
-    
+
     // Vider les options
     select.innerHTML = '<option value="">-- Choisir un wallet --</option>';
-    
+
     // Ajouter les wallets
     investigationData.wallets.forEach((wallet, index) => {
         const option = document.createElement('option');
@@ -317,7 +317,7 @@ function updateExtendedWalletSelect() {
         option.dataset.index = index;
         select.appendChild(option);
     });
-    
+
     // Restaurer la sélection si possible
     if (currentValue && Array.from(select.options).some(opt => opt.value === currentValue)) {
         select.value = currentValue;
@@ -330,11 +330,11 @@ async function startExtendedAnalysis() {
         alert('Veuillez sélectionner un wallet');
         return;
     }
-    
+
     const walletAddress = select.value;
     const wallet = investigationData.wallets.find(w => w.address === walletAddress);
     if (!wallet) return;
-    
+
     const resultsDiv = document.getElementById('extendedAnalysisResults');
     resultsDiv.innerHTML = `
         <div style="text-align: center; padding: 20px;">
@@ -347,14 +347,14 @@ async function startExtendedAnalysis() {
             </div>
         </div>
     `;
-    
+
     try {
         // Détecter les transactions externes
         const externalAddresses = await detectExternalTransactions(walletAddress);
-        
+
         // Afficher les résultats
         displayExtendedResults(wallet, Array.from(externalAddresses));
-        
+
     } catch (error) {
         resultsDiv.innerHTML = `
             <div style="color: #ff6b6b; text-align: center; padding: 20px;">
@@ -368,7 +368,7 @@ async function startExtendedAnalysis() {
 
 function displayExtendedResults(wallet, externalAddresses) {
     const resultsDiv = document.getElementById('extendedAnalysisResults');
-    
+
     if (externalAddresses.length === 0) {
         resultsDiv.innerHTML = `
             <div style="text-align: center; padding: 40px; color: #666;">
@@ -379,10 +379,10 @@ function displayExtendedResults(wallet, externalAddresses) {
         `;
         return;
     }
-    
+
     // Grouper par nombre de transactions suspectes
     const groupedAddresses = externalAddresses.slice(0, 20); // Limiter à 20 pour la lisibilité
-    
+
     resultsDiv.innerHTML = `
         <div style="margin-bottom: 20px;">
             <div style="
@@ -504,22 +504,22 @@ function closeExtendedSearchModal() {
 // 5. FONCTIONS POUR LES ACTIONS DES BOUTONS
 function addExternalAddress(address) {
     if (!address) return;
-    
+
     // Vérifier si l'adresse est déjà dans la liste
     if (investigationData.wallets.some(w => w.address === address)) {
         alert('Cette adresse est déjà dans la liste');
         return;
     }
-    
+
     // Ajouter le wallet
     addWallet(address);
-    
+
     // Mettre à jour la sélection
     const select = document.getElementById('extendedWalletSelect');
     if (select) {
         select.value = address;
     }
-    
+
     // Afficher un message de confirmation
     alert(`Adresse ${address.slice(0, 10)}... ajoutée à l'enquête`);
 }
@@ -549,20 +549,20 @@ function copyToClipboard(text) {
             gap: 10px;
             animation: slideIn 0.3s ease;
         `;
-        
+
         notification.innerHTML = `
             <i class="fa-solid fa-check"></i>
             Adresse copiée dans le presse-papier
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         // Supprimer après 2 secondes
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => notification.remove(), 300);
         }, 2000);
-        
+
     }).catch(err => {
         console.error('Erreur lors de la copie:', err);
         alert('Erreur lors de la copie');
@@ -590,21 +590,21 @@ function enhanceWalletCards() {
                 margin-left: 10px;
                 transition: all 0.2s;
             `;
-            
+
             copyBtn.onmouseover = () => {
                 copyBtn.style.background = 'rgba(255, 107, 107, 0.3)';
             };
-            
+
             copyBtn.onmouseout = () => {
                 copyBtn.style.background = 'rgba(255, 107, 107, 0.1)';
             };
-            
+
             copyBtn.onclick = (e) => {
                 e.stopPropagation(); // Empêcher la sélection du wallet
                 const address = addressElement.textContent;
                 copyToClipboard(address);
             };
-            
+
             addressElement.appendChild(copyBtn);
         }
     });
@@ -614,26 +614,84 @@ function enhanceWalletCards() {
 function integrateEnhancements() {
     // Hook pour améliorer le rendu des wallets
     const originalRenderWalletList = window.renderWalletList;
-    window.renderWalletList = function() {
+    window.renderWalletList = function () {
         originalRenderWalletList();
         enhanceWalletCards();
     };
-    
+
     // Hook pour améliorer le réseau après rendu
     const originalRenderNetwork = window.renderNetwork;
-    window.renderNetwork = function() {
+    window.renderNetwork = function () {
         originalRenderNetwork();
         setTimeout(enhanceNetworkVisualization, 100);
     };
-    
-    // Hook pour les mises à jour de données
+
+    /* Hook pour les mises à jour de données ppp
     const originalFetchWalletData = window.fetchWalletData;
     window.fetchWalletData = async function(address, index) {
         await originalFetchWalletData(address, index);
         // Détecter aussi les transactions externes en arrière-plan
         setTimeout(() => detectExternalTransactions(address, index), 1000);
+    };*/
+    // hook test ce fdp saute sans cesse ppp
+    const originalFetchWalletData = window.fetchWalletData;
+    window.fetchWalletData = async function (address, index) {
+        await originalFetchWalletData(address, index);
+
+        // Ralentir considérablement les analyses externes
+        if (index % 3 === 0) { // Seulement 1 wallet sur 3
+            setTimeout(() => {
+                if (isNetworkStable) {
+                    detectExternalTransactions(address, index);
+                }
+            }, 3000);
+        }
     };
-    
+
+    // Ajoutez un bouton pour stabiliser manuellement
+    function addStabilizeButton() {
+        const controls = document.querySelector('.map-controls');
+        if (!controls || document.getElementById('stabilizeBtn')) return;
+
+        const stabilizeBtn = document.createElement('button');
+        stabilizeBtn.id = 'stabilizeBtn';
+        stabilizeBtn.className = 'control-btn';
+        stabilizeBtn.innerHTML = '<i class="fa-solid fa-anchor"></i>';
+        stabilizeBtn.title = 'Stabiliser la carte';
+        stabilizeBtn.onclick = stabilizeNetwork;
+
+        controls.appendChild(stabilizeBtn);
+    }
+
+    function stabilizeNetwork() {
+        if (network) {
+            isNetworkStable = false;
+            network.setOptions({
+                physics: {
+                    enabled: true,
+                    stabilization: {
+                        enabled: true,
+                        iterations: 500,
+                        updateInterval: 50
+                    }
+                }
+            });
+
+            network.stabilize(500);
+
+            setTimeout(() => {
+                network.setOptions({ physics: { enabled: false } });
+                isNetworkStable = true;
+                alert('Carte stabilisée');
+            }, 3000);
+        }
+    }
+
+    // Initialisez le bouton
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(addStabilizeButton, 2000);
+    });//fin de test new hook
+
     // Ajouter le bouton de recherche étendue
     setTimeout(addExtendedSearchButton, 500);
 }
@@ -697,7 +755,7 @@ function addEnhancementStyles() {
 }
 
 // 10. INITIALISATION DES AMÉLIORATIONS
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Attendre que le code original soit chargé
     setTimeout(() => {
         addEnhancementStyles();
@@ -717,11 +775,11 @@ function analyzeSuspiciousPatterns() {
         highFrequency: [],
         largeTransfers: []
     };
-    
+
     investigationData.wallets.forEach(wallet => {
         const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
         const totalTx = wallet.incomingTx + wallet.outgoingTx;
-        
+
         // Pattern 1: Wallets avec beaucoup de transactions mais peu de balance (mixing)
         if (totalTx > 50 && balance < 0.1) {
             patterns.mixingPatterns.push({
@@ -731,7 +789,7 @@ function analyzeSuspiciousPatterns() {
                 balance: balance
             });
         }
-        
+
         // Pattern 2: Wallets avec transactions fréquentes
         if (totalTx > 100) {
             patterns.highFrequency.push({
@@ -740,7 +798,7 @@ function analyzeSuspiciousPatterns() {
                 transactions: totalTx
             });
         }
-        
+
         // Pattern 3: Grands transferts
         if (balance > 10) {
             patterns.largeTransfers.push({
@@ -751,7 +809,7 @@ function analyzeSuspiciousPatterns() {
             });
         }
     });
-    
+
     return patterns;
 }
 
@@ -770,7 +828,7 @@ function exportCompleteAnalysis() {
             btcPrice: btcPrice
         }
     };
-    
+
     const dataStr = JSON.stringify(analysis, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -785,13 +843,13 @@ function addCompleteAnalysisButton() {
     setTimeout(() => {
         const controls = document.querySelector('.map-controls');
         if (!controls || document.getElementById('completeAnalysisBtn')) return;
-        
+
         const analysisBtn = document.createElement('button');
         analysisBtn.id = 'completeAnalysisBtn';
         analysisBtn.className = 'control-btn';
         analysisBtn.innerHTML = '<i class="fa-solid fa-upload"></i> json';
         analysisBtn.onclick = exportCompleteAnalysis;
-        
+
         controls.appendChild(analysisBtn);
     }, 1500);
 }
@@ -830,20 +888,20 @@ function addAllExternalAddresses() {
         alert('Veuillez d\'abord sélectionner un wallet et lancer l\'analyse');
         return;
     }
-    
+
     const walletAddress = select.value;
     const externalAddresses = externalAddressesCache.get(walletAddress);
-    
+
     if (!externalAddresses || externalAddresses.length === 0) {
         alert('Aucune adresse externe disponible à ajouter');
         return;
     }
-    
+
     // Demander confirmation
     if (!confirm(`Voulez-vous ajouter toutes les ${externalAddresses.length} adresses externes ?\n\nCette opération peut prendre quelques secondes.`)) {
         return;
     }
-    
+
     // Afficher l'indicateur de progression
     const resultsDiv = document.getElementById('extendedAnalysisResults');
     resultsDiv.innerHTML = `
@@ -858,17 +916,17 @@ function addAllExternalAddresses() {
             </div>
         </div>
     `;
-    
+
     // Ajouter les adresses une par une avec délai
     let addedCount = 0;
     let skippedCount = 0;
     const total = externalAddresses.length;
-    
+
     externalAddresses.forEach((address, index) => {
         setTimeout(() => {
             // Vérifier si l'adresse existe déjà
             const exists = investigationData.wallets.some(w => w.address === address);
-            
+
             if (!exists) {
                 // Utiliser la fonction d'ajout existante
                 addWallet(address);
@@ -876,16 +934,16 @@ function addAllExternalAddresses() {
             } else {
                 skippedCount++;
             }
-            
+
             // Mettre à jour la progression
             const progress = ((index + 1) / total) * 100;
             document.getElementById('addAllProgressBar').style.width = `${progress}%`;
-            
+
             document.getElementById('addAllProgress').innerHTML = `
                 <div>${index + 1}/${total} adresses traitées</div>
                 <div>✅ ${addedCount} ajoutées | ⏭️ ${skippedCount} déjà présentes</div>
             `;
-            
+
             // Quand tout est terminé
             if (index === total - 1) {
                 setTimeout(() => {
@@ -912,14 +970,14 @@ function addAllExternalAddresses() {
                             </button>
                         </div>
                     `;
-                    
+
                     // Mettre à jour la carte
                     setTimeout(() => {
                         if (window.renderNetwork) {
                             window.renderNetwork();
                         }
                     }, 500);
-                    
+
                     alert(`✅ ${addedCount} nouvelles adresses ajoutées avec succès !`);
                 }, 500);
             }
@@ -934,13 +992,13 @@ function addOnlyOutgoingAddresses() {
         alert('Veuillez d\'abord sélectionner un wallet et lancer l\'analyse');
         return;
     }
-    
+
     const walletAddress = select.value;
-    
+
     if (!confirm(`Cette fonction analysera les transactions pour trouver uniquement les adresses qui ont reçu des fonds.\n\nVoulez-vous continuer ?`)) {
         return;
     }
-    
+
     // Afficher l'indicateur de chargement
     const resultsDiv = document.getElementById('extendedAnalysisResults');
     resultsDiv.innerHTML = `
@@ -954,12 +1012,12 @@ function addOnlyOutgoingAddresses() {
             </div>
         </div>
     `;
-    
+
     // Analyser les transactions pour trouver les sorties
     analyzeOutgoingTransactionsAdvanced(walletAddress).then(outgoingAddresses => {
         // Mettre en cache pour réutilisation
         externalAddressesCache.set(walletAddress + '_outgoing', outgoingAddresses);
-        
+
         if (outgoingAddresses.length === 0) {
             resultsDiv.innerHTML = `
                 <div style="text-align: center; padding: 40px; color: #666;">
@@ -970,7 +1028,7 @@ function addOnlyOutgoingAddresses() {
             `;
             return;
         }
-        
+
         // Afficher les résultats avec option d'ajout
         displayOutgoingResults(walletAddress, outgoingAddresses);
     }).catch(error => {
@@ -988,31 +1046,31 @@ function addOnlyOutgoingAddresses() {
 async function analyzeOutgoingTransactionsAdvanced(walletAddress) {
     try {
         console.log(`🔍 Analyse détaillée des sorties pour: ${walletAddress}`);
-        
+
         const response = await fetch(`https://blockstream.info/api/address/${walletAddress}/txs`);
         if (!response.ok) return [];
-        
+
         const txs = await response.json();
         const outgoingAddresses = new Map(); // Utiliser Map pour éviter les doublons
-        
+
         // Analyser les transactions (limité à 30 pour la performance)
         const txBatch = txs.slice(0, 30);
-        
+
         for (const tx of txBatch) {
             // Vérifier si notre wallet est l'expéditeur
-            const isSender = tx.vin?.some(input => 
+            const isSender = tx.vin?.some(input =>
                 input.prevout?.scriptpubkey_address === walletAddress
             );
-            
+
             if (isSender) {
                 // Pour chaque sortie, vérifier si c'est une destination externe
                 tx.vout?.forEach(output => {
                     const destAddress = output.scriptpubkey_address;
-                    
-                    if (destAddress && 
+
+                    if (destAddress &&
                         destAddress !== walletAddress &&
                         !investigationData.wallets.some(w => w.address === destAddress)) {
-                        
+
                         // Stocker avec le montant pour information
                         const amountBTC = output.value / 100000000;
                         outgoingAddresses.set(destAddress, {
@@ -1025,15 +1083,15 @@ async function analyzeOutgoingTransactionsAdvanced(walletAddress) {
                 });
             }
         }
-        
+
         // Convertir en tableau et trier par montant (du plus grand au plus petit)
         const sortedAddresses = Array.from(outgoingAddresses.values())
             .sort((a, b) => b.amount - a.amount)
             .map(item => item.address);
-        
+
         console.log(`✅ ${sortedAddresses.length} destinations trouvées`);
         return sortedAddresses;
-        
+
     } catch (error) {
         console.error('Erreur analyse sortantes avancée:', error);
         return [];
@@ -1044,12 +1102,12 @@ async function analyzeOutgoingTransactionsAdvanced(walletAddress) {
 function displayOutgoingResults(walletAddress, outgoingAddresses) {
     const resultsDiv = document.getElementById('extendedAnalysisResults');
     const wallet = investigationData.wallets.find(w => w.address === walletAddress);
-    
+
     // Filtrer les adresses non présentes
-    const newAddresses = outgoingAddresses.filter(addr => 
+    const newAddresses = outgoingAddresses.filter(addr =>
         !investigationData.wallets.some(w => w.address === addr)
     );
-    
+
     resultsDiv.innerHTML = `
         <div style="margin-bottom: 20px;">
             <div style="
@@ -1168,29 +1226,29 @@ function displayOutgoingResults(walletAddress, outgoingAddresses) {
 function addAllFromOutgoingList() {
     const select = document.getElementById('extendedWalletSelect');
     if (!select || !select.value) return;
-    
+
     const walletAddress = select.value;
     const outgoingAddresses = externalAddressesCache.get(walletAddress + '_outgoing');
-    
+
     if (!outgoingAddresses || outgoingAddresses.length === 0) {
         alert('Aucune destination disponible');
         return;
     }
-    
+
     // Filtrer les adresses non présentes
-    const newAddresses = outgoingAddresses.filter(addr => 
+    const newAddresses = outgoingAddresses.filter(addr =>
         !investigationData.wallets.some(w => w.address === addr)
     );
-    
+
     if (newAddresses.length === 0) {
         alert('Toutes les destinations sont déjà suivies');
         return;
     }
-    
+
     if (!confirm(`Ajouter ${newAddresses.length} nouvelles destinations à l'enquête ?`)) {
         return;
     }
-    
+
     // Afficher la progression
     const resultsDiv = document.getElementById('extendedAnalysisResults');
     resultsDiv.innerHTML = `
@@ -1205,21 +1263,21 @@ function addAllFromOutgoingList() {
             </div>
         </div>
     `;
-    
+
     let addedCount = 0;
-    
+
     newAddresses.forEach((address, index) => {
         setTimeout(() => {
             addWallet(address);
             addedCount++;
-            
+
             // Mettre à jour la progression
             const progress = ((index + 1) / newAddresses.length) * 100;
             document.getElementById('outgoingProgressBar').style.width = `${progress}%`;
             document.getElementById('outgoingProgress').innerHTML = `
                 ${index + 1}/${newAddresses.length} destinations ajoutées
             `;
-            
+
             // Terminé
             if (index === newAddresses.length - 1) {
                 setTimeout(() => {
@@ -1237,7 +1295,7 @@ function addAllFromOutgoingList() {
                             </div>
                         </div>
                     `;
-                    
+
                     // Mettre à jour la carte
                     setTimeout(() => {
                         if (window.renderNetwork) {
@@ -1254,19 +1312,19 @@ function addAllFromOutgoingList() {
 function enhanceDisplayExtendedResults() {
     // Sauvegarder la fonction originale
     const originalDisplayExtendedResults = window.displayExtendedResults;
-    
-    window.displayExtendedResults = function(wallet, externalAddresses) {
+
+    window.displayExtendedResults = function (wallet, externalAddresses) {
         // Mettre en cache les adresses
         externalAddressesCache.set(wallet.address, externalAddresses);
-        
+
         // Appeler la fonction originale
         originalDisplayExtendedResults(wallet, externalAddresses);
-        
+
         // Ajouter les boutons supplémentaires après un délai
         setTimeout(() => {
             const resultsDiv = document.getElementById('extendedAnalysisResults');
             if (!resultsDiv) return;
-            
+
             // Trouver le conteneur des boutons ou en créer un nouveau
             let buttonContainer = resultsDiv.querySelector('.enhanced-buttons');
             if (!buttonContainer) {
@@ -1280,7 +1338,7 @@ function enhanceDisplayExtendedResults() {
                 `;
                 resultsDiv.appendChild(buttonContainer);
             }
-            
+
             // Ajouter les nouveaux boutons
             buttonContainer.innerHTML = `
                 <button onclick="addAllExternalAddresses()" style="
@@ -1330,17 +1388,17 @@ function enhanceDisplayExtendedResults() {
 }
 
 // 7. INITIALISATION DES AMÉLIORATIONS
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
         // Activer les améliorations
         enhanceDisplayExtendedResults();
-        
+
         // Ajouter les fonctions globales
         window.addAllExternalAddresses = addAllExternalAddresses;
         window.addOnlyOutgoingAddresses = addOnlyOutgoingAddresses;
         window.addAllFromOutgoingList = addAllFromOutgoingList;
         window.analyzeOutgoingTransactionsAdvanced = analyzeOutgoingTransactionsAdvanced;
-        
+
         console.log('✅ Améliorations morefeature.js chargées');
     }, 1000);
 });

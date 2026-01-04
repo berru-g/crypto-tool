@@ -249,7 +249,8 @@ body {
     flex-wrap: wrap;
 }
 
-.action-btn {
+.action-btn,
+.control-btn {
     padding: 8px 15px;
     background: #f0f0f0;
     border: 1px solid #ddd;
