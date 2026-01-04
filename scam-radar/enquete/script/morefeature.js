@@ -816,3 +816,601 @@ window.debugEnhancements = debugEnhancements;
 window.exportCompleteAnalysis = exportCompleteAnalysis;
 
 
+// ============================================================================
+// AJOUTS FILTRAGE POUR AFFICHER TOUTE LES ADRESS TROUVER ET FILTRER PAR TRANSACTIONS SORTANTE 
+// ============================================================================
+
+// Variables pour le suivi des adresses externes
+let externalAddressesCache = new Map();
+
+// 1. FONCTION POUR AJOUTER TOUTES LES ADRESSES EN UNE FOIS
+function addAllExternalAddresses() {
+    const select = document.getElementById('extendedWalletSelect');
+    if (!select || !select.value) {
+        alert('Veuillez d\'abord sélectionner un wallet et lancer l\'analyse');
+        return;
+    }
+    
+    const walletAddress = select.value;
+    const externalAddresses = externalAddressesCache.get(walletAddress);
+    
+    if (!externalAddresses || externalAddresses.length === 0) {
+        alert('Aucune adresse externe disponible à ajouter');
+        return;
+    }
+    
+    // Demander confirmation
+    if (!confirm(`Voulez-vous ajouter toutes les ${externalAddresses.length} adresses externes ?\n\nCette opération peut prendre quelques secondes.`)) {
+        return;
+    }
+    
+    // Afficher l'indicateur de progression
+    const resultsDiv = document.getElementById('extendedAnalysisResults');
+    resultsDiv.innerHTML = `
+        <div style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; color: #74c0fc; margin-bottom: 15px;">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+            </div>
+            <div style="font-size: 1.1rem; margin-bottom: 10px;">Ajout en cours...</div>
+            <div id="addAllProgress" style="font-size: 0.9rem; color: #888;"></div>
+            <div style="margin-top: 20px; width: 100%; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
+                <div id="addAllProgressBar" style="height: 6px; background: #74c0fc; width: 0%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+    `;
+    
+    // Ajouter les adresses une par une avec délai
+    let addedCount = 0;
+    let skippedCount = 0;
+    const total = externalAddresses.length;
+    
+    externalAddresses.forEach((address, index) => {
+        setTimeout(() => {
+            // Vérifier si l'adresse existe déjà
+            const exists = investigationData.wallets.some(w => w.address === address);
+            
+            if (!exists) {
+                // Utiliser la fonction d'ajout existante
+                addWallet(address);
+                addedCount++;
+            } else {
+                skippedCount++;
+            }
+            
+            // Mettre à jour la progression
+            const progress = ((index + 1) / total) * 100;
+            document.getElementById('addAllProgressBar').style.width = `${progress}%`;
+            
+            document.getElementById('addAllProgress').innerHTML = `
+                <div>${index + 1}/${total} adresses traitées</div>
+                <div>✅ ${addedCount} ajoutées | ⏭️ ${skippedCount} déjà présentes</div>
+            `;
+            
+            // Quand tout est terminé
+            if (index === total - 1) {
+                setTimeout(() => {
+                    resultsDiv.innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 3rem; color: #2ed573; margin-bottom: 20px;">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div style="font-size: 1.2rem; margin-bottom: 10px;">Ajout terminé !</div>
+                            <div style="color: #888;">
+                                ${addedCount} nouvelles adresses ajoutées<br>
+                                ${skippedCount} adresses déjà suivies
+                            </div>
+                            <button onclick="startExtendedAnalysis()" style="
+                                margin-top: 20px;
+                                background: #74c0fc;
+                                color: white;
+                                border: none;
+                                padding: 10px 20px;
+                                border-radius: 6px;
+                                cursor: pointer;
+                            ">
+                                <i class="fa-solid fa-rotate"></i> Rafraîchir l'analyse
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Mettre à jour la carte
+                    setTimeout(() => {
+                        if (window.renderNetwork) {
+                            window.renderNetwork();
+                        }
+                    }, 500);
+                    
+                    alert(`✅ ${addedCount} nouvelles adresses ajoutées avec succès !`);
+                }, 500);
+            }
+        }, index * 200); // Délai de 200ms entre chaque ajout
+    });
+}
+
+// 2. FONCTION POUR AJOUTER UNIQUEMENT LES SORTIES (FOLLOW THE MONEY)
+function addOnlyOutgoingAddresses() {
+    const select = document.getElementById('extendedWalletSelect');
+    if (!select || !select.value) {
+        alert('Veuillez d\'abord sélectionner un wallet et lancer l\'analyse');
+        return;
+    }
+    
+    const walletAddress = select.value;
+    
+    if (!confirm(`Cette fonction analysera les transactions pour trouver uniquement les adresses qui ont reçu des fonds.\n\nVoulez-vous continuer ?`)) {
+        return;
+    }
+    
+    // Afficher l'indicateur de chargement
+    const resultsDiv = document.getElementById('extendedAnalysisResults');
+    resultsDiv.innerHTML = `
+        <div style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; color: #74c0fc; margin-bottom: 15px;">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+            </div>
+            <div style="font-size: 1.1rem; margin-bottom: 10px;">Analyse des transactions sortantes...</div>
+            <div style="font-size: 0.9rem; color: #888;">
+                Recherche des destinations de fonds
+            </div>
+        </div>
+    `;
+    
+    // Analyser les transactions pour trouver les sorties
+    analyzeOutgoingTransactionsAdvanced(walletAddress).then(outgoingAddresses => {
+        // Mettre en cache pour réutilisation
+        externalAddressesCache.set(walletAddress + '_outgoing', outgoingAddresses);
+        
+        if (outgoingAddresses.length === 0) {
+            resultsDiv.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                    <div style="font-size: 1.2rem; margin-bottom: 10px;">Aucune transaction sortante trouvée</div>
+                    <div>Ce wallet n'a pas envoyé de fonds vers des adresses externes</div>
+                </div>
+            `;
+            return;
+        }
+        
+        // Afficher les résultats avec option d'ajout
+        displayOutgoingResults(walletAddress, outgoingAddresses);
+    }).catch(error => {
+        console.error('Erreur analyse sortantes:', error);
+        resultsDiv.innerHTML = `
+            <div style="color: #ff6b6b; text-align: center; padding: 20px;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div style="margin-top: 10px;">Erreur lors de l'analyse</div>
+            </div>
+        `;
+    });
+}
+
+// 3. ANALYSE AVANCÉE DES TRANSACTIONS SORTANTES
+async function analyzeOutgoingTransactionsAdvanced(walletAddress) {
+    try {
+        console.log(`🔍 Analyse détaillée des sorties pour: ${walletAddress}`);
+        
+        const response = await fetch(`https://blockstream.info/api/address/${walletAddress}/txs`);
+        if (!response.ok) return [];
+        
+        const txs = await response.json();
+        const outgoingAddresses = new Map(); // Utiliser Map pour éviter les doublons
+        
+        // Analyser les transactions (limité à 30 pour la performance)
+        const txBatch = txs.slice(0, 30);
+        
+        for (const tx of txBatch) {
+            // Vérifier si notre wallet est l'expéditeur
+            const isSender = tx.vin?.some(input => 
+                input.prevout?.scriptpubkey_address === walletAddress
+            );
+            
+            if (isSender) {
+                // Pour chaque sortie, vérifier si c'est une destination externe
+                tx.vout?.forEach(output => {
+                    const destAddress = output.scriptpubkey_address;
+                    
+                    if (destAddress && 
+                        destAddress !== walletAddress &&
+                        !investigationData.wallets.some(w => w.address === destAddress)) {
+                        
+                        // Stocker avec le montant pour information
+                        const amountBTC = output.value / 100000000;
+                        outgoingAddresses.set(destAddress, {
+                            address: destAddress,
+                            amount: amountBTC,
+                            txId: tx.txid,
+                            timestamp: tx.status?.block_time || Date.now() / 1000
+                        });
+                    }
+                });
+            }
+        }
+        
+        // Convertir en tableau et trier par montant (du plus grand au plus petit)
+        const sortedAddresses = Array.from(outgoingAddresses.values())
+            .sort((a, b) => b.amount - a.amount)
+            .map(item => item.address);
+        
+        console.log(`✅ ${sortedAddresses.length} destinations trouvées`);
+        return sortedAddresses;
+        
+    } catch (error) {
+        console.error('Erreur analyse sortantes avancée:', error);
+        return [];
+    }
+}
+
+// 4. AFFICHAGE DES RÉSULTATS DES SORTIES
+function displayOutgoingResults(walletAddress, outgoingAddresses) {
+    const resultsDiv = document.getElementById('extendedAnalysisResults');
+    const wallet = investigationData.wallets.find(w => w.address === walletAddress);
+    
+    // Filtrer les adresses non présentes
+    const newAddresses = outgoingAddresses.filter(addr => 
+        !investigationData.wallets.some(w => w.address === addr)
+    );
+    
+    resultsDiv.innerHTML = `
+        <div style="margin-bottom: 20px;">
+            <div style="
+                background: rgba(255, 107, 107, 0.1);
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                border-left: 4px solid #ff6b6b;
+            ">
+                <div style="font-weight: 600; margin-bottom: 5px; color: #ff6b6b;">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> 
+                    SUIVI DE L'ARGENT - ${newAddresses.length} DESTINATIONS
+                </div>
+                <div style="font-size: 0.9rem; color: #aaa;">
+                    Adresses ayant reçu des fonds de ${wallet?.alias || walletAddress.slice(0, 10)}...
+                </div>
+            </div>
+            
+            <div style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: rgba(255, 107, 107, 0.2); position: sticky; top: 0;">
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ff6b6b;">Destination</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ff6b6b;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${newAddresses.slice(0, 15).map(addr => `
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <td style="padding: 10px; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                                    <div style="color: #ff6b6b; font-weight: 600; margin-bottom: 2px;">
+                                        <i class="fa-solid fa-arrow-right"></i> Destination
+                                    </div>
+                                    ${addr}
+                                </td>
+                                <td style="padding: 10px;">
+                                    <button onclick="addExternalAddress('${addr}')" style="
+                                        background: rgba(255, 107, 107, 0.2);
+                                        color: #ff6b6b;
+                                        border: 1px solid #ff6b6b;
+                                        padding: 6px 12px;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                        font-size: 0.85rem;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 5px;
+                                        transition: all 0.2s;
+                                    " onmouseover="this.style.background='rgba(255, 107, 107, 0.3)';"
+                                    onmouseout="this.style.background='rgba(255, 107, 107, 0.2)';">
+                                        <i class="fa-solid fa-plus"></i> Suivre
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            
+            ${newAddresses.length > 15 ? `
+                <div style="
+                    background: rgba(255, 165, 2, 0.1);
+                    padding: 10px;
+                    border-radius: 6px;
+                    margin-bottom: 15px;
+                    border-left: 3px solid #ffa502;
+                    font-size: 0.9rem;
+                ">
+                    <i class="fa-solid fa-info-circle"></i>
+                    ${newAddresses.length - 15} autres destinations disponibles
+                </div>
+            ` : ''}
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="addAllFromOutgoingList()" style="
+                    background: linear-gradient(135deg, #ff6b6b, #ee6055);
+                    color: white;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    transition: all 0.3s;
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(255, 107, 107, 0.3)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                    <i class="fa-solid fa-layer-group"></i>
+                    Ajouter toutes les destinations (${newAddresses.length})
+                </button>
+                
+                <button onclick="startExtendedAnalysis()" style="
+                    background: rgba(116, 192, 252, 0.1);
+                    color: #74c0fc;
+                    border: 1px solid #74c0fc;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                ">
+                    <i class="fa-solid fa-rotate"></i>
+                    Retour
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// 5. FONCTION POUR AJOUTER TOUTES LES DESTINATIONS
+function addAllFromOutgoingList() {
+    const select = document.getElementById('extendedWalletSelect');
+    if (!select || !select.value) return;
+    
+    const walletAddress = select.value;
+    const outgoingAddresses = externalAddressesCache.get(walletAddress + '_outgoing');
+    
+    if (!outgoingAddresses || outgoingAddresses.length === 0) {
+        alert('Aucune destination disponible');
+        return;
+    }
+    
+    // Filtrer les adresses non présentes
+    const newAddresses = outgoingAddresses.filter(addr => 
+        !investigationData.wallets.some(w => w.address === addr)
+    );
+    
+    if (newAddresses.length === 0) {
+        alert('Toutes les destinations sont déjà suivies');
+        return;
+    }
+    
+    if (!confirm(`Ajouter ${newAddresses.length} nouvelles destinations à l'enquête ?`)) {
+        return;
+    }
+    
+    // Afficher la progression
+    const resultsDiv = document.getElementById('extendedAnalysisResults');
+    resultsDiv.innerHTML = `
+        <div style="text-align: center; padding: 30px;">
+            <div style="font-size: 2.5rem; color: #ff6b6b; margin-bottom: 15px;">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+            </div>
+            <div style="font-size: 1.1rem; margin-bottom: 10px;">Ajout des destinations...</div>
+            <div id="outgoingProgress" style="font-size: 0.9rem; color: #888; margin-bottom: 10px;"></div>
+            <div style="width: 100%; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
+                <div id="outgoingProgressBar" style="height: 6px; background: #ff6b6b; width: 0%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+    `;
+    
+    let addedCount = 0;
+    
+    newAddresses.forEach((address, index) => {
+        setTimeout(() => {
+            addWallet(address);
+            addedCount++;
+            
+            // Mettre à jour la progression
+            const progress = ((index + 1) / newAddresses.length) * 100;
+            document.getElementById('outgoingProgressBar').style.width = `${progress}%`;
+            document.getElementById('outgoingProgress').innerHTML = `
+                ${index + 1}/${newAddresses.length} destinations ajoutées
+            `;
+            
+            // Terminé
+            if (index === newAddresses.length - 1) {
+                setTimeout(() => {
+                    resultsDiv.innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 3rem; color: #2ed573; margin-bottom: 20px;">
+                                <i class="fa-solid fa-check-circle"></i>
+                            </div>
+                            <div style="font-size: 1.2rem; margin-bottom: 10px; color: #2ed573;">
+                                Suivi activé !
+                            </div>
+                            <div style="color: #888;">
+                                ${addedCount} nouvelles destinations ajoutées<br>
+                                L'argent est maintenant tracé
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Mettre à jour la carte
+                    setTimeout(() => {
+                        if (window.renderNetwork) {
+                            window.renderNetwork();
+                        }
+                    }, 500);
+                }, 500);
+            }
+        }, index * 300);
+    });
+}
+
+// 6. MODIFIER LA FONCTION D'AFFICHAGE EXISTANTE POUR AJOUTER LES BOUTONS
+function enhanceDisplayExtendedResults() {
+    // Sauvegarder la fonction originale
+    const originalDisplayExtendedResults = window.displayExtendedResults;
+    
+    window.displayExtendedResults = function(wallet, externalAddresses) {
+        // Mettre en cache les adresses
+        externalAddressesCache.set(wallet.address, externalAddresses);
+        
+        // Appeler la fonction originale
+        originalDisplayExtendedResults(wallet, externalAddresses);
+        
+        // Ajouter les boutons supplémentaires après un délai
+        setTimeout(() => {
+            const resultsDiv = document.getElementById('extendedAnalysisResults');
+            if (!resultsDiv) return;
+            
+            // Trouver le conteneur des boutons ou en créer un nouveau
+            let buttonContainer = resultsDiv.querySelector('.enhanced-buttons');
+            if (!buttonContainer) {
+                buttonContainer = document.createElement('div');
+                buttonContainer.className = 'enhanced-buttons';
+                buttonContainer.style.cssText = `
+                    display: flex;
+                    gap: 10px;
+                    margin-top: 20px;
+                    flex-wrap: wrap;
+                `;
+                resultsDiv.appendChild(buttonContainer);
+            }
+            
+            // Ajouter les nouveaux boutons
+            buttonContainer.innerHTML = `
+                <button onclick="addAllExternalAddresses()" style="
+                    background: linear-gradient(135deg, #74c0fc, #74c0fc);
+                    color: white;
+                    border: none;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    flex: 1;
+                    min-width: 200px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    transition: all 0.3s;
+                " onmouseover="this.style.transform='translateY(-2px)';"
+                onmouseout="this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-layer-group"></i>
+                    Ajouter toutes (${externalAddresses.length})
+                </button>
+                
+                <button onclick="addOnlyOutgoingAddresses()" style="
+                    background: linear-gradient(135deg, #ff6b6b, #ee6055);
+                    color: white;
+                    border: none;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    flex: 1;
+                    min-width: 200px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    transition: all 0.3s;
+                " onmouseover="this.style.transform='translateY(-2px)';"
+                onmouseout="this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-filter"></i>
+                    Suivre l'argent uniquement
+                </button>
+            `;
+        }, 100);
+    };
+}
+
+// 7. INITIALISATION DES AMÉLIORATIONS
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        // Activer les améliorations
+        enhanceDisplayExtendedResults();
+        
+        // Ajouter les fonctions globales
+        window.addAllExternalAddresses = addAllExternalAddresses;
+        window.addOnlyOutgoingAddresses = addOnlyOutgoingAddresses;
+        window.addAllFromOutgoingList = addAllFromOutgoingList;
+        window.analyzeOutgoingTransactionsAdvanced = analyzeOutgoingTransactionsAdvanced;
+        
+        console.log('✅ Améliorations morefeature.js chargées');
+    }, 1000);
+});
+
+// ============================================================================
+// AJOUTER LE CSS POUR LES NOUVELLES FONCTIONS
+// ============================================================================
+const moreFeaturesStyle = document.createElement('style');
+moreFeaturesStyle.textContent = `
+    /* Styles pour les nouveaux boutons */
+    .money-trace-button {
+        background: linear-gradient(135deg, #ff6b6b, #ee6055) !important;
+        color: white !important;
+        border: none !important;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .money-trace-button::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+    
+    .money-trace-button:hover::after {
+        left: 100%;
+    }
+    
+    /* Animation pour l'ajout en masse */
+    @keyframes pulse-add {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    .adding-address {
+        animation: pulse-add 0.5s ease;
+    }
+    
+    /* Style pour les destinations */
+    .destination-address {
+        background: rgba(255, 107, 107, 0.05);
+        border-left: 3px solid #ff6b6b;
+        padding: 8px;
+        margin: 5px 0;
+        border-radius: 4px;
+    }
+    
+    /* Style pour la progression */
+    .progress-container {
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 15px 0;
+    }
+    
+    .progress-fill {
+        height: 6px;
+        background: linear-gradient(90deg, #74c0fc, #74c0fc);
+        transition: width 0.3s ease;
+    }
+    
+    .progress-fill-money {
+        background: linear-gradient(90deg, #ff6b6b, #ee6055);
+    }
+`;
+document.head.appendChild(moreFeaturesStyle);
+

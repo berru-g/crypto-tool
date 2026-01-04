@@ -22,7 +22,10 @@ const INITIAL_WALLETS = [
     "bc1qjjp862nj209kp4uhtnqtd3uxg7rxshqsudeq3n",
     "bc1qns9f7yfx3ry9lj6yz7c9er0vwa0ye2eklpzqfw",
     "bc1qu5e06feh08754jm3zappfkgut8cfqcl7th22nn",
-    "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw"
+    "bc1qkeg5j427l3srudv3w7fd7q9kwzrrpar6snxpjw",
+    "bc1q0n605sexnfk90kzjtc5ea0fwyul54frjyt9ffx",
+    "bc1q5k4fzjl8lkce638mzy3j9y239tm5v5xrfhy44z",
+    "bc1qxw3uksve3m2ldn2393w69uggzpyl3vxwmf5l0d"
 ];
 
 let network = null;
@@ -110,12 +113,13 @@ function addWalletFromInput() {
 
 function generateAlias(address, isInitial) {
     if (isInitial) {
-        if (address === "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp") return "🚩 Wallet source (arnaque)";
-        if (address === "bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc") return "💰 WALLET intermédiaire";
-        return "🔄 Wallet mixer";
+        if (address === "bc1qujeavxy7wu4tdr45rfph590h4u6ayt45n827yp") return "🚩 source";
+        if (address === "bc1q202lj4yklsyz5m4krtt95qfnlppuha5rydueyc") return "💰 ";
+        return "🔄 mixer";
     }
-    return "🆕 Nouveau wallet";
+    return "🆕";
 }
+
 
 function removeWallet(index) {
     if (confirm('Supprimer ce wallet de l\'enquête ?')) {
@@ -305,7 +309,7 @@ async function fetchAllWalletData() {
         await fetchWalletData(investigationData.wallets[i].address, i);
         // Petit délai pour éviter de surcharger l'API
         await new Promise(resolve => setTimeout(resolve, 5000));
-        
+
     }
 }
 
@@ -373,7 +377,8 @@ function renderNetwork() {
 
         nodes.push({
             id: wallet.address,
-            label: `${wallet.alias.split(' ')[0]}\n${balance.toFixed(2)} BTC`,
+            label: `${wallet.alias.split(' ')[0]}\n${balance.toFixed(2)} BTC\n${wallet.address.slice(0, 4)}...${wallet.address.slice(-4)}`,
+            //label: `${wallet.alias.split(' ')[0]}\n${balance.toFixed(2)} BTC`,
             color: nodeStyle.color,
             shape: nodeStyle.shape,
             size: nodeStyle.size,
@@ -608,18 +613,29 @@ function getNodeStyle(wallet, balance) {
         };
     }
 }
-
+// TOOLTIP AU HOVER DES NODES
 function generateTooltipHTML(wallet, balanceUSD) {
     const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
     const totalTx = wallet.incomingTx + wallet.outgoingTx;
     return `
-                ${wallet.alias}
-                ${wallet.address}
-                Balance: ${wallet.balance}
                 Valeur USD: $${balanceUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
     `;
 }
-
+    /*
+function generateTooltipHTML(wallet, balanceUSD) {
+    const balance = parseFloat(wallet.balance.split(' ')[0]) || 0;
+    const totalTx = wallet.incomingTx + wallet.outgoingTx;
+    
+    return `
+        ${wallet.alias}<br>
+        ${wallet.address}<br>
+        Balance: ${wallet.balance}<br>
+        Valeur USD: $${balanceUSD.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<br>
+        Transactions: ${totalTx} (↓${wallet.incomingTx} ↑${wallet.outgoingTx})<br>
+        Connexions: ${wallet.connections.length}
+    `;
+}
+*/
 // FONCTIONS UTILITAIRES
 function updateStats() {
     let totalBTC = 0;
