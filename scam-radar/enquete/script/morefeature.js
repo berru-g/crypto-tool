@@ -109,8 +109,8 @@ async function detectExternalTransactions(walletAddress, index) {
         const txs = await response.json();
         const externalAddresses = new Set();
 
-        // Analyser les 20 dernières transactions
-        txs.slice(0, 20).forEach(tx => {
+        // Analyser les 50 dernières transactions
+        txs.slice(0, 50).forEach(tx => {
             // Adresses d'entrée (sources)
             tx.vin?.forEach(input => {
                 if (input.prevout?.scriptpubkey_address) {
@@ -148,6 +148,7 @@ async function detectExternalTransactions(walletAddress, index) {
         return new Set();
     }
 }
+console.log("fin des requetes!");
 
 // 3. BOUTON POUR VISUALISER LA RECHERCHE ÉTENDUE
 function addExtendedSearchButton() {
@@ -374,7 +375,7 @@ function displayExtendedResults(wallet, externalAddresses) {
             <div style="text-align: center; padding: 40px; color: #666;">
                 <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #2ed573; margin-bottom: 20px;"></i>
                 <div style="font-size: 1.2rem; margin-bottom: 10px;">Aucune transaction externe détectée</div>
-                <div>Ce wallet semble n'avoir transité qu'avec les wallets suivis</div>
+                <div>Cela peut être dû à une erreur api, vérifiez sur blockchain.com</div>
             </div>
         `;
         return;
@@ -623,21 +624,20 @@ function integrateEnhancements() {
     const originalRenderNetwork = window.renderNetwork;
     window.renderNetwork = function () {
         originalRenderNetwork();
-        setTimeout(enhanceNetworkVisualization, 100);
+        setTimeout(enhanceNetworkVisualization, 10000);
     };
 
-    /* Hook pour les mises à jour de données ppp
+    // Hook pour les mises à jour de données ppp
     const originalFetchWalletData = window.fetchWalletData;
     window.fetchWalletData = async function(address, index) {
         await originalFetchWalletData(address, index);
         // Détecter aussi les transactions externes en arrière-plan
-        setTimeout(() => detectExternalTransactions(address, index), 1000);
-    };*/
-    // hook test ce fdp saute sans cesse ppp
+        setTimeout(() => detectExternalTransactions(address, index), 10000);
+    };
+    /* hook test ce fdp saute sans cesse ppp
     const originalFetchWalletData = window.fetchWalletData;
     window.fetchWalletData = async function (address, index) {
         await originalFetchWalletData(address, index);
-
         // Ralentir considérablement les analyses externes
         if (index % 3 === 0) { // Seulement 1 wallet sur 3
             setTimeout(() => {
@@ -646,7 +646,7 @@ function integrateEnhancements() {
                 }
             }, 3000);
         }
-    };
+    };*/
 
     // Ajoutez un bouton pour stabiliser manuellement
     function addStabilizeButton() {
