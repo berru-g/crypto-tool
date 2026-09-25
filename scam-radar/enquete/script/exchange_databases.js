@@ -1,4 +1,39 @@
-// exchange_databases.js
+// exchange_databases:
+/*
+  // Binance
+  'bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h': { name: 'Binance', type: 'exchange' },
+  '34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo': { name: 'Binance', type: 'exchange' },
+  'bc1qgdjqv0av3q56jvd82tkdjpy7gdp9ut8tlqmgrpmv24sq90ecnvqqjwvw97': { name: 'Binance', type: 'exchange' },
+  '3LYJfcfHPXYJreMsASk2jkn69LWEYKzexb': { name: 'Binance', type: 'exchange' },
+  
+  // Coinbase
+  '3Nxwenay9Z8Lc9JBiywExpnEFiLp6Afp8v': { name: 'Coinbase', type: 'exchange' },
+  '1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s': { name: 'Coinbase', type: 'exchange' },
+  
+  // Kraken
+  'bc1qj3nzvuse6jnke7suq4xqrjw9a8w8lsc5haqjf6': { name: 'Kraken', type: 'exchange' },
+  '3EhLZarJUNSfV6TWMZY1Nh53K7Z8Q9K6nN': { name: 'Kraken', type: 'exchange' },
+  
+  // Bitfinex
+  '3D2oetdNuZUqQHPJmcMDDHYoqkyNVsFk9r': { name: 'Bitfinex', type: 'exchange' },
+  '1Kr6QSydW9bFQG1mXiPNNu6WpJGmUa9i1g': { name: 'Bitfinex', type: 'exchange' },
+  
+  // Huobi
+  '3Cbq7aT1tY8kMxWLbitaG7yT6bPbKChq64': { name: 'Huobi', type: 'exchange' },
+  '17A16QmavnUfCW11DAApiJxp7ARnxN5pGX': { name: 'Huobi', type: 'exchange' },
+  
+  // Bittrex
+  '1N52wHoVR79PMDishab2XmRHsbekCdGquK': { name: 'Bittrex', type: 'exchange' },
+  
+  // Bitstamp
+  '1HD8Xfr3W7tKBpvMx4kSXZBbE3sLUjBgED': { name: 'Bitstamp', type: 'exchange' },
+  
+  // OKEx
+  '1LdRcdxfbSnmCYYNdeYpUnztiYzVfBEQeC': { name: 'OKEx', type: 'exchange' },
+  
+  // Gate.io
+  '1FoWyxwPXuj4C6abqwhjDWdz6D4PZgYRjA': { name: 'Gate.io', type: 'exchange' }
+  */
 const EXCHANGE_ADDRESS_DATABASES = {
     'WalletExplorer': 'https://www.walletexplorer.com',
     'Blockchair': 'https://blockchair.com/dashboards/bitcoin-exchanges',

@@ -1,17 +1,12 @@
-fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,near,bittensor,solana,reserve-rights-token,mysterium,aave,ethereum')
+fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,solana,sui')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('crypto-prices');
 
     const tokenHoldings = {
       bitcoin: 0,
-      bittensor: 0,
-      near: 0,
-      solana: 2.3,
-      ethereum: 0,
-      'reserve-rights-token': 41560,
-      mysterium: 20,
-      aave: 1.31,
+      solana: 4.65,
+      sui: 613,
     };
 
     let totalPortfolioValue = 0;
